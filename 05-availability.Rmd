@@ -1,0 +1,14 @@
+# Availability {#availability}
+
+Behaviour related stuff
+
+constant p (time as covariate)
+
+time varying p
+
+finite mix
+
+time varying p/c
+
+rate, count, time-to-event
+

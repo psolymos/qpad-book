@@ -1,0 +1,13 @@
+# Regression Techniques {#regression}
+
+lm, glm
+
+main effects, interactions, offsets
+
+lasso, brt, boot/bagging, glmm
+
+conditional and marginal effects
+
+maybe opticut
+
+cloglog motivation

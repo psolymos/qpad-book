@@ -1,0 +1,12 @@
+# Dealing with recordings {#recordings}
+
+integration challenges
+
+calibration (exponential/cloglog approximation)
+
+fixed effects
+
+paired
+
+sensor sensitivity - EDR
+

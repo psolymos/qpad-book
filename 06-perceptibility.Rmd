@@ -1,0 +1,11 @@
+# Perceptibility {#perceptibility}
+
+EDR, tau constant
+
+truncated, unlimited
+
+variable tau: habitat effect (continuous case?)
+
+discrete: land cover, observer effects
+
+contrast fixed effects with offsets -- motivation for ARU

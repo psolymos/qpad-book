@@ -1,0 +1,15 @@
+# Miscellaneous topics {#extras}
+
+model selection and conditional likelihood
+
+variance/bias trade off
+
+error propagation
+
+MCMC?
+
+N-mixture ideas
+
+phylogenetic and life history/trait stuff
+
+PIF methods

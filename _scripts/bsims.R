@@ -60,11 +60,15 @@ print.bsims_landscape <- function(x, ...) {
 
 plot.bsims_landscape <-
 function(x,
-  col=c("green", "yellow", "grey"), ...) {
+  #col=c("green", "yellow", "grey"),
+  col=c("darkolivegreen1", "burlywood1", "lightgrey"),
+  xlim=NULL, ylim=NULL, ...) {
   A <- diff(x$strata) * diff(range(x$strata))
   A <- c(h=A[1]+A[5], e=A[2]+A[4], r=A[3])
   names(A) <- c("H", "E", "R")
-  plot(0, type="n", xlim=range(x$box[,"x"]), ylim=range(x$box[,"y"]),
+  plot(0, type="n",
+    xlim=if (is.null(xlim)) range(x$box[,"x"]) else xlim,
+    ylim=if (is.null(ylim)) range(x$box[,"y"]) else ylim,
     xlab="", ylab="", axes=FALSE, asp=1, ...)
   if (A[1] > 0)
     polygon(x$box, col=col[1], border=NA)
@@ -150,20 +154,18 @@ bsims_populate <- function(
     c("+H", "+E", "R", "E+", "H+")
   d <- NULL
   for (i in 1:5) {
-    if (xy_process == "poisson") {
-      z <-data.frame(
-        acceptreject(n=N[i], f=xy_fun,
-          x0=x$strata[i], x1=x$strata[i+1],
-          y0=x$strata[1], y1=x$strata[6],
-          m=margin,
-          maxit=maxit,
-          fail=fail),
-        s=rep(i, N[i]))
-    }
+    z <-data.frame(
+      acceptreject(n=N[i], f=xy_fun,
+        x0=x$strata[i], x1=x$strata[i+1],
+        y0=x$strata[1], y1=x$strata[6],
+        m=margin,
+        maxit=maxit,
+        fail=fail),
+      s=rep(i, N[i]))
     # add here spatial non-randomness
     d <- rbind(d, z)
   }
-  d$i <- 1:nrow(d)
+  d$i <- seq_len(nrow(d))
   d$s <- factor(c("H", "E", "R", "E", "H")[d$s], c("H", "E", "R"))
   d <- d[,c("i", "s", "x", "y")]
   x$nests <- d
@@ -197,13 +199,13 @@ function(x, ...) {
 }
 
 plot.bsims_population <-
-function(x, ...) {
+function(x, pch.nest=3, col.nest="darkgreen", ...) {
   op <- par(xpd = TRUE)
   on.exit(par(op))
   xx <- x
   class(xx) <- c("bsim", "bsims_landscape")
   plot(xx, ...)
-  points(x, ...)
+  points(x, pch=pch.nest, col=col.nest, ...)
   invisible(x)
 }
 
@@ -393,7 +395,7 @@ plot.bsims_events <-
 function(x,
 col.line="orange",
 col.point="blue",
-col.nest="black",
+col.nest="darkgreen",
 lty=1,
 pch.point=21, pch.nest=3,
 cex.point=0.5, cex.nest=1,
@@ -422,6 +424,7 @@ bsims_detect <- function(
   xy=c(0,0), # observer location
   tau=1, # can be vector/list compatible w/ dist_fun
   dist_fun=NULL, # takes args d and tau
+  repell=0, # radius within which vocalizations are invalidated
   ...) {
   if (!inherits(x, "bsims_events"))
     stop("x must be a bsims_events object")
@@ -433,24 +436,27 @@ bsims_detect <- function(
   N <- sum(x$abundance)
   for (i in seq_len(N)) {
     z <- x$events[[i]]
-    z <- z[z$v > 0,,drop=FALSE]
     xx <- x$nests$x[i] + z$x - xy[1L]
     yy <- x$nests$y[i] + z$y - xy[2L]
     z$d <- sqrt((xx)^2 + (yy)^2)
+    z$v[z$d < repell] <- 0
+    x$events[[i]]$v[z$d < repell] <- NA
+    z <- z[z$v > 0,,drop=FALSE]
     ## angle in degrees counter clockwise from x axis
-    a <- 180 * atan2(yy, xx) / pi
-    a[a < 0] <- 360+a[a < 0]
-    z$a <- a
+#    a <- 180 * atan2(yy, xx) / pi
+#    a[a < 0] <- 360+a[a < 0]
+#    z$a <- a
     q <- dist_fun(z$d, tau)
     u <- runif(length(z$d))
     z$det <- ifelse(u <= q, 1, 0) # detected
     z <- z[z$det > 0,,drop=FALSE]
     ## error is shown where detected, NA when not detected
     x$events[[i]]$d <- z$d[match(rownames(x$events[[i]]), rownames(z))]
-    x$events[[i]]$a <- z$a[match(rownames(x$events[[i]]), rownames(z))]
+#    x$events[[i]]$a <- z$a[match(rownames(x$events[[i]]), rownames(z))]
   }
   x$xy <- xy
   x$tau <- tau
+  x$repell <- repell
   class(x) <- c("bsim", "bsims_detections")
   x
 }
@@ -462,7 +468,8 @@ print.bsims_detections <- function(x, ...) {
     ifelse(A[1] > 0, "H", ""),
     ifelse(A[2] > 0, "E", ""),
     ifelse(A[3] > 0, "R", ""), collapse="")
-  ndet <- sum(sapply(x$events, function(z) any(!is.na(z$d))))
+  ndet <- if (sum(x$abundance) == 0)
+    0 else sum(sapply(x$events, function(z) any(!is.na(z$d))))
   cat("bSims detections\n  ",
     round(x$extent/10, 1), " km x ", round(x$extent/10, 1),
     " km\n  stratification: ", her,
@@ -473,6 +480,16 @@ print.bsims_detections <- function(x, ...) {
 }
 ## this adds next xy to movement xy
 get_detections <- function(x, first_only=TRUE) {
+  if (sum(x$abundance) == 0)
+    return(data.frame(
+      x=numeric(0),
+      y=numeric(0),
+      t=numeric(0),
+      v=numeric(0),
+      d=numeric(0),
+#      a=numeric(0),
+      i=numeric(0)
+    ))
   z <- lapply(1:length(x$events), function(i) {
     zz <- x$events[[i]]
     zz$i <- i
@@ -613,6 +630,17 @@ p <- bsims_populate(l, c(2,1,0))
 a <- bsims_animate(p, movement=0.2)
 o <- bsims_detect(a)
 plot(o)
+
+l <- bsims_init(10, 0.5, 0.5)
+plot(l)
+p <- bsims_populate(l, c(1,1,0))
+plot(p)
+a <- bsims_animate(p, movement=0.2, avoid="R")
+plot(a)
+o <- bsims_detect(a, c(0.5,0), repell=1)
+plot(o)
+plot(o, xlim=c(-4,4), ylim=c(-4,4))
+
 
 library(magrittr)
 

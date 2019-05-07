@@ -224,22 +224,44 @@ timetoevent <- function(rate, duration) {
 # avoid can be used to limit the movement in x direction
 # it gives an interval to avoid
 # note: nest location must be accounted for
+# rmvn is a shim of MASS:mvrnorm to deal with n=1 case to return matrix
+rmvn <- function(n=1L, mu, Sigma, ...) {
+  if (n < 2L) {
+    if (n == 0L) {
+      out <- matrix(numeric(0), nrow=0L, ncol=length(mu))
+    } else {
+      out <- matrix(MASS::mvrnorm(n, mu, Sigma, ...), nrow=1L)
+    }
+    colnames(out) <- names(mu)
+  } else {
+    out <- MASS::mvrnorm(n, mu, Sigma, ...)
+  }
+  out
+}
+#rmvn(0, c(a=0, b=0), diag(1, 2, 2))
+#rmvn(1, c(a=0, b=0), diag(1, 2, 2))
+#rmvn(2, c(a=0, b=0), diag(1, 2, 2))
+
+## if there is no movement, there is no point in making a move
 events <-
 function(vocal_rate=1, move_rate=1,
 duration=10, movement=0, avoid=c(0,0)) {
   ev <- cumsum(timetoevent(vocal_rate, duration))
-  em <- cumsum(timetoevent(move_rate, duration))
+  ## no movement still need a starting position
+  em <- if (movement == 0)
+    0 else cumsum(timetoevent(move_rate, duration))
   iv <- rep(1, length(ev))
   im <- rep(0, length(em))
   dv <- matrix(NA, length(ev), 2)
-  dm <- MASS::mvrnorm(length(em), c(0, 0), diag(movement^2, 2, 2))
+  dm <- rmvn(length(em), c(0, 0), diag(movement^2, 2, 2))
+
   dm <- dm[dm[,1] %][% avoid,,drop=FALSE]
   while (nrow(dm) < length(em)) {
-    dm <- rbind(dm, MASS::mvrnorm(length(em), c(0, 0), diag(movement^2, 2, 2)))
+    dm <- rbind(dm, rmvn(length(em), c(0, 0), diag(movement^2, 2, 2)))
     dm <- dm[dm[,1] %][% avoid,,drop=FALSE]
   }
   dm <- dm[seq_along(em),,drop=FALSE]
-  ## don't store coordinates that are same as previous for movement
+  ## for *movement* only: don't store coordinates that are same as previous
   if (nrow(dm) > 1L) {
     keep <- logical(nrow(dm))
     keep[1L] <- TRUE
@@ -251,6 +273,7 @@ duration=10, movement=0, avoid=c(0,0)) {
   colnames(h) <- c("x", "y", "t", "v")
   o <- order(h[,"t"])
   h <- as.data.frame(h[o,,drop=FALSE])
+  ## take previous known location for vocalizations
   for (i in which(is.na(h[,"x"]))) {
     if (i == 1L) {
       h$x[i] <- 0
@@ -284,6 +307,8 @@ bsims_animate <- function(
     stop(">0 density ER strata cannot be avoided")
   if (avoid == "R" && sum(x$density[3]) > 0)
     stop(">0 density R stratum cannot be avoided")
+  if (movement < 0)
+    stop("movement can not be negative")
   if (any(mixture < 0))
     stop("mixture must not be negative")
   K <- length(mixture)
@@ -485,14 +510,14 @@ bsims_detect <- function(
     st <- x$strata
     st[1L] <- -Inf
     st[6L] <- Inf
-    #ST <- c("H", "E", "R", "E", "H")
     sobs <- cut(xy[1L], st, labels=FALSE)
   }
   for (i in seq_len(N)) {
     z <- x$events[[i]]
+    ## distance from observer
     xx <- x$nests$x[i] + z$x - xy[1L]
     yy <- x$nests$y[i] + z$y - xy[2L]
-    z$d <- sqrt((xx)^2 + (yy)^2)
+    z$d <- sqrt(xx^2 + yy^2)
     ## repel inds within repel distance (0 just for temp object z)
     z$v[z$d < repel] <- 0
     ## NA is placeholder for these vocalizations in return object
@@ -531,8 +556,9 @@ bsims_detect <- function(
     } else {
       q <- dist_fun(z$d, tau)
     }
-    u <- runif(length(z$d))
-    z$det <- ifelse(u <= q, 1, 0) # detected
+    #u <- runif(length(z$d))
+    #z$det <- ifelse(u <= q, 1, 0) # detected
+    z$det <- rbinom(length(z$d), size=1, prob=q)
     z <- z[z$det > 0,,drop=FALSE]
     ## error is shown where detected, NA when not detected
     x$events[[i]]$d <- z$d[match(rownames(x$events[[i]]), rownames(z))]
@@ -632,8 +658,8 @@ rlnorm2 <- function(n, mean = exp(0.5), sdlog = 1) {
 
 bsims_transcribe <- function(
   x,
-  rint=Inf,
   tint=NULL,
+  rint=Inf,
   first_only=TRUE,
   error=0,
   ...) {
@@ -665,12 +691,33 @@ bsims_transcribe <- function(
   xt <- as.matrix(Xtab(~ rint + tint, det))
   x$detections <- det
   x$counts <- xt
-  x$rint <- rint
   x$tint <- tint
+  x$rint <- rint
   x$first_only <- first_only
   x$error <- error
-  class(x) <- c("bsim", "bsims_transcript")
+  class(x) <- c("bsim", "bsims_transcript", "bsims_detections")
   x
+}
+print.bsims_transcript <- function(x, ...) {
+  A <- diff(x$strata) * diff(range(x$strata))
+  A <- c(h=A[1]+A[5], e=A[2]+A[4], r=A[3])
+  names(A) <- c("H", "E", "R")
+  her <- paste0(
+    ifelse(A[1] > 0, "H", ""),
+    ifelse(A[2] > 0, "E", ""),
+    ifelse(A[3] > 0, "R", ""), collapse="")
+  ndet <- if (sum(x$abundance) == 0)
+    0 else sum(sapply(x$events, function(z) any(!is.na(z$d))))
+  cat("bSims transcript\n  ",
+    round(x$extent/10, 1), " km x ", round(x$extent/10, 1),
+    " km\n  stratification: ", her,
+    "\n  total abunance: ", sum(x$abundance),
+    "\n  ", ifelse(length(x$mixture) > 0, "mixture with ", ""),
+    "total duration: ", x$duration, "\n  detected: ", ndet,
+    "\n  ", ifelse(x$first_only, "1st", "all"),
+    " inds. [", paste0(gsub("min", "", levels(x$det$tint)), collapse=", "),
+    " min] [", paste0(gsub("m", "", levels(x$det$rint)), collapse=", "), " m]\n", sep="")
+  invisible(x)
 }
 
 ## spatial patterns
@@ -723,13 +770,136 @@ sum(x$abundance)
 
 
 library(detect)
+library(magrittr)
+
+## check that abundance is right
+l <- bsims_init(10)
+summary(replicate(1000, sum(bsims_populate(l, 10)$abundance)) - 10^3)
+
+## check vocal rates: no mixture
+phi <- 0.5
+br <- c(3, 5, 10)
+#br <- 1:10
+l <- bsims_init(10)
+p <- bsims_populate(l, 1)
+a <- bsims_animate(p, vocal_rate=phi)
+o <- bsims_detect(a, tau=Inf) # detect all
+d <- get_detections(o, first_only=TRUE)
+i <- cut(d$t, c(0, br), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(br, nrow=1)
+(phihat <- exp(cmulti.fit(Y1, D1, type="rem")$coef))
+plot(stepfun(d$t, (0:nrow(d))/nrow(d)), do.points=FALSE, xlim=c(0,10))
+curve(1-exp(-phi*x), add=TRUE, col=2)
+points(br, cumsum(table(i))/sum(table(i)), cex=2, col=4)
+curve(1-exp(-phihat*x), add=TRUE, col=4)
+
+## check vocal rates: finite mixture
+phi <- c(10, 0.5)
+mix <- c(0.2, 0.8)
+#br <- c(3, 5, 10)
+br <- 1:10
 l <- bsims_init(10)
 p <- bsims_populate(l, 10)
-a <- bsims_animate(p, phi=1) # this fails with Error in dm[, 1] : incorrect number of dimensions
-o <- bsims_detect(a, tau=1)
-x <- bsims_transcribe(o, rint=c(0.5, 1, Inf), tint=c(3,5,10))
-plot(o, pch_vocal=NA)
-x$counts
+a <- bsims_animate(p, vocal_rate=phi, mixture=mix)
+o <- bsims_detect(a, tau=Inf) # detect all
+d <- get_detections(o, first_only=TRUE)
+i <- cut(d$t, c(0, br), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(br, nrow=1)
+cf <- cmulti.fit(Y1, D1, type="mix")$coef # log.phi, logit.c
+(phihat <- exp(cf[1]))
+(mixhat <- c(1-plogis(cf[2]), plogis(cf[2])))
+
+
+plot(stepfun(d$t, (0:nrow(d))/nrow(d)), do.points=FALSE, xlim=c(0,10))
+curve(1-mix[2]*exp(-phi[2]*x), add=TRUE, col=2)
+points(br, cumsum(table(i))/sum(table(i)), cex=2, col=4)
+curve(1-mixhat[2]*exp(-phihat*x), add=TRUE, col=4)
+
+
+## EDR
+
+## check vocal rates: no mixture
+phi <- 1
+tau <- 0.8
+br <- c(0.5, 1, 1.5, Inf)
+l <- bsims_init(10)
+Y1 <- D1 <- NULL
+for (i in 1:20) {
+  p <- bsims_populate(l, 10)
+  a <- bsims_animate(p, vocal_rate=phi)
+  o <- bsims_detect(a, tau=tau) # detect all
+  d <- get_detections(o, first_only=TRUE)
+  i <- cut(d$d, c(0, br), include.lowest = TRUE)
+  Y1 <- rbind(Y1, matrix(as.numeric(table(i)), nrow=1))
+  D1 <- rbind(D1, matrix(br, nrow=1))
+}
+Y1
+D1
+(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
+
+plot(stepfun(d$t, (0:nrow(d))/nrow(d)), do.points=FALSE, xlim=c(0,10))
+curve(1-exp(-phi*x), add=TRUE, col=2)
+points(br, cumsum(table(i))/sum(table(i)), cex=2, col=4)
+curve(1-exp(-phihat*x), add=TRUE, col=4)
+
+
+tau <- 1
+br <- c(0.5, 1, 1.5, Inf)
+n <- 1000
+x <- runif(n, -5, 5)
+y <- runif(n, -5, 5)
+d <- sqrt(x^2 + y^2)
+p <- exp(-d^2/tau^2)
+k <- rbinom(n, 1, p)
+plot(x, y, asp=1, col="grey")
+points(x[k>0], y[k>0], pch=19)
+abline(h=0,v=0,lty=2)
+
+i <- cut(d[k>0], c(0, br), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(br, nrow=1)
+(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
+
+
+l <- bsims_init(10)
+p <- bsims_populate(l, 10)
+a <- bsims_animate(p, vocal_rate=0.5, duration=5)
+o <- bsims_detect(a, tau=tau) # detect all
+z <- get_detections(o, first_only=TRUE)
+
+x <- o$nests$x
+y <- o$nests$y
+
+d <- sqrt(x^2 + y^2)
+p <- exp(-d^2/tau^2)
+k <- rbinom(n, 1, p)
+plot(x, y, asp=1, col="grey")
+points(x[k>0], y[k>0], pch=19)
+points(z$x, z$y, pch=3, col=4)
+abline(h=0,v=0,lty=2)
+sum(k)
+nrow(z)
+
+i <- cut(d[k>0], c(0, br), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(br, nrow=1)
+(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
+
+i <- cut(z$d, c(0, br), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(br, nrow=1)
+(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
+
+
+
+
 Y1 <- matrix(colSums(x$counts), nrow=1)
 D1 <- matrix(x$tint, nrow=1)
 Y2 <- matrix(rowSums(x$counts), nrow=1)

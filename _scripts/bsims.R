@@ -5,6 +5,7 @@
 library(intrval)
 library(MASS)
 library(ADPclust)
+library(mefa4)
 #library(spatstat)
 #'
 #'
@@ -60,7 +61,6 @@ print.bsims_landscape <- function(x, ...) {
 
 plot.bsims_landscape <-
 function(x,
-  #col=c("green", "yellow", "grey"),
   col=c("darkolivegreen1", "burlywood1", "lightgrey"),
   xlim=NULL, ylim=NULL, ...) {
   A <- diff(x$strata) * diff(range(x$strata))
@@ -141,7 +141,8 @@ bsims_populate <- function(
   margin=0, # margin to pass to xy_fun for edge effect, units as in extent
   maxit=100, # x N times to try
   fail=FALSE,
-  ...) {
+  ...)
+{
   if (!inherits(x, "bsims_landscape"))
     stop("x must be a bsims_landscape object")
   A <- diff(x$strata) * diff(range(x$strata))
@@ -199,13 +200,16 @@ function(x, ...) {
 }
 
 plot.bsims_population <-
-function(x, pch.nest=3, col.nest="darkgreen", ...) {
+function(x, pch_nest=3,
+col_nest="darkgreen", cex_nest=1,
+...) {
   op <- par(xpd = TRUE)
   on.exit(par(op))
   xx <- x
   class(xx) <- c("bsim", "bsims_landscape")
   plot(xx, ...)
-  points(x, pch=pch.nest, col=col.nest, ...)
+  if (!is.na(pch_nest))
+    points(x, pch=pch_nest, col=col_nest, cex=cex_nest, ...)
   invisible(x)
 }
 
@@ -367,17 +371,32 @@ print.bsims_events <- function(x, ...) {
   invisible(x)
 }
 
+get_events <- function(x, vocal_only=TRUE) {
+  if (sum(x$abundance) == 0)
+    return(data.frame(
+      x=numeric(0),
+      y=numeric(0),
+      t=numeric(0),
+      v=numeric(0),
+      i=numeric(0)
+    ))
+  z <- lapply(1:length(x$events), function(i) {
+    zz <- x$events[[i]]
+    zz$i <- i
+    zz
+  })
+  z <- do.call(rbind, z)
+  z <- z[order(z$t),]
+  if (vocal_only)
+    z <- z[z$v > 0,,drop=FALSE]
+  rownames(z) <- NULL
+  z$x <- x$nests$x[z$i] + z$x
+  z$y <- x$nests$y[z$i] + z$y
+  z
+}
 points.bsims_events <-
 function(x, vocal_only=TRUE, ...) {
-  N <- length(x$events)
-  for (i in seq_len(N)) {
-    xy <- cbind(
-      x=x$nests$x[i] + x$events[[i]]$x,
-      y=x$nests$y[i] + x$events[[i]]$y)
-    if (vocal_only)
-      xy <- xy[x$events[[i]]$v > 0,,drop=FALSE]
-    points(xy, ...)
-  }
+  points(get_events(x, vocal_only), ...)
   invisible(x)
 }
 lines.bsims_events <-
@@ -393,39 +412,60 @@ function(x, ...) {
 }
 plot.bsims_events <-
 function(x,
-col.line="orange",
-col.point="blue",
-col.nest="darkgreen",
-lty=1,
-pch.point=21, pch.nest=3,
-cex.point=0.5, cex.nest=1,
+pch_nest=3, col_nest="darkgreen", cex_nest=1,
+pch_vocal=21, col_vocal="blue", cex_vocal=0.5,
+lty_move=1, col_move="orange", lwd_move=1,
 ...) {
   op <- par(xpd = TRUE)
   on.exit(par(op))
   xx <- x
-  class(xx) <- c("bsim", "bsims_landscape")
-  plot(xx, ...)
-  if (!is.na(lty))
-    lines(x, col=col.line, lty=lty, ...)
-  if (!is.na(pch.point))
+  class(xx) <- c("bsim", "bsims_population")
+  plot(xx, pch_nest=pch_nest, col_nest=col_nest, cex_nest=cex_nest, ...)
+  if (!is.na(lty_move))
+    lines(x, col=col_move, lty=lty_move, lwd=lwd_move, ...)
+  if (!is.na(pch_vocal))
     points(x, vocal_only=TRUE,
-      col=col.point, pch=pch.point, cex=cex.point, ...)
-  if (!is.na(pch.nest)) {
-    class(xx) <- c("bsim", "bsims_population")
-    points(xx, pch=pch.nest, col=col.nest, cex=cex.nest, ...)
-  }
+      col=col_vocal, pch=pch_vocal, cex=cex_vocal, ...)
   invisible(x)
 }
 
 ## detect
 ## HER case need to deal with sound attenuation
+
+## d is distance
+## tau is single param for dist_fun, need to be in order
+## b: breaks for stratum boundaries, 1 less in length than tau
+##    must be positive
+dist_fun2 <- function(d, tau, dist_fun, b=numeric(0)) {
+  b <- sort(b)
+  h <- 1
+  for (i in seq_len(length(b))) {
+    h <- c(h,
+      h[length(h)] * dist_fun(b[i], tau[i]) /
+        dist_fun(b[i], tau[i+1L]))
+  }
+  j <- cut(d, c(0, b, Inf), labels=FALSE, include.lowest=TRUE)
+  dist_fun(d, tau[j]) * h[j]
+}
+if (FALSE) {
+tau <- c(1, 2, 3, 2, 1)
+tauseq <- 3:1 # c(1,2,3) # HER=123 sequence for tau values
+d <- 0:400/100
+plot(d, dist_fun2(d, tau[1], dist_fun), type="l")
+lines(d, dist_fun2(d, tau[2], dist_fun))
+lines(d, dist_fun2(d, tau[3], dist_fun))
+b <- c(0.5, 1, 1.5, 2) # points at the HER boundaries
+abline(v=b)
+lines(d, dist_fun2(d, tau, dist_fun, b), col=2, lwd=3)
+}
 bsims_detect <- function(
   x,
   xy=c(0,0), # observer location
-  tau=1, # can be vector/list compatible w/ dist_fun
-  dist_fun=NULL, # takes args d and tau
-  repell=0, # radius within which vocalizations are invalidated
-  ...) {
+  tau=1, # can vector when HER attenuation used, compatible w/ dist_fun
+  dist_fun=NULL, # takes args d and tau (single parameter)
+  repel=0, # radius within which vocalizations are invalidated
+  ...)
+{
   if (!inherits(x, "bsims_events"))
     stop("x must be a bsims_events object")
   xy <- as.numeric(xy[1:2])
@@ -434,29 +474,72 @@ bsims_detect <- function(
   if (is.null(dist_fun))
     dist_fun <- function(d, tau) exp(-d^2/tau^2)
   N <- sum(x$abundance)
+  A <- diff(x$strata) * diff(range(x$strata))
+  A <- c(h=A[1]+A[5], e=A[2]+A[4], r=A[3])
+  names(A) <- c("H", "E", "R")
+  ## need for *att*enuation
+  att <- length(tau) > 1 && A["H"] < sum(A)
+  if (att && length(tau) != 3L)
+    stop("tau length must be 3 for HER attenuation")
+  if (att) {
+    st <- x$strata
+    st[1L] <- -Inf
+    st[6L] <- Inf
+    #ST <- c("H", "E", "R", "E", "H")
+    sobs <- cut(xy[1L], st, labels=FALSE)
+  }
   for (i in seq_len(N)) {
     z <- x$events[[i]]
     xx <- x$nests$x[i] + z$x - xy[1L]
     yy <- x$nests$y[i] + z$y - xy[2L]
     z$d <- sqrt((xx)^2 + (yy)^2)
-    z$v[z$d < repell] <- 0
-    x$events[[i]]$v[z$d < repell] <- NA
-    z <- z[z$v > 0,,drop=FALSE]
+    ## repel inds within repel distance (0 just for temp object z)
+    z$v[z$d < repel] <- 0
+    ## NA is placeholder for these vocalizations in return object
+    x$events[[i]]$v[z$d < repel] <- NA
+    keep <- z$v > 0
+    z <- z[keep,,drop=FALSE]
+    xx <- xx[keep]
+    yy <- yy[keep]
     ## angle in degrees counter clockwise from x axis
 #    a <- 180 * atan2(yy, xx) / pi
 #    a[a < 0] <- 360+a[a < 0]
 #    z$a <- a
-    q <- dist_fun(z$d, tau)
+    ## this is where HER attenuation somes in
+    if (att) {
+      theta <- atan2(yy, xx) # angle in rad
+      sbrd <- cut(xx, st, labels=FALSE)
+      for (j in seq_len(nrow(z))) {
+        ## order tau as HEREH
+        TAU <- tau[c(1,2,3,2,1)][sobs:sbrd[j]]
+        ## calculate distance breaks from x and theta
+        if (length(TAU) == 1) {
+          b <- numeric(0)
+        } else {
+          ## this gives breaks along x axis
+          if (sobs < sbrd[j]) { # bird right of observer
+            stj <- st[(sobs+1):sbrd[j]]
+          } else { # bird left of observer
+            stj <- st[sobs:(sbrd[j]+1)]
+          }
+          ## breaks as radial distance: r=x/cos(theta)
+          b <- (stj - xy[1L]) / cos(theta[j])
+        }
+        ## calculate q
+        q <- dist_fun2(z$d[j], TAU, dist_fun, b)
+      }
+    } else {
+      q <- dist_fun(z$d, tau)
+    }
     u <- runif(length(z$d))
     z$det <- ifelse(u <= q, 1, 0) # detected
     z <- z[z$det > 0,,drop=FALSE]
     ## error is shown where detected, NA when not detected
     x$events[[i]]$d <- z$d[match(rownames(x$events[[i]]), rownames(z))]
-#    x$events[[i]]$a <- z$a[match(rownames(x$events[[i]]), rownames(z))]
   }
   x$xy <- xy
   x$tau <- tau
-  x$repell <- repell
+  x$repel <- repel
   class(x) <- c("bsim", "bsims_detections")
   x
 }
@@ -487,7 +570,6 @@ get_detections <- function(x, first_only=TRUE) {
       t=numeric(0),
       v=numeric(0),
       d=numeric(0),
-#      a=numeric(0),
       i=numeric(0)
     ))
   z <- lapply(1:length(x$events), function(i) {
@@ -522,24 +604,22 @@ function(x, first_only=TRUE, ...) {
 }
 
 plot.bsims_detections <-
-function(x,
-col.line="black",
-col.point="black",
-lty=1,
-pch.point=19,
-cex.point=0.5,
-first_only=TRUE,
+function(x, first_only=TRUE,
+pch_nest=3, col_nest="darkgreen", cex_nest=1,
+pch_vocal=21, col_vocal="blue", cex_vocal=0.5,
+lty_move=1, col_move="orange", lwd_move=1,
+lty_det=1, col_det="black", lwd_det=1,
 ...) {
   op <- par(xpd = TRUE)
   on.exit(par(op))
   xx <- x
   class(xx) <- c("bsim", "bsims_events")
-  plot(xx, ...)
-  if (!is.na(lty))
-    lines(x, first_only, col=col.line, lty=lty, ...)
-  if (!is.na(pch.point))
-    points(x, first_only,
-      col=col.point, pch=pch.point, cex=cex.point, ...)
+  plot(xx,
+    pch_nest=pch_nest, col_nest=col_nest, cex_nest=cex_nest,
+    pch_vocal=pch_vocal, col_vocal=col_vocal, cex_vocal=cex_vocal,
+    lty_move=lty_move, col_move=col_move, lwd_move=lwd_move, ...)
+  if (!is.na(lty_det))
+    lines(x, first_only, col=col_det, lty=lty_det, ...)
   invisible(x)
 }
 
@@ -552,26 +632,45 @@ rlnorm2 <- function(n, mean = exp(0.5), sdlog = 1) {
 
 bsims_transcribe <- function(
   x,
-  r=Inf,
-  t=NULL,
+  rint=Inf,
+  tint=NULL,
   first_only=TRUE,
   error=0,
   ...) {
-  if (!inherits(x, "bsims_observations"))
-    stop("x must be a bsims_observations object")
-  xy <- as.numeric(xy[1:2])
-  if (is.null(dist_fun))
-    dist_fun <- function(d, tau) exp(-d^2/tau^2)
-  t <- if (is.null(t))
-    x$duration else sort(t)
-  if (any(t <= 0))
-    stop("t must be > 0")
-  r <- sort(r)
-  if (any(r <= 0))
-    stop("r must be > 0")
+  if (!inherits(x, "bsims_detections"))
+    stop("x must be a bsims_detections object")
+  tint <- if (is.null(tint))
+    x$duration else sort(tint)
+  if (any(tint <= 0))
+    stop("tint must be > 0")
+  if (any(tint > x$duration))
+    stop("tint must <= duration")
+  rint <- sort(rint)
+  if (any(rint <= 0))
+    stop("rint must be > 0")
   det <- get_detections(x, first_only)
-  derr <- rlnorm2(nrow(det), det$d, error)
-  det$e <- derr - det$d
+  det <- det[det$d <= max(rint),,drop=FALSE]
+  if (error < 0)
+    stop("error must be >= 0")
+  derr <- if (error > 0)
+    rlnorm2(nrow(det), det$d, error) else det$d
+  det$error <- derr - det$d
+  rLAB <- paste0(c(0, round(100*rint[-length(rint)])),
+    ifelse(is.finite(rint), paste0("-", round(100*rint)), "+"), "m")
+  tLAB <- paste0(c(0, round(tint[-length(tint)], 2)), "-", tint, "min")
+  det$rint <- factor(rLAB[cut(derr, c(0, rint), labels=FALSE,
+    include.lowest=TRUE)], rLAB)
+  det$tint <- factor(tLAB[cut(det$t, c(0, tint), labels=FALSE,
+    include.lowest=TRUE)], tLAB)
+  xt <- as.matrix(Xtab(~ rint + tint, det))
+  x$detections <- det
+  x$counts <- xt
+  x$rint <- rint
+  x$tint <- tint
+  x$first_only <- first_only
+  x$error <- error
+  class(x) <- c("bsim", "bsims_transcript")
+  x
 }
 
 ## spatial patterns
@@ -623,24 +722,46 @@ dim(x$nests)
 sum(x$abundance)
 
 
+library(detect)
+l <- bsims_init(10)
+p <- bsims_populate(l, 10)
+a <- bsims_animate(p, phi=1) # this fails with Error in dm[, 1] : incorrect number of dimensions
+o <- bsims_detect(a, tau=1)
+x <- bsims_transcribe(o, rint=c(0.5, 1, Inf), tint=c(3,5,10))
+plot(o, pch_vocal=NA)
+x$counts
+Y1 <- matrix(colSums(x$counts), nrow=1)
+D1 <- matrix(x$tint, nrow=1)
+Y2 <- matrix(rowSums(x$counts), nrow=1)
+D2 <- matrix(x$rint, nrow=1)
+exp(cmulti.fit(Y1, D1, type="rem")$coef)
+exp(cmulti.fit(Y2, D2, type="dis")$coef)
 
-l <- bsims_init(3, 0.5, 0.5)
-p <- bsims_populate(l, c(2,1,0))
-# avoid must be sensible wrt density (shouldn't nest in avoided area)
-a <- bsims_animate(p, movement=0.2)
-o <- bsims_detect(a)
-plot(o)
-
+## avoid R stratum
 l <- bsims_init(10, 0.5, 0.5)
 plot(l)
 p <- bsims_populate(l, c(1,1,0))
 plot(p)
 a <- bsims_animate(p, movement=0.2, avoid="R")
 plot(a)
-o <- bsims_detect(a, c(0.5,0), repell=1)
+o <- bsims_detect(a, c(0.5,0), repel=1)
 plot(o)
-plot(o, xlim=c(-4,4), ylim=c(-4,4))
+## zoom in
+plot(o, xlim=c(-3,3), ylim=c(-3,3))
 
+## repel birds
+l <- bsims_init(4, 0.5, 0.5)
+p <- bsims_populate(l, 1)
+a <- bsims_animate(p, movement=0)
+o <- bsims_detect(a, c(0,0), repel=1)
+plot(o)
+
+## roadside EDR
+l <- bsims_init(10, 0.5, 0.5)
+p <- bsims_populate(l, 3)
+a <- bsims_animate(p, movement=0)
+o <- bsims_detect(a, c(0,0), tau=1:3)
+plot(o, pch.point=NA)
 
 library(magrittr)
 
@@ -675,33 +796,5 @@ ad$nclust
 tab <- table(inds=i, clust=ad$clusters)
 
 
-## TODO
-## - add HER + distance function interaction
-
-
-tau <- c(1, 2, 3)
-d <- 0:400/100
-plot(d, exp(-d^2/tau[1]^2), type="l")
-lines(d, exp(-d^2/tau[2]^2))
-lines(d, exp(-d^2/tau[3]^2))
-xb <- c(0.75, 1.5) # points at the HER boundaries
-abline(v=xb)
-tauseq <- c(1,2,3) # HER=123 sequence for tau values
-h1 <- exp(-xb[1]^2/tau[tauseq[1]]^2) / exp(-xb[1]^2/tau[tauseq[2]]^2)
-h2 <- exp(-xb[2]^2/tau[tauseq[2]]^2) * h1 / exp(-xb[2]^2/tau[tauseq[3]]^2)
-h <- c(1, h1, h2)
-lines(d, exp(-d^2/tau[2]^2) * h[2], col=2)
-lines(d, exp(-d^2/tau[3]^2) * h[3], col=4)
-
-# need to handle no breks, 1 break and 2 breaks
-dist_fun3 <- function(d, xb=c(0,0)) {
-  h1 <- dist_fun(xb[1], tau[tauseq[1]]) / dist_fun(xb[1], tau[tauseq[2]])
-  h2 <- dist_fun(xb[2], tau[tauseq[2]]) * h1 / dist_fun(xb[2], tau[tauseq[3]])
-  h <- c(1, h1, h2)
-  j <- cut(d, c(0, xb, Inf), labels=FALSE, include.lowest=TRUE)
-  dist_fun(d, tau[tauseq[j]]) * h[j]
-}
-lines(d, dist_fun3(d, xb), col=3, lwd=3)
-lines(d, dist_fun3(d), col=2, lwd=3)
 
 

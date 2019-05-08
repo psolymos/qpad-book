@@ -1,6 +1,8 @@
-# QPAD Book
+# Point count data analysis for mavericks
 
-> Point count data analysis made simple
+> How to violate assumptions and get away with it
+
+![](bsims.gif)
 
 This book provides material for the workshop
 *Analysis of point-count data in the presence of variable survey methodologies and detection error*

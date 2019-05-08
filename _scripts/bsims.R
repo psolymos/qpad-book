@@ -472,7 +472,14 @@ lty_move=1, col_move="orange", lwd_move=1,
 ## b: breaks for stratum boundaries, 1 less in length than tau
 ##    must be positive
 dist_fun2 <- function(d, tau, dist_fun, b=numeric(0)) {
+  if (any(is.infinite(b)))
+    stop("b must be finite")
+  if (length(b) != length(tau)-1L)
+    stop("length(b) must equal length(tau)-1")
+  if (length(b) != length(unique(b)))
+    stop("values in b must be unique")
   b <- sort(b)
+  b[b==0] <- .Machine$double.eps
   h <- 1
   for (i in seq_len(length(b))) {
     h <- c(h,
@@ -524,9 +531,12 @@ bsims_detect <- function(
   }
   for (i in seq_len(N)) {
     z <- x$events[[i]]
+    ## bird position
+    xxb <- x$nests$x[i] + z$x
+    yyb <- x$nests$y[i] + z$y
     ## distance from observer
-    xx <- x$nests$x[i] + z$x - xy[1L]
-    yy <- x$nests$y[i] + z$y - xy[2L]
+    xx <- xxb - xy[1L]
+    yy <- yyb - xy[2L]
     z$d <- sqrt(xx^2 + yy^2)
     ## repel inds within repel distance (0 just for temp object z)
     z$v[z$d < repel] <- 0
@@ -543,13 +553,14 @@ bsims_detect <- function(
     ## this is where HER attenuation somes in
     if (att) {
       theta <- atan2(yy, xx) # angle in rad
-      sbrd <- cut(xx, st, labels=FALSE)
+      sbrd <- cut(xxb, st, labels=FALSE)
       for (j in seq_len(nrow(z))) {
         ## order tau as HEREH
         TAU <- tau[c(1,2,3,2,1)][sobs:sbrd[j]]
         ## calculate distance breaks from x and theta
         if (length(TAU) == 1) {
-          b <- numeric(0)
+          #b <- numeric(0)
+          q <- dist_fun(z$d[j], TAU)
         } else {
           ## this gives breaks along x axis
           if (sobs < sbrd[j]) { # bird right of observer
@@ -559,9 +570,9 @@ bsims_detect <- function(
           }
           ## breaks as radial distance: r=x/cos(theta)
           b <- (stj - xy[1L]) / cos(theta[j])
+          ## calculate q
+          q <- dist_fun2(z$d[j], TAU, dist_fun, b)
         }
-        ## calculate q
-        q <- dist_fun2(z$d[j], TAU, dist_fun, b)
       }
     } else {
       q <- dist_fun(z$d, tau)
@@ -630,8 +641,12 @@ function(x, first_only=TRUE, ...) {
   invisible(x)
 }
 lines.bsims_detections <-
-function(x, first_only=TRUE, ...) {
-  xy <- get_detections(x, first_only)[,c("x", "y")]
+function(x, first_only=TRUE, tlim=NULL, ...) {
+  if (is.null(tlim))
+    tlim <- c(0, x$duration)
+  z <- get_detections(x, first_only)
+  z <- z[z$t %[]% tlim,,drop=FALSE]
+  xy <- z[,c("x", "y")]
   segments(
     x0=rep(x$xy[1L], nrow(xy)),
     y0=rep(x$xy[2L], nrow(xy)),
@@ -655,7 +670,7 @@ lty_det=1, col_det="black", lwd_det=1,
     pch_vocal=pch_vocal, col_vocal=col_vocal, cex_vocal=cex_vocal,
     lty_move=lty_move, col_move=col_move, lwd_move=lwd_move, ...)
   if (!is.na(lty_det))
-    lines(x, first_only, col=col_det, lty=lty_det, ...)
+    lines(x, first_only, tlim=tlim, col=col_det, lty=lty_det, ...)
   invisible(x)
 }
 
@@ -729,6 +744,8 @@ print.bsims_transcript <- function(x, ...) {
     " min] [", paste0(gsub("m", "", levels(x$det$rint)), collapse=", "), " m]\n", sep="")
   invisible(x)
 }
+
+
 
 ## spatial patterns
 ## stupid
@@ -931,9 +948,9 @@ for (j in 1:9) {
 
 ## TODO:
 ## - use 1st vocal
-## - use all vocals
-## - use 1 randomly chosen vocal
-## - estimate tau based on 3, 5, and 10 min duration
+## - use all vocals -> not very realistic in practice
+## - use 1 randomly chosen vocal -> not very realistic in practice
+## OK - estimate tau based on 3, 5, and 10 min duration
 
 ## both phi and tau
 phi <- 0.5
@@ -952,6 +969,37 @@ Y2 <- matrix(rowSums(x$counts), nrow=1)
 D2 <- matrix(x$rint, nrow=1)
 exp(cmulti.fit(Y1, D1, type="rem")$coef)
 exp(cmulti.fit(Y2, D2, type="dis")$coef)
+
+## all vocals: OK
+z <- get_detections(o, first_only=FALSE)
+i <- cut(z$d, c(0, rbr), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+D1 <- matrix(rbr, nrow=1)
+exp(cmulti.fit(Y1, D1, type="dis")$coef)
+## random vocal: biased for large phi & dur
+z <- z[sample(nrow(z)),]
+z <- z[!duplicated(z$i),]
+i <- cut(z$d, c(0, rbr), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+exp(cmulti.fit(Y1, D1, type="dis")$coef)
+## 1st vocal: biased for large phi & dur
+z <- get_detections(o, first_only=TRUE)
+i <- cut(z$d, c(0, rbr), include.lowest = TRUE)
+table(i)
+Y1 <- matrix(as.numeric(table(i)), nrow=1)
+exp(cmulti.fit(Y1, D1, type="dis")$coef)
+
+## 3, 5, 10 min based EDR estimation: shorter the better
+Y3 <- matrix(x$counts[,1], nrow=1)
+Y5 <- matrix(rowSums(x$counts[,1:2]), nrow=1)
+Y10 <- matrix(rowSums(x$counts), nrow=1)
+D <- matrix(x$rint, nrow=1)
+exp(cmulti.fit(Y3, D, type="dis")$coef)
+exp(cmulti.fit(Y5, D, type="dis")$coef)
+exp(cmulti.fit(Y10, D, type="dis")$coef)
+
 
 ## avoid R stratum
 l <- bsims_init(10, 0.5, 0.5)
@@ -977,7 +1025,7 @@ l <- bsims_init(10, 0.5, 0.5)
 p <- bsims_populate(l, 3)
 a <- bsims_animate(p, movement=0)
 o <- bsims_detect(a, c(0,0), tau=1:3)
-plot(o, pch.point=NA)
+plot(o, pch_vocal=NA)
 
 library(magrittr)
 
@@ -1028,3 +1076,53 @@ color_fade <- function(col, n) {
     rgb(rgb[1], rgb[2], rgb[3], z, maxColorValue=255))
 }
 #plot(1:10, col=color_fade("red", 10), pch=19)
+
+
+library(magick)
+
+set.seed(1234)
+l <- bsims_init(15, 0.1, 0.5, 2.5)
+#l <- bsims_init(10, 0.1, 0.5)
+p <- bsims_populate(l, c(2, 1.5, 0))
+a <- bsims_animate(p, duration=60, movement=0.2, move_rate=2, vocal_rate=2, avoid="R")
+o <- bsims_detect(a, xy=c(2.5, 1), tau=c(1:3)) # detect all
+plot(o, pch_nest=NA, pch_vocal=NA, first_only=FALSE, tlim=c(0,60))
+mtext("bSims: highly scientific and utterly addictive", 1, -2)
+
+plot(o, pch_nest=NA, pch_vocal=NA, first_only=FALSE, tlim=c(0,60), xlim=c(-4,-2), ylim=c(-4, -2))
+plot(o, pch_nest=NA, pch_vocal=NA, first_only=FALSE, tlim=c(0,60), xlim=c(-4,4), ylim=c(-4, 4))
+
+chr0 <- function(x, n) {
+  x <- as.character(x)
+  paste0(paste0(rep(0, n - nchar(x)), collapse=""), x, collapse="")
+}
+## quadratic ease in-out: https://gist.github.com/gre/1650294
+g <- function(from, to, length.out) {
+  t <- seq(0, 1, length.out = length.out)
+  a <- ifelse(t < 0.5, 2*t*t, -1+(4-2*t)*t)
+  a * (to-from) + from
+}
+fps <- 19
+lgt <- 6
+ti <- 3
+nstep <- lgt*fps
+
+x0 <- g(-4, -4, length.out = nstep)
+x1 <- g(-2, 4, length.out = nstep)
+y0 <- g(-4, -4, length.out = nstep)
+y1 <- g(-2, 4, length.out = nstep)
+t0 <- g(0, o$duration-ti, length.out = nstep)
+t1 <- g(ti, o$duration, length.out = nstep)
+
+par(mar=rep(0,4))
+for (i in 1:nstep) {
+  png(paste0("temp/plot", chr0(i,3), ".png"), width=400, heigh=400)
+  plot(o, pch_nest=NA, pch_vocal=NA, first_only=FALSE,
+    tlim=c(t0[i],t1[i]), xlim=c(x0[i],x1[i]), ylim=c(y0[i],y1[i]))
+  mtext("bSims: highly scientific and utterly addictive", 1, 0)
+  dev.off()
+}
+
+im <- image_read(paste0("temp/", list.files("temp", pattern=".png")))
+an <- image_animate(im)
+image_write(an, "temp/bsims.gif")

@@ -214,12 +214,14 @@ col_nest="darkgreen", cex_nest=1,
 }
 
 timetoevent <- function(rate, duration) {
-  te <- rexp(n=duration*rate, rate=rate)
+  te <- rexp(n=ceiling(duration*rate), rate=rate)
   while(sum(te) < duration) {
-    te <- c(te, rexp(n=duration*rate, rate=rate))
+    te <- c(te, rexp(n=ceiling(duration*rate), rate=rate))
   }
-  cte <- cumsum(te)
-  te[cte < duration]
+  cte <- cumsum(te) < duration
+#  if (sum(cte) < 1)
+#    te[1] else te[cte]
+  te[cte]
 }
 # avoid can be used to limit the movement in x direction
 # it gives an interval to avoid
@@ -283,7 +285,7 @@ duration=10, movement=0, avoid=c(0,0)) {
       h$y[i] <- h$y[i-1L]
     }
   }
-  h
+  h[h$t <= duration,,drop=FALSE]
 }
 
 ## rate can be
@@ -396,7 +398,7 @@ print.bsims_events <- function(x, ...) {
   invisible(x)
 }
 
-get_events <- function(x, vocal_only=TRUE) {
+get_events <- function(x, vocal_only=TRUE, tlim=NULL) {
   if (sum(x$abundance) == 0)
     return(data.frame(
       x=numeric(0),
@@ -405,6 +407,9 @@ get_events <- function(x, vocal_only=TRUE) {
       v=numeric(0),
       i=numeric(0)
     ))
+  if (is.null(tlim))
+    tlim <- c(0, x$duration)
+  tlim <- pmin(pmax(0, tlim), x$duration)
   z <- lapply(1:length(x$events), function(i) {
     zz <- x$events[[i]]
     zz$i <- i
@@ -417,26 +422,31 @@ get_events <- function(x, vocal_only=TRUE) {
   rownames(z) <- NULL
   z$x <- x$nests$x[z$i] + z$x
   z$y <- x$nests$y[z$i] + z$y
+  z <- z[z$t %[]% tlim,,drop=FALSE]
   z
 }
 points.bsims_events <-
-function(x, vocal_only=TRUE, ...) {
-  points(get_events(x, vocal_only), ...)
+function(x, vocal_only=TRUE, tlim=NULL, ...) {
+  points(get_events(x, vocal_only, tlim), ...)
   invisible(x)
 }
 lines.bsims_events <-
-function(x, ...) {
+function(x, tlim=NULL, ...) {
+  if (is.null(tlim))
+    tlim <- c(0, x$duration)
+  tlim <- pmin(pmax(0, tlim), x$duration)
   N <- length(x$events)
   for (i in seq_len(N)) {
     xy <- cbind(
       x=x$nests$x[i] + x$events[[i]]$x,
       y=x$nests$y[i] + x$events[[i]]$y)
-      lines(xy, ...)
+    xy <- xy[x$events[[i]]$t %[]% tlim,,drop=FALSE]
+    lines(xy, ...)
   }
   invisible(x)
 }
 plot.bsims_events <-
-function(x,
+function(x, tlim=NULL,
 pch_nest=3, col_nest="darkgreen", cex_nest=1,
 pch_vocal=21, col_vocal="blue", cex_vocal=0.5,
 lty_move=1, col_move="orange", lwd_move=1,
@@ -447,9 +457,9 @@ lty_move=1, col_move="orange", lwd_move=1,
   class(xx) <- c("bsim", "bsims_population")
   plot(xx, pch_nest=pch_nest, col_nest=col_nest, cex_nest=cex_nest, ...)
   if (!is.na(lty_move))
-    lines(x, col=col_move, lty=lty_move, lwd=lwd_move, ...)
+    lines(x, tlim=tlim, col=col_move, lty=lty_move, lwd=lwd_move, ...)
   if (!is.na(pch_vocal))
-    points(x, vocal_only=TRUE,
+    points(x, vocal_only=TRUE, tlim=tlim,
       col=col_vocal, pch=pch_vocal, cex=cex_vocal, ...)
   invisible(x)
 }
@@ -630,7 +640,7 @@ function(x, first_only=TRUE, ...) {
 }
 
 plot.bsims_detections <-
-function(x, first_only=TRUE,
+function(x, first_only=TRUE, tlim=NULL,
 pch_nest=3, col_nest="darkgreen", cex_nest=1,
 pch_vocal=21, col_vocal="blue", cex_vocal=0.5,
 lty_move=1, col_move="orange", lwd_move=1,
@@ -640,7 +650,7 @@ lty_det=1, col_det="black", lwd_det=1,
   on.exit(par(op))
   xx <- x
   class(xx) <- c("bsim", "bsims_events")
-  plot(xx,
+  plot(xx, tlim=tlim,
     pch_nest=pch_nest, col_nest=col_nest, cex_nest=cex_nest,
     pch_vocal=pch_vocal, col_vocal=col_vocal, cex_vocal=cex_vocal,
     lty_move=lty_move, col_move=col_move, lwd_move=lwd_move, ...)
@@ -846,7 +856,8 @@ curve(1-exp(-phi*x), add=TRUE, col=2)
 points(br, cumsum(table(i))/sum(table(i)), cex=2, col=4)
 curve(1-exp(-phihat*x), add=TRUE, col=4)
 
-
+## simple simulations
+phi <- 1
 tau <- 1
 br <- c(0.5, 1, 1.5, Inf)
 n <- 1000
@@ -865,41 +876,76 @@ Y1 <- matrix(as.numeric(table(i)), nrow=1)
 D1 <- matrix(br, nrow=1)
 (tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
 
+phi <- 0.25
+dur <- 3
+tau <- 1
+br <- c(0.5, 1, 1.5, Inf)
 
+testf <- function(phi, dur, tau=1, br=c(0.5, 1, 1.5, Inf), n=100) {
+  res <- NULL
+  for (iii in seq_len(n)) {
+    l <- bsims_init(10)
+    p <- bsims_populate(l, 10)
+    a <- bsims_animate(p, vocal_rate=phi, duration=dur)
+    o <- bsims_detect(a, tau=tau) # detect all
+
+    x <- o$nests$x
+    y <- o$nests$y
+    d <- sqrt(x^2 + y^2)
+    p <- exp(-d^2/tau^2)
+    k <- rbinom(length(p), 1, p)
+    i <- cut(d[k>0], c(0, br), include.lowest = TRUE)
+    table(i)
+    Y1 <- matrix(as.numeric(table(i)), nrow=1)
+    D1 <- matrix(br, nrow=1)
+    tauhat1 <- exp(cmulti.fit(Y1, D1, type="dis")$coef)
+
+    z <- get_detections(o, first_only=TRUE)
+    i <- cut(z$d, c(0, br), include.lowest = TRUE)
+    table(i)
+    Y1 <- matrix(as.numeric(table(i)), nrow=1)
+    D1 <- matrix(br, nrow=1)
+    tauhat2 <- exp(cmulti.fit(Y1, D1, type="dis")$coef)
+
+    res <- rbind(res, c(nest=tauhat1, first=tauhat2))
+  }
+  list(phi=phi, dur=dur, tau=tau, br=br, res=res)
+}
+
+v <- expand.grid(phi=c(0.25, 0.5, 1), dur=c(3,5,10))
+
+tt <- list()
+for (j in 1:nrow(v)) {
+  cat(j)
+  tt[[j]] <- testf(phi=v$phi[j], dur=v$dur[j], n=10)
+}
+
+ttt <- t(sapply(tt, function(z) colMeans(z$res)))
+cbind(v, ttt)
+par(mfrow=c(3,3), mar=c(3,3,3,2))
+for (j in 1:9) {
+  boxplot(tt[[j]]$res/tau, main=paste(v$phi[j], v$dur[j]),
+          ylim=c(0,1.3))
+  abline(h=1,col=2)
+}
+
+## TODO:
+## - use 1st vocal
+## - use all vocals
+## - use 1 randomly chosen vocal
+## - estimate tau based on 3, 5, and 10 min duration
+
+## both phi and tau
+phi <- 0.5
+tau <- 0.8
+dur <- 10
+rbr <- c(0.5, 1, 1.5, Inf)
+tbr <- c(3, 5, 10)
 l <- bsims_init(10)
 p <- bsims_populate(l, 10)
-a <- bsims_animate(p, vocal_rate=0.5, duration=5)
+a <- bsims_animate(p, vocal_rate=phi, duration=dur)
 o <- bsims_detect(a, tau=tau) # detect all
-z <- get_detections(o, first_only=TRUE)
-
-x <- o$nests$x
-y <- o$nests$y
-
-d <- sqrt(x^2 + y^2)
-p <- exp(-d^2/tau^2)
-k <- rbinom(n, 1, p)
-plot(x, y, asp=1, col="grey")
-points(x[k>0], y[k>0], pch=19)
-points(z$x, z$y, pch=3, col=4)
-abline(h=0,v=0,lty=2)
-sum(k)
-nrow(z)
-
-i <- cut(d[k>0], c(0, br), include.lowest = TRUE)
-table(i)
-Y1 <- matrix(as.numeric(table(i)), nrow=1)
-D1 <- matrix(br, nrow=1)
-(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
-
-i <- cut(z$d, c(0, br), include.lowest = TRUE)
-table(i)
-Y1 <- matrix(as.numeric(table(i)), nrow=1)
-D1 <- matrix(br, nrow=1)
-(tauhat <- exp(cmulti.fit(Y1, D1, type="dis")$coef))
-
-
-
-
+x <- bsims_transcribe(o, tint=tbr, rint=rbr)
 Y1 <- matrix(colSums(x$counts), nrow=1)
 D1 <- matrix(x$tint, nrow=1)
 Y2 <- matrix(rowSums(x$counts), nrow=1)
@@ -912,10 +958,10 @@ l <- bsims_init(10, 0.5, 0.5)
 plot(l)
 p <- bsims_populate(l, c(1,1,0))
 plot(p)
-a <- bsims_animate(p, movement=0.2, avoid="R")
-plot(a)
-o <- bsims_detect(a, c(0.5,0), repel=1)
-plot(o)
+a <- bsims_animate(p, movement=0.25, move_rate=1, avoid="R")
+plot(a, tlim=c(5,10))
+o <- bsims_detect(a, c(0.5,0))
+plot(o, tlim=c(5,10))
 ## zoom in
 plot(o, xlim=c(-3,3), ylim=c(-3,3))
 
@@ -966,5 +1012,19 @@ ad$nclust
 tab <- table(inds=i, clust=ad$clusters)
 
 
-
-
+col2hex <- function(col, alpha = FALSE) {
+  rgb <- col2rgb(col, alpha)
+  if (alpha) {
+    apply(rgb, 2, function(z) rgb(z[1], z[2], z[3], z[4], maxColorValue=255))
+  } else {
+    apply(rgb, 2, function(z) rgb(z[1], z[2], z[3], maxColorValue=255))
+  }
+}
+#col2hex(c(blu = "royalblue", reddish = "tomato"), FALSE)
+#col2hex(c(blu = "royalblue", reddish = "tomato"), TRUE)
+color_fade <- function(col, n) {
+  rgb <- col2rgb(col[1L], alpha=FALSE)
+  sapply(seq(0, 255, length.out = n), function(z)
+    rgb(rgb[1], rgb[2], rgb[3], z, maxColorValue=255))
+}
+#plot(1:10, col=color_fade("red", 10), pch=19)

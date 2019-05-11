@@ -214,6 +214,10 @@ col_nest="darkgreen", cex_nest=1,
 }
 
 timetoevent <- function(rate, duration) {
+  if (rate == Inf)
+    return(rexp(1, rate))
+  if (rate == 0)
+    rate <- .Machine$double.eps
   te <- rexp(n=ceiling(duration*rate), rate=rate)
   while(sum(te) < duration) {
     te <- c(te, rexp(n=ceiling(duration*rate), rate=rate))
@@ -245,13 +249,15 @@ rmvn <- function(n=1L, mu, Sigma, ...) {
 #rmvn(2, c(a=0, b=0), diag(1, 2, 2))
 
 ## if there is no movement, there is no point in making a move
+## but we might want to deal with visual cues independent of movement
+## so let's just leave it there
+## move_rate will lead to repeated events, so that heard/seen is meaningful
+## set move_rate to Inf
 events <-
 function(vocal_rate=1, move_rate=1,
 duration=10, movement=0, avoid=c(0,0)) {
   ev <- cumsum(timetoevent(vocal_rate, duration))
-  ## no movement still need a starting position
-  em <- if (movement == 0)
-    0 else cumsum(timetoevent(move_rate, duration))
+  em <- cumsum(timetoevent(move_rate, duration))
   iv <- rep(1, length(ev))
   im <- rep(0, length(em))
   dv <- matrix(NA, length(ev), 2)
@@ -263,14 +269,6 @@ duration=10, movement=0, avoid=c(0,0)) {
     dm <- dm[dm[,1] %][% avoid,,drop=FALSE]
   }
   dm <- dm[seq_along(em),,drop=FALSE]
-  ## for *movement* only: don't store coordinates that are same as previous
-  if (nrow(dm) > 1L) {
-    keep <- logical(nrow(dm))
-    keep[1L] <- TRUE
-    for (i in 2:length(keep)) {
-      keep[i] <- !all(dm[i,] == dm[i-1L,])
-    }
-  }
   h <- cbind(rbind(dv, dm), c(ev, em), c(iv, im))
   colnames(h) <- c("x", "y", "t", "v")
   o <- order(h[,"t"])
@@ -313,6 +311,10 @@ bsims_animate <- function(
     stop("movement can not be negative")
   if (any(mixture < 0))
     stop("mixture must not be negative")
+  if (move_rate < 0)
+    stop("move_rate must not be negative")
+  if (vocal_rate < 0)
+    stop("vocal_rate must not be negative")
   K <- length(mixture)
   G <- paste0("G", 1:K)
   P <- structure(mixture / sum(mixture), names=G)
@@ -506,6 +508,7 @@ bsims_detect <- function(
   tau=1, # can vector when HER attenuation used, compatible w/ dist_fun
   dist_fun=NULL, # takes args d and tau (single parameter)
   repel=0, # radius within which vocalizations are invalidated
+  vocal_only=TRUE, # should we detect visuals or just vocals?
   ...)
 {
   if (!inherits(x, "bsims_events"))
@@ -542,14 +545,12 @@ bsims_detect <- function(
     z$v[z$d < repel] <- 0
     ## NA is placeholder for these vocalizations in return object
     x$events[[i]]$v[z$d < repel] <- NA
-    keep <- z$v > 0
-    z <- z[keep,,drop=FALSE]
-    xx <- xx[keep]
-    yy <- yy[keep]
-    ## angle in degrees counter clockwise from x axis
-#    a <- 180 * atan2(yy, xx) / pi
-#    a[a < 0] <- 360+a[a < 0]
-#    z$a <- a
+    if (vocal_only) {
+      keep <- z$v > 0
+      z <- z[keep,,drop=FALSE]
+      xx <- xx[keep]
+      yy <- yy[keep]
+    }
     ## this is where HER attenuation somes in
     if (att) {
       theta <- atan2(yy, xx) # angle in rad
@@ -587,6 +588,7 @@ bsims_detect <- function(
   x$xy <- xy
   x$tau <- tau
   x$repel <- repel
+  x$vocal_only <- vocal_only
   class(x) <- c("bsim", "bsims_detections")
   x
 }
@@ -605,7 +607,8 @@ print.bsims_detections <- function(x, ...) {
     " km\n  stratification: ", her,
     "\n  total abunance: ", sum(x$abundance),
     "\n  ", ifelse(length(x$mixture) > 0, "mixture with ", ""),
-    "total duration: ", x$duration, "\n  detected: ", ndet, "\n", sep="")
+    "total duration: ", x$duration, "\n  detected: ", ndet,
+    ifelse(x$vocal_only, " heard", " seen/heard"), "\n", sep="")
   invisible(x)
 }
 ## this adds next xy to movement xy
@@ -632,6 +635,10 @@ get_detections <- function(x, first_only=TRUE) {
   rownames(z) <- NULL
   z$x <- x$nests$x[z$i] + z$x
   z$y <- x$nests$y[z$i] + z$y
+  ## angle in degrees counter clockwise from x axis right
+  z$a <- 180 * atan2(z$x, z$y) / pi
+  z$a[z$a < 0] <- 360+z$a[z$a < 0]
+  ## observer position
   attr(z, "observer") <- x$xy
   z
 }
@@ -699,23 +706,40 @@ bsims_transcribe <- function(
   rint <- sort(rint)
   if (any(rint <= 0))
     stop("rint must be > 0")
-  det <- get_detections(x, first_only)
-  det <- det[det$d <= max(rint),,drop=FALSE]
+  detall <- get_detections(x, first_only=FALSE)
+  detall <- detall[detall$d <= max(rint),,drop=FALSE]
   if (error < 0)
     stop("error must be >= 0")
   derr <- if (error > 0)
-    rlnorm2(nrow(det), det$d, error) else det$d
-  det$error <- derr - det$d
+    rlnorm2(nrow(detall), detall$d, error) else detall$d
+  detall$error <- derr - detall$d
   rLAB <- paste0(c(0, round(100*rint[-length(rint)])),
     ifelse(is.finite(rint), paste0("-", round(100*rint)), "+"), "m")
   tLAB <- paste0(c(0, round(tint[-length(tint)], 2)), "-", tint, "min")
-  det$rint <- factor(rLAB[cut(derr, c(0, rint), labels=FALSE,
+  detall$rint <- factor(rLAB[cut(derr, c(0, rint), labels=FALSE,
     include.lowest=TRUE)], rLAB)
-  det$tint <- factor(tLAB[cut(det$t, c(0, tint), labels=FALSE,
+  detall$tint <- factor(tLAB[cut(detall$t, c(0, tint), labels=FALSE,
     include.lowest=TRUE)], tLAB)
+
+  ## count 1st detections over whole duration
+  det <- detall
+  if (first_only)
+    det <- det[!duplicated(det$i),,drop=FALSE]
   xt <- as.matrix(Xtab(~ rint + tint, det))
-  x$detections <- det
-  x$counts <- xt
+
+  ## count 1st detections in visits (intervals)
+  vis <- xt
+  vis[] <- 0
+  for (i in tLAB) {
+    det2 <- detall[detall$tint == i,,drop=FALSE]
+    if (first_only)
+      det2 <- det2[!duplicated(det2$i),,drop=FALSE]
+    vis <- vis + as.matrix(Xtab(~ rint + tint, det2))
+  }
+
+  x$detections <- detall
+  x$removal <- xt
+  x$visits <- vis
   x$tint <- tint
   x$rint <- rint
   x$first_only <- first_only
@@ -739,6 +763,7 @@ print.bsims_transcript <- function(x, ...) {
     "\n  total abunance: ", sum(x$abundance),
     "\n  ", ifelse(length(x$mixture) > 0, "mixture with ", ""),
     "total duration: ", x$duration, "\n  detected: ", ndet,
+    ifelse(x$vocal_only, " heard", " seen/heard"),
     "\n  ", ifelse(x$first_only, "1st", "all"),
     " inds. [", paste0(gsub("min", "", levels(x$det$tint)), collapse=", "),
     " min] [", paste0(gsub("m", "", levels(x$det$rint)), collapse=", "), " m]\n", sep="")

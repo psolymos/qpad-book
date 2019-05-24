@@ -1,4 +1,4 @@
-# Point count data analysis for mavericks
+# Point count data analysis
 
 > How to violate assumptions and get away with it
 

@@ -1,4 +1,4 @@
-# Availability {#availability}
+# Behavioral Complexities {#behavior}
 
 Behaviour related stuff
 

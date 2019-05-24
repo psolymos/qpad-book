@@ -1,4 +1,0 @@
-# Assumptions {#assumptions}
-
-break thos assumptions
-

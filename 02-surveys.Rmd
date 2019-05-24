@@ -1,8 +1,0 @@
-# Point Count Surveys {#surveys}
-
-Introduce data sets
-
-Use simulations
-
-definitions, density, abundance, occupancy
-

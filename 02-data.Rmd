@@ -1,0 +1,17 @@
+# Organizing and Processing Point Count Data {#pcdata}
+
+Introduce data sets
+
+Use simulations
+
+definitions, density, abundance, occupancy
+
+## Data Processing {#data}
+
+input/output
+
+csv, sqlite, tibble, sql
+
+mefa4 Xtabs
+
+

@@ -1,4 +1,4 @@
-# Regression Techniques {#regression}
+# A Primer in Regression Techniques {#regression}
 
 lm, glm
 

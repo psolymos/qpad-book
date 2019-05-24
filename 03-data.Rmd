@@ -1,8 +1,0 @@
-# Data Processing {#data}
-
-input/output
-
-csv, sqlite, tibble, sql
-
-mefa4 Xtabs
-

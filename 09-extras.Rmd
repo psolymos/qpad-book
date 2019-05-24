@@ -1,4 +1,4 @@
-# Miscellaneous topics {#extras}
+# Miscellaneous Topics {#extras}
 
 model selection and conditional likelihood
 

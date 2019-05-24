@@ -1,4 +1,0 @@
-# Roadside surveys {#roadsides}
-
-directional diff in signal transmission
-

@@ -1,4 +1,4 @@
-# Perceptibility {#perceptibility}
+# The Detection Process {#detection}
 
 EDR, tau constant
 

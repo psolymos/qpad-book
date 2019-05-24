@@ -1,4 +1,4 @@
-# Dealing with recordings {#recordings}
+# Dealing with Recordings {#recordings}
 
 integration challenges
 

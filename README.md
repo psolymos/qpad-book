@@ -9,23 +9,15 @@ This book provides material for the workshop
 at the [AOS 2019 conference](https://amornithmeeting.org/)
 by [Peter Solymos](http://peter.solymos.org).
 
-### Number of participants
+The book and related materials in this repository is the basis of a
+full day workshop (8 hours long with 3 breaks).
 
-Expecting at least 10--12 and maximum 20--25 participants.
+Prior exposure to [R](https://www.r-project.org/) language is necessary
+(i.e. basic R object types and their manipulation, such as arrays, data frames, indexing)
+because this is not covered as part of the book and the course.
+Check [this](_etc/R-basics.pdf) intro.
 
-### Additional costs to participants
-
-No additional costs or charges are required for this workshop.
-
-### Time, space and resource requirements
-
-- **Space and resource requirements:** room with chairs, desks, and electrical outlets suitable for working on laptops; projection equipment, and a whiteboard.
-- **Time:** the proposed event is a full day workshop (8 hours long with 3 breaks),
-therefore before conference days (all day, 24--25 June) would be preferred.
-- Participants are expected to bring their own laptops to the workshop.
-- The instructor will provide electronic course material online and on USB sticks.
-
-### Summary of course objectives
+## Summary of course objectives
 
 This course is aimed towards ornithologists analyzing field observations,
 who are often faced by data heterogeneities due to
@@ -54,27 +46,24 @@ professional development via increased confidence in applying these methods
 for field observations.
 
 
-### Syllabus
+## Course outline
 
 1. Introduction
-2. Overview of database relations and operations
-3. An overview of regression techniques
+2. Organizing and processing point count data
+3. A primer in regression techniques
 
 Short break
 
-4. Behavioural components of detectability
-5. Distance effects in the observation process
+4. Behavioral complexities
+5. The detection process
 
 Luch break
 
-6. Integrating data from automated recordings
+6. Dealing with recordings
 7. A closer look at assumptions
 
 Short break
 
-8. Roadside surveys
-9. Misc topics and Q&A
+8. Understanding roadside surveys
+9. Miscellaneous topics
 
-Dismissal, optional follow up at nearby watering hole
-
-Note: prior exposure to R programming is necessary, knowledge of basic R object types and their manipulation is expected (arrays, data frames, indexing).

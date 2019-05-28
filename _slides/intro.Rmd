@@ -11,166 +11,55 @@ output:
       in_header: preamble.tex
 ---
 
-# ABMI data
-
-1656 sampling locations, 20 km systematic grid
-
-```{r echo=FALSE}
-options(width=53)
-knitr::include_graphics("images/ABMI_sites_2003_2016_NR-large.jpg")
+```{r setup,include=FALSE}
+options(width=53, scipen=999)
+library(knitr)
 ```
 
+# What is a point count?
+
+- A trained observer 
+- records all the birds 
+- seen and heard 
+- from a point count station 
+- for a set period of time
+- within a defined distance radius.
 
 ***
 
-# Taxa surveyed at sites
+# Questions we want to answer using point counts
 
-Terrestrial protocol:
-
-- Mammals (snow tracking, camera traps)
-- **Birds** (9 points, more recently 4)
-- Vascular plants, bryophytes, lichens (4 quadrants in 1 ha plot)
-- Soil mites (4 soil cores in 1 ha plot)
-
-Wetland protocol:
-
-- Plants and invertebrates in wetland zones.
+- How many? (Abundance, density, population size)
+- Is this location part of the range? (0/1)
+- How is abundance changing in space? (Distribution)
+- How is abundance changing in time? (Trend)
+- What is the effect of a treatment on abundance?
 
 ***
 
-# ABMI data and information flow
+# Sample and replication
 
-2003--2015 bird surveys: 9 points, 300 m apart
-
-```{r echo=FALSE}
-knitr::include_graphics("images/AB-bird-points.png")
-```
-
-***
-
-# We skip data processing and go straight to the fun part
-
-Data available at [www.abmi.ca](http://www.abmi.ca/)
-
-Input           | Do this           | Output
------------------|-------------------|----------------
-The World       | Collect, observe | Raw data
-Raw data        | Normalize structure/types | Correct data
-Correct data    | Impute/fix values | Consistent data
-Consistent data | Filter, transform, aggregate, join | Analysis data
-Analysis data   | Analyze | Analysis results
-Analysis results | Interpret, visualize, predict | Analysis output
+- We want to make inferences about a population,
+- full census is out of reach,
+- thus we take a sample of the population
+- that is representative and random.
+- Ideally, sample size should be as large as possible,
+- it reduces variability and 
+- increases statistical power.
 
 ***
 
-# The evil trio
+# How do we pick where to survey?
 
-There are only 3 things in ecological data that can make our life
-really difficult:
-
-1. space,
-2. time, and
-3. taxonomy.
-
-"All data are messy, but some are missing."
+- Stratification,
+- gradients,
+- random location to control for unmeasured effects,
+- take into account historical surveys (avoid, or revisit),
+- accessibility/cost (clusters).
 
 ***
 
-# Bird data that we will use
-
-1. Point level counts (10 mins, unlimited distance), 9 pts / site
-
-2. Site level aggregates: total count (9 x 10 minutes)
-
-```{r echo=FALSE,fig.width=9,fig.height=5}
-load("~/Dropbox/courses/st-johns-2017/data/ABbirds/ABbirds.rda")
-load("~/Dropbox/courses/st-johns-2017/data/ABbirds/ABbirdsPT.rda")
-op <- par(mfrow=c(1,2))
-plot(table(ABbirdsPT$y[,"Ovenbird"]), xlab="Counts", ylab="Frequency",
-    main="Point level", lwd=5, col="tomato", sub="Ovenbird")
-plot(table(ABbirds$y[,"Ovenbird"]), xlab="Counts", ylab="Frequency",
-    main="Site level", lwd=5, col="tomato")
-par(op)
-```
-
-# Data locations
-
-Exact locations are confidential, we use public coordinates (see [Solymos et al. 2013 _Front Ecol Env_ 11:178-–179](https://dx.doi.org/10.1890/13.WB.010))
-
-```{r echo=FALSE}
-knitr::include_graphics("images/AB-data-sites.png")
-```
-
-***
-
-# Variables
-
-```{r}
-x <- read.csv(paste0("~/Dropbox/courses/st-johns-2017/",
-    "data/ABbirds/Ovenbird.csv"))
-colnames(x)
-```
-
-***
-
-# Variables continued
-
-* `y`: response variable,
-* `Site`, `Year`, `Site_Year`, `Site_Year_PT`: site, year, unique ID for site/point/year (879 sites, 7911 points, 2003--2014),
-* `POINT_X`, `POINT_Y`: public coordinates (decimal degrees),
-* `NRNAME`, `NSRNAME`: natural regions/subregions.
-
-***
-
-# Bioclimatic variables
-
-* `AHM`: annual heat-moisture index (scaled temp/precip),
-* `PET`: potential evapotranspiration,
-* `FFP`: frost free period
-* `MAP`: mean annual precipitaton,
-* `MAT`: mean annual temperature,
-* `MCMT`: mean cold month (January) temperature,
-* `MWMT`: mean warm month (July) temperature.
-
-# Land cover: natural vegetation
-
-150 m radius circular buffer at points, averaged at sites, given as proportion (0--1) of total 7.1 ha buffer area
-
-* `pforest`: proportion of forest (coniferous, mixedwood, deciduous, Treed fens and bogs, includes cutblocks),
-* `pconif`: proportion of coniferous forest (upland and lowland, includes cutblocks),
-* `pwet`: proportion of lowland (wet) areas (treed and non-treed),
-* `poldfor`: proportion of mature and old-growth (>80 yrs) forest.
-
-***
-
-# Land cover: human footprint
-
-0-1 as well as natural vegetation
-
-* `Cult`: cultivation,
-* `UrbInd`: urban/industrial,
-* `SoftLin`: 'soft' (vegetated) linear features (seismic lines, pipelines, power lines, road verges),
-* `HardLin`: 'hard' (non-vegetated) linear features (road and rails),
-* `CC`: forestry cutblocks,
-
-* `Alien`: 'alienating' disturbances (soil disturbed, non regenerating, `Cult + UrbInd + HardLin`),
-* `Succ`: 'successional' disturbances (soil undisturbed, regenerating, `CC + SoftLin`),
-* `THF`: total human footprint (`Alien + Succ`).
-
-***
-
-# Recap: data frames
-
-Data frames are rectangular (matrix) like objects,
-more formally, lists of equal length vectors
-of possibly different types.
-
-```{r eval=FALSE}
-x[1:5,] # 1st 5 rows
-x[,1] # 1st column
-x[,-1] # w/o 1st column
-x[,"y"] # column names y
-x[[1]] # 1st element (column)
-x$y # list element (column) named y
+```{r test,echo=FALSE,out.width="300px"}
+include_graphics("../_images/sonogram.png")
 ```
 

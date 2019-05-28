@@ -56,23 +56,24 @@ for field observations.
 
 ### Syllabus
 
-1. Introductions
+1. Introduction
 2. Overview of database relations and operations
 3. An overview of regression techniques
 
 Short break
 
-4. Estimating nuisance variables (detection error and its components)
+4. Behavioural components of detectability
+5. Distance effects in the observation process
 
 Luch break
 
-5. Estimating occupancy, abundance, and density
-6. Acconting for methodological biases
-7. Statistical inference and prediction
+6. Integrating data from automated recordings
+7. A closer look at assumptions
 
 Short break
 
-8. Q/A related to participants' own projects
+8. Roadside surveys
+9. Misc topics and Q&A
 
 Dismissal, optional follow up at nearby watering hole
 

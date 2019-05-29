@@ -14,7 +14,7 @@ full day workshop (8 hours long with 3 breaks).
 
 Prior exposure to [R](https://www.r-project.org/) language is necessary
 (i.e. basic R object types and their manipulation, such as arrays, data frames, indexing)
-because this is not covered as part of the book and the course.
+because this is not covered as part of the course.
 Check [this](_etc/R-basics.pdf) intro.
 
 ## Summary of course objectives

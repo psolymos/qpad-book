@@ -1,8 +1,9 @@
 ---
-title: "Intro"
+title: "Organizing and processing point count data"
 date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 24 June 2019"
 author: "Peter Solymos"
 fontsize: 10pt
+urlcolor: blue
 output:
   beamer_presentation:
     theme: "Singapore"
@@ -16,24 +17,19 @@ options(width=53, scipen=999)
 library(knitr)
 ```
 
-# What is a point count?
+# Two quotes
 
-- A trained observer 
-- records all the birds 
-- seen and heard 
-- from a point count station 
-- for a set period of time
-- within a defined distance radius.
+All models are wrong but some are useful
+
+All data are messy but some are missing
 
 ***
 
-# Questions we want to answer using point counts
+# The evil trio
 
-- How many? (Abundance, density, population size)
-- Is this location part of the range? (0/1)
-- How is abundance changing in space? (Distribution)
-- How is abundance changing in time? (Trend)
-- What is the effect of a treatment on abundance?
+- Space
+- Time
+- Taxonomy
 
 ***
 
@@ -56,10 +52,4 @@ library(knitr)
 - random location to control for unmeasured effects,
 - take into account historical surveys (avoid, or revisit),
 - accessibility/cost (clusters).
-
-***
-
-```{r test,echo=FALSE,out.width="300px"}
-include_graphics("../_images/sonogram.png")
-```
 

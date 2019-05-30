@@ -1,0 +1,227 @@
+---
+title: "Introduction"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 24 June 2019"
+author: "Peter Solymos"
+fontsize: 11pt
+urlcolor: blue
+output:
+  beamer_presentation:
+    theme: "Singapore"
+    incremental: false
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup,include=FALSE}
+options(width=53, scipen=999)
+library(knitr)
+```
+
+# About the course
+
+You'll learn
+
+- how to analyze your point count data when it combines different methodologies/protocols/technologies,
+- how to violate assumptions and get away with it.
+
+***
+
+# About me
+
+- Ecologist (molluscs, birds),
+- pretty good at stats (modeling, detectability, data cloning, multivariate),
+- R programmer (vegan, detect, ResourceSelection, pbapply),
+- sometimes I teach (like today).
+
+***
+
+# Apples and oranges
+
+_"A comparison of apples and oranges occurs when two items or groups of items are compared that 
+cannot be practically compared."_ [_Wikipedia_]
+
+How we measure things can have big impact on our results.
+
+- You might say: I saw 5 robins (walking down the road),
+- I might say: I only saw one (sitting on my porch)
+
+***
+
+# Apples to apples
+
+Effort:
+
+- area of the physical space searched,
+- amount of time spent,
+- number of individuals identified.
+
+Experience, skill, "sensitivity":
+
+- number of years in field work,
+- eye sight, hearing ability,
+- mic sensitivity.
+
+The goal is to make our measurements comparable.
+
+***
+
+# Effects can be significant
+
+\centering
+```{r echo=FALSE,out.width="200px"}
+include_graphics("../_images/matsuoka-2014-fig-2.png")
+```
+
+10-min unlimited count ~300% increase over 3-min 50-m count. 
+Average across 54 species of boreal songbirds[^1].
+
+[^1]: Matsuoka et al. 2014, [Condor 116:599--608](http://dx.doi.org/10.1650/CONDOR-14-108.1).
+
+***
+
+# So what is a point count?
+
+- A trained observer 
+- records all the birds 
+- seen and heard 
+- from a point count station 
+- for a set period of time
+- within a defined distance radius.
+
+***
+
+# Questions we want to answer using point counts
+
+- How many? (Abundance, density, population size)
+- Is this location part of the range? (0/1)
+- How is abundance changing in space? (Distribution)
+- How is abundance changing in time? (Trend)
+- What is the effect of a treatment on abundance?
+
+***
+
+# Standardization by design
+
+Have a set of standards/recommendations that people will follow to
+
+- maximize efficiency in the numbers of birds and species counted,
+- minimize extraneous variability in the counts[^2].
+
+But programs started to deviate from standards:
+
+_"For example, only 3% of 196,000 point counts conducted during the period
+1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius."_[^1] 
+
+[^2]: Ralph et al. 1993, [Handbook of field methods for monitoring landbirds](http://dx.doi.org/10.3996/012016-JFWM-002.S5).
+
+***
+
+# Protocols do vary
+
+\centering
+```{r echo=FALSE,out.width="250px"}
+include_graphics("../_images/barker-2015-fig-2.png")
+```
+
+Survey methodology variation (colors) among contributed projects
+in the Boreal Avian Modelling (BAM) data base as of 2014[^3].
+
+[^3]: Barker et al. 2015, [WSB 39(3):480--487](http://dx.doi.org/10.1002/wsb.567).
+
+***
+
+# Pop quiz
+
+- In what regard can protocols differ?
+- What drives protocol variation among projects?
+- Why have we abandoned following protocols?
+
+***
+
+# Moving away from standards
+
+- Detection probabilities might vary even with fixed effort (we'll cover this more later),
+- programs might have their own goals and constraints (access, training, etc).
+
+***
+
+# Model based approaches
+
+Less labour intensive methods for unmarked populations has come to the forefront:
+
+- double observer ([Nichols et al. 2000](https://doi.org/10.1642/0004-8038(2000)117[0393:ADOAFE]2.0.CO;2)),
+- distance sampling ([Buckland et al. 2001](https://global.oup.com/academic/product/introduction-to-distance-sampling-9780198509271)),
+- removal sampling ([Farnsworth et al. 2002](https://doi.org/10.1642/0004-8038(2002)119[0414:ARMFED]2.0.CO;2)),
+- multiple visit occupancy ([MacKenzie et al. 2002](https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2)),
+- multiple visit abundance ([Royle 2004](https://doi.org/10.1111/j.0006-341X.2004.00142.x)).
+
+***
+
+# Models come with assumptions
+
+- Population is closed during multiple visits,
+- observers are independent,
+- all individuals emit cues with identical rates,
+- spatial distribution of individuals is uniform,
+- etc. (we will investigate this further in depth).
+
+***
+
+# Assumptions are everywhere
+
+Although assumptions are everywhere, we are really good at ignoring them:
+
+- Relativistic time dilation is negligible (as long as we are not on a space station),
+- samples are independent.
+
+***
+
+# Pop quiz
+
+- Can you mention some other common assumptions?
+- Can you explain why we neglect/violate assumptions?
+
+# The hard truth
+
+Assumptions are violated in many ways, because we seek simplicity.
+
+The main question we have to ask: **does it matter in practice**?
+
+***
+
+# Our approach
+
+1. We will introduce a concept,
+2. understand how we can infer it from data,
+3. then we recreate the situation _in silico_,
+4. and see how the outcome changes as we make different assumptions.
+
+It is guaranteed that we violate **every** assumption we make.
+
+To get away with it, we need to understand **how much is too much**.
+
+***
+
+# The rest of the day
+
+1. ~~Introduction~~
+2. Organizing and processing point count data
+3. A primer in regression techniques
+
+Short break
+
+4. Behavioral complexities
+5. The detection process
+
+Luch break
+
+6. Dealing with recordings
+7. A closer look at assumptions
+
+Short break
+
+8. Understanding roadside surveys
+9. Miscellaneous topics
+
+Dismissal
+

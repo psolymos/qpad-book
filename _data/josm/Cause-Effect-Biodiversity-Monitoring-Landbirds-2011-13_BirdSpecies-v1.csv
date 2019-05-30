@@ -1,0 +1,896 @@
+Item/Point,Version anglaise,Version française,,
+Data File Name / Nom du fichier de données,Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies.csv,Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies.csv,,
+Date File Generated / Date de fichier généré,03/07/2012,03/07/2012,,
+Context Note / Note contextuelle,"Cause-Effect Monitoring Data: Dataset 1 (2011–2013) on boreal bird species associated with 41 representative habitat types within the Athabasca, Peace River and Cold Lake oil sands areas are available. Data are available for 44 873 individual birds representing 142 species from 3 685 independent sites sampled using point count surveys. Uncommon and rare habitat types were surveyed at higher sampling intensity. This activity monitors how birds respond to habitat and disturbance. These data contribute to: a.improving the design of monitoring programs; b.explaining observed trends in populations (why bird populations are increasing or decreasing); c.predicting population sizes within the oil sands area; and d.assessing the individual, additive and cumulative effects of oil sands and other resource development on boreal birds.","Données de surveillance des causes et des effets: L’ensemble de données 1 (2011-2013) sur les espèces d’oiseaux boréales associées à 41 types d’habitats représentatifs dans les zones de sables bitumineux des régions de l’Athabasca, de la rivière de la Paix et du lac Cold est disponible. Des données sont disponibles pour 44 873 oiseaux particuliers représentant 142 espèces provenant de 3685 sites d’échantillonnage indépendants qui utilisent des sondages de dénombrement ponctuel. Des types d’habitats non communs et rares ont été sondés à une plus grande intensité d’échantillonnage. Cette activité surveille la façon dont les oiseaux réagissent à leur habitat et aux perturbations. Ces données contribuent à : a.améliorer les programmes de surveillance; b.expliquer les tendances de population observées (les raisons qui expliquent l’augmentation ou la diminution des populations); c.prédire la taille des populations à l’intérieur de la zone des sables bitumineux; et d.évaluer les effets individuels, additifs et cumulatifs de l’exploitation des sables bitumineux et d’autres développements des ressources sur les oiseaux boréaux.",,
+Organization Name / Nom de l’organisme,Environment and Climate Change Canada,Environnement et Changement climatique Canada ,,
+Organization Contact Information / Coor-données de l’organisation ,"200 Sacre-Coeur Blvd, Gatineau, Quebec,  K1A 0H3","200, boul. Sacré Coeur, Gatineau (Québec)  K1A 0H3",,
+Email / Courriel,enviroinfo@canada.ca,enviroinfo@canada.ca,,
+Program / Programme,"Joint Canada-Alberta Implementation Plan for Oil Sands Monitoring (JOSM),Biodiversity and Land Disturbance Implementation Plan Activities – Cause-Effect Monitoring - Migratory Landbirds (http://www.publications.gc.ca/site/eng/436043/publication.html)","Plan de mise en œuvre conjoint Canada-Alberta pour la surveillance visant les sables bitumineux (JOSM), Activités du plan de mise en œuvre de la sur
+veillance de la biodiversité et des perturbations du terrain – Surveillance des causes et des effets  - oiseaux terrestres (http://www.publications.gc.ca/site/eng/436043/publication.html)",,
+Principal Investigator / Chercheur Principal,Lisa Mahon,,,
+Data Steward / Intendant des données,Judith Toms,,,
+Data Steward Affiliation / Affiliation d'intendant des données,"Environment and Climate Change Canada, Canadian Wildlife Service ","Environnement et Changement climatique Canada, Service canadien de la faune",,
+Open Government Licence-Canada / Licence du gouver-nement ouvert – Canada,http://open.canada.ca/en/open-government-licence-canada,http://ouvert.canada.ca/fr/licence-du-gouvernement-ouvert-canada,,
+Attribution / ,"Environment and Climate Change Canada, [Year Accessed].  Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies.csv, generated 2012-03-07. Accessed on [Year-Month-Day] from [Name and URL of the data portal].","Environnement et Changement climatique Canada, [année de la consultation]. Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies.csv, générée 2012-03-07. Téléchargé le [année-mois-jour] depuis [Nom et URL du portail de données].",,
+Acknowledgement statement / Énoncé de reconnaissance,The author(s) acknowledge Environment and Climate Change Canada and for the provision of [type of] data accessed from [Name and URL of the data portal].  [If applicable:  The original data/data files were modified and redistributed and/or used to produce derivative work as follows: …enter details…].    ,"Le ou les auteur(s) reconnaissent Environnement et Changement climatique Canada pour la prestation du [type de] données consultées depuis [Nom et URL du portail de données]. [S’il y a lieu : les données/fichiers de données d’origine ont été modifiés, redistribués et/ou utilisés pour des travaux dérivés, à savoir : …précisez…].    ",,
+Quality Assurance Level and Disclaimer ,"Level 1, defined as a complete data set of specified quality that consists of research products subjected to quality assurance and quality control checks and data management procedures.","Définition du niveau 1 : ensemble de données complet d’une qualité précisée, qui regroupe des produits de recherche soumis à des vérifications d’assurance et de contrôle de la qualité et à des procédures de gestion des données.",,
+,,,,
+SpeciesID,SpeciesName,Noms_français,AOU_numeric,Scientific Name
+175605,Peregrine Falcon (anatum ssp),,,Falco peregrinus anatum
+176982,Dovekie,Mergule nain,34,Alle alle
+ABDU,American Black Duck,Canard noir,133,Anas rubripes
+ABTO,Abert's Towhee,,592,Pipilo aberti
+ACFL,Acadian Flycatcher,Moucherille vert,465,Empidonax virescens
+ACWO,Acorn Woodpecker,,407,Melanerpes formicivorus
+AECH,Western/Clark's Grebe,,,Aechmophorus spp.
+AGPL,American Golden-Plover,,,Pluvialis dominica
+AGWT,Green-winged Teal,Sarcelle d'hiver,139,Anas crecca
+ALCID,Alcid species,,,Alcid spp.
+ALFL,Alder Flycatcher,Moucherolle des aulnes,466.1000061,Empidonax alnorum
+ALHU,Allen's Hummingbird,,434,Selasphorus sasin
+ALOR,Altamira Oriole,,503.1000061,Icterus gularis
+ALTE,Aleutian Tern,Sterne des Aléoutiennes,73,Sterna aleutica
+AMAV,American Avocet,Avocette d'Amérique,225,Recurvirostra americana
+AMBI,American Bittern,Butor d'Amérique,190,Botaurus lentiginosus
+AMCO,American Coot,Foulque d'Amérique,221,Fulica americana
+AMCR,American Crow,Corneille d'Amérique,488,Corvus brachyrhynchos
+AMDI,American Dipper,Cincle d'Amérique,701,Cinclus mexicanus
+AMGO,American Goldfinch,Chardonneret jaune,529,Carduelis tristis
+AMKE,American Kestrel,Crécerelle d'Amérique,360,Falco sparverius
+AMOY,American Oystercatcher,Huîtrier d'Amérique,286,Haematopus palliatus
+AMPI,American Pipit,,,
+AMRE,American Redstart,Paruline flamboyante,687,Setophaga ruticilla
+AMRO,American Robin,Merle d'Amérique,761,Turdus migratorius
+ATSP,American Tree Sparrow,,,
+AMWI,American Wigeon,Canard d'Amérique,137,Anas americana
+AMWO,American Woodcock,Bécasse d'Amérique,228,Scolopax minor
+ANHI,Anhinga,,118,Anhinga anhinga
+ANHU,Anna's Hummingbird,Colibri d'Anna,431,Calypte anna
+ANMU,Ancient Murrelet,Guillemot à cou blanc,21,Synthliboramphus antiquus
+ANNI,Antillean Nighthawk,,420.1000061,Chordeiles gundlachii
+ARLO,Arctic Loon,Plongeon arctique,9,Gavia arctica
+ARTE,Arctic Tern,Sterne arctique,71,Sterna paradisaea
+ARWA,Arctic Warbler,,747,Phylloscopus borealis
+ATBR,Brant Goose,Bernache cravant,173,Branta bernicla
+ATFL,Ash-throated Flycatcher,,454,Myiarchus cinerascens
+ATPU,Atlantic Puffin,Macareux moine,13,Fratercula arctica
+ATTW,American Three-toed Woodpecker,,,
+ATSP,American Tree Sparrow,Bruant hudsonien,559,Spizella arborea
+AUOR,Audubon's Oriole,,503,Icterus graduacauda
+AUWA,Audubon's Warbler,,656,Dendroica coronata auduboni
+AWPE,American White Pelican,Pélican d'Amérique,125,Pelecanus erythrorhynchos
+BAEA,Bald Eagle,Pygargue à tête blanche,352,Haliaeetus leucocephalus
+BAGO,Barrow's Goldeneye,Garrot d'Islande,152,Bucephala islandica
+BAIS,Baird's Sparrow,Bruant de Baird,545,Ammodramus bairdii
+BAMO,Bahama Mockingbird,,703.0999756,Mimus gundlachii
+BANS,Bank Swallow,Hirondelle de rivage,616,Riparia riparia
+BAOR,Baltimore Oriole,Oriole du Nord,507,Icterus galbula
+BAOW,Barred Owl,Chouette rayée,368,Strix varia
+BARS,Barn Swallow,Hirondelle rustique,613,Hirundo rustica
+BASA,Baird's Sandpiper,Bécasseau de Baird,241,Calidris bairdii
+BASP,Bachman's Sparrow,,575,Aimophila aestivalis
+BASW,Barn Swallow,,,Hirundo rustica
+BATE,Baikal Teal,,,Anas formosa
+BAWW,Black-and-white Warbler,Paruline noir et blanc,636,Mniotilta varia
+BBCU,Black-billed Cuckoo,Coulicou à bec noir,388,Coccyzus erythropthalmus
+BBFL,Buff-breasted Flycatcher,,470,Empidonax fulvifrons
+BBMA,Black-billed Magpie,Pie d'Amérique,475,Pica hudsonia
+BBPL,Black-bellied Plover,Pluvier argenté,270,Pluvialis squatarola
+BBSA,Buff-breasted Sandpiper,Bécasseau roussâtre,262,Tryngites subruficollis
+BBWA,Bay-breasted Warbler,Paruline à poitrine baie,660,Dendroica castanea
+BBWD,Black-bellied Whistling-Duck,,177,Dendrocygna autumnalis
+BBWO,Black-backed Woodpecker,Pic à dos noir,400,Picoides arcticus
+BCCH,Black-capped Chickadee,Mésange à tête noire,735,Poecile atricapillus
+BCFL,Brown-crested Flycatcher,,453,Myiarchus tyrannulus
+BCHU,Black-chinned Hummingbird,Colibri à gorge noire,429,Archilochus alexandri
+BCNH,Black-crowned Night-Heron,Bihoreau gris,202,Nycticorax nycticorax
+BCNH,Blacked-crowned Night-Heron,,,Nycticorax nycticorax
+BCRF,Brown-capped Rosy-Finch,Roselin à tête brune,526,Leucosticte australis
+BCSP,Black-chinned Sparrow,,565,Spizella atrogularis
+BCTI,Black-crested Titmouse,,732,Baeolophus atricristatus
+BCVI,Black-capped Vireo,,630,Vireo atricapillus
+BDMH,Black Duck - Mallard Hybrid (ABDU-like),,,Anas spp.
+BEKI,Belted Kingfisher,Martin-pêcheur d'Amérique,390,Ceryle alcyon
+BETH,Bendire's Thrasher,,708,Toxostoma bendirei
+BEVI,Bell's Vireo,,633,Vireo bellii
+BEWR,Bewick's Wren,Troglodyte de Bewick,719,Thryomanes bewickii
+BFAL,Black-footed Albatross,,,Diomedea nigripes
+BFBO,Blue-footed Booby,,114.0999985,Sula nebouxii
+BGGN,Blue-gray Gnatcatcher,Gobemoucheron gris-bleu,751,Polioptila caerulea
+BGGR,Boat-tailed/Great-tailed Grackle,,,Quiscalus spp.
+BGSE,Blue Grouse,Tétras sombre,297,Dendragapus obscurus
+BHCO,Brown-headed Cowbird,Vacher à tête brune,495,Molothrus ater
+BHGR,Black-headed Grosbeak,Cardinal à tête noire,596,Pheucticus melanocephalus
+BHGU,Black-headed Gull,Mouette rieuse,55.09999847,Larus ridibundus
+BHNU,Brown-headed Nuthatch,,729,Sitta pusilla
+BHVI,Blue-headed Vireo,,,
+BITH,Bicknell's Thrush,Grive de Bicknell,757.0999756,Catharus bicknelli
+BLAR,Black Rail,,216,Laterallus jamaicensis
+BLBR,Black Brant,,174,Branta bernicla nigricans
+BLBW,Blackburnian Warbler,Paruline à gorge orangée,662,Dendroica fusca
+BLGR,Blue Grosbeak,,597,Guiraca caerulea
+BLGU,Black Guillemot,Guillemot à miroir,27,Cepphus grylle
+BLHU,Blue-throated Hummingbird,,427,Lampornis clemenciae
+BLJA,Blue Jay,Geai bleu,477,Cyanocitta cristata
+BLKI,Black-legged Kittiwake,Mouette tridactyle,40,Rissa tridactyla
+BLML,"Mixed Pair (Male ABDU, Female MALL)",,,Anas spp.
+BLOY,Black Oystercatcher,Huîtrier de Bachman,287,Haematopus bachmani
+BLPH,Black Phoebe,,458,Sayornis nigricans
+BLPW,Blackpoll Warbler,Paruline rayée,661,Dendroica striata
+BLRF,Black Rosy-Finch,,525,Leucosticte atrata
+BLSC,Black Scoter,Macreuse noire,163,Melanitta nigra
+BLSH,Buller's Shearwater,,,Puffinus bulleri
+BLSK,Black Skimmer,,80,Rynchops niger
+BLSW,Black Swift,Martinet sombre,422,Cypseloides niger
+BLTE,Black Tern,Guifette noire,77,Chlidonias niger
+BLTH,Bluethroat,Gorgebleue à miroir,764,Luscinia svecica
+BLTU,Black Turnstone,Tournepierre noir,284,Arenaria melanocephala
+BLVU,Black Vulture,,326,Coragyps atratus
+BNST,Black-necked Stilt,Échasse d'Amérique,226,Himantopus mexicanus
+BOBO,Bobolink,Goglu des prés,494,Dolichonyx oryzivorus
+BOCH,Boreal Chickadee,Mésange à tête brune,740,Poecile hudsonicus
+BOGU,Bonaparte's Gull,Mouette de Bonaparte,60,Larus philadelphia
+BOOW,Boreal Owl,Nyctale de Tengmalm,371,Aegolius funereus
+BOSP,Botteri's Sparrow,,576,Aimophila botterii
+BOWA,Bohemian Waxwing,Jaseur boréal,618,Bombycilla garrulus
+BRAC,Brandt's Cormorant,Cormoran de Brandt,122,Phalacrocorax penicillatus
+BRAN,Brant,,,Branta bernicla
+BRBL,Brewer's Blackbird,Quiscale de Brewer,510,Euphagus cyanocephalus
+BRBO,Brown Booby,,115,Sula leucogaster
+BRCO,Bronzed Cowbird,,496,Molothrus aeneus
+BRCR,Brown Creeper,Grimpereau brun,726,Certhia americana
+BRHU,Broad-Billed Hummingbird,,441,Cynanthus latirostris
+BRPE,Brown Pelican,,126,Pelecanus occidentalis
+BRSP,Brewer's Sparrow,Bruant de Brewer,562,Spizella breweri
+BRTH,Brown Thrasher,Moqueur roux,705,Toxostoma rufum
+BRTI,Bridled Titmouse,,734,Baeolophus wollweberi
+BRWA,Brewster's Warbler,,641.2000122,Vermivora spp.
+BTBW,Black-throated Blue Warbler,Paruline bleue,654,Dendroica caerulescens
+BTCU,Bristle-thighed Curlew,,268,Numenius tahitiensis
+BTGN,Black-tailed Gnatcatcher,,752,Polioptila melanura
+BTGO,Bar-tailed Godwit,,250,Limosa lapponica
+BTGR,Boat-tailed Grackle,,513,Quiscalus major
+BTHU,Broad-tailed Hummingbird,,432,Selasphorus platycercus
+BTNW,Black-throated Green Warbler,Paruline à gorge noire,667,Dendroica virens
+BTPI,Band-tailed Pigeon,Pigeon à queue barrée,312,Columba fasciata
+BTSP,Black-throated Sparrow,,573,Amphispiza bilineata
+BTYW,Black-throated Gray Warbler,Paruline grise,665,Dendroica nigrescens
+BUDG,Budgerigar,,382.2000122,Melopsittacus undulatus
+BUFF,Bufflehead,Petit Garrot,153,Bucephala albeola
+BUHU,Buff-bellied Hummingbird,,439,Amazilia yucatanensis
+BUOR,Bullock's Oriole,Oriole à ailes blanches,508,Icterus bullockii
+BUOW,Burrowing Owl,Chevêche des terriers,378,Athene cunicularia
+BWHA,Broad-winged Hawk,Petite Buse,343,Buteo platypterus
+BWTE,Blue-winged Teal,Sarcelle à ailes bleues,140,Anas discors
+BWVI,Black-whiskered Vireo,,623,Vireo altiloquus
+BWWA,Blue-winged Warbler,Paruline à ailes bleues,641,Vermivora pinus
+CAAU,Cassin's Auklet,Starique de Cassin,16,Ptychoramphus aleuticus
+CACG,Cackling Goose,Bernache de Hutchins,,Branta hutchinsii
+CACH,Carolina Chickadee,,736,Poecile carolinensis
+CACO,California Condor,,324,Gymnogyps californianus
+CACW,Cactus Wren,,713,Campylorhynchus brunneicapillus
+CAEA,Cattle Egret,,,Bubulcus ibis
+CAEG,Cattle Egret,Héron garde-boeufs,200.1000061,Bubulcus ibis
+CAFI,Cassin's Finch,Roselin de Cassin,518,Carpodacus cassinii
+CAGN,California Gnatcatcher,,753,Polioptila californica
+CAGO,Canada Goose,Bernache du Canada,172,Branta canadensis
+CAGU,California Gull,Goéland de Californie,53,Larus californicus
+CAHU,Calliope Hummingbird,Colibri calliope,436,Stellula calliope
+CAKI,Cassin's Kingbird,,448,Tyrannus vociferans
+CALID,small sandpiper or “peep”,,,Calidris spp.
+CANV,Canvasback,Fuligule à dos blanc,147,Aythya valisineria
+CANW,Canyon Wren,Troglodyte des canyons,717,Catherpes mexicanus
+CAPY,Cardinal/Pyrrhuloxia,,593.5,Cardinalis spp.
+CAQU,California Quail,Colin de Californie,294,Callipepla californica
+CARW,Carolina Wren,Troglodyte de Caroline,718,Thryothorus ludovicianus
+CASP,Cassin's Sparrow,,578,Aimophila cassinii
+CASW,Cave Swallow,,612.0999756,Petrochelidon fulva
+CATE,Caspian Tern,Sterne caspienne,64,Sterna caspia
+CATH,California Thrasher,,710,Toxostoma redivivum
+CAVI,Cassin's Vireo,Viréo de Cassin,629.0999756,Vireo cassinii
+CAWA,Canada Warbler,Paruline du Canada,686,Wilsonia canadensis
+CAWR,Canyon Wren,,,Catherpes mexicanus
+CBCH,Chestnut-backed Chickadee,Mésange à dos marron,741,Poecile rufescens
+CBHA,Common Black-Hawk,,345,Buteogallus anthracinus
+CBHG,Common Black-headed Gull,,,Larus ridibundus
+CBTH,Curve-billed Thrasher,,707,Toxostoma curvirostre
+CCLO,Chestnut-collared Longspur,Bruant à ventre noir,538,Calcarius ornatus
+CCSP,Clay-colored Sparrow,Bruant des plaines,561,Spizella pallida
+CCSW,Cave/Cliff Swallow,,612.2000122,Petrochelidon spp.
+CDFL,Cordilleran Flycatcher,Moucherolle des ravins,464,Empidonax occidentalis
+CEDW,Cedar Waxwing,Jaseur d'Amérique,619,Bombycilla cedrorum
+CERW,Cerulean Warbler,Paruline azurée,658,Dendroica cerulea
+CGDO,Common Ground-Dove,,320,Columbina passerina
+CHRA,Chihuahuan Raven,,487,Corvus cryptoleucus
+CHSP,Chipping Sparrow,Bruant familier,560,Spizella passerina
+CHSW,Chimney Swift,Martinet ramoneur,423,Chaetura pelagica
+CHUK,Chukar,Perdrix choukar,288.2000122,Alectoris chukar
+CITE,Cinnamon Teal,Sarcelle cannelle,141,Anas cyanoptera
+CLGR,Clark's Grebe,Grèbe à face blanche,1.100000024,Aechmophorus clarkii
+CLNU,Clark's Nutcracker,Cassenoix d'Amérique,491,Nucifraga columbiana
+CLRA,Clapper Rail,,211,Rallus longirostris
+CLSW,Cliff Swallow,Hirondelle à front blanc,612,Petrochelidon pyrrhonota
+CLTO,California Towhee,,591.0999756,Pipilo crissalis
+CMWA,Cape May Warbler,Paruline tigrée,650,Dendroica tigrina
+CNTO,Canyon Towhee,,591,Pipilo fuscus
+COBO,Barn Owl,Effraie de clochers,365,Tyto alba
+COBU,Bushtit,Mésange buissonnière,743,Psaltriparus minimus
+COCK,Cockatiel,,8165,Nymphicus hollandicus
+COEI,Common Eider,Eider à duvet,159,Somateria mollissima
+COGO,Common Goldeneye,Garrot à oeil d'or,151,Bucephala clangula
+COGR,Common Grackle,Quiscale bronzé,511,Quiscalus quiscula
+COHA,Cooper's Hawk,Épervier de Cooper,333,Accipiter cooperii
+COHU,Costa's Hummingbird,,430,Calypte costae
+COHU,Costa's Humminbird,,,Calypte costae
+COKI,Couch's Kingbird,,446.1000061,Tyrannus couchii
+COLO,Common Loon,Plongeon huard,7,Gavia immer
+COME,Common Merganser,Grand Harle,129,Mergus merganser
+COMO,Common Moorhen,Gallinule poule-d'eau,219,Gallinula chloropus
+COMU,Common Murre,Guillemot marmette,30,Uria aalge
+COMY,Common Myna,,493.2000122,Acridotheres tristis
+CONI,Common Nighthawk,Engoulevent d'Amérique,420,Chordeiles minor
+CONW,Connecticut Warbler,Paruline à gorge grise,678,Oporornis agilis
+COPA,Common Pauraque,,419,Nyctidromus albicollis
+COPE,Common Peafowl,,309.5,Pavo cristatus
+COPW,Common Poorwill,Engoulevent de Nuttall,418,Phalaenoptilus nuttallii
+CORA,Common Raven,Grand Corbeau,486,Corvus corax
+CORE,Common Redpoll,Sizerin flammé,528,Carduelis flammea
+CORM,cormorant,,,Phalacrocorax spp.
+CORMSP,Cormorant Species,,,Genus Phalacrocorax
+COSH,Cory's Shearwater,,88,Calonectris diomedea
+COSN,Common Snipe,Bécassine des marais,230,Gallinago gallinago
+COTE,Common Tern,Sterne pierregarin,70,Sterna hirundo
+COYE,Common Yellowthroat,Paruline masquée,681,Geothlypis trichas
+CRCA,Crested Caracara,,362,Caracara plancus
+CRMY,Crested Myna,Martin huppé,493.1000061,Acridotheres cristatellus
+CRPL,Common Ringed Plover,Pluvier grand-gravelot,275,Charadrius hiaticula
+CRTH,Crissal Thrasher,,712,Toxostoma crissale
+CSWA,Chestnut-sided Warbler,Paruline à flancs marron,659,Dendroica pensylvanica
+CUSA,Curlew Sandpiper,Bécasseau cocorli,244,Calidris ferruginea
+CWWI,Chuck-will's-widow,Engoulevent de Caroline,416,Caprimulgus carolinensis
+DABBSP,Dabbler Species,,,Genus Anas
+DCCO,Double-crested Cormorant,Cormoran à aigrettes,120,Phalacrocorax auritus
+DCCO,Doubled-crested Cormorant,,,Phalacrocorax auritus
+DCFL,Dusky-capped Flycatcher,,455,Myiarchus tuberculifer
+DEJU,Dark-eyed Junco,Junco ardoisé,567,Junco hyemalis
+DICK,Dickcissel,Dickcissel d'Amérique,604,Spiza americana
+DIVESP,Diving Species,,,Class Aves
+DKSHSP,Dark Shearwater species,,,Family Procellariidae
+DOWO,Downy Woodpecker,Pic mineur,394,Picoides pubescens
+DRPE,Dark-rumped Petrel,,,Pterodroma phaeopygia
+DUCK,Unknown duck,,,
+DUCKSP,Duck Species,,,Family Anatidae
+DUFL,Dusky Flycatcher,Moucherolle sombre,469,Empidonax oberholseri
+DUGR,Dusky Grouse,,,
+DUNL,Dunlin,Bécasseau variable,243,Calidris alpina
+EABL,Eastern Bluebird,Merlebleu de l'Est,766,Sialia sialis
+EAGLSP,Eagle Species,,,Family Accipitridae
+EAGR,Eared Grebe,Grèbe à cou noir,4,Podiceps nigricollis
+EAKI,Eastern Kingbird,Tyran tritri,444,Tyrannus tyrannus
+EAME,Eastern Meadowlark,Sturnelle des prés,501,Sturnella magna
+EAPH,Eastern Phoebe,Moucherolle phébi,456,Sayornis phoebe
+EASO,Eastern Screech-Owl,Petit-duc maculé,373,Megascops asio
+EATO,Eastern Towhee,,,
+EAWP,Eastern Wood-Pewee,Pioui de l'Est,461,Contopus virens
+ELOSH,Eastern Loggerhead Shrike,Pie-grièche migratrice,622,Lanius ludovicianus migrans
+ELOW,Elf Owl,,381,Micrathene whitneyi
+ELTE,Elegant Tern,,66,Sterna elegans
+ELTR,Elegant Trogon,,389,Trogon elegans
+ESCU,Eskimo Curlew,Courlis esquimau,266,Numenius borealis
+EUCD,Eurasian Collared-Dove,Tourterelle turque,2286,Streptopelia decaocto
+EUKE,Eurasian Kestrel,,,Falco tinnunculus
+EUSK,Sky Lark,Alouette des champs,473,Alauda arvensis
+EUSK,Eurasian Skylark,,,Alauda arvensis
+EUST,European Starling,Etourneau sansonnet,493,Sturnus vulgaris
+EUTS,Eurasian Tree Sparrow,,688.2999878,Passer montanus
+EUWI,Eurasian Wigeon,canard siffleur,136,Anas penelope
+EVGR,Evening Grosbeak,Gros-bec errant,514,Coccothraustes vespertinus
+EWPW,Eastern Whip-poor-will,,,
+FECU,Far Eastern Curlew,,,Numenius madagascariensis
+FEHA,Ferruginous Hawk,Buse rouilleuse,348,Buteo regalis
+FEPO,Ferruginous Pygmy-Owl,,380,Glaucidium brasilianum
+FFSH,Flesh-footed Shearwater,,,Puffinus carneipes
+FICR,Fish Crow,Corneille de rivage,490,Corvus ossifragus
+FISP,Field Sparrow,Bruant des champs,563,Spizella pusilla
+FLOW,Flammulated Owl,Petit-duc nain,374,Otus flammeolus
+FLSJ,Florida Srub-Jay,,,Aphelocoma coerulescens
+FOSP,Fox Sparrow,Bruant fauve,585,Passerella iliaca
+FOTE,Forster's Tern,Sterne de Forster,69,Sterna forsteri
+FRGU,Franklin's Gull,Mouette de Franklin,59,Larus pipixcan
+FTSP,Fork-tailed Storm-Petrel,Océanite à queue fourchue,105,Oceanodroma furcata
+FUWD,Fulvous Whistling-Duck,,178,Dendrocygna bicolor
+GADW,Gadwall,Canard chipeau,135,Anas strepera
+GAQU,Gambel's Quail,,295,Callipepla gambelii
+GARG,Garganey,,,Anas querquedula
+GBAN,Groove-billed Ani,,384,Crotophaga sulcirostris
+GBBG,Great Black-backed Gull,Goéland marin,47,Larus marinus
+GBHE,Great Blue Heron,,,Ardea herodias
+GBTE,Gull-billed Tern,,63,Sterna nilotica
+GCFL,Great-crested Flycatcher,Tyran huppé,452,Myiarchus crinitus
+GCKI,Golden-crowned Kinglet,Roitelet à couronne dorée,748,Regulus satrapa
+GCRF,Gray-crowned Rosy-Finch,Roselin brun,524,Leucosticte tephrocotis
+GCSP,Golden-crowned Sparrow,Bruant à couronne dorée,557,Zonotrichia atricapilla
+GCTH,Gray-cheeked Thrush,Grive à joues grises,757,Catharus minimus
+GCWA,Golden-cheeked Warbler,,666,Dendroica chrysoparia
+GFWO,Golden-fronted Woodpecker,,410,Melanerpes aurifrons
+GGOW,Great Gray Owl,Chouette lapone,370,Strix nebulosa
+GGTO,Green-tailed Towhee,Tohi à queue verte,590,Pipilo chlorurus
+GHCH,Gray-headed Chickadee,,,
+GHJU,Gray-headed Junco,,569,Junco hyemalis caniceps
+GHOW,Great Horned Owl,Grand-duc d'Amérique,375,Bubo virginianus
+GIFL,Gilded Flicker,,414,Colaptes chrysoides
+GIWO,Gila Woodpecker,,411,Melanerpes uropygialis
+GLGU,Glaucous Gull,Goéland bourgmestre,42,Larus hyperboreus
+GLIB,Glossy Ibis,,186,Plegadis falcinellus
+GNBH,Green Heron,Héron vert,201,Butorides virescens
+GOEA,Golden Eagle,Aigle royal,349,Aquila chrysaetos
+GOLD,Goldeneye species,,,Bucephala spp.
+GOOSSP,Goose Species,,,Genus Branta
+GPCH,Greater Prairie-Chicken,Tétras des prairies,305,Tympanuchus cupido
+GRAJ,Gray Jay,Mésangeai du Canada,484,Perisoreus canadensis
+GRCA,Gray Catbird,Moqueur chat,704,Dumetella carolinensis
+GRCO,Great Cormorant,Grand Cormoran,119,Phalacrocorax carbo
+GREBSP,Grebe Species,,,Genus Podiceps
+GREG,Great Egret,Grande Aigrette,196,Ardea alba
+GREJ,Green Jay,,483,Cyanocorax yncas
+GRFL,Gray Flycatcher,Moucherolle gris,469.1000061,Empidonax wrightii
+GRHA,Gray Hawk,,346,Buteo nitidus
+GRHE,Green-backed Heron,,,Butorides striatus
+GRKI,Gray Kingbird,,445,Tyrannus dominicensis
+GRKS,Great Kiskadee,,449,Pitangus sulphuratus
+GRNK,Green Kingfisher,,391,Chloroceryle americana
+GRPA,Gray Partridge,Perdrix grise,288.1000061,Perdix perdix
+GRPE,Greater Pewee,,460,Contopus pertinax
+GRRO,Greater Roadrunner,,385,Geococcyx californianus
+GRSC,Greater Scaup,Fuligule milouinan,148,Aythya marila
+GRSP,Grasshopper Sparrow,Bruant sauterelle,546,Ammodramus savannarum
+GRVI,Gray Vireo,,634,Vireo vicinior
+GRWA,Grace's Warbler,,664,Dendroica graciae
+GRYE,Greater Yellowlegs,Grand Chevalier,254,Tringa melanoleuca
+GSGR,Gunnison Sage-Grouse,,308.8999939,Centrocercus minimus
+GTBH,Great Blue Heron,Grand Héron,194,Ardea herodias
+GTGR,Great-tailed Grackle,,512,Quiscalus mexicanus
+GTWH,Great White Heron,,192,Ardea herodias occidentalis
+GULL,unknown gull,,,
+GULLSP,Gull species,,,Genus Larus
+GWFG,Greater White-fronted Goose,Oie rieuse,171,Anser albifrons
+GWGU,Glaucous-winged Gull,Goéland à ailes grises,44,Larus glaucescens
+GWTE,Green-winged Teal,,,Anas crecca
+GWWA,Golden-winged Warbler,Paruline à ailes dorées,642,Vermivora chrysoptera
+GWWG,Glaucous-Winged/Western Gull,,,Larus spp.
+GYRF,Gyrfalcon,Faucon gerfaut,354,Falco rusticolus
+HADU,Harlequin Duck,,,Histrionicus histrionicus
+HAFL,Hammond's Flycatcher,Moucherolle de Hammond,468,Empidonax hammondii
+HARD,Harlequin Duck,Arlequin plongeur,155,Histrionicus histrionicus
+HASP,Harris's Sparrow,Bruant à face noire,553,Zonotrichia querula
+HASP,Harris' Sparrow,,,Zonotrichia querula
+HAWO,Hairy Woodpecker,Pic chevelu,393,Picoides villosus
+HDFL,Hammond's/Dusky Flycatcher,,468.8999939,Empidonax spp.
+HEEG,Heerman's Gull,,,Larus heermanni
+HEEG,Heermann's Gull,,,Larus heermanni
+HEGU,Herring Gull,,,Larus argentatus
+HERG,Herring Gull,Goéland argenté,51,Larus argentatus
+HESP,Henslow's Sparrow,Bruant de Henslow,547,Ammodramus henslowii
+HETA,Hepatic Tanager,,609,Piranga flava
+HETH,Hermit Thrush,Grive solitaire,759,Catharus guttatus
+HEWA,Hermit Warbler,,669,Dendroica occidentalis
+HOFI,House Finch,Roselin familier,519,Carpodacus mexicanus
+HOGR,Horned Grebe,Grèbe esclavon,3,Podiceps auritus
+HOLA,Horned Lark,Alouette hausse-col,474,Eremophila alpestris
+HOME,Hooded Merganser,Harle couronné,131,Lophodytes cucullatus
+HOOR,Hooded Oriole,,505,Icterus cucullatus
+HOPU,Horned Puffin,Macareux cornu,14,Fratercula corniculata
+HORE,Hoary Redpoll,Sizerin blanchâtre,527,Carduelis hornemanni
+HOSP,House Sparrow,Moineau domestique,688.2000122,Passer domesticus
+HOWA,Hooded Warbler,Paruline à capuchon,684,Wilsonia citrina
+HOWR,House Wren,Troglodyte familier,721,Troglodytes aedon
+HRLH,Harlan's Hawk,,338,Buteo jamaicensis harlani
+HRSH,Harris's Hawk,,335,Parabuteo unicinctus
+HTWA,Hermit/Townsend's Warbler,,668.5,Dendroica spp.
+HUGO,Hudsonian Godwit,Barge hudsonienne,251,Limosa haemastica
+HUVI,Hutton's Vireo,Viréo de Hutton,632,Vireo huttoni
+ICGU,Iceland Gull,Goéland arctique,43,Larus glaucoides
+INBU,Indigo Bunting,Passerin indigo,598,Passerina cyanea
+INDO,Inca Dove,,321,Scardafella inca
+IPSP,Ipswich Sparrow,Bruant d'Ipswich,541,Passerculus sandwichensis princeps
+ISSJ,Island Scrub-Jay,,481.1000061,Aphelocoma insularis
+IVGU,Ivory Gull,Mouette blanche,39,Pagophila eburnea
+JAEGSP,Jaeger species,,,Family Stercorariidae
+JUTI,Juniper Titmouse,,733.0999756,Baeolophus ridgwayi
+KEWA,Kentucky Warbler,Paruline du Kentucky,677,Oporornis formosus
+KIEI,King Eider,Eider à tête grise,162,Somateria spectabilis
+KILL,Killdeer,Pluvier kildir,273,Charadrius vociferus
+KIMU,Kittlitz's Murrelet,Guillemot de Kittlitz,24,Brachyramphus brevirostris
+KIRA,King Rail,Râle élégant,208,Rallus elegans
+KIWA,Kirtland's Warbler,Paruline de Kirtland,670,Dendroica kirtlandii
+LAAL,Laysan Albatross,,,Diomedea immutabilis
+LAGO,Lawrence's Goldfinch,,531,Carduelis lawrencei
+LAGU,Laughing Gull,Mouette atricille,58,Larus atricilla
+LALO,Lapland Longspur,Bruant lapon,536,Calcarius lapponicus
+LARB,Lark Bunting,Bruant noir et blanc,605,Calamospiza melanocorys
+LASP,Lark Sparrow,Bruant à joues marron,552,Chondestes grammacus
+LAWA,Lawrence's Warbler,,641.2999878,Vermivora spp.
+LAZB,Lazuli Bunting,Passerin azuré,599,Passerina amoena
+LBCU,Long-billed Curlew,Courlis à long bec,264,Numenius americanus
+LBDO,Long-billed Dowitcher,Bécassin à long bec,232,Limnodromus scolopaceus
+LBTH,Long-billed Thrasher,,706,Toxostoma longirostre
+LBWO,Ladder-backed Woodpecker,,396,Picoides scalaris
+LCSP,Le Conte's Sparrow,Bruant de Le Conte,548,Ammodramus leconteii
+LCTH,Le Conte's Thrasher,,711,Toxostoma lecontei
+LEBI,Least Bittern,Petit Blongios,191,Ixobrychus exilis
+LEFL,Least Flycatcher,Moucherolle tchébec,467,Empidonax minimus
+LEGO,Lesser Goldfinch,,530,Carduelis psaltria
+LEGP,American Golden-Plover,Pluvier bronzé,272,Pluvialis dominica
+LEGR,Least Grebe,,5,Tachybaptus dominicus
+LENI,Lesser Nighthawk,,421,Chordeiles acutipennis
+LEOW,Long-eared Owl,Hibou moyen-duc,366,Asio otus
+LESA,Least Sandpiper,Bécasseau minuscule,242,Calidris minutilla
+LESC,Lesser Scaup,Petit Fuligule,149,Aythya affinis
+LETE,Least Tern,,74,Sterna antillarum
+LEWO,Lewis's Woodpecker,Pic de Lewis,408,Melanerpes lewis
+LEWO,Lewis' Woodpecker,,,Melanerpes lewis
+LEYE,Lesser Yellowlegs,Petit Chevalier,255,Tringa flavipes
+LGALSP,Large Alcid Species,,,Family Alcidae
+LGPL,Lesser Golden-Plover,,,Pluvialis dominica
+LGULL,unknown large gull,,,Larus spp.
+LHSP,Leach's Storm-Petrel,Océanite cul-blanc,106,Oceanodroma leucorhoa
+LIBH,Little Blue Heron,,200,Egretta caerulea
+LIGU,Little Gull,Mouette pygmée,60.09999847,Larus minutus
+LIMP,Limpkin,,207,Aramus guarauna
+LISP,Lincoln's Sparrow,Bruant de Lincoln,583,Melospiza lincolnii
+LOONSP,Loon Species,,,Genus Gavia
+LOSH,Loggerhead Shrike,Pie-grièche migratrice,622,Lanius ludovicianus
+LOWA,Louisiana Waterthrush,Paruline hochequeue,676,Seiurus motacilla
+LPCH,Lesser Prairie-Chicken,,307,Tympanuchus pallidicinctus
+LSGO,Snow Goose,Oie des neiges,169,Chen caerulescens
+LSPE,Leach's Storm-Petrel,,,Oceanodroma leucorhoa
+LTDU,Long-tailed Duck,,,Clangula hyemalis
+LTJA,Long-tailed Jaeger,Labbe à longue queue,38,Stercorarius longicaudus
+LUHU,Lucifer Hummingbird,,437,Calothorax lucifer
+LUWA,Lucy's Warbler,,643,Vermivora luciae
+MABO,Masked Booby,,114,Sula dactylatra
+MACU,Mangrove Cuckoo,,386,Coccyzus minor
+MAFR,Magnificent Frigatebird,,128,Fregata magnificens
+MAGO,Marbled Godwit,Barge marbrée,249,Limosa fedoa
+MAHU,Magnificent Hummingbird,,426,Eugenes fulgens
+MALL,Mallard,Canard colvert,132,Anas platyrhynchos
+MAMU,Marbled Murrelet,Guillemot marbré,23,Brachyramphus marmoratus
+MASH,Manx Shearwater,Puffin des Anglais,90,Puffinus puffinus
+MAWA,Magnolia Warbler,Paruline à tête cendrée,657,Dendroica magnolia
+MAWR,Marsh Wren,Troglodyte des marais,725,Cistothorus palustris
+MBDH,Black Duck - Mallard Hybrid (MALL-like),,,Anas spp.
+MCLO,McCown's Longspur,Bruant de McCown,539,Calcarius mccownii
+MECH,Mexican Chickadee,,737,Poecile sclateri
+MEDU,Mexican Duck,,133.1000061,Anas platyrhynchos diazi
+MEGU,Mew Gull,Goéland cendre,55,Larus canus
+MEJA,Mexican Jay,,482,Aphelocoma ultramarina
+MERGSP,Merganser Species,,,Genus Mergus
+MERL,Merlin,Faucon émerillon,357,Falco columbarius
+MGWA,MacGillivray's Warbler,Paruline des buissons,680,Oporornis tolmiei
+MIKI,Mississippi Kite,,329,Ictinia mississippiensis
+MLBL,"Mixed Pair (Male MALL, Female ABDU)",,,Anas spp.
+MOBL,Mountain Bluebird,Merlebleu azuré,768,Sialia currucoides
+MOCH,Mountain Chickadee,Mésange de Gambel,738,Poecile gambeli
+MODO,Mourning Dove,Tourterelle triste,316,Zenaida macroura
+MODU,Mottled Duck,,134,Anas fulvigula
+MONP,Mongolian Plover,,279,Charadrius mongolus
+MOOT,Common Moorhen or American Coot,,,Not Applicable
+MOPA,Monk Parakeet,,382.3999939,Myiopsitta monachus
+MOQU,Montezuma Quail,,296,Cyrtonyx montezumae
+MOUP,Mountain Plover,Pluvier montagnard,281,Charadrius montanus
+MOUQ,Mountain Quail,Colin des montagnes,292,Oreortyx pictus
+MOWA,Mourning Warbler,Paruline triste,679,Oporornis philadelphia
+MUDU,Muscovy Duck,,1021,Cairina moschata
+MUPE,Murphy's Petrel,,,Pterodroma ultima
+MURLET,unknown murrelet,,,
+MURRSP,Murre species,,,Genus Uria
+MUSW,Mute Swan,Cygne tuberculé,178.1999969,Cygnus olor
+MYWA,Yellow-rumped Warbler,Paruline à croupion jaune,655.5999756,Dendroica coronata coronata
+NACO,Nanday Conure,,5183,Nandayus Nenday
+NAWA,Nashville Warbler,Paruline à joues grises,645,Vermivora ruficapilla
+NECO,Neotropic Cormorant,,121,Phalacrocorax brasilianus
+NESP,Nelson's Sparrow,,,
+NOBISP,No Observed Bird Species,,,
+NOBO,Northern Bobwhite,Colin de Virginie,289,Colinus virginianus
+NOBT,Northern Beardless-Tyrannulet,,472,Camptostoma imberbe
+NOCA,Northern Cardinal,Cardinal rouge,593,Cardinalis cardinalis
+NOCR,Northwestern Crow,Corneille d'Alaska,489,Corvus caurinus
+NOFL,Northern Flicker,,,
+NOFU,Northern Fulmar,Fulmar boréal,86,Fulmarus glacialis
+NOGA,Northern Gannet,Fou de Bassan,117,Morus bassanus
+NOGO,Northern Goshawk,Autour des palombes,334,Accipiter gentilis
+NOHA,Northern Harrier,Busard Saint-Martin,331,Circus cyaneus
+NOHO,Northern Hawk Owl,Chouette épervière,377,Surnia ulula
+NOMO,Northern Mockingbird,Moqueur polyglotte,703,Mimus polyglottos
+NOOR,Northern Oriole,,,Icterus galbula
+NOPA,Northern Parula,Paruline à collier,648,Parula americana
+NOPI,Northern Pintail,Canard pilet,143,Anas acuta
+NOPO,Northern Pygmy-Owl,Chevêchette naine,379,Glaucidium gnoma
+NOSL,Northern Shoveler,,,Anas clypeata
+NOWA,Northern Waterthrush,Paruline des ruisseaux,675,Seiurus noveboracensis
+NOWH,Northern Wheatear,Traquet motteux,765,Oenanthe oenanthe
+NRWS,Northern Rough-winged Swallow,Hirondelle à ailes hérissées,617,Stelgidopteryx serripennis
+NSHO,Northern Shoveler,Canard souchet,142,Anas clypeata
+NSHR,Northern Shrike,Pie-grièche grise,621,Lanius excubitor
+NSTS,Nelson's Sharp-tailed Sparrow,Bruant à queue aiguë??,549.0999756,Ammodramus nelsoni
+NSWO,Northern Saw-whet Owl,Petite Nyctale,372,Aegolius acadicus
+NUWO,Nuttall's Woodpecker,,397,Picoides nuttallii
+NWCR,Northwestern Crow,,,Corvus caurinus
+NWCS,White-crowned Sparrow,Bruant à couronne blanche,554,Zonotrichia leucophrys
+OATI,Oak Titmouse,,733,Baeolophus inornatus
+OCWA,Orange-crowned Warbler,Paruline verdâtre,646,Vermivora celata
+OLDS,Long-tailed Duck,Harelde kakawi,154,Clangula hyemalis
+OLDS,Oldsquaw,,,Clangula hyemalis
+OLSP,Olive Sparrow,,586,Arremonops rufivirgatus
+OLWA,Olive Warbler,,651,Peucedramus taeniatus
+ORJU,Oregon Junco,,567.0999756,Junco hyemalis oregonus
+OROR,Orchard Oriole,Oriole des vergers,506,Icterus spurius
+OSFL,Olive-sided Flycatcher,Moucherolle à côtés olive,459,Contopus cooperi
+OSPR,Osprey,Balbuzard pêcheur,364,Pandion haliaetus
+OVEN,Ovenbird,Paruline couronnée,674,Seiurus aurocapillus
+PAGP,Pacific Golden-Plover,,272.1000061,Pluvialis fulva
+PAID,Painted Bunting,,601,Passerina ciris
+PAJA,Parasitic Jaeger,Labbe parasite,37,Stercorarius parasiticus
+PALO,Pacific Loon,Plongeon du Pacifique,10,Gavia pacifica
+PAPI,Passenger Pigeon,,,Ectopistes migratorius
+PARE,Painted Redstart,,688,Myioborus pictus
+PAWA,Palm Warbler,,,
+PBGR,Pied-billed Grebe,Grèbe à bec bigarré,6,Podilymbus podiceps
+PECO,Pelagic Cormorant,Cormoran pélagique,123,Phalacrocorax pelagicus
+PEEPSP,Small Shorebird Species,,,Genus Calidris
+PEFA,Peregrine Falcon,Faucon pèlerin,356,Falco peregrinus
+PEFA-AN,Anatum Peregrine Falcon,,,Falco peregrinus
+PEFA-PE,Peale's Peregrine Falcon,,,Falco peregrinus
+PEFA-TU,Tundra Peregrine Falcon,,,Falco peregrinus
+PESA,Pectoral Sandpiper,Bécasseau à poitrine cendrée,239,Calidris melanotos
+PFSH,Pink-footed Shearwater,,,Puffinus creatopus
+PGPL,Pacific Golden-Plover,,,Pluvialis fulva
+PHAI,Phainopepla,,620,Phainopepla nitens
+PHALSP,Phalarope species,,,Genus Phalaropus
+PHVI,Philadelphia Vireo,Viréo de Philadelphie,626,Vireo philadelphicus
+PIGR,Pine Grosbeak,Durbec des sapins,515,Pinicola enucleator
+PIGU,Pigeon Guillemot,Guillemot columbin,29,Cepphus columba
+PIJA,Pinyon Jay,,492,Gymnorhinus cyanocephalus
+PIPL,Piping Plover,Pluvier siffleur,277,Charadrius melodus
+PISI,Pine Siskin,Tarin des pins,533,Carduelis pinus
+PIWA,Pine Warbler,Paruline des pins,671,Dendroica pinus
+PIWO,Pileated Woodpecker,Grand Pic,405,Dryocopus pileatus
+PLCH,Plain Chachalaca,,311,Ortalis vetula
+PLOSH,Prairie Loggerhead Shrike,Pie-grièche migratrice,622,Lanius ludovicianus excubitorides
+PLOVSP,Plover Species,,,Genus Charadrius
+PLVI,Plumbeous Vireo,,629.2000122,Vireo plumbeus
+POJA,Pomarine Jaeger,Labbe pomarin,36,Stercorarius pomarinus
+PRAW,Prairie Warbler,Paruline des prés,673,Dendroica discolor
+PRFA,Prairie Falcon,Faucon des prairies,355,Falco mexicanus
+PROW,Prothonotary Warbler,Paruline orangée,637,Protonotaria citrea
+PSFL,Pacific-slope Flycatcher,,,
+PSJU,Pink-sided Junco,,568,Junco hyemalis mearnsi
+PUFI,Purple Finch,Roselin pourpré,517,Carpodacus purpureus
+PUGA,Purple Gallinule,,218,Porphyrula martinica
+PUMA,Purple Martin,Hirondelle noire,611,Progne subis
+PUSA,Purple Sandpiper,Bécasseau violet,235,Calidris maritima
+PYNU,Pygmy Nuthatch,Sittelle pygmée,730,Sitta pygmaea
+PYRR,Pyrrhuloxia,,594,Cardinalis sinuatus
+RAZO,Razorbill,Petit Pingouin,32,Alca torda
+RBGR,Rose-breasted Grosbeak,Cardinal à poitrine rose,595,Pheucticus ludovicianus
+RBGU,Ring-billed Gull,Goéland à bec cerclé,54,Larus delawarensis
+RBME,Red-breasted Merganser,Harle huppé,130,Mergus serrator
+RBNU,Red-breasted Nuthatch,Sittelle à poitrine rousse,728,Sitta canadensis
+RBPI,Red-billed Pigeon,,313,Columba flavirostris
+RBSA,Red-breasted Sapsucker,Pic à poitrine rouge,403,Sphyrapicus ruber
+RBWO,Red-bellied Woodpecker,Pic à ventre roux,409,Melanerpes carolinus
+RCKI,Ruby-crowned Kinglet,Roitelet à couronne rubis,749,Regulus calendula
+RCPA,Red-crowned Parrot,,382.6000061,Amazona viridigenalis
+RCSP,Rufous-crowned Sparrow,,580,Aimophila ruficeps
+RCWO,Red-cockaded Woodpecker,,395,Picoides borealis
+RECR,Red Crossbill,Bec-croisé des sapins,521,Loxia curvirostra
+REDH,Redhead,Fuligule à tête rouge,146,Aythya americana
+REEG,Reddish Egret,,198,Egretta rufescens
+REKN,Red Knot,Bécasseau maubèche,234,Calidris canutus
+REPH,Red Phalarope,Phalarope à bec large,222,Phalaropus fulicaria
+REVI,Red-eyed Vireo,Viréo aux yeux rouges,624,Vireo olivaceus
+RFWA,Red-faced Warbler,,690,Cardellina rubrifrons
+RHAU,Rhinoceros Auklet,Macareux rhinocéros,15,Cerorhinca monocerata
+RHWO,Red-headed Woodpecker,Pic à tête rouge,406,Melanerpes erythrocephalus
+RIKI,Ringed Kingfisher,,390.1000061,Megaceryle torquata
+RLHA,Rough-legged Hawk,Buse pattue,347,Buteo lagopus
+RNDU,Ring-necked Duck,Fuligule à collier,150,Aythya collaris
+RNEP,Ring-necked Pheasant,,,
+RNGR,Red-necked Grebe,Grèbe jougris,2,Podiceps grisegena
+RNPH,Red-necked Phalarope,Phalarope à bec étroit,223,Phalaropus lobatus
+RNPL,Red-necked Phalarope,,,Phalaropus lobatus
+RNSA,Red-naped Sapsucker,Pic à nuque rouge,402.1000061,Sphyrapicus nuchalis
+RNST,Rufous-necked Stint,,,Calidris ruficollis
+RODO,Rock Dove,Pigeon biset,313.1000061,Columba livia
+ROFI,Rosy Finch,,,Leucosticte arctoa
+ROGO,Ross's Goose,Oie de Ross,170,Chen rossii
+ROGO,Ross' Goose,,,Chen rossii
+ROGU,Ross's Gull,Mouette rosée,61,Larus rosea
+ROGU,Ross' Gull,,,Rhodostethia rosea
+ROPI,Rock Pigeon,,,
+ROPT,Rock Ptarmigan,Lagopède alpin,302,Lagopus muta
+ROSA,Rock Sandpiper,Bécasseau des Aléoutiennes,235.6000061,Calidris ptilocnemis
+ROSP,Roseate Spoonbill,,183,Ajaia ajaja
+ROST,Roseate Tern,Sterne de Dougall,72,Sterna dougallii
+ROTE,Royal Tern,,65,Sterna maxima
+ROWR,Rock Wren,Troglodyte des rochers,715,Salpinctes obsoletus
+RPHE,Ring-necked Pheasant,Faisan de Colchide,309.1000061,Phasianus colchicus
+RRPA,Rose-ringed Parakeet,,382.2999878,Psittacula krameri
+RSFL,Red-shafted Flicker,,413,Colaptes auratus cafer
+RSHA,Red-shouldered Hawk,Buse à épaulettes,339,Buteo lineatus
+RSTO,Eastern Towhee,Tohi à flancs roux,587,Pipilo erythrophthalmus
+RSTO,Rufous-sided Towhee,,,Pipilo erythrophthalmus
+RTDO,Ringed Turtle-Dove,,315.2000122,Streptopelia risoria
+RTHA,Red-tailed Hawk,Buse à queue rousse,337,Buteo jamaicensis
+RTHU,Ruby-throated Hummingbird,Colibri à gorge rubis,428,Archilochus colubris
+RTLO,Red-throated Loon,Plongeon catmarin,11,Gavia stellata
+RUBL,Rusty Blackbird,Quiscale rouilleux,509,Euphagus carolinus
+RUBU,Rustic Bunting,,,Emberiza rustica
+RUDU,Ruddy Duck,Érismature rousse,167,Oxyura jamaicensis
+RUFF,Ruff,,260,Philomachus pugnax
+RUGR,Ruffed Grouse,Gélinotte huppée,300,Bonasa umbellus
+RUHU,Rufous Hummingbird,Colibri roux,433,Selasphorus rufus
+RUTU,Ruddy Turnstone,Tournepierre à collier,283,Arenaria interpres
+RWBL,Red-winged Blackbird,Carouge à épaulettes,498,Agelaius phoeniceus
+RWSP,Rufous-winged Sparrow,,579,Aimophila carpalis
+SACR,Sandhill Crane,Grue du Canada,206,Grus canadensis
+SAGR,Sage Grouse,Tétras des armoises,309,Centrocercus urophasianus
+SAGU,Sabine's Gull,Mouette de Sabine,62,Xema sabini
+SAND,Sanderling,Bécasseau sanderling,248,Calidris alba
+SAPH,Say's Phoebe,Moucherolle à ventre roux,457,Sayornis saya
+SASP,Sage Sparrow,,574,Amphispiza belli
+SATE,Sandwich Tern,,67,Sterna sandvicensis
+SATH,Sage Thrasher,Moqueur des armoises,702,Oreoscoptes montanus
+SAVS,Savannah Sparrow,Bruant des prés,542,Passerculus sandwichensis
+SBAN,Smooth-billed Ani,,383,Crotophaga ani
+SBDO,Short-billed Dowitcher,Bécassin roux,231,Limnodromus griseus
+SBFL,Sulphur-bellied Flycatcher,,451,Myiodynastes luteiventris
+SBGU,Slaty-backed Gull,,48,Larus schistisagus
+SBOR,Spot-breasted Oriole,,503.2000122,Icterus pectoralis
+SBSA,Spoonbill Sandpiper,,,Eurynorhynchus pygmeus
+SCAUP,unknown scaup,,,
+SCAUSP,Scaup Species,,,Genus Aythya
+SCJA,Scrub Jay,,,Aphelocoma coerulescens
+SCOR,Scott's Oriole,,504,Icterus parisorum
+SCOTER,unknown scoter,,,Melanitta spp.
+SCOTSP,Scoter Species,,,Genus Melanitta
+SCQU,Scaled Quail,,293,Callipepla squamata
+SCTA,Scarlet Tanager,Tangara écarlate,608,Piranga olivacea
+SEOW,Short-eared Owl,Hibou des marais,367,Asio flammeus
+SEPL,Semipalmated Plover,Pluvier semipalmé,274,Charadrius semipalmatus
+SESA,Semipalmated Sandpiper,Bécasseau semipalmé,246,Calidris pusilla
+SESP,Seaside Sparrow,,550,Ammodramus maritimus
+SEWR,Sedge Wren,Troglodyte à bec court,724,Cistothorus platensis
+SHCO,Shiny Cowbird,,496.1000061,Molothrus bonariensis
+SHORSP,Shorebird Species,,,Order Charadriiformes
+SHSA,Sharp-tailed Sandpiper,,,Calidris acuminata
+SITI,Grey-headed Chickadee,Mésange lapone,739,Poecile cinctus
+SMALSP,Small Alcid Species,,,Family Alcidae
+SMEW,Smew,,,Mergellus albellus
+SMGRSP,Small Grebe Species,,,Genus Podiceps
+SMLO,Smith's Longspur,Bruant de Smith,537,Calcarius pictus
+SNBU,Snow Bunting,Bruant des neiges,534,Plectrophenax nivalis
+SNEG,Snowy Egret,Aigrette de Chine,197,Egretta thula
+SNGO,Snow Goose,,,Chen caerulescens
+SNKI,Snail Kite,,330,Rostrhamus sociabilis
+SNOW,Snowy Owl,Harfang des neiges,376,Bubo scandiacus
+SNPL,Snowy Plover,Pluvier à collier interrompu,278,Charadrius alexandrinus
+SOPE,Solander's Petrel,,,Pterodroma solandri
+SORA,Sora,Marouette de Caroline,214,Porzana carolina
+SOSA,Solitary Sandpiper,Chevalier solitaire,256,Tringa solitaria
+SOSH,Sooty Shearwater,,,Puffinus griseus
+SOSP,Song Sparrow,Bruant chanteur,581,Melospiza melodia
+SOVI,Blue-headed Vireo,Viréo à tête bleue,629,Vireo solitarius
+SOVI,Solitary Vireo,,,Vireo solitarius
+SPDO,Spotted Dove,,315.1000061,Streptopelia chinensis
+SPGR,Spruce Grouse,Tétras du Canada,298,Falcipennis canadensis
+SPOW,Northern Spotted Owl,Chouette tachetée,369,Strix occidentalis
+SPOW,Spotted Owl,,,Strix occidentalis
+SPPI,Sprague's Pipit,Pipit de Sprague,700,Anthus spragueii
+SPRE,Spotted Redshank,,,Tringa erythropus
+SPSA,Spotted Sandpiper,Chevalier grivelé,263,Actitis macularia
+SPSK,South Polar Skua,,,Catharacta maccormicki
+SPTO,Spotted Towhee,Tohi à flancs roux,588,Pipilo maculatus
+SSHA,Sharp-shinned Hawk,Épervier brun,332,Accipiter striatus
+STAL,Short-tailed Albatross,,,Diomedea albatrus
+STEI,Steller's Eider,,,Polysticta stelleri
+STFL,Scissor-tailed Flycatcher,,443,Tyrannus forficatus
+STGR,Sharp-tailed Grouse,Tétras à queue fine,308,Tympanuchus phasianellus
+STHA,Short-tailed Hawk,,344,Buteo brachyurus
+STJA,Steller's Jay,Geai de Steller,478,Cyanocitta stelleri
+STKI,Swallow-Tailed Kite,,327,Elanoides forficatus
+STPESP,Storm-Petrel species,,,Family Hydrobatidae
+STSA,Stilt Sandpiper,Bécasseau à échasses,233,Calidris himantopus
+STSH,Short-tailed Shearwater,,,Puffinus tenuirostris
+STSP,Saltmarsh Sharp-tailed Sparrow,Bruant à queue aiguë,549,Ammodramus caudacutus
+STSP,Sharp-tailed Sparrow,,,Ammodramus caudacutus
+STWO,Strickland's Woodpecker,,398,Picoides stricklandi
+SURF,Surfbird,Bécasseau du ressac,282,Aphriza virgata
+SUSC,Surf Scoter,Macreuse à front blanc,166,Melanitta perspicillata
+SUTA,Summer Tanager,,610,Piranga rubra
+SWANSP,Swan Species,,,Genus Cygnus
+SWHA,Swainson's Hawk,Buse de Swainson,342,Buteo swainsoni
+SWSP,Swamp Sparrow,Bruant des marais,584,Melospiza georgiana
+SWTH,Swainson's Thrush,Grive à dos olive,758,Catharus ustulatus
+SWWA,Swainson's Warbler,,638,Limnothlypis swainsonii
+TBKI,Thick-billed Kingbird,,445.1000061,Tyrannus crassirostris
+TBMU,Thick-billed Murre,Guillemot de Brünnich,31,Uria lomvia
+TEALSP,Teal Species,,,Genus Anas
+TERN,unknown tern,,,
+TERNSP,Tern species,,,Genus Sterna
+TESA,Terek Sandpiper,,,Xenus cinereus
+TEST,Temminck's Stint,,,Calidris temminckii
+TEWA,Tennessee Warbler,Paruline obscure,647,Vermivora peregrina
+THGU,Thayer's Gull,Goéland de Thayer,43.09999847,Larus thayeri
+TOSO,Townsend's Solitaire,Solitaire de Townsend,754,Myadestes townsendi
+TOWA,Townsend's Warbler,Paruline de Townsend,668,Dendroica townsendi
+TRBL,Tricolored Blackbird,,500,Agelaius tricolor
+TRCH,Tricolored Heron,,199,Egretta tricolor
+TRES,Tree Swallow,Hirondelle bicolore,614,Tachycineta bicolor
+TRFL,Traill's Flycatcher (Alder/Willow),,,Empidonax spp.
+TRKI,Tropical Kingbird,,446,Tyrannus melancholicus
+TRPA,Tropical Parula,,649,Parula pitiayumi
+TRUS,Trumpeter Swan,Cygne trompette,181,Cygnus buccinator
+TTWO,American Three-toed Woodpecker,Pic à dos rayé,401,Picoides dorsalis
+TTWO,Three-toed Woodpecker,,,Picoides tridactylus
+TUDU,Tufted Duck,,,Aythya fuligula
+TUPU,Tufted Puffin,Macareux huppé,12,Fratercula cirrhata
+TUSW,Tundra Swan,Cygne siffleur,180,Cygnus columbianus
+TUTI,Tufted Titmouse,Mésange bicolore,731,Baeolophus bicolor
+TUVU,Turkey Vulture,Urubu à tête rouge,325,Cathartes aura
+UNAC,Unidentified Accipiter,,,Accipiter spp.
+UNAY,Unidentified Aythya,,,Aythya spp.
+UNBB,Unidentified Blackbird,,,Not Applicable
+UNBISP,Unidentified Bird Species,,,Class Aves
+UNBP,Unidentified Brotogeris Parakeet,,,Brotogeris spp.
+UNBU,Unidentified Buteo,,,Buteo spp.
+UNCB,Unidentified Crossbill,,,Loxia spp.
+UNCH,Unidentified Chickadee,,,Poecile spp.
+UNCO,Unidentified Cormorant,,,Phalacrocorax spp.
+UNCR,Unidentified Crow,,,Corvus spp.
+UNCU,Unidentified Cuckoo,,,Coccyzus spp.
+UNCW,Unidentified Cowbird,,,Molothrus spp.
+UNDA,Unidentified Dabbler,,,Not Applicable
+UNDD,Domestic Duck,,,Not Applicable
+UNDG,Domestic Goose,,,Not Applicable
+UNDI,Unidentified Diver,,,Not Applicable
+UNDO,Unidentified Dowitcher,,,Limnodromus spp.
+UNDU,Unidentified Duck,,,Not Applicable
+UNEA,Unidentified Eagle,,,Not Applicable
+UNEG,Unidentified Egret,,,Not Applicable
+UNEI,Unidentified Eider,,,Somateria spp.
+UNEM,Unidentified Empidonax,,,Empidonax spp.
+UNFA,Unidentified Falcon,,,Falco spp.
+UNFL,Unidentified Flicker Subspecies,,,Colaptes spp.
+UNGN,Unidentified Gnatcatcher,,,Polioptila spp.
+UNGO,Unidentified Goldeneye,,,Bucephala spp.
+UNGR,Unidentified Grebe,,,Not Applicable
+UNGU,Unidentified Gull,,,Not Applicable
+UNHU,Unidentified Hummingbird,,,Not Applicable
+UNJA,Unidentified Jaeger,,,Stercorarius spp.
+UNJT,Unidentified Oak/Juniper Titmouse,,,Baeolophus spp.
+UNJU,Unidentified Junco Subspecies,,,Junco hyemalis
+UNK,unknown bird,,,
+UNKI,Unidentified Kingbird,,,Tyrannus spp.
+UNLD,Unidentified Large Dabbler,,,Not Applicable
+UNLO,Unidentified Loon,,,Gavia spp.
+UNLP,Unidentified Large Plover,,,Not Applicable
+UNLS,Unidentified Large Shorebird,,,Not Applicable
+UNMD,Unidentified Meadowlark,,,Sturnella spp.
+UNME,Unidentified Merganser,,,Not Applicable
+UNMS,Unidentified Medium Shorebird,,,Not Applicable
+UNNH,Unidentified Night-Heron,,,Not Applicable
+UNNI,Unidentified Nighthawk,,,Chordeiles spp.
+UNOR,Unidentified Oriole,,,Icterus spp.
+UNPH,Unidentified Phalarope,,,Phalaropus spp.
+UNPL,Unidentified Plegadis Ibis,,,Plegadis spp.
+UNRA,Unidentified Raptor,,,Not Applicable
+UNRE,Unidentified Redpoll,,,Carduelis spp.
+UNRL,Unidentified Rail,,,Not Applicable
+UNRV,Unidentified Raven,,,Corvus spp.
+UNSB,Unidentified Shorebird,,,Not Applicable
+UNSD,Unidentified Small Dabbler,,,Not Applicable
+UNSK,Unidentified Sapsucker,,,Sphyrapicus spp.
+UNSN,Unidentified Swan,,,Cygnus spp.
+UNSP,Unidentified Scaup,,,Aythya spp.
+UNSpar,Unidentified Sparrow,,,Not Applicable
+UNSR,Unidentified Scoter,,,Melanitta spp.
+UNSS,Unidentified Small Shorebird,,,Not Applicable
+UNSV,Unidentified Solitary Vireo Complex,,,Vireo solitarius
+UNSW,Unidentified Swallow,,,Not Applicable
+UNTI,Unidentified Black-crested/Tufted Titmouse,,,Baeolophus spp.
+UNTL,Unidentified Teal,,,Anas spp.
+UNTN,Unidentified Tern,,,Sterna spp.
+UNTO,Unidentified Towhee,,,Pipilo spp.
+UNVI,Unidentified Vireo,,,Vireo sp.
+UNVU,Unidentified Vulture,,,Not Applicable
+UNWO,Unidentified Woodpecker,,,Not Applicable
+UNYE,Unidentified Yellowlegs,,,Tringa spp.
+UPSA,Upland Sandpiper,Maubèche des champs,261,Bartramia longicauda
+VARB,Varied Bunting,,600,Passerina versicolor
+VASW,Vaux's Swift,Martinet de Vaux,424,Chaetura vauxi
+VATH,Varied Thrush,Grive à collier,763,Ixoreus naevius
+VCHU,Violet-crowned Hummingbird,,439.1000061,Amazilia violiceps
+VEER,Veery,Grive fauve,756,Catharus fuscescens
+VEFL,Vermilion Flycatcher,,471,Pyrocephalus rubinus
+VERD,Verdin,,746,Auriparus flaviceps
+VESP,Vesper Sparrow,Bruant vespéral,540,Pooecetes gramineus
+VGSW,Violet-green Swallow,Hirondelle à face blanche,615,Tachycineta thalassina
+VIRA,Virginia Rail,Râle de Virginie,212,Rallus limicola
+VIWA,Virginia's Warbler,,644,Vermivora virginiae
+WAPI,American Pipit,Pipit d'Amérique,697,Anthus rubescens
+WAPI,Water Pipit,,,Anthus spinoletta
+WATA,Wandering Tattler,Chevalier errant,259,Heteroscelus incanus
+WAVI,Warbling Vireo,Viréo mélodieux,627,Vireo gilvus
+WBNU,White-breasted Nuthatch,Sittelle à poitrine blanche,727,Sitta carolinensis
+WCPI,White-crowned Pigeon,,314,Columba leucocephala
+WCSP,White-crowned Sparrow,,,
+WEBL,Western Bluebird,Merlebleu de l'Ouest,767,Sialia mexicana
+WEFL,Pacific-slope Flycatcher,Moucherolle côtier,464.1000061,Empidonax difficilis
+WEGR,Western Grebe,Grèbe élégant,1,Aechmophorus occidentalis
+WEGU,Western Gull,Goéland d'Audubon,49,Larus occidentalis
+WEKI,Western Kingbird,Tyran de l'Ouest,447,Tyrannus verticalis
+WEME,Western Meadowlark,Sturnelle de l'Ouest,501.1000061,Sturnella neglecta
+WESA,Western Sandpiper,Bécasseau d'Alaska,247,Calidris mauri
+WESJ,Western Scrub-Jay,,481,Aphelocoma californica
+WESO,Western Screech-Owl,Petit-duc des montagnes,373.2000122,Megascops kennicottii
+WETA,Western Tanager,Taranga à tête rouge,607,Piranga ludoviciana
+WEVI,White-eyed Vireo,Viréo aux yeux blancs,631,Vireo griseus
+WEWA,Worm-eating Warbler,,639,Helmitheros vermivorus
+WEWP,Western Wood-Pewee,Pioui de l'Ouest,462,Contopus sordidulus
+WFIB,White-faced Ibis,Ibis à face blanche,187,Plegadis chihi
+WFLC,Western Flycatcher Complex,,464.2000122,Empidonax spp.
+WHCR,Whooping Crane,Grue blanche,204,Grus americana
+WHIB,White Ibis,,184,Eudocimus albus
+WHIM,Whimbrel,Courlis corlieu,265,Numenius phaeopus
+WHSO,Whiskered Screech-Owl,,373.1000061,Otus trichopsis
+WHWO,White-headed Woodpecker,Pic à tête blanche,399,Picoides albolarvatus
+WIFL,Willow Flycatcher,Moucherolle des saules,466,Empidonax traillii
+WIGESP,Wigeon Species,,,Genus Anas
+WILL,Willet,Chevalier semipalmé,258,Catoptrophorus semipalmatus
+WIPH,Wilson's Phalarope,Phalarope de Wilson,224,Phalaropus tricolor
+WIPL,Wilson's Plover,,280,Charadrius wilsonia
+WIPT,Willow Ptarmigan,Lagopède des saules,301,Lagopus lagopus
+WISA,Williamson's Sapsucker,Pic de Williamson,404,Sphyrapicus thyroideus
+WISN,Wilson's Snipe,Bécassine de Wilson,,Gallinago delicata
+WITU,Wild Turkey,Dindon sauvage,310,Meleagris gallopavo
+WIWA,Wilson's Warbler,Paruline à calotte noire,685,Wilsonia pusilla
+WIWR,Winter Wren,Troglodyte mignon,722,Troglodytes troglodytes
+WODU,Wood Duck,Canard branchu,144,Aix sponsa
+WOST,Wood Stork,,188,Mycteria americana
+WOTH,Wood Thrush,Grive des bois,755,Hylocichla mustelina
+WPWI,Whip-poor-will,Engoulevent bois-pourri,417,Caprimulgus vociferus
+WREN,Wrentit,,742,Chamaea fasciata
+WRSA,White-rumped Sandpiper,Bécasseau à croupion blanc,240,Calidris fuscicollis
+WRSH,White-rumped Shama,,769,Copsychus malabaricus
+WTDO,White-tipped Dove,,318,Leptotila verreauxi
+WTHA,White-tailed Hawk,,341,Buteo albicaudatus
+WTKI,White-tailed Kite,,328,Elanus leucurus
+WTPT,White-tailed Ptarmigan,Lagopède à queue blanche,304,Lagopus leucurus
+WTSP,White-throated Sparrow,Bruant à gorge blanche,558,Zonotrichia albicollis
+WTSW,White-throated Swift,Martinet à gorge blanche,425,Aeronautes saxatalis
+WWAG,White Wagtail,,694,Motacilla alba
+WWCR,White-winged Crossbill,Bec-croisé bifascié,522,Loxia leucoptera
+WWDO,White-winged Dove,,319,Zenaida asiatica
+WWJU,White-winged Junco,,566,Junco hyemalis aikeni
+WWSC,White-winged Scoter,Macreuse brune,165,Melanitta fusca
+XAMU,Xantus' Murrelet,,,Synthliboramphus hypoleucus
+YBCH,Yellow-breasted Chat,Paruline polyglotte,683,Icteria virens
+YBCU,Yellow-billed Cuckoo,Coulicou à bec jaune,387,Coccyzus americanus
+YBFL,Yellow-bellied Flycatcher,Moucherolle à ventre jaune,463,Empidonax flaviventris
+YBLO,Yellow-billed Loon,Plongeon à bec blanc,8,Gavia adamsii
+YBSA,Yellow-bellied Sapsucker,Pic maculé,402,Sphyrapicus varius
+YCNH,Yellow-crowned Night-Heron,,203,Nyctanassa violacea
+YEJU,Yellow-eyed Junco,,570,Junco phaeonotus
+YEMA,Yellow-billed Magpie,,476,Pica nuttalli
+YERA,Yellow Rail,Râle jaune,215,Coturnicops noveboracensis
+YEWG,Yellow Wagtail,,,Montacilla flava
+YHBL,Yellow-headed Blackbird,Carouge à tête jaune,497,Xanthocephalus xanthocephalus
+YPWA,Palm Warbler,Paruline à couronne rousse,672,Dendroica palmarum
+YRWA,Yellow-rumped Warbler,Paruline à croupion jaune,,Dendroica coronata
+YSFL,Northern Flicker,Pic flamboyant,412,Colaptes auratus
+YTVI,Yellow-throated Vireo,Viréo à gorge jaune,628,Vireo flavifrons
+YTWA,Yellow-throated Warbler,Paruline à gorge jaune,663,Dendroica dominica
+YWAG,Eastern Yellow Wagtail,Bergeronnette printanière,696,Motacilla tschutschensis
+YWAR,Yellow Warbler,Paruline jaune,652,Dendroica petechia
+ZTHA,Zone-tailed Hawk,,340,Buteo albonotatus

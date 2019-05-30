@@ -1,0 +1,903 @@
+Item/Point,Version anglaise,Version française,,,,,,,,,,,,,,,,
+Data File Name / Nom du fichier de données,Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo.csv,Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo.csv,,,,,,,,,,,,,,,,
+Date File Generated / Date de fichier généré,03/07/2012,03/07/2012,,,,,,,,,,,,,,,,
+Context Note / Note contextuelle,"Cause-Effect Monitoring Data: Dataset 2 (2014) on boreal bird species across a gradient of oil sands development–related disturbance (low to very high) within the Athabasca oil sands area is available. Data are available for 12 062 individual birds representing 141 species from 884 sample sites. Sample sites include both survey grids of 9 point count sites and matched pairs of point count sites (1 point count in pipeline, seismic line, wellsite or road, and 1 point count in adjacent undisturbed habitat). This activity monitors how birds respond to a gradient of oil sands–specific exploration, extraction and development activities at a regional scale.These data contribute to: a.improving the design of monitoring programs; b.explaining observed trends in populations (why bird populations are increasing or decreasing); c.predicting population sizes within the oil sands area; and d.assessing the individual, additive and cumulative effects of oil sands and other resource development on boreal birds.
+","Données de surveillance des causes et des effets: L’ensemble de données 2 (2014) sur les espèces d’oiseaux boréales sur un gradient de perturbations lié à l’exploitation des sables bitumineux (de bas à très élevé) à l’intérieur de la zone des sables bitumineux de l’Athabasca est disponible. Des données sont disponibles pour 12 062 oiseaux particuliers représentant 141 espèces provenant de 884 sites d’échantillonnage. Les sites d’échantillonnage comprennent les deux grilles de neuf sites de dénombrement ponctuel et des paires appariées de sites de dénombrement ponctuel (un dénombrement ponctuel dans la zone du pipeline, de la ligne sismique, du chantier du forage ou de la route et un dénombrement ponctuel dans un habitat non perturbé adjacent). Cette activité surveille la façon dont les oiseaux réagissent à un gradient d’activités d’exploration, d’extraction et de développement propres aux sables bitumineux à l’échelle régionale. Ces données contribuent à : a.améliorer les programmes de surveillance; b.expliquer les tendances de population observées (les raisons qui expliquent l’augmentation ou la diminution des populations); c.prédire la taille des populations à l’intérieur de la zone des sables bitumineux; et d.évaluer les effets individuels, additifs et cumulatifs de l’exploitation des sables bitumineux et d’autres développements des ressources sur les oiseaux boréaux.",,,,,,,,,,,,,,,,
+Organization Name / Nom de l’organisme,Environment and Climate Change Canada,Environnement et Changement climatique Canada ,,,,,,,,,,,,,,,,
+Organization Contact Information / Coor-données de l’organisation ,"200 Sacre-Coeur Blvd, Gatineau, Quebec,  K1A 0H3","200, boul. Sacré Coeur, Gatineau (Québec)  K1A 0H3",,,,,,,,,,,,,,,,
+Email / Courriel,enviroinfo@canada.ca,enviroinfo@canada.ca,,,,,,,,,,,,,,,,
+Program / Programme,"Joint Canada-Alberta Implementation Plan for Oil Sands Monitoring (JOSM),Biodiversity and Land Disturbance Implementation Plan Activities – Cause-Effect Monitoring - Migratory Landbirds (http://www.publications.gc.ca/site/eng/436043/publication.html)","Plan de mise en œuvre conjoint Canada-Alberta pour la surveillance visant les sables bitumineux (JOSM), Activités du plan de mise en œuvre de la sur
+veillance de la biodiversité et des perturbations du terrain – Surveillance des causes et des effets  - oiseaux terrestres (http://www.publications.gc.ca/site/eng/436043/publication.html)",,,,,,,,,,,,,,,,
+Principal Investigator / Chercheur Principal,Lisa Mahon,,,,,,,,,,,,,,,,,
+Data Steward / Intendant des données,Judith Toms,,,,,,,,,,,,,,,,,
+Data Steward Affiliation / Affiliation d'intendant des données,"Environment and Climate Change Canada, Canadian Wildlife Service ","Environnement et Changement climatique Canada, Service canadien de la faune",,,,,,,,,,,,,,,,
+Open Government Licence-Canada / Licence du gouver-nement ouvert – Canada,http://open.canada.ca/en/open-government-licence-canada,http://ouvert.canada.ca/fr/licence-du-gouvernement-ouvert-canada,,,,,,,,,,,,,,,,
+Attribution / ,"Environment and Climate Change Canada, [Year Accessed].  Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo.csv, generated 2012-03-07. Accessed on [Year-Month-Day] from [Name and URL of the data portal].","Environnement et Changement climatique Canada, [année de la consultation]. Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo.csv, générée 2012-03-07. Téléchargé le [année-mois-jour] depuis [Nom et URL du portail de données].",,,,,,,,,,,,,,,,
+Acknowledgement statement / Énoncé de reconnaissance,The author(s) acknowledge Environment and Climate Change Canada and Brion Energy for the provision of [type of] data accessed from [Name and URL of the data portal].  [If applicable:  The original data/data files were modified and redistributed and/or used to produce derivative work as follows: …enter details…].    ,"Le ou les auteur(s) reconnaissent Environnement et Changement climatique Canada et Brion Energy pour la prestation du [type de] données consultées depuis [Nom et URL du portail de données]. [S’il y a lieu : les données/fichiers de données d’origine ont été modifiés, redistribués et/ou utilisés pour des travaux dérivés, à savoir : …précisez…].    ",,,,,,,,,,,,,,,,
+Quality Assurance Level and Disclaimer ,"Level 1, defined as a complete data set of specified quality that consists of research products subjected to quality assurance and quality control checks and data management procedures.","Définition du niveau 1 : ensemble de données complet d’une qualité précisée, qui regroupe des produits de recherche soumis à des vérifications d’assurance et de contrôle de la qualité et à des procédures de gestion des données.",,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+Date,PCSiteID,StationID,ObserverID,TimeStart,SampleID,VisitID,WindStart,PrecipStart,TempStart,CloudStart,WindEnd,PrecipEnd,TempEnd,CloudEnd,TimeFin,Noise,O/N Rain,SurveyNote
+6/13/2014,CL20001G,CL20001G-1,28,5:05:00 AM,n_a,1,0,0,3.1,0,0,0,3.1,0,5:15:00 AM,0,N,
+6/13/2014,CL20002G,CL20002G-1,32,8:45:00 AM,n_a,1,2,0,14,0,2,0,15.9,0,8:55:00 AM,0,N,
+6/13/2014,CL20003G,CL20003G-1,32,7:35:00 AM,n_a,1,0,0,8.2,0,0,0,8.1,0,7:45:00 AM,0,N,
+6/13/2014,CL20004G,CL20004G-1,28,6:06:00 AM,n_a,1,0,0,1.9,0,,,,,6:16:00 AM,0,N,forgot to record weather at end of PC
+6/13/2014,CL20005G,CL20005G-1,28,9:02:00 AM,n_a,1,0,0,15.1,0,0,0,14.5,0,9:12:00 AM,0,N,
+6/13/2014,CL20005N,CL20005N-1,32,6:35:00 AM,n_a,1,0,0,,0,0,0,1.9,0,6:45:00 AM,0,N,No start temperature
+6/13/2014,CL20005W,CL20005W-1,32,4:55:00 AM,n_a,1,0,0,2.3,1,0,0,1.3,1,5:05:00 AM,0,N,
+6/13/2014,CL20006G,CL20006G-1,32,8:10:00 AM,n_a,1,0,0,11.2,0,0,0,13,0,8:20:00 AM,1,N,Noise from highway 813 in the distance
+6/13/2014,CL20007G,CL20007G-1,28,7:12:00 AM,n_a,1,0,0,11.5,0,0,0,11.7,0,7:22:00 AM,1,N,
+6/13/2014,CL20008G,CL20008G-1,28,7:44:00 AM,n_a,1,0,0,11.5,0,0,0,9.9,0,7:54:00 AM,0,N,
+6/13/2014,CL20008N,CL20008N-1,32,5:30:00 AM,n_a,1,0,0,0.5,0,0,0,-0.1,0,5:40:00 AM,0,N,
+6/13/2014,CL20008P,CL20008P-1,32,9:30:00 AM,n_a,1,2,0,21.3,0,0,0,22.4,0,9:40:00 AM,0,N,"Pipeline is 2 cut lines of 8m wide each. There is a strip of Lt, Sb and Salix regen between the two."
+6/13/2014,CL20009G,CL20009G-1,28,8:22:00 AM,n_a,1,0,0,12.3,0,2,0,13.3,0,8:32:00 AM,0,N,
+6/13/2014,CL20009P,CL20009P-1,32,6:05:00 AM,n_a,1,0,0,1.2,0,0,0,1.3,0,6:15:00 AM,0,N,
+5/30/2014,CO20001G,CO20001G-1,32,9:24:00 AM,n_a,1,2,0,,1,2,0,,1,9:34:00 AM,1,Y,Forgot the Kestrel (no temperature) - Noise from road and traffic - SL 5m from PC center
+5/30/2014,CO20002G,CO20002G-1,32,9:49:00 AM,n_a,1,2,0,,1,2,0,,1,9:59:00 AM,0,Y,Forgot the Kestrel (no temperature) - Non operational well pad about 15m from PC center
+5/30/2014,CO20003G,CO20003G-1,32,6:46:00 AM,n_a,1,0,0,,3,2,0,,2,6:56:00 AM,1,Y,Forgot the Kestrel (no temperature) - Noise is road in the distance (far)
+5/30/2014,CO20004G,CO20004G-1,32,6:16:00 AM,n_a,1,2,0,,3,1,0,,3,6:26:00 AM,1,Y,Forgot the Kestrel (no temperature) - Noise is from road and traffic. On the edge of a well pad (80 x80m). Photo #248
+5/30/2014,CO20005G,CO20005G-1,32,7:24:00 AM,n_a,1,2,0,,2,2,0,,2,7:34:00 AM,0,Y,Forgot the Kestrel (no temperature) - SL = 5m wide
+5/30/2014,CO20006G,CO20006G-1,32,8:54:00 AM,n_a,1,2,0,,2,2,0,,2,9:04:00 AM,0,Y,Forgot the Kestrel (no temperature) -SL through PC center + well pad (80 x 80m) about 25m West
+5/30/2014,CO20007G,CO20007G-1,32,8:16:00 AM,n_a,1,2,0,,2,2,0,,2,8:26:00 AM,0,Y,Forgot the Kestrel (no temperature) - SL 10m away from PC center and 5m wide
+5/30/2014,CO20008G,CO20008G-1,32,7:49:00 AM,n_a,1,2,0,,3,2,0,,3,7:59:00 AM,0,Y,Forgot the Kestrel (no temperature) - SL=5m wide and goes through PC center
+5/30/2014,CO20009G,CO20009G-1,32,5:46:00 AM,n_a,1,2,0,,3,2,0,,3,5:56:00 AM,3,Y,Forgot the Kestrel (no temperature) - Station about 50m away from plant and large SL/trail (10m wide) is 25m away. SACR fly over and lands near plant (about 10 seconds after PC)
+5/30/2014,CO20010G,CO20010G-1,28,9:33:00 AM,n_a,1,2,0,10.8,1,2,0,10.2,1,9:43:00 AM,2,Y,Sound produced by gas plant
+5/30/2014,CO20011G,CO20011G-1,28,6:52:00 AM,n_a,1,3,0,6.89,1,,,,,7:02:00 AM,2,Y,Forgot to record weather at end of count. Noise produced by nearby gas plant- some clouds produced by smoke stack as well
+5/30/2014,CO20012G,CO20012G-1,28,6:24:00 AM,n_a,1,3,0,6.7,3,3,0,6.6,3,6:34:00 AM,1,Y,Still many birds migrating
+5/30/2014,CO20013G,CO20013G-1,28,6:00:00 AM,n_a,1,2,0,6.7,3,2,0,6.5,3,6:10:00 AM,1,Y,Lots of migrating warblers overhead. Smelt like sour gas but monitor read 0
+5/30/2014,CO20014G,CO20014G-1,28,7:25:00 AM,n_a,1,3,0,7.8,1,3,0,7.9,1,7:35:00 AM,1,Y,
+5/30/2014,CO20015G,CO20015G-1,28,9:04:00 AM,n_a,1,3,0,10.7,1,2,0,11.1,1,9:14:00 AM,1,Y,
+5/30/2014,CO20016G,CO20016G-1,28,8:29:00 AM,n_a,1,3,0,8.2,1,3,0,8.4,1,8:39:00 AM,1,Y,
+5/30/2014,CO20017G,CO20017G-1,28,7:59:00 AM,n_a,1,3,0,8.6,1,3,0,8,1,8:09:00 AM,1,Y,
+5/30/2014,CO20018G,CO20018G-1,28,5:26:00 AM,n_a,1,3,0,7.2,3,2,0,6.5,3,5:36:00 AM,1,Y,
+5/28/2014,CO20101G,CO20101G-1,28,6:55:00 AM,n_a,1,0,1,6.8,3,0,1,6.4,3,7:05:00 AM,0,Y,"On edge of what appears to be a new well pad, see PC and disturbance form. Recorder sensitivity set back to 100. Birds appear Migratory - mostly chips and swips from warblers."
+5/28/2014,CO20102G,CO20102G-1,32,9:12:00 AM,n_a,1,0,0,9.6,3,0,0,8.1,3,9:22:00 AM,0,Y,Recording in two parts. Stopped at 6:15
+5/28/2014,CO20103G,CO20103G-1,32,7:00:00 AM,n_a,1,0,0,8.4,3,0,0,6.7,3,7:10:00 AM,0,Y,SL about 25m away from PC center
+5/28/2014,CO20104G,CO20104G-1,32,7:27:00 AM,n_a,1,1,0,8.4,3,0,0,7.5,3,7:37:00 AM,0,Y,SL 10m away from PC center
+5/28/2014,CO20105G,CO20105G-1,32,8:42:00 AM,n_a,1,0,0,7.4,3,0,0,7.4,3,8:52:00 AM,0,Y,SL 5m wide on PC center
+5/28/2014,CO20106G,CO20106G-1,28,7:40:00 AM,n_a,1,0,0,7.8,3,0,0,,3,7:50:00 AM,0,Y,
+5/28/2014,CO20107G,CO20107G-1,28,8:49:00 AM,n_a,1,0,0,8,3,0,0,6.8,3,8:59:00 AM,0,Y,
+5/28/2014,CO20108G,CO20108G-1,28,9:14:00 AM,n_a,1,1,0,8.8,3,0,0,8,3,9:24:00 AM,0,Y,Airplane flew overhead
+5/28/2014,CO20109G,CO20109G-1,32,8:07:00 AM,n_a,1,0,0,8,3,0,0,6.6,3,8:17:00 AM,0,Y,PC center on the intersection of two SL (5m wide each)
+5/27/2014,CO20201G,CO20201G-1,32,8:44:00 AM,n_a,1,0,0,8.4,3,0,0,8.8,3,8:54:00 AM,0,Y,SL 5m wide passing through PC center
+5/27/2014,CO20201N,CO20201N-1,28,7:59:00 AM,n_a,1,1,0,7.6,3,1,0,7.1,3,8:09:00 AM,1,Y,Distant trucks
+5/27/2014,CO20201P,CO20201P-1,28,8:47:00 AM,n_a,1,3,0,7.6,3,3,0,7.2,3,8:57:00 AM,0,Y,
+5/27/2014,CO20202G,CO20202G-1,32,9:19:00 AM,n_a,1,1,0,8.4,3,0,0,7.5,3,9:29:00 AM,1,Y,Noise is rain water dripping from trees
+5/27/2014,CO20203G,CO20203G-1,28,9:39:00 AM,n_a,1,3,0,7,3,4,0,7.3,3,9:49:00 AM,1,Y,"Distant trucks, recorder sensitivity set to 60 due to wind"
+5/27/2014,CO20204G,CO20204G-1,28,10:16:00 AM,n_a,1,3,1,7.8,3,3,0,7.9,3,10:26:00 AM,1,Y,"Trucks in distance, plane overhead. Recorder sensistivity set to 60 due to wind"
+5/27/2014,CO20205G,CO20205G-1,32,9:53:00 AM,n_a,1,1,0,8.1,3,1,0,8.2,3,10:03:00 AM,1,Y,Noise is road in the distance (far)
+5/27/2014,CO20206G,CO20206G-1,32,8:07:00 AM,n_a,1,0,1,7.8,3,0,1,7.3,3,8:17:00 AM,1,Y,
+5/27/2014,CO20207G,CO20207G-1,32,7:30:00 AM,n_a,1,0,1,8.2,3,0,1,7.4,3,7:40:00 AM,2,Y,Noise is non continuous traffic about 200m away. Also there is a SL about 10m away from PC center
+5/27/2014,CO20208G,CO20208G-1,32,6:55:00 AM,n_a,1,0,2,8.2,3,0,2,7.1,3,7:05:00 AM,1,Y,Noise is from road and traffic (background noise). SL of 5m wide about 10m from PC center
+5/27/2014,CO20209G,CO20209G-1,32,6:10:00 AM,n_a,1,0,2,8.6,3,0,2,8.6,3,6:20:00 AM,1,Y,Very wide pipeline (30m at least) is 50m away from PC center. There is also a SL (5m wide) about 10 m away.
+5/27/2014,CO20213N,CO20213N-1,28,7:13:00 AM,n_a,1,0,0,7.2,3,0,1,7,3,7:23:00 AM,1,Y,"Distant trucks, construction. Point placed directly on 2m seismic line + small depressing with water. See PC sheet."
+5/27/2014,CO20213S,CO20213S-1,28,6:10:00 AM,n_a,1,0,1,,3,0,1,9.6,3,6:20:00 AM,0,Y,Lots of migrating warblers overhead
+5/30/2014,CO20301G,CO20301G-1,87,10:18:00 AM,n_a,1,3,0,19.2,2,3,0,16.3,2,10:28:00 AM,1,Y,"Did not record this point count.  Airplanes, machinery, gusty winds and booming noise."
+5/30/2014,CO20302G,CO20302G-1,26,6:10:00 AM,n_a,1,1,0,7.3,3,1,0,7.1,3,6:20:00 AM,2,Y,"NOISE DUE TO TRAFFIC IN THE DISTANCE, WIND GUSTING TO 3, SHOT GUN NOISES FROM AN OIL REFINERY NEARBY"
+5/30/2014,CO20302N,CO20302N-1,87,7:03:00 AM,n_a,1,2,0,7.4,2,3,0,7.9,3,7:13:00 AM,1,Y,"Occasional pounding and heavey machinery.  Winds gusted twice to 4.  3x WTSP, two counter singing, plus a BBWA sang and a RESQ called after the PC."
+5/30/2014,CO20302W,CO20302W-1,87,9:22:00 AM,n_a,1,2,0,15.6,2,2,0,20.5,1,9:32:00 AM,2,Y,Intermittent booming/shot noises and machinery.  This is NOT a well pad but the side/slope of a hill.  The adjacent stream is noisy and harder to hear the East side of the survey site.
+5/30/2014,CO20303G,CO20303G-1,26,6:45:00 AM,n_a,1,1,0,7.2,2,2,0,7.2,2,6:55:00 AM,2,Y,NOISE DUE TO DISTANT TRAFFIC
+5/30/2014,CO20303N,CO20303N-1,87,6:21:00 AM,n_a,1,3,0,8.7,3,3,0,7.7,3,6:31:00 AM,2,Y,Intermittent pounding from nearby plant.
+5/30/2014,CO20303W,CO20303W-1,87,7:54:00 AM,n_a,1,3,0,9.7,3,3,0,9.8,2,8:04:00 AM,2,Y,"Wind gusts. OCWA, RBNU & YWAR sang and a WIWR to SW."
+5/30/2014,CO20304G,CO20304G-1,26,7:22:00 AM,n_a,1,1,0,8.1,3,2,0,8.4,3,7:32:00 AM,2,Y,"NOISE DUE TO DISTANT TRAFFIC AND SHOT GUN NOISES FROM AN OIL REFINERY, WIND GUSTING TO 4"
+5/30/2014,CO20305G,CO20305G-1,26,8:24:00 AM,n_a,1,2,0,8.7,2,2,0,9,2,8:34:00 AM,2,Y,WIND GUSTING TO 4/5
+5/30/2014,CO20306G,CO20306G-1,26,10:03:00 AM,n_a,1,1,2,12.2,0,,,2,,10:13:00 AM,2,Y,WIND GUSTING TO 4/5. FORGOT TO TAKE WEATHER MEASUREMENTS AFTER SURVEYS. NOISE DUE TO OIL REFINERY IN THE DISTANCE AND WIND
+5/30/2014,CO20307G,CO20307G-1,26,9:25:00 AM,n_a,1,2,0,11.5,2,3,0,11.7,2,9:35:00 AM,2,Y,NOISE DUE TO WIND GUSTING TO 4/5 AND GUN SHOT NOISES FROM OIL REFINERY
+5/30/2014,CO20308G,CO20308G-1,26,8:56:00 AM,n_a,1,2,0,10.4,2,2,0,11.8,2,9:06:00 AM,2,Y,"NOISE: SHOT GUN SHOTS FROM OIL REFINERY, WIND GUSTING TO 4"
+5/30/2014,CO20309G,CO20309G-1,26,7:50:00 AM,n_a,1,3,0,8.7,3,2,0,8.5,2,8:00:00 AM,2,Y,"NOISE: GUN SHOTS FROM THE OIL REFINERY NEARBY, WIND GUSTING TO 4"
+5/27/2014,CO20401G,CO20401G-1,87,9:33:00 AM,n_a,1,2,0,9.6,3,2,0,7.5,3,9:43:00 AM,2,Y,This is now a freshly cleared cut for new power lines; there are 3 lines 45m wideand 5m from the Point Count's western 50m border.  Heavy Equipment and distant tank construction.  A parir of UNSB flew over after the PC and a WISN winnowed to the South within 50-100m after the PC.
+5/27/2014,CO20402G,CO20402G-1,26,6:32,n_a,1,1,1,7.4,3,1,2,7.1,3,6:42:00 AM,1,Y,
+5/27/2014,CO20403G,CO20403G-1,26,7:13,n_a,1,1,1,7.8,3,1,1,7.3,3,7:23:00 AM,1,Y,
+5/27/2014,CO20403N,CO20403N-1,87,8:28:00 AM,n_a,1,1,1,9,3,1,1,8.9,3,8:38:00 AM,1,Y,"The PC is split by a clearing for the road, the elevated gravel road and a seismic cut line to the NW.  A truck drove by at the end of the recording.  Dripping trees nearby."
+5/27/2014,CO20403W,CO20403W-1,87,7:24:00 AM,n_a,1,1,1,8.5,3,1,1,7.4,3,7:34:00 AM,1,Y,"Heavy Equipment and Well Pump House in distance.  3x GRAJ, family group, were sited in SB, calling after PC."
+5/27/2014,CO20404G,CO20404G-1,26,7:53,n_a,1,1,1,7.8,3,1,1,8,3,8:03:00 AM,2,Y,
+5/27/2014,CO20405G,CO20405G-1,26,9:29,n_a,1,0,0,8.1,3,1,0,7.6,3,9:39:00 AM,2,Y,Construction NW >150m away
+5/27/2014,CO20406G,CO20406G-1,26,10:24,n_a,1,2,0,7.5,3,2,0,7.7,3,10:34:00 AM,2,Y,
+5/27/2014,CO20407G,CO20407G-1,26,10:00:00 AM,n_a,1,1,0,8.7,3,1,0,9,3,10:10:00 AM,2,Y,
+5/27/2014,CO20408G,CO20408G-1,26,8:56,n_a,1,0,0,8.2,3,1,0,8.1,3,9:06:00 AM,2,Y,Construction >150m north of point; noise 2.5
+5/27/2014,CO20409G,CO20409G-1,26,8:23,n_a,1,0,1,8,3,1,1,7.4,3,8:33:00 AM,2,Y,
+6/30/2014,CO20601G,CO20601G-1,26,6:57:00 AM,n_a,1,1,0,16.5,3,1,0,17,3,7:07:00 AM,3,N,"2 GRAJ (Visual and Audio, Adult and Juvenile) HERE UPON ARRIVE BUT LEFT BEFORE PC. <50M IN QUADRANT 4"
+6/30/2014,CO20602G,CO20602G-1,26,6:24:00 AM,n_a,1,2,0,15.6,3,1,0,15.8,3,6:34:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <1.5KM NORTH
+6/30/2014,CO20603G,CO20603G-1,26,5:52:00 AM,n_a,1,2,0,15.3,3,2,0,14.9,3,6:02:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <1KM NORTH
+6/30/2014,CO20604G,CO20604G-1,26,5:25:00 AM,n_a,1,2,0,15.3,3,2,0,15.3,3,5:35:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <500M NORTH ON ROAD
+6/30/2014,CO20605G,CO20605G-1,26,8:51:00 AM,n_a,1,1,0,19.2,3,1,0,19.6,3,9:01:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <1.5KM NORTH AND THE HORSEFLIES
+6/30/2014,CO20605N,CO20605N-1,87,9:31:00 AM,n_a,1,2,0,22.9,3,1,0,23.9,3,9:41:00 AM,1,N,High thin clouds.  Mosquitos and intermittent MEG Operations radio communications.  A singing SACR >100m in NE was heard and recorded during 06P.  A calling GRAJ and a singing RCKI within 50m in NE and a singing HETH within 50-100m in NE after the PC.
+6/30/2014,CO20605P,CO20605P-1,87,8:38:00 AM,n_a,1,3,0,18.8,3,3,0,18.4,3,8:48:00 AM,1,N,Machinery and intermittent MEG Operations radion communications.  Wind gusts to 4.  Smokey haze from NWT forest fires.  A calling GRAJ and counter-singing ALFL within 50m to SE and one counter-singing ALFL within 50m to NW after the PC.
+6/30/2014,CO20606G,CO20606G-1,26,7:32:00 AM,n_a,1,1,0,17,3,1,0,17.5,3,7:42:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <2KM NORTH AND OIL ROAD NEARBY (N). WISN ALREADY RECORDED IN PREVIOUS PC. BOCH CALLING AFTER PC <50M IN QUADRANT 4. WOODLAND CARIBOU TROTTED INTO THE SITE AT THE END OF THE PC. 
+6/30/2014,CO20606N,CO20606N-1,87,6:15:00 AM,n_a,1,2,0,16.7,3,2,0,16,3,6:25:00 AM,1,N,Mosquitos.  The  SACR and WISN from 06P was heard.
+6/30/2014,CO20606P,CO20606P-1,87,5:14:00 AM,n_a,1,2,0,15.1,3,2,0,14.9,3,5:24:00 AM,1,N,High thin clouds. Intermittent MEG Operations radio communications and machinery.
+6/30/2014,CO20607G,CO20607G-1,26,8:09:00 AM,n_a,1,2,0,18.1,3,1,0,19.2,3,8:19:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <2KM NORTH AND A ROAD TO THE EAST. WISN ALREADY RECORDED IN PREVIOUS PC
+6/30/2014,CO20607N,CO20607N-1,87,7:01:00 AM,n_a,1,2,0,17.2,3,2,0,17.3,1,7:11:00 AM,1,N,Mosquitos and intermittent MEG Operations radio communications.
+6/30/2014,CO20607W,CO20607W-1,87,7:49:00 AM,n_a,1,2,0,20.1,3,3,0,20.5,3,7:59:00 AM,0,N,
+6/30/2014,CO20608G,CO20608G-1,26,9:24:00 AM,n_a,1,1,0,20.1,3,1,0,20.4,3,9:34:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <1KM NORTH AND A ROAD <500M EAST
+6/30/2014,CO20609G,CO20609G-1,26,4:51:00 AM,n_a,1,0,0,15.5,3,1,0,13.7,3,5:01:00 AM,3,N,NOISE DUE TO OIL REFINERY/PLANT <500M NORTH. GRAJ CALLING BEFORE AND AFTER PC <50M IN QUADRANT 1. RCKI SINGING AFTER PC 50-100M IN QUADRANT 3. 
+5/31/2014,CO20901G,CO20901G-1,26,10:02:00 AM,n_a,1,2,0,20.6,0,1,0,22.9,0,10:12:00 AM,2,N,
+5/31/2014,CO20902G,CO20902G-1,87,9:29:00 AM,n_a,1,2,0,21.9,0,2,0,23,0,9:39:00 AM,0,N,Two TEWA chased eachother in the North sector.
+5/31/2014,CO20903G,CO20903G-1,87,8:42:00 AM,n_a,1,2,0,19.1,0,1,0,17.8,0,8:52:00 AM,1,N,
+5/31/2014,CO20904G,CO20904G-1,87,7:53:00 AM,n_a,1,1,0,13.8,0,1,0,13.1,0,8:03:00 AM,2,Y,Machinery noise.
+5/31/2014,CO20905G,CO20905G-1,87,7:04:00 AM,n_a,1,2,0,10.5,1,2,0,10,0,7:14:00 AM,2,N,Machinery noise.
+5/31/2014,CO20905N,CO20905N-1,26,5:47:00 AM,n_a,1,0,0,7.5,0,0,0,6.3,1,5:57:00 AM,1,N,
+5/31/2014,CO20905P,CO20905P-1,26,7:27:00 AM,n_a,1,0,0,10.7,0,0,0,10.2,0,7:37:00 AM,2,N,
+5/31/2014,CO20906G,CO20906G-1,26,9:12:00 AM,n_a,1,0,0,17.8,0,0,0,17.1,0,9:22:00 AM,1,N,
+5/31/2014,CO20906N,CO20906N-1,26,5:18:00 AM,n_a,1,0,0,7.6,0,0,0,5.6,0,5:28:00 AM,1,N,
+5/31/2014,CO20907G,CO20907G-1,26,8:26:00 AM,n_a,1,0,0,15.7,1,0,0,16.3,0,8:36:00 AM,2,N,OLD CUT BLOCK WITH YOUNG PB AND SW GROWING IN IT
+5/31/2014,CO20908G,CO20908G-1,87,6:15:00 AM,n_a,1,1,0,5.8,2,2,0,5.6,2,6:25:00 AM,2,N,"Machinery/ Heavy Equipment and a TEWA sonic wall noise.  The following birds sang within 50m in Quadrant 1 after the PC: LISP, YBSA, MAWA, and a BHVI (possibly PH)."
+5/31/2014,CO20909G,CO20909G-1,87,5:33:00 AM,n_a,1,1,0,3.8,2,1,0,3.7,2,5:43:00 AM,2,N,Heavy Equipment noise in quadrant #1 area.
+5/31/2014,CO20980P,CO20980P-1,26,6:43:00 AM,n_a,1,1,0,8.5,1,2,0,9.4,1,6:53:00 AM,2,N,NEW WPT ~90M SE OF ORIGINAL POINT. PIPELINE DID NOT EXIST SO I MOVED IT TO THE CLOSEST PIPELINE AVAILABLE. NOISE LEVEL IS DUE TO PASSING PLANES AND TRUCKS ON A HIGHWAY CLOSE BY.
+6/26/2014,CO21101G,CO21101G-1,28,7:29:00 AM,n_a,1,0,0,14.1,2,0,0,13.6,2,7:39:00 AM,0,Y,
+6/26/2014,CO21101N,CO21101N-1,28,9:08:00 AM,n_a,1,0,0,17.2,2,0,0,17.4,2,9:18:00 AM,0,Y,
+6/26/2014,CO21101W,CO21101W-1,32,9:05:00 AM,n_a,1,0,0,17.5,3,0,0,17.8,3,9:15:00 AM,0,Y,Well pad is 50x50m
+6/26/2014,CO21102G,CO21102G-1,28,6:51:00 AM,n_a,1,0,0,12.4,2,1,0,12.7,2,7:01:00 AM,0,Y,
+6/26/2014,CO21102W,CO21102W-1,32,8:20:00 AM,n_a,1,0,0,16.3,3,0,0,16.2,3,8:30:00 AM,0,N,Well pad is 60x60m
+6/26/2014,CO21103G,CO21103G-1,28,6:23:00 AM,n_a,1,0,0,12.2,2,0,0,11.5,2,6:33:00 AM,1,Y,
+6/26/2014,CO21104G,CO21104G-1,28,5:43:00 AM,n_a,1,0,0,14.4,3,0,0,11.6,3,5:53:00 AM,1,Y,
+6/26/2014,CO21104S,CO21104S-1,28,8:26:00 AM,n_a,1,0,0,14.8,2,1,0,14.9,2,8:36:00 AM,0,Y,
+6/26/2014,CO21105G,CO21105G-1,32,7:40:00 AM,n_a,1,0,0,14.1,3,0,0,15.1,3,7:50:00 AM,0,N,
+6/26/2014,CO21106G,CO21106G-1,32,7:05:00 AM,n_a,1,0,0,12.9,3,0,0,12.7,3,7:15:00 AM,1,N,Noise: distant plant
+6/26/2014,CO21107G,CO21107G-1,32,6:40:00 AM,n_a,1,0,0,11.5,3,0,0,11.5,3,6:50:00 AM,1,N,SL is 5m wide. Noise: traffic from road (not continuous) and electric panel.
+6/26/2014,CO21108G,CO21108G-1,32,6:10:00 AM,n_a,1,0,0,12.1,3,0,0,12,3,6:20:00 AM,0,N,Cutlines are 5m wide. On eis 5 m away and the other is 15m away.
+6/26/2014,CO21109G,CO21109G-1,32,5:40:00 AM,n_a,1,0,0,14,2,0,0,11.3,3,5:50:00 AM,0,Y,Cut line is 5m wide. Road is 40m wide and pipeline is 20m wide. See drawing.
+6/24/2014,CO21201G,CO21201G-1,32,4:45:00 AM,n_a,1,0,0,14.3,3,0,0,12.7,3,4:55:00 AM,1,N,
+6/24/2014,CO21202G,CO21202G-1,32,8:00:00 AM,n_a,1,1,0,21.6,1,1,0,22.6,1,8:10:00 AM,1,N,Noise: compression station. Thermometer in the sun.
+6/24/2014,CO21203G,CO21203G-1,32,8:30:00 AM,n_a,1,2,0,18.4,1,3,0,18.1,0,8:40:00 AM,0,N,
+6/24/2014,CO21204G,CO21204G-1,32,7:00:00 AM,n_a,1,0,0,15.2,2,2,0,14.2,2,7:10:00 AM,0,N,
+6/24/2014,CO21205G,CO21205G-1,32,7:30:00 AM,n_a,1,2,0,16.8,1,2,0,15.6,1,7:40:00 AM,,,
+6/24/2014,CO21205N,CO21205N-1,28,6:25:00 AM,n_a,1,1,0,14.5,1,1,0,14.3,1,6:35:00 AM,0,N,
+6/24/2014,CO21205R,CO21205R-1,28,4:42:00 AM,n_a,1,0,0,13.3,2,0,0,12,2,4:52:00 AM,1,N,
+6/24/2014,CO21206G,CO21206G-1,32,5:10:00 AM,n_a,1,0,0,15.3,2,0,0,13,1,5:20:00 AM,0,N,
+6/24/2014,CO21206N,CO21206N-1,28,7:19:00 AM,n_a,1,0,0,17.3,1,0,0,16.7,1,7:29:00 AM,0,N,Point accidentally called co21207n on recording
+6/24/2014,CO21206W,CO21206W-1,28,5:19:00 AM,n_a,1,0,0,11.7,2,0,0,11.6,1,5:29:00 AM,1,N,
+6/24/2014,CO21207G,CO21207G-1,32,5:35:00 AM,n_a,1,0,0,15.8,1,0,0,12.7,1,5:45:00 AM,0,N,
+6/24/2014,CO21207N,CO21207N-1,28,6:55:00 AM,n_a,1,1,0,15.8,1,0,0,16.1,1,7:05:00 AM,0,N,Point accidentally called co21206n on recording
+6/24/2014,CO21207P,CO21207P-1,28,5:56:00 AM,n_a,1,0,0,13.5,1,1,0,13.7,1,6:06:00 AM,1,N,
+6/24/2014,CO21208G,CO21208G-1,32,6:00:00 AM,n_a,1,2,0,13.4,2,,,,,6:10:00 AM,0,N,
+6/24/2014,CO21209G,CO21209G-1,32,6:30:00 AM,n_a,1,0,0,14.6,2,2,0,13.5,1,6:40:00 AM,0,N,
+6/27/2014,CO21209N,CO21209N-1,28,9:23:00 AM,n_a,1,0,0,17.1,0,0,0,15.9,0,9:33:00 AM,1,Y,
+6/27/2014,CO21209P,CO21209P-1,28,8:52:00 AM,n_a,1,0,0,19.2,0,0,0,18.9,0,9:02:00 AM,0,Y,
+6/27/2014,CO21210N,CO21210N-1,28,8:12:00 AM,n_a,1,0,0,15.1,0,0,0,15.1,0,8:22:00 AM,1,Y,Noise from mosquitoes
+6/27/2014,CO21210S,CO21210S-1,28,7:49:00 AM,n_a,1,0,0,14.9,0,0,0,14.4,0,7:59:00 AM,1,Y,"No seismic line, mapped line is actually a boggy depression/stream ~5m across. Noise from mosquitoes"
+6/27/2014,CO21211N,CO21211N-1,28,7:22:00 AM,n_a,1,0,0,13.1,1,0,0,13.5,1,7:32:00 AM,1,Y,30m from 5m seismic line. Noise from mosquitoes
+6/27/2014,CO21211S,CO21211S-1,28,6:59:00 AM,n_a,1,0,0,14,1,0,0,12.8,1,7:09:00 AM,1,Y,Noise from mosquitoes
+6/24/2014,CO21212N,CO21212N-1,28,9:10:00 AM,n_a,1,2,0,18.5,0,2,0,18.2,0,9:20:00 AM,0,N,
+6/24/2014,CO21212R,CO21212R-1,28,8:27:00 AM,n_a,1,2,0,20.9,0,3,0,19.9,0,8:37:00 AM,0,N,
+6/27/2014,CO21213N,CO21213N-1,28,5:06:00 AM,n_a,1,0,0,10.9,2,0,0,10.9,2,5:16:00 AM,0,Y,Quiet as hell on a Sunday
+6/27/2014,CO21213S,CO21213S-1,28,6:18:00 AM,n_a,1,0,0,11.2,2,0,0,11.1,2,6:28:00 AM,1,Y,Noise from mosquitoes
+6/27/2014,CO21214N,CO21214N-1,28,5:30:00 AM,n_a,1,0,0,10.5,2,0,0,9.9,2,5:40:00 AM,0,Y,
+6/27/2014,CO21214S,CO21214S-1,28,5:59:00 AM,n_a,1,0,0,11.8,2,0,0,11.1,2,6:09:00 AM,0,Y,
+6/25/2014,CO21301G,CO21301G-1,28,5:57:00 AM,n_a,1,0,0,12.4,0,0,0,12.5,0,6:07:00 AM,0,N,
+6/27/2014,CO21301N,CO21301N-1,32,6:40:00 AM,n_a,1,0,0,11.2,2,0,0,11.2,1,6:50:00 AM,1,N,Noise: insects (mosquitoes)
+6/27/2014,CO21301W,CO21301W-1,32,9:05:00 AM,n_a,1,0,0,19.5,0,0,0,20.6,0,9:15:00 AM,0,N,Well pad is 60x60m
+6/25/2014,CO21302G,CO21302G-1,28,5:36:00 AM,n_a,1,0,0,12.1,0,0,0,11.4,0,5:46:00 AM,0,N,
+6/27/2014,CO21302S,CO21302S-1,32,9:30:00 AM,n_a,1,1,0,22.7,0,2,0,22.6,0,9:40:00 AM,0,N,
+6/25/2014,CO21303G,CO21303G-1,28,5:12:00 AM,n_a,1,0,0,12.6,0,0,0,12.6,0,5:22:00 AM,0,N,
+6/27/2014,CO21303N,CO21303N-1,32,6:16:00 AM,n_a,1,0,0,12.1,3,0,0,11.9,2,6:26:00 AM,1,N,Noise: insects (mosquitoes)
+6/27/2014,CO21303P,CO21303P-1,32,8:15:00 AM,n_a,1,0,0,15.3,0,0,0,20.7,0,8:25:00 AM,1,N,Noise: insects (mosquitoes). Second reading of thermometer in the sun.
+6/25/2014,CO21304G,CO21304G-1,28,8:36:00 AM,n_a,1,1,0,17,0,1,0,17,0,8:46:00 AM,0,N,
+6/27/2014,CO21304N,CO21304N-1,32,5:50:00 AM,n_a,1,0,0,11.7,3,0,0,11.5,3,6:00:00 AM,1,N,Noise: insects (mosquitoes)
+6/27/2014,CO21304W,CO21304W-1,32,5:05:00 AM,n_a,1,0,0,10.1,3,0,0,9.5,3,5:15:00 AM,1,N,Noise: insects (mosquitoes)
+6/25/2014,CO21305G,CO21305G-1,28,6:57:00 AM,n_a,1,1,0,15.1,0,1,0,13.6,0,7:07:00 AM,0,N,
+6/27/2014,CO21305N,CO21305N-1,32,7:20:00 AM,n_a,1,0,0,12.3,1,0,0,12.3,0,7:30:00 AM,0,N,
+6/27/2014,CO21305P,CO21305P-1,32,7:45:00 AM,n_a,1,0,0,13.1,1,0,0,13.6,0,7:55:00 AM,1,N,Noise: insects (mosquitoes)
+6/25/2014,CO21306G,CO21306G-1,28,6:33:00 AM,n_a,1,1,0,16,0,1,0,17.4,0,6:43:00 AM,0,N,
+6/25/2014,CO21307G,CO21307G-1,28,7:28:00 AM,n_a,1,1,0,14.7,0,1,0,14.4,0,7:38:00 AM,0,N,
+6/25/2014,CO21307N,CO21307N-1,32,5:25:00 AM,n_a,1,0,0,12,0,0,0,11.2,0,5:35:00 AM,1,N,Noise: insects (mosquitoes). SL is 6m wide.
+6/25/2014,CO21307R,CO21307R-1,32,5:00:00 AM,n_a,1,0,0,12.5,0,1,0,12.5,0,5:10:00 AM,0,N,
+6/25/2014,CO21308G,CO21308G-1,28,7:47:00 AM,n_a,1,1,0,14.7,0,1,0,16.7,0,7:57:00 AM,0,N,
+6/25/2014,CO21309G,CO21309G-1,28,8:11:00 AM,n_a,1,1,0,17.2,0,1,0,18,0,8:21:00 AM,0,N,
+6/25/2014,CO21309N,CO21309N-1,28,9:41:00 AM,n_a,1,2,0,20.4,0,2,0,20,0,9:51:00 AM,0,N,
+6/25/2014,CO21309P,CO21309P-1,28,9:13:00 AM,n_a,1,2,0,19.5,0,2,0,18.9,0,9:23:00 AM,0,N,
+6/25/2014,CO21310N,CO21310N-1,32,6:25:00 AM,n_a,1,1,0,14.1,0,1,0,14.7,0,6:35:00 AM,0,N,SLs are 5m wide
+6/25/2014,CO21310R,CO21310R-1,32,6:00:00 AM,n_a,1,1,0,12.9,0,1,0,12.9,0,6:10:00 AM,0,N,
+6/25/2014,CO21311N,CO21311N-1,32,7:45:00 AM,n_a,1,3,0,16.7,0,2,0,19.4,0,7:55:00 AM,0,N,SL is 5m wide
+6/25/2014,CO21311P,CO21311P-1,32,7:25:00 AM,n_a,1,2,0,14.5,0,3,0,14.6,0,7:35:00 AM,0,N,
+6/25/2014,CO21312N,CO21312N-1,32,8:10:00 AM,n_a,1,3,0,22.2,0,2,0,19.1,0,8:20:00 AM,0,N,sl = 5M wide
+6/25/2014,CO21312P,CO21312P-1,32,8:35:00 AM,n_a,1,2,0,21,0,2,0,21.3,0,8:45:00 AM,1,N,Noise: insects (black flies)
+6/26/2014,CO21401G,CO21401G-1,26,6:34:00 AM,n_a,1,0,0,12.4,2,0,0,12.3,2,6:44:00 AM,2,Y,NOISE DUE TO TRAFFIC ON HWY 881 AND MOSQUITOS
+6/26/2014,CO21402G,CO21402G-1,26,6:08:00 AM,n_a,1,0,0,11.5,2,0,0,11.7,2,6:18:00 AM,2,Y,NOISE IS DUE TO MOSQUITOS AND DISTANT TRAFFIC. SEISMIC LINES ARE 2-3M WIDE
+6/26/2014,CO21403G,CO21403G-1,26,5:45:00 AM,n_a,1,0,0,10.8,0,0,0,10.2,2,5:55:00 AM,1,Y,NOISE IS DUE TO RAILWAY TRAFFIC AND MOSQUITOS
+6/26/2014,CO21404G,CO21404G-1,26,5:03:00 AM,n_a,1,0,0,13.9,0,0,0,10.7,0,5:13:00 AM,1,Y,NOISE DUE TO MOSQUITOS
+6/26/2014,CO21405G,CO21405G-1,26,7:28:00 AM,n_a,1,0,0,15.8,2,1,0,14.6,2,7:38:00 AM,2,Y,"20xWWCR (VISUAL AND CALLING ID) FLUSHED UPON ARRIVAL. NOISE IS DUE TO HWY 881, MOSQUITOS AND LOGGING NEARBY. SEISMIC LINES ARE ~2M WIDE. BOCH SINGING <50M IN QUADRANT 3 AFTER PC. ATTW (VISUAL AND CALLING ID) <50M IN QUADRANT 2 AFTER PC. "
+6/26/2014,CO21406G,CO21406G-1,26,7:02:00 AM,n_a,1,0,0,14.6,2,0,0,15.7,2,7:12:00 AM,2,Y,NOISE IS DUE TO HWY 881 TRAFFIC AND MOSQUITOS. SEISMIC LINES ARE ~2M WIDE. WIWR SANG >100M IN QUADRANT 1 AFTER PC.
+6/26/2014,CO21407G,CO21407G-1,26,8:18:00 AM,n_a,1,0,0,17.4,2,0,0,18.1,2,8:28:00 AM,1,Y,"NOISE DUE TO RAILWAY TRACKS, HWY 881 AND MOSQUITOS. BOCH CALLING 50-100M IN QUADRANT 4 AFTER PC."
+6/26/2014,CO21407N,CO21407N-1,87,5:00:00 AM,n_a,1,0,0,13.2,0,0,0,12.7,0,5:10:00 AM,1,Y,Mosquito noise.  PHVI sang to NE within 50m after the PC.
+6/26/2014,CO21407P,CO21407P-1,87,4:11:00 AM,n_a,1,2,0,13.8,1,2,0,11.1,1,4:21:00 AM,1,Y,Distant machinery and mosquito noise.
+6/26/2014,CO21408G,CO21408G-1,26,8:47:00 AM,n_a,1,1,0,19.5,2,0,0,20.9,2,8:57:00 AM,1,Y,NOISE DUE TO MOSQUITOS
+6/26/2014,CO21408N,CO21408N-1,87,6:35:00 AM,n_a,1,0,0,14.6,0,1,0,13.7,0,6:45:00 AM,2,Y,Machinery and mosquitos.
+6/26/2014,CO21408R,CO21408R-1,87,5:52:00 AM,n_a,1,0,0,14.2,1,2,0,13.9,1,6:02:00 AM,1,Y,"Machinery, mosquitos and a nearby stream noise."
+6/26/2014,CO21409G,CO21409G-1,26,4:23:00 AM,n_a,1,0,0,12.4,0,0,0,11.4,0,4:33:00 AM,0,Y,
+6/26/2014,CO21409N,CO21409N-1,87,8:40:00 AM,n_a,1,1,0,18.1,3,1,0,17.6,3,8:50:00 AM,1,Y,High thin clouds.Distant machinery and mosquitos.  The area has very steep hills and gullys.  There is a seismic line I crossed  ~45m to the North going essentially North-South that may be ATV'able if not blocked by downed logs or too steep.
+6/26/2014,CO21409R,CO21409R-1,87,7:18:00 AM,n_a,1,2,0,15.5,1,1,0,16.9,2,7:28:00 AM,1,Y,"Machinery, mosquitos and a stopped/passing Jeep.  "
+5/31/2014,CO21501G,CO21501G-1,28,5:23:00 AM,n_a,1,0,0,1.1,0,1,0,0.4,0,5:33:00 AM,1,N,near highway
+5/31/2014,CO21502G,CO21502G-1,28,5:55:00 AM,n_a,1,0,0,1.8,0,0,0,1.3,0,6:05:00 AM,1,N,
+5/31/2014,CO21503G,CO21503G-1,28,6:44:00 AM,n_a,1,0,0,6.2,0,0,0,6.2,0,6:54:00 AM,2,N,Noise due to stream
+5/31/2014,CO21504G,CO21504G-1,28,7:21:00 AM,n_a,1,0,0,11.4,0,0,0,14.1,0,7:31:00 AM,1,N,
+5/31/2014,CO21505G,CO21505G-1,28,10:06:00 AM,n_a,1,1,0,20,1,1,0,19.7,1,10:16:00 AM,1,N,
+5/31/2014,CO21506G,CO21506G-1,28,9:36:00 AM,n_a,1,1,0,16.5,0,1,0,17.4,0,9:46:00 AM,1,N,
+5/31/2014,CO21507G,CO21507G-1,28,8:54:00 AM,n_a,1,0,0,17.9,0,0,0,15.3,0,9:04:00 AM,1,N,
+5/31/2014,CO21508G,CO21508G-1,28,8:24:00 AM,n_a,1,0,0,17.5,0,0,0,17.9,0,8:34:00 AM,1,N,
+5/31/2014,CO21508N,CO21508N-1,32,8:50:00 AM,n_a,1,0,0,18.5,0,0,0,18.2,0,9:00:00 AM,0,N,
+5/31/2014,CO21508P,CO21508P-1,32,8:09:00 AM,n_a,1,0,0,15,0,0,0,17.9,0,8:19:00 AM,1,N,"GPS coordinate is not located in the middle of the pipeline, so observer moved. Noise is plant and road in the distance "
+5/31/2014,CO21509G,CO21509G-1,28,7:54:00 AM,n_a,1,0,0,14.2,0,0,0,14.7,0,8:04:00 AM,1,N,
+5/31/2014,CO21509N,CO21509N-1,32,6:24:00 AM,n_a,1,0,0,4.4,0,0,0,4.4,0,6:34:00 AM,0,N,
+5/31/2014,CO21509P,CO21509P-1,32,5:55:00 AM,n_a,1,0,0,,0,0,0,1.5,0,6:05:00 AM,1,N,Noise if traffic of 881 in the distance
+5/31/2014,CO21512N,CO21512N-1,32,7:04:00 AM,n_a,1,0,0,6.4,0,0,0,7.5,0,7:14:00 AM,1,N,Noise is road 881 in the distance. Very ol cut line (6m wide). See photos.
+5/31/2014,CO21512P,CO21512P-1,32,5:20:00 AM,n_a,1,0,0,4.3,0,0,0,-0.4,0,5:30:00 AM,0,N,Pipeline is 30m wide with regen (Aw) sapplings in the middle (8m)
+6/22/2014,CO21601G,CO21601G-1,26,9:29:00 AM,n_a,1,1,0,16.3,3,0,0,16.7,3,9:39:00 AM,0,Y,RWBL AND FOTE ALREADY RECORDED IN PREVIOUS PC
+6/22/2014,CO21601R,CO21601R-1,87,9:27:00 AM,n_a,1,0,2,15.9,3,1,0,18.8,3,9:37:00 AM,2,N,Machinery and mosquitos.  REVI sang after the PC.
+6/22/2014,CO21602G,CO21602G-1,26,4:44:00 AM,n_a,1,0,0,12.7,3,0,0,12.7,3,4:54:00 AM,0,Y,
+6/22/2014,CO21602R,CO21602R-1,87,8:55:00 AM,n_a,1,2,0,17.1,3,2,0,16.9,3,9:05:00 AM,1,N,"Machinery and mosquitos, wind gusts to 3 and 4.  A BHVI called within 50m in SE and a WTSP sang at 50-100m in SW after the PC."
+6/22/2014,CO21603G,CO21603G-1,26,5:28:00 AM,n_a,1,0,0,13,3,2,0,12.6,3,5:38:00 AM,1,Y,"GRAJ CALLING <50M IN QUADRANT 1 AFTER PC. NOISE DUE TO GAS MONITOR, LIGHT WIND IN AW CANOPY AND MOSQUITOS. (SORRY, I TURNED OFF MY GAS MONITOR DURING MINUTE 4 - CO ALARM WAS ABOUT TO GO OFF)"
+6/27/2014,CO21603S,CO21603S-1,87,9:14:00 AM,n_a,1,1,0,19.6,1,2,0,19.5,1,9:24:00 AM,0,N,It rained hard the previous afternoon and evening.  Mosquito noise.
+6/22/2014,CO21604G,CO21604G-1,26,6:02:00 AM,n_a,1,1,0,13,3,1,0,13.1,3,6:12:00 AM,0,Y,CONW SINGING IN QUADRANT 4 BEFORE PC.
+6/22/2014,CO21604N,CO21604N-1,87,8:15:00 AM,n_a,1,2,0,16.2,3,2,0,16.5,3,8:25:00 AM,0,N,2-3 x CEWA called a few meters South before the PC. 
+6/22/2014,CO21604R,CO21604R-1,87,6:21:00 AM,n_a,1,2,0,16,3,2,0,16,3,6:31:00 AM,2,N,"Machinery, mosquitos, and REVI noise.  Wind started at a 2, changed to 3, and returned to 2.  The dirt road is 10m wide with 5m wide vegetated (sedges and willows mostly) borders."
+6/22/2014,CO21605G,CO21605G-1,26,7:42:00 AM,n_a,1,0,0,15.5,3,0,0,15.2,3,7:52:00 AM,0,Y,
+6/22/2014,CO21605N,CO21605N-1,87,5:45:00 AM,n_a,1,0,0,13.3,3,0,0,11.6,3,5:55:00 AM,1,N,
+6/22/2014,CO21605R,CO21605R-1,87,4:38:00 AM,n_a,1,0,0,12.9,3,1,0,11.9,3,4:48:00 AM,1,N,Faint machinery and annoying mosquitos.
+6/22/2014,CO21606G,CO21606G-1,26,9:05:00 AM,n_a,1,0,2,15.8,3,0,1,15.4,3,9:15:00 AM,0,Y,NO RECORDING DUE TO LIGHT RAIN FALLING. SHOREBIRDS FROM NEARBY LAKE WERE ALREADY COUNTED IN PREVIOUS PC.
+6/22/2014,CO21607G,CO21607G-1,26,8:33:00 AM,n_a,1,0,0,15.6,3,0,0,15.1,3,8:43:00 AM,0,Y,GRAJ CALLING <50M IN QUADRANT 4 AFTER PC
+6/27/2014,CO21607N,CO21607N-1,26,7:55:00 AM,n_a,1,0,1,14.6,3,0,1,14.2,3,8:05:00 AM,0,Y,SORRY FOR ALL MY MOVEMENTS IN THE RECORDING - THE MOSQUITOES ARE BRUTAL TODAY
+6/22/2014,CO21608G,CO21608G-1,26,7:11:00 AM,n_a,1,0,0,14.8,3,1,0,14.6,3,7:21:00 AM,0,Y,SORRY FOR THE NOISE. HAD TO DIG OUT BINOCULARS DURING PC TO IDENTIFY YRWA. MY STOMACH GROWLED DURING PC. 
+6/22/2014,CO21609G,CO21609G-1,26,6:34:00 AM,n_a,1,0,0,14.2,3,0,0,13.7,3,6:44:00 AM,0,Y,CMWA SINGING <50M IN QUADRANT 3 AFTER PC. 
+6/22/2014,CO21671N,CO21671N-1,87,7:13:00 AM,n_a,1,0,0,16.7,3,3,0,15.8,3,7:23:00 AM,3,N,"01N is located on the Chippewan First Nations Reserve thus I moved and changed 07R's paired partner to 71N (I was also told to avoid the compressor station near the map's center).  High thin clouds.  Machinery and mosquitos, wind gusts to 3.  the TEWAs and OVENs made it harder to hear far."
+6/27/2014,CO21673N,CO21673N-1,26,9:24:00 AM,n_a,1,0,0,17.1,2,0,0,17.6,2,9:34:00 AM,0,Y,
+6/27/2014,CO21674N,CO21674N-1,87,8:28:00 AM,n_a,1,0,0,17.6,3,0,0,18.9,3,8:38:00 AM,1,N,"It rained hard the previous afternoon and evening.  Mosquito noise.  A WISN winnowed all over the South, a RESQ called to NE at 50-100m, a YBFL sang within 50m  plus a BOCH within 50m in the NW all afte the PC."
+6/27/2014,CO21674S,CO21674S-1,87,7:32:00 AM,n_a,1,0,1,16.4,3,1,1,19.5,3,7:42:00 AM,1,N,Mosquito noise.  It rained hard the previous afternoon and evening but not overnight.  A COYE sang to SE within 50m and a RESQ called to the West after the PC.
+6/27/2014,CO21675N,CO21675N-1,26,8:31:00 AM,n_a,1,0,0,16,3,0,0,16.2,2,8:41:00 AM,0,Y,
+6/27/2014,CO21675S,CO21675S-1,26,7:27:00 AM,n_a,1,0,1,14.1,3,0,1,13.9,3,7:37:00 AM,0,Y,BOCH CALLING <50M IN QUADRANT 1 AFTER PC. DEJU SINGING <50M IN QUADRANT 3 AFTER PC. 
+6/27/2014,CO21677S,CO21677S-1,26,6:58:00 AM,n_a,1,0,1,14.3,3,0,1,13.1,3,7:08:00 AM,0,Y,"PRECIPITATION IS FOG, SEISMIC LINE ~7M WIDE"
+6/25/2014,CO21701G,CO21701G-1,87,7:21:00 AM,n_a,1,3,0,15,0,3,0,14.8,0,7:31:00 AM,2,N,"Intermittent HWY 881 traffic, gusty wind and a moaning tree.  A winnowing WISN was recorded at 06G.  A CEWA sang within 50m in NE after the PC. "
+6/25/2014,CO21701N,CO21701N-1,63,8:20:00 AM,n_a,1,2,0,18,0,3,0,19,0,8:30:00 AM,0,N,
+6/25/2014,CO21701R,CO21701R-1,63,9:20:00 AM,n_a,1,1,0,20,0,1,0,20,0,9:30:00 AM,0,N,
+6/25/2014,CO21702G,CO21702G-1,87,8:02:00 AM,n_a,1,3,0,15.4,0,3,0,15.8,0,8:12:00 AM,3,N,Intermittent HWY 881 traffic.  An AMRE and EVGR sang within 50m in the SW and a TEWA sang within 50m in SE after the PC. 
+6/25/2014,CO21702N,CO21702N-1,63,6:50:00 AM,n_a,1,1,0,16,0,2,0,17,0,7:00:00 AM,0,N,
+6/25/2014,CO21702W,CO21702W-1,63,7:37:00 AM,n_a,1,3,0,17,0,2,0,18,0,7:47:00 AM,0,N,
+6/25/2014,CO21703G,CO21703G-1,87,8:47:00 AM,n_a,1,3,0,17.5,0,3,0,17.8,0,8:57:00 AM,3,N,Highway 881: intermittent traffic and wind gusts to 5.  Before PC: BBWO female was seen and heard calling at 50-100m in NW.  An OVEN sang 50-100m to SW and a countersinging OVEN to NE within 50m afte the PC.  
+6/25/2014,CO21703N,CO21703N-1,26,9:00:00 AM,n_a,1,3,0,17.5,0,3,0,17.2,0,9:10:00 AM,2,N,NOISE IS DUE TO WIND AND DISTANT TRAFFIC ON HWY 881. WIND GUSTING TO 4
+6/25/2014,CO21703P,CO21703P-1,63,9:59:00 AM,n_a,1,2,0,20,0,3,0,21,0,10:09:00 AM,0,N,wind gusts to 5
+6/25/2014,CO21704G,CO21704G-1,87,5:07:00 AM,n_a,1,0,0,14.4,1,1,0,11.6,1,5:17:00 AM,3,N,HWY 881 traffic and mosquitos.  A YBFL sang within 50m to NE after PC.
+6/25/2014,CO21704N,CO21704N-1,26,8:07:00 AM,n_a,1,3,0,18.9,0,3,0,15.6,0,8:17:00 AM,2,N,WIND GUSTING TO 4. NOISE DUE TO WIND AND MOSQUITOES
+6/25/2014,CO21704R,CO21704R-1,26,7:34:00 AM,n_a,1,3,0,18.1,0,3,0,20.2,0,7:44:00 AM,2,N,NOISE DUE TO WIND. STILL THINK I CAN HEAR ~70M AROUND ME. WIND GUSTING TO 4
+6/25/2014,CO21705G,CO21705G-1,87,5:50:00 AM,n_a,1,0,0,14.5,0,1,0,13.5,0,6:00:00 AM,2,N,HWY 881 traffic and mosquitos.  Noise intermittently louder than a 2.
+6/25/2014,CO21705N,CO21705N-1,26,6:25:00 AM,n_a,1,0,0,14.8,0,2,0,13.5,0,6:35:00 AM,1,N,NOISE DUE TO MOSQUITOS AND HWY 881 TRAFFIC TO THE EAST AND WIND
+6/25/2014,CO21705R,CO21705R-1,26,7:06:00 AM,n_a,1,2,0,14.7,0,2,0,13.9,0,7:16:00 AM,1,N,
+6/25/2014,CO21706G,CO21706G-1,87,6:38:00 AM,n_a,1,1,0,16.3,0,1,0,16,0,6:48:00 AM,2,N,HWY 881 traffic and mosquitos.  
+6/25/2014,CO21706N,CO21706N-1,26,8:01:00 AM,n_a,1,1,0,17.7,1,2,0,15.7,1,8:11:00 AM,2,N,NOISE IS DUE TO HWY 881 ~370M EAST OF HERE
+6/25/2014,CO21706W,CO21706W-1,26,9:02:00 AM,n_a,1,1,0,18.7,1,2,0,20.1,1,9:12:00 AM,1,N,"PC IN TWO PARTS BECAUSE AN ANIMAL ENTERED THE WELL PAD, HAD TO SCARE IT OFF"
+6/25/2014,CO21707G,CO21707G-1,63,5:11:00 AM,n_a,1,0,0,17,0,0,0,17,0,5:21:00 AM,1,N,highway noise
+6/25/2014,CO21708G,CO21708G-1,63,4:34:00 AM,n_a,1,0,0,16,0,0,0,16,0,4:44:00 AM,0,N,
+6/25/2014,CO21709G,CO21709G-1,87,4:30:00 AM,n_a,1,0,0,15.1,0,1,0,12.7,0,4:40:00 AM,3,N,"HWY 881 traffic and machinery, intermittent noise level to 4."
+6/25/2014,CO21709N,CO21709N-1,26,4:49:00 AM,n_a,1,0,0,13.3,0,0,0,13.5,0,4:59:00 AM,1,N,NOISE DUE TO MOSQUITOES AND DISTANT TRAFFIC ON HWY 881
+6/25/2014,CO21709R,CO21709R-1,26,5:29:00 AM,n_a,1,0,0,10.3,0,0,0,9.7,0,5:39:00 AM,1,N,NOISE DUE TO TRAFFIC ON HWY 881TO THE EAST
+6/24/2014,CO21710N,CO21710N-1,87,8:57:00 AM,n_a,1,2,0,20.5,0,2,0,16.5,0,9:07:00 AM,3,N,"Intermittent HWY881 traffic, mosquitos and difficult to hear quieter and further birds due to OVEN and TEWA noise.  I think I'm getting snippets of a third BBWA singing (8:81z)"
+6/24/2014,CO21710W,CO21710W-1,87,8:02:00 AM,n_a,1,2,0,19.6,0,2,0,25.2,0,8:12:00 AM,2,N,Highway 881: intermittent traffic.
+6/23/2014,CO21801G,CO21801G-1,26,8:15:00 AM,n_a,1,1,0,16.9,3,1,0,17.5,3,8:25:00 AM,2,N,WISN AND UNSA @1:00 ALREADY RECORDED IN CO21802G PC. YRWA SINGING <50M IN QUADRANT 1 AFTER PC
+6/23/2014,CO21802G,CO21802G-1,26,7:47:00 AM,n_a,1,0,0,16.4,3,0,0,16,3,7:57:00 AM,3,N,NOISE DUE TO REFINERY CONSTRUCTION AND OIL DRILLING TO THE NORTH AND HWY 881 IN THE WEST
+6/23/2014,CO21803G,CO21803G-1,26,4:09:00 AM,n_a,1,0,0,15,3,0,0,11.5,3,4:19:00 AM,4,N,NOISE DUE TO COMPRESSOR/CONSTRUCTION STIE ~150M IN NE AND WHY 881 ~100M WEST. I CAN HEAR ABOUT 50M AROUND ME
+6/23/2014,CO21805G,CO21805G-1,26,7:19:00 AM,n_a,1,0,0,16.5,2,0,0,16.6,2,7:29:00 AM,4,N,NOISE DUE TO OIL DRILL AND REFINERY CONSTRUCTION ~150M TO THE NE. CAN HEAR ONLY ABOUT 50M AROUND ME. DEJU VISUAL FLUSHED UPON ARRIVAL <50M IN QUADRANT 2. 
+6/23/2014,CO21806G,CO21806G-1,26,6:44:00 AM,n_a,1,0,0,15.3,3,0,0,15,3,6:54:00 AM,2,N,NOISE DUE TO HWY 881 AND CONSTRUCTION OF NEW OIL REFINERY IN THE NE DIRECTION
+6/23/2014,CO21807G,CO21807G-1,26,6:15:00 AM,n_a,1,0,2,15.2,2,0,0,15,2,6:25:00 AM,2,N,NO RECORDING DUE TO LIGHT RAIN/DRIZZLE
+6/23/2014,CO21808G,CO21808G-1,26,5:44:00 AM,n_a,1,0,0,13.6,3,0,0,13.5,3,5:54:00 AM,3,N,"NOISE DUE TO TRAFFIC ON PIPELINE, OIL RIG DRILLING AND CONSTRUCTION OF NEW REFINERY. SEISMIC LINE ~3M WIDE"
+6/23/2014,CO21809G,CO21809G-1,26,5:11:00 AM,n_a,1,0,0,13.1,3,0,0,12.2,3,5:21:00 AM,2,N,NOISE DUE TO ACTIVE OIL RIG AND CONSTRUCTION TO THE SW
+6/23/2014,CO21810G,CO21810G-1,87,8:16:00 AM,n_a,1,1,0,17,3,1,0,17.2,3,8:26:00 AM,1,N,Very bad mosquitos.  A CHSP sang within 50m in SE afte the PC.
+6/23/2014,CO21811G,CO21811G-1,87,8:56:00 AM,n_a,1,0,0,18.2,3,1,0,18,3,9:06:00 AM,1,N,Booming/pounding of machinery and mosquitos.
+6/23/2014,CO21812G,CO21812G-1,87,4:12:00 AM,n_a,1,3,0,16.2,3,3,0,13.5,3,4:22:00 AM,2,N,"Highway 881, machinery and mosquitos.  A WETA sang to the NE at 50-100m after PC."
+6/23/2014,CO21813G,CO21813G-1,87,4:58:00 AM,n_a,1,2,0,15.6,3,2,0,14.6,3,5:08:00 AM,2,N,"HWY 881, machinery, mosquitos."
+6/23/2014,CO21814G,CO21814G-1,87,9:26:00 AM,n_a,1,0,0,17.5,3,0,0,17.9,3,9:36:00 AM,3,N,"A grader and intermittent trucks passed on the road, less than 10m to the South.  Noise level intermittently to 4."
+6/23/2014,CO21815G,CO21815G-1,87,7:38:00 AM,n_a,1,0,0,16.9,2,1,0,16.8,3,7:48:00 AM,1,N,Mosquito noise.
+6/23/2014,CO21816G,CO21816G-1,87,6:58:00 AM,n_a,1,1,0,17.3,3,1,0,16.1,2,7:08:00 AM,1,N,"Machinery, mosquitos and TEWA noise."
+6/23/2014,CO21817G,CO21817G-1,87,6:19:00 AM,n_a,1,0,3,15.6,3,1,0,16,2,6:29:00 AM,2,N,HWY 881 traffic
+6/23/2014,CO21818G,CO21818G-1,87,5:38:00 AM,n_a,1,0,2,15.4,3,1,0,14.7,3,5:48:00 AM,3,N,Noise to 4 at ~7:30: HWY 881 traffic and machinery.  
+6/29/2014,CO22201G,CO22201G-1,26,6:18:00 AM,n_a,1,0,0,13.4,0,1,0,13.1,0,6:28:00 AM,3,N,NOISE DUE TO OIL REFINERY <1KM EAST. I CAN HEAR OTHER BIRDS BUT THEY ARE >150M DISTANCE AND I CANNOT HEAR CLEAR ENOUGH TO ID. WIND GUSTING FROM 0 TO 2. 
+6/29/2014,CO22201N,CO22201N-1,87,9:11:00 AM,n_a,1,3,0,19.3,0,2,0,19.6,0,9:21:00 AM,3,N,"HWY 881 and Nexen Road, wind gusts to 5.BBWA sang within 50m in SW after PC."
+6/29/2014,CO22201P,CO22201P-1,87,8:13:00 AM,n_a,1,3,0,17.5,0,3,0,17.2,0,8:23:00 AM,3,N,"HWY 881 and Nexen Road, machinery and booming cannon, wind gusts to 5."
+6/29/2014,CO22202G,CO22202G-1,26,6:51:00 AM,n_a,1,1,0,14,3,0,0,15.2,3,7:01:00 AM,3,N,"NOISE DUE TO OIL REFINERY <1KM EAST. 2 SEISMIC LINES ON SITE, BOTH ~3M WIDE"
+6/29/2014,CO22203G,CO22203G-1,26,7:24:00 AM,n_a,1,0,0,16.2,3,0,0,17.9,3,7:34:00 AM,3,N,EVGR CALL BEFORE PC <50M IN QUADRANT 3. NOISE DUE TO TRAIN (N) AND OIL REFINERY <1.5KM TO THE EAST
+6/29/2014,CO22204G,CO22204G-1,26,7:52:00 AM,n_a,1,2,0,17.2,3,2,0,16.6,3,8:02:00 AM,2,N,"NOISE DUE TO WIND, MOSQUITOES AND OIL REFINERY <2KM EAST. WIND GUSTING TO 3. SEISMIC LINE ~7M WIDE."
+6/29/2014,CO22205G,CO22205G-1,26,9:21:00 AM,n_a,1,0,0,19.7,0,0,0,20.3,0,9:31:00 AM,2,N,
+6/29/2014,CO22206G,CO22206G-1,26,5:44:00 AM,n_a,1,0,0,11.2,0,0,0,11.3,0,5:54:00 AM,3,N,NOLISE DUE TO OIL REFINERY <1KM EAST
+6/29/2014,CO22207G,CO22207G-1,26,5:02:00 AM,n_a,1,0,0,13.5,0,0,0,12.5,0,5:12:00 AM,3,N,CEDW CALLING <50M IN QUADRANT 4 AFTER PC. NOISE DUE TO OIL REFINERY WITHIN 1KM EAST
+6/29/2014,CO22208G,CO22208G-1,26,9:44:00 AM,n_a,1,0,0,22.1,0,1,0,22.8,0,9:54:00 AM,2,N,"NOISE DUE TO HORSEFLIES, MOSQUITOES AND OIL REFINERY TO THE EAST. SWSP SANG <50M IN QUADRANT 3 AFTER PC. "
+6/29/2014,CO22209G,CO22209G-1,26,8:39:00 AM,n_a,1,2,0,17.6,3,3,0,18.4,3,8:49:00 AM,2,N,WIND GUSTING TO 4. NOISE DUE TO MOSQUITOES AND WIND
+6/29/2014,CO22210N,CO22210N-1,87,6:05:00 AM,n_a,1,3,0,15,0,3,0,14.2,0,6:15:00 AM,1,N,PC is on an old seismic line 2m wide.  Mosquito noise.  A BRCR sang within 50m in SW after PC.
+6/29/2014,CO22210S,CO22210S-1,87,5:30:00 AM,n_a,1,2,0,14.1,0,3,0,13,0,5:40:00 AM,1,N,Mosquitos.
+6/29/2014,CO22211N,CO22211N-1,87,4:39:00 AM,n_a,1,2,0,16.7,0,2,0,15.3,0,4:49:00 AM,1,N,Intermittent cannon fired and mosquitos.  REVI within 50m sang in NW  and a BRCR sang within 50m in NE after the PC.
+6/29/2014,CO22211P,CO22211P-1,87,7:07:00 AM,n_a,1,3,0,16.8,0,3,0,17.7,0,7:17:00 AM,1,N,HWY 881 and nearby Nexen Camp and Plant.  A LCSP countersang in NE and a SOSP sang in SE within 50m after the PC.
+6/28/2014,CO22401N,CO22401N-1,26,4:06:00 AM,n_a,1,0,1,7.7,0,0,1,5.7,1,4:16:00 AM,0,N,PERCIPITATION - FOG
+6/28/2014,CO22401S,CO22401S-1,87,4:42:00 AM,n_a,1,1,0,9.1,1,1,0,7.4,1,4:52:00 AM,1,N,Intermittent sounds of a stuck Argo and machine booming.  A COLO sang and called >100m to SE and a UNYE sang to the South 50-100m after the SC.
+6/28/2014,CO22402N,CO22402N-1,26,4:47:00 AM,n_a,1,0,1,6,1,0,1,5.1,1,4:57:00 AM,1,N,NOISE DUE TO JONATHAN GETTING THE ARGO STUCK. PRECIPITATION - FOG.
+6/28/2014,CO22402W,CO22402W-1,87,5:32:00 AM,n_a,1,0,1,10.6,1,0,0,10,1,5:42:00 AM,1,N,Intermittent ARGO motor and a train passed.
+6/28/2014,CO22403N,CO22403N-1,26,5:31:00 AM,n_a,1,0,1,8.1,1,0,1,6.8,1,5:41:00 AM,2,N,"NOISE DUE TO JONATHAN WITH THE ARGO AND A PASSING TRAIN. PAUSED THE PC AT 4:30MINS DUE TO PASSING TRAIN, CONTINUED 5 MINS LATER. PRECIPITATION - FOG. COLO SINGING, FOTE CALLING AND GRYE CALLING ALREADY RECORDED IN PREVIOUS PC. "
+6/28/2014,CO22403W,CO22403W-1,87,6:30:00 AM,n_a,1,0,0,14.3,1,0,0,14,1,6:40:00 AM,2,N,Intermitent pounding. A SACR to the West called over 100m  is likely the same as in 02W (not recorded here).
+6/28/2014,CO22404N,CO22404N-1,26,6:03:00 AM,n_a,1,0,0,9.2,1,0,0,9.4,1,6:13:00 AM,1,N,NOISE DUE TO MOSQUITOES. COLO SINGING ALREADY RECORDED IN PREVIOUS PC
+6/28/2014,CO22404W,CO22404W-1,87,7:24:00 AM,n_a,1,2,0,21,1,2,0,23.8,0,7:34:00 AM,1,N,Intermitent pounding and machinery.
+6/28/2014,CO22405N,CO22405N-1,26,6:45:00 AM,n_a,1,0,0,15.4,1,0,0,20.5,1,6:55:00 AM,0,N,
+6/28/2014,CO22405W,CO22405W-1,87,8:12:00 AM,n_a,1,1,0,23.8,1,2,0,26.8,0,8:22:00 AM,1,N,Mosquitos.
+6/28/2014,CO22406N,CO22406N-1,26,7:21:00 AM,n_a,1,0,0,19.4,1,0,0,19.1,1,7:31:00 AM,0,N,SORRY FOR THE STOMACH GROWLING… 2 COLO SINGING ALREADY RECORDED IN PREVIOUS PC
+6/28/2014,CO22406W,CO22406W-1,63,7:33:00 AM,n_a,1,0,0,12,0,0,0,13,0,7:43:00 AM,0,N,
+6/28/2014,FT20001G,FT20001G-1,32,7:25:00 AM,n_a,1,0,0,13.4,0,0,0,13.6,0,7:35:00 AM,1,N,
+6/28/2014,FT20002G,FT20002G-1,32,6:55:00 AM,n_a,1,0,0,12.6,0,0,0,13.6,0,7:05:00 AM,1,N,Noise: mosquitoes and MOSA area
+6/28/2014,FT20003G,FT20003G-1,32,6:20:00 AM,n_a,1,0,0,13.6,0,0,0,10.7,0,6:30:00 AM,1,N,Noise: bird scareing cannons (faint and far)
+6/28/2014,FT20003N,FT20003N-1,32,8:00:00 AM,n_a,1,0,0,19.5,0,0,0,21.7,0,8:10:00 AM,1,N,Noise: MOSA (faint and far)
+6/28/2014,FT20003P,FT20003P-1,32,8:30:00 AM,n_a,1,0,0,22.4,0,1,0,22.9,3,8:40:00 AM,1,N,Noise: stream
+6/28/2014,FT20004G,FT20004G-1,28,8:40:00 AM,n_a,1,0,0,20.1,0,0,0,17.1,0,8:50:00 AM,1,N,
+6/28/2014,FT20005G,FT20005G-1,28,8:10:00 AM,n_a,1,0,0,16.9,0,0,0,17.8,0,8:20:00 AM,1,N,
+6/28/2014,FT20006G,FT20006G-1,28,6:13:00 AM,n_a,1,0,0,14.2,0,0,0,12.4,0,6:23:00 AM,1,N,
+6/28/2014,FT20007G,FT20007G-1,28,7:36:00 AM,n_a,1,0,0,17.2,0,0,0,16,0,7:46:00 AM,1,N,Heli flew by. Recorder Lost power partway thru point count
+6/28/2014,FT20008G,FT20008G-1,28,7:05:00 AM,n_a,1,0,0,15.5,0,0,0,14.8,0,7:15:00 AM,1,N,
+6/28/2014,FT20009G,FT20009G-1,28,6:41:00 AM,n_a,1,0,0,14,0,0,0,14.1,0,6:51:00 AM,1,N,
+6/28/2014,FT20010N,FT20010N-1,32,10:00:00 AM,n_a,1,2,0,20.4,0,3,0,20.6,0,10:10:00 AM,1,N,Noise: mosquitoes and MOSA area
+6/28/2014,FT20010R,FT20010R-1,28,9:45:00 AM,n_a,1,1,0,24.7,0,1,0,24.5,0,9:55:00 AM,0,N,
+07/01/2014,FT20401G,FT20401G-1,32,5:05:00 AM,n_a,1,0,0,14.8,2,0,0,8,2,5:15:00 AM,1,N,Noise from Suncor's pad in the background
+07/01/2014,FT20401N,FT20401N-1,28,6:33:00 AM,n_a,1,0,0,14.5,0,0,0,13.8,0,6:43:00 AM,1,N,
+07/01/2014,FT20401P,FT20401P-1,28,4:47:00 AM,n_a,1,0,0,11,1,0,0,12.3,1,4:57:00 AM,1,N,
+07/01/2014,FT20402G,FT20402G-1,32,8:25:00 AM,n_a,1,0,0,19,1,1,0,20,1,8:35:00 AM,1,N,Noise: from heavy equipment in the distance (not continuous). Well pad is 40 x 40m
+07/01/2014,FT20402N,FT20402N-1,28,6:59:00 AM,n_a,1,0,0,14.8,0,0,0,15.7,0,7:09:00 AM,0,N,
+07/01/2014,FT20402P,FT20402P-1,28,5:07:00 AM,n_a,1,0,0,12.1,1,0,0,11.8,1,5:17:00 AM,1,N,
+07/01/2014,FT20403G,FT20403G-1,32,8:05:00 AM,n_a,1,0,0,19.1,2,0,0,18.8,2,8:15:00 AM,1,N,Noise is plane fly by and pumping station 100m north
+07/01/2014,FT20404G,FT20404G-1,32,5:30:00 AM,n_a,1,0,0,8,2,0,0,8.3,2,5:40:00 AM,0,N,
+07/01/2014,FT20404S,FT20404S-1,28,5:50:00 AM,n_a,1,0,0,10.8,0,0,0,10.6,0,6:00:00 AM,1,N,
+07/01/2014,FT20405G,FT20405G-1,32,6:50:00 AM,n_a,1,0,0,18.1,2,0,0,16.8,2,7:00:00 AM,1,N,Noise: traffic on Suncor's road
+07/01/2014,FT20406G,FT20406G-1,32,7:40:00 AM,n_a,1,0,0,17.6,2,0,0,17.1,2,7:50:00 AM,1,N,Noise is from machinery south
+07/01/2014,FT20407G,FT20407G-1,32,5:55:00 AM,n_a,1,0,0,13.8,2,0,0,10.6,2,6:05:00 AM,1,N,Well pad is 100 x 100m
+07/01/2014,FT20407N,FT20407N-1,28,7:29:00 AM,n_a,1,0,0,17.6,0,0,0,17.2,0,7:39:00 AM,0,N,
+07/01/2014,FT20407W,FT20407W-1,28,8:41:00 AM,n_a,1,0,0,19.9,0,0,0,20.6,0,8:51:00 AM,0,N,
+07/01/2014,FT20408G,FT20408G-1,32,6:30:00 AM,n_a,1,0,0,13.4,2,0,0,12.4,2,6:40:00 AM,0,N,Well pad is 100 x 100m
+07/01/2014,FT20408N,FT20408N-1,28,8:10:00 AM,n_a,1,0,0,19.4,0,0,0,19.1,0,8:20:00 AM,0,N,
+07/01/2014,FT20408W,FT20408W-1,28,9:38:00 AM,n_a,1,1,0,20.9,0,1,0,21.4,0,9:48:00 AM,0,N,
+07/01/2014,FT20409G,FT20409G-1,32,7:15:00 AM,n_a,1,0,0,18.4,2,0,0,17.6,2,7:25:00 AM,0,N,
+07/01/2014,FT20490N,FT20490N-1,32,9:25:00 AM,n_a,1,0,0,22.1,1,2,0,22.5,1,9:35:00 AM,1,N,Paired up with 04S. Noise is road traffic (not contiunous)
+06/10/2014,FT20601G,FT20601G-1,63,5:20:00 AM,n_a,1,0,0,6,3,0,0,6,3,5:30:00 AM,0,N,
+06/09/2014,FT20602G,FT20602G-1,26,4:44:00 AM,n_a,1,2,0,13.2,2,2,0,10.8,2,4:54:00 AM,1,Y,NOISE IS DUE TO BOMBING/CONSTRUCTION NOISES IN THE NORTH. RECORDING MIGHT PICK UP MORE WIND DISTURBANCES SINCE I AM SURVEYING ON A PIPELINE
+06/10/2014,FT20603G,FT20603G-1,63,7:30:00 AM,n_a,1,1,0,9,0,0,0,9,0,7:40:00 AM,0,N,
+06/09/2014,FT20603N,FT20603N-1,28,7:42:00 AM,n_a,1,2,1,10.6,3,2,1,10.1,3,7:52:00 AM,0,Y,Light rain made birds very quiet
+06/09/2014,FT20603W,FT20603W-1,28,4:31:00 AM,n_a,1,2,0,10.3,2,2,0,9.8,2,4:41:00 AM,0,Y,
+06/10/2014,FT20604G,FT20604G-1,63,6:04:00 AM,n_a,1,0,0,7,3,0,0,7,3,6:14:00 AM,0,N,
+06/09/2014,FT20605G,FT20605G-1,26,7:54:00 AM,n_a,1,1,3,12.1,3,0,2,10.5,3,8:04:00 AM,1,Y,NOISE IS DUE TO RAIN AND AIR TRAFFIC
+06/09/2014,FT20605N,FT20605N-1,28,8:00:00 AM,n_a,1,2,1,10,3,1,1,9.9,3,8:10:00 AM,1,Y,
+06/09/2014,FT20605S,FT20605S-1,28,6:46:00 AM,n_a,1,2,0,10.6,3,,,,,6:56:00 AM,0,Y,forgot to record weather at end of count
+06/09/2014,FT20606G,FT20606G-1,26,6:05:00 AM,n_a,1,1,0,12.2,3,1,0,10.6,3,6:15:00 AM,1,Y,NOISE IS DUE TO AIR TRAFFIC AND DISTANT BOMBING/CONSTRUCTION
+06/09/2014,FT20606N,FT20606N-1,28,8:30:00 AM,n_a,1,1,1,10.8,3,1,1,9.9,3,8:40:00 AM,1,Y,Rain light but steady; birds very quiet
+06/09/2014,FT20606S,FT20606S-1,28,6:16:00 AM,n_a,1,1,0,9.6,3,0,0,9.1,3,6:26:00 AM,0,Y,
+06/10/2014,FT20607G,FT20607G-1,63,6:30:00 AM,n_a,1,0,0,8,3,0,0,8,3,6:40:00 AM,0,N,GRAJ from previous PC heard but not counted
+06/09/2014,FT20607N,FT20607N-1,28,5:46:00 AM,n_a,1,0,0,10.1,3,0,0,9.4,3,5:56:00 AM,0,Y,
+06/09/2014,FT20607S,FT20607S-1,28,5:14:00 AM,n_a,1,2,0,9.2,2,2,0,9.8,2,5:24:00 AM,0,Y,
+06/09/2014,FT20608G,FT20608G-1,26,7:09:00 AM,n_a,1,1,2,12,3,2,2,11.5,3,7:19:00 AM,1,Y,NO RECORDING DUE TO LIGHT RAIN. WIND GUSTING TO 3/4. NOISE DUE TO BOMBING/CONSTRUCTION IN THE DISTANCE. OVEN SINGING AFTER PC >100M IN QUADRANT 2
+06/09/2014,FT20609G,FT20609G-1,26,6:35:00 AM,n_a,1,1,0,11.1,3,1,1,9.9,3,6:45:00 AM,1,Y,NOISE DUE TO DISTANT BOMBING/CONSTRUCTION IN THE NORTH
+07/02/2014,FT20701G,FT20701G-1,28,7:03:00 AM,n_a,1,0,0,13.8,0,0,0,14.9,0,7:13:00 AM,0,N,
+07/02/2014,FT20702G,FT20702G-1,28,6:38:00 AM,n_a,1,0,0,12.1,0,0,0,12,0,6:48:00 AM,0,N,
+07/02/2014,FT20703G,FT20703G-1,28,6:06:00 AM,n_a,1,0,0,11.8,0,0,0,11.6,0,6:16:00 AM,0,N,
+07/02/2014,FT20704G,FT20704G-1,28,5:36:00 AM,n_a,1,1,0,13.1,0,1,0,12.8,0,5:46:00 AM,0,N,
+07/02/2014,FT20705G,FT20705G-1,28,8:04:00 AM,n_a,1,0,0,18.8,0,0,0,19.5,0,8:14:00 AM,1,N,noise at 9:00 for only ~20 sec due to jet engine (test run?)
+07/02/2014,FT20706G,FT20706G-1,28,7:41:00 AM,n_a,1,0,0,16.8,0,0,0,16.6,0,7:51:00 AM,0,N,
+07/02/2014,FT20706N,FT20706N-1,32,5:00:00 AM,n_a,1,0,0,11,2,0,0,9.8,2,5:10:00 AM,0,N,Cut line is 5m wide
+07/02/2014,FT20706P,FT20706P-1,32,7:15:00 AM,n_a,1,0,0,15.4,0,0,0,20.4,0,7:25:00 AM,1,N,"Not a pipeline, but a well pad (50 x 50m). Noise: SOSA very noisy!"
+07/02/2014,FT20707G,FT20707G-1,28,8:51:00 AM,n_a,1,0,0,22.4,0,0,0,23.6,0,9:01:00 AM,0,N,
+07/02/2014,FT20707N,FT20707N-1,32,5:55:00 AM,n_a,1,0,0,9.6,1,0,0,9.5,1,6:05:00 AM,0,N,
+07/02/2014,FT20707S,FT20707S-1,32,5:30:00 AM,n_a,1,0,0,10.6,2,0,0,9.3,1,5:40:00 AM,0,N,At the intersection of 3 cut lines (6 and 8m large respectively)
+07/02/2014,FT20708G,FT20708G-1,28,8:27:00 AM,n_a,1,0,0,20.8,0,0,0,20.9,0,8:37:00 AM,0,N,
+07/02/2014,FT20708N,FT20708N-1,32,6:30:00 AM,n_a,1,0,0,11.8,1,0,0,11.9,1,6:40:00 AM,1,N,Noise: Mosquitoes
+07/02/2014,FT20708S,FT20708S-1,28,9:21:00 AM,n_a,1,0,0,26.7,0,0,0,29.3,0,9:31:00 AM,0,N,
+07/02/2014,FT20709G,FT20709G-1,28,5:07:00 AM,n_a,1,0,0,12.7,0,0,0,11.2,0,5:17:00 AM,0,N,
+07/02/2014,FT20709N,FT20709N-1,32,8:10:00 AM,n_a,1,0,0,22,0,0,0,19.6,0,8:20:00 AM,1,N,Noise: Mosquitoes
+07/02/2014,FT20709W,FT20709W-1,32,8:35:00 AM,n_a,1,0,0,22.8,0,0,0,22.5,0,8:45:00 AM,1,N,Well pad is 100 x 100m with regen of Aw and Salix (2m height). Noise: Airplane (PC suspended) and flies
+06/05/2014,FT20801G,FT20801G-1,26,4:53:00 AM,n_a,1,0,3,4.1,3,2,1,4.4,3,5:03:00 AM,2,Y,"AT MINUTE 4, HAD TO STOP THE RECORDING FOR 3 MINUTES DUE TO RAIN. - RECORDING IS NOW MISSING NOISE IS A 2 DUE TO NEARBY OIL CAMP AND ROADS. BAWW SINGING AFTER PC."
+06/05/2014,FT20802G,FT20802G-1,26,5:25:00 AM,n_a,1,2,0,3.7,3,2,1,3.4,3,5:35:00 AM,2,Y,NOT RECORDING DUE TO WATER FALLING OFF OF TREE LEAVES. NOISE 2 DUE TO ROAD TRAFFIC NEARBY (AND OIL CAMP - EDGING TO 2.5 LEVEL) WIND GUSTING TO 3/4
+06/05/2014,FT20803G,FT20803G-1,26,6:01:00 AM,n_a,1,2,0,4.5,3,2,0,3.5,3,6:11:00 AM,3,Y,"TRAIL WAS ~5M WIDE. NOISE IS 3 DUE TO CONSTRUCTION STIE NEARBY WITH TRUCKS HONKING, BACKING UP AND DRIVING JUST NORTH OF STATION. 2 OVEN BIRDS VISUALS BEFORE PC. DID NOT ORIENT RECORDER PROPERLY... IT FACED EAST DURING PC. WIND GUSTING TO 3/4"
+06/05/2014,FT20804G,FT20804G-1,26,7:31:00 AM,n_a,1,2,0,3.8,3,2,0,3.7,3,7:41:00 AM,2,Y,NOISE IS DUE TO AIR TRAFFIC AND CONSTRUCTION
+06/05/2014,FT20805G,FT20805G-1,26,7:02:00 AM,n_a,1,1,0,3.7,3,2,1,3.5,3,7:12:00 AM,2,Y,"NOISE DUE TO CONSTRUCTION SITE NEARBY (TRUCKS DRIVING, HONKING AND BACKING UP). RECORDING IN TWO PARTS DUE TO HELICOPTER CHECK-IN"
+06/05/2014,FT20806G,FT20806G-1,26,6:36:00 AM,n_a,1,1,3,3.3,3,2,2,3.2,3,6:46:00 AM,3,Y,"ALL SEISMIC LINES ARE ~5M WIDE. NOISE IS DUE TO NEARBY CONSTRUCTION (TRUCKS DRIVING, HONKING AND BACKING UP). NO AUDIO RECORDING DUE TO LIGHT RAIN"
+06/05/2014,FT20806N,FT20806N-1,63,9:39:00 AM,n_a,1,1,0,5,3,2,0,5,3,9:49:00 AM,2,Y,Industrial noise to N
+06/05/2014,FT20806W,FT20806W-1,63,9:56:00 AM,n_a,1,3,0,6,3,3,0,6,3,10:06:00 AM,1,Y,
+06/05/2014,FT20807G,FT20807G-1,26,8:05:00 AM,n_a,1,2,0,4.3,3,3,0,4.2,3,8:15:00 AM,1,Y,"NOISE DUE TO CONSTRUCTION SITE NEARBY (TRUCKS DRIVING, HONKING AND BACKING UP)."
+06/05/2014,FT20807N,FT20807N-1,63,8:59:00 AM,n_a,1,1,0,6,3,2,0,6,3,9:09:00 AM,2,Y,"Industrial noise, wind gust to 3"
+06/05/2014,FT20807S,FT20807S-1,63,9:19:00 AM,n_a,1,3,0,5,3,2,0,6,2,9:29:00 AM,2,Y,"Industrial noise, wind gust to 5"
+06/05/2014,FT20808G,FT20808G-1,26,8:48:00 AM,n_a,1,2,0,5.2,3,1,0,5,3,8:58:00 AM,2,Y,NOISE IS DUE TO DISTANT CONSTRUCTION AND A STREAM THAT IS ~100M NE OF PC STATION
+06/05/2014,FT20808N,FT20808N-1,63,8:18:00 AM,n_a,1,1,0,4,3,2,0,5,3,8:28:00 AM,3,Y,Industrial noise
+06/05/2014,FT20808W,FT20808W-1,63,7:48:00 AM,n_a,1,2,0,4,3,2,0,4,3,7:58:00 AM,1,Y,
+06/05/2014,FT20809G,FT20809G-1,26,9:19:00 AM,n_a,1,2,0,5.7,3,2,0,6.6,3,9:29:00 AM,2,Y,NOISE DUE TO CONSTRUCTION IN THE DISTANCE. SEISMIC LINE IS ~2M WIDE
+06/05/2014,FT20809N,FT20809N-1,63,7:12:00 AM,n_a,1,1,0,6,3,0,0,6,3,7:22:00 AM,2,Y,Industrial noise
+06/05/2014,FT20809W,FT20809W-1,63,6:48:00 AM,n_a,1,1,1,5,3,2,2,5,3,6:58:00 AM,2,Y,Industrial noise
+06/05/2014,FT20810N,FT20810N-1,63,6:05:00 AM,n_a,1,1,0,5,3,1,0,5,3,6:15:00 AM,2,Y,
+06/05/2014,FT20810S,FT20810S-1,63,6:29:00 AM,n_a,1,1,1,5,3,2,1,5,3,6:39:00 AM,1,Y,
+06/05/2014,FT20811N,FT20811N-1,63,5:23:00 AM,n_a,1,1,0,4,3,1,0,4,3,5:33:00 AM,2,Y,noise from large creek in deep-ish valley NE of PC
+06/05/2014,FT20811W,FT20811W-1,63,4:56:00 AM,n_a,1,1,1,4,3,1,0,4,3,5:06:00 AM,1,Y,
+06/05/2014,FT20901G,FT20901G-1,87,4:37:00 AM,n_a,1,2,2,5.8,3,3,2,4.3,3,4:47:00 AM,2,N,"Booming/pounding of cannon, machinery.  The Wind picked up as I started from 0."
+06/05/2014,FT20902G,FT20902G-1,87,5:14:00 AM,n_a,1,3,0,4.5,3,3,0,3.8,3,5:24:00 AM,2,N,"Intermitent cannon and machinery, gusts to 4 and 5 with tree clicking."
+06/05/2014,FT20902N,FT20902N-1,28,4:42:00 AM,n_a,1,2,1,5.1,3,3,1,3.9,3,4:52:00 AM,1,Y,
+06/05/2014,FT20902W,FT20902W-1,28,5:11:00 AM,n_a,1,2,0,4.3,3,3,1,4,3,5:21:00 AM,1,Y,"sustained gusts at BF3, rain periodically spitting"
+06/05/2014,FT20903G,FT20903G-1,87,5:50:00 AM,n_a,1,2,0,4.8,3,3,0,4.3,3,6:00:00 AM,2,N,"Gusty wind, intermittent cannon."
+06/05/2014,FT20903N,FT20903N-1,28,6:50:00 AM,n_a,1,3,0,4.5,3,2,0,5,3,7:00:00 AM,1,Y,
+06/05/2014,FT20903W,FT20903W-1,28,6:08:00 AM,n_a,1,2,0,4.4,3,3,0,4.4,3,6:18:00 AM,1,Y,Mic sensitivity set to 60 due to wind
+06/05/2014,FT20904G,FT20904G-1,28,8:48:00 AM,n_a,1,2,0,7.1,3,3,0,6.8,2,8:58:00 AM,1,Y,Female DEJU flushed from nest >50m of nest upon arrival at site (4 eggs)
+06/05/2014,FT20904N,FT20904N-1,28,7:59:00 AM,n_a,1,2,0,6.1,3,2,0,6.1,3,8:09:00 AM,1,Y,
+06/05/2014,FT20904W,FT20904W-1,28,7:25:00 AM,n_a,1,1,0,5.8,3,2,0,5.6,3,7:35:00 AM,1,Y,
+06/05/2014,FT20905G,FT20905G-1,87,8:40:00 AM,n_a,1,3,0,5.7,3,3,0,7.4,3,8:50:00 AM,2,N,"Intermittent pounding, cannon, and machinery.  Wind gusts to 4.  A RESQ called in SW within 50m just before the PC."
+06/05/2014,FT20905W,FT20905W-1,32,6:55:00 AM,n_a,1,3,0,5,3,2,0,5.3,3,7:05:00 AM,1,Y,Noise is from trucks and mine in the distance. Well pad is 40 x 40m
+06/05/2014,FT20906G,FT20906G-1,87,6:31:00 AM,n_a,1,3,0,6.4,3,3,0,5.9,3,6:41:00 AM,2,N,Intermittent cannon shots and gusty wind.
+06/05/2014,FT20906N,FT20906N-1,32,8:08:00 AM,n_a,1,2,0,6.6,3,2,0,6.6,3,8:18:00 AM,0,Y,
+06/05/2014,FT20906W,FT20906W-1,32,5:45:00 AM,n_a,1,2,0,4.5,3,2,0,4.2,3,5:55:00 AM,1,Y,"Check recording for YWAR? Noise is trucks unloading in the distance. Well pad is grassy, wet and regen of Salix."
+06/05/2014,FT20907G,FT20907G-1,87,9:25:00 AM,n_a,1,3,0,11.9,3,3,0,9.7,3,9:35:00 AM,1,N,Machinery and wind gusts to 4.
+06/05/2014,FT20907N,FT20907N-1,32,8:40:00 AM,n_a,1,2,0,8,3,2,0,7,3,8:50:00 AM,0,Y,
+06/05/2014,FT20907S,FT20907S-1,32,9:05:00 AM,n_a,1,2,0,6.9,3,3,0,7.2,3,9:15:00 AM,1,Y,Helicopter in the distance. Quiest in general. SL is 6-7m wide.
+06/05/2014,FT20908G,FT20908G-1,87,7:58:00 AM,n_a,1,3,0,8.7,3,3,0,8.5,3,8:08:00 AM,2,N,"Intermitent cannon and machinery, gusts to 4."
+06/05/2014,FT20909G,FT20909G-1,87,7:15:00 AM,n_a,1,2,0,6.8,3,3,0,7,3,7:25:00 AM,2,N,Wind gusts to 3+ and booming sounds.
+06/05/2014,FT20911N,FT20911N-1,32,5:13:00 AM,n_a,1,3,0,4.1,3,3,0,4.1,3,5:23:00 AM,1,Y,
+06/05/2014,FT20911P,FT20911P-1,32,4:47:00 AM,n_a,1,3,0,4.1,3,3,0,4.1,3,4:57:00 AM,1,Y,
+06/05/2014,FT20990N,FT20990N-1,32,7:27:00 AM,n_a,1,1,0,5.6,3,1,0,5.5,3,7:37:00 AM,1,Y,Point 5N within cut block of Shell leased area (innacessible). Point changed to different location and similar habitat. Noise: few heavy trucks in the distance.
+6/30/2014,FT21201G,FT21201G-1,28,6:22:00 AM,n_a,1,0,0,12.7,0,0,0,12.4,0,6:32:00 AM,1,N,
+6/30/2014,FT21202G,FT21202G-1,28,5:57:00 AM,n_a,1,0,0,12.5,0,0,0,11.3,0,6:07:00 AM,1,N,
+6/30/2014,FT21203G,FT21203G-1,28,5:26:00 AM,n_a,1,0,0,11.8,0,0,0,11.1,0,5:36:00 AM,1,N,
+6/30/2014,FT21204G,FT21204G-1,28,5:03:00 AM,n_a,1,0,0,11.6,0,0,0,9.9,0,5:13:00 AM,1,N,
+6/30/2014,FT21204W,FT21204W-1,32,8:30:00 AM,n_a,1,,,20.3,,3,0,20.3,0,8:40:00 AM,1,N,No start weather data
+6/30/2014,FT21205G,FT21205G-1,28,7:20:00 AM,n_a,1,0,0,16,0,0,0,15.4,0,7:30:00 AM,1,N,
+6/30/2014,FT21205N,FT21205N-1,32,7:20:00 AM,n_a,1,0,0,17.1,0,0,0,16.4,0,7:30:00 AM,1,N,Noise: Access road traffic
+6/30/2014,FT21205W,FT21205W-1,32,8:00:00 AM,n_a,1,2,0,21.9,0,1,0,20.3,0,8:10:00 AM,1,N,Noise: Access road traffic
+6/30/2014,FT21206G,FT21206G-1,28,6:51:00 AM,n_a,1,0,0,13.2,0,0,0,15.2,0,7:01:00 AM,1,N,
+6/30/2014,FT21206N,FT21206N-1,32,6:50:00 AM,n_a,1,0,0,14.6,0,0,0,14.2,0,7:00:00 AM,2,N,Noise: Access road traffic
+6/30/2014,FT21206S,FT21206S-1,32,6:45:00 AM,n_a,1,0,0,13.5,1,,,,,6:55:00 AM,0,N,
+6/30/2014,FT21207G,FT21207G-1,28,8:27:00 AM,n_a,1,2,0,21.6,0,2,0,22.6,0,8:37:00 AM,2,N,30m from Athebasca Hwy E. Periodic traffic
+6/30/2014,FT21207N,FT21207N-1,32,5:20:00 AM,n_a,1,0,0,14.6,1,0,0,13.2,1,5:30:00 AM,2,N,Noise: road in distance
+6/30/2014,FT21207W,FT21207W-1,32,5:50:00 AM,n_a,1,0,0,12.7,1,0,0,12.2,1,6:00:00 AM,1,N,Noise: Access road traffic
+6/30/2014,FT21208G,FT21208G-1,28,7:52:00 AM,n_a,1,2,0,19.2,0,2,0,19.6,0,8:02:00 AM,2,N,80m from Athaabasca Hwy E.
+6/30/2014,FT21209G,FT21209G-1,28,4:33:00 AM,n_a,1,0,0,15.4,0,0,0,12,0,4:43:00 AM,2,N,180m from Athabasca Hwy E
+6/29/2014,FT21301G,FT21301G-1,32,5:55:00 AM,n_a,1,0,0,12.1,1,0,0,11.8,1,6:05:00 AM,1,N,Noise: Highway 63 in distance
+6/29/2014,FT21302G,FT21302G-1,28,6:58:00 AM,n_a,1,0,0,14.4,0,0,0,13.4,0,7:08:00 AM,1,N,
+6/29/2014,FT21303G,FT21303G-1,28,9:14:00 AM,n_a,1,2,0,21.5,0,2,0,21.1,0,9:24:00 AM,1,N,Noisy deer flies
+6/29/2014,FT21304G,FT21304G-1,28,8:48:00 AM,n_a,1,0,0,21.8,0,1,0,27.2,0,8:58:00 AM,1,N,
+6/29/2014,FT21305G,FT21305G-1,28,7:29:00 AM,n_a,1,0,0,13.2,0,0,0,13.7,0,7:39:00 AM,1,N,Noise from tar sands machinery and canons
+6/29/2014,FT21306G,FT21306G-1,32,6:25:00 AM,n_a,1,0,0,11.1,0,0,0,10.9,0,6:35:00 AM,1,N,Noise: Highway 63 + mosquitoes
+6/29/2014,FT21306N,FT21306N-1,32,8:20:00 AM,n_a,1,0,0,16.1,0,3,0,16.6,0,8:30:00 AM,0,N,
+6/29/2014,FT21306P,FT21306P-1,32,7:30:00 AM,n_a,1,0,0,15.5,0,0,0,18.9,0,7:40:00 AM,1,N,Noise: from highway 63 + mosquites. Pipeline is 40m wide
+6/29/2014,FT21307G,FT21307G-1,32,6:50:00 AM,n_a,1,0,0,11.4,0,0,0,11.4,0,7:00:00 AM,1,N,
+6/29/2014,FT21307N,FT21307N-1,32,8:45:00 AM,n_a,1,3,0,17.3,0,4,0,17.7,0,8:55:00 AM,1,N,Noise: Mosquitoes and MOSA bird scraing cannons
+6/29/2014,FT21307W,FT21307W-1,32,7:55:00 AM,n_a,1,2,0,16.4,0,1,0,15.6,0,8:05:00 AM,1,N,Noise: mosquitoes and bird scaring cannon from MOSA. Well pad is 40x40m
+6/29/2014,FT21308G,FT21308G-1,28,7:55:00 AM,n_a,1,0,0,20.7,0,0,0,20.3,0,8:05:00 AM,1,N,
+6/29/2014,FT21309G,FT21309G-1,28,8:22:00 AM,n_a,1,1,0,17.6,0,1,0,18.1,0,8:32:00 AM,1,N,
+06/10/2014,FT21801G,FT21801G-1,32,8:22:00 AM,n_a,1,1,0,11,0,2,0,11,0,8:32:00 AM,0,Y,
+06/10/2014,FT21802G,FT21802G-1,32,8:47:00 AM,n_a,1,0,0,10.2,0,0,0,10,0,8:57:00 AM,0,Y,
+06/10/2014,FT21803G,FT21803G-1,32,8:15:00 AM,n_a,1,0,0,8.5,0,0,0,9.3,0,8:25:00 AM,1,Y,Very noisy frogs sp.!
+06/10/2014,FT21803N,FT21803N-1,87,7:06:00 AM,n_a,1,1,0,6.7,0,1,0,6.9,0,7:16:00 AM,2,Y,Intermitent cannon and machinery.
+06/10/2014,FT21803S,FT21803S-1,87,7:48:00 AM,n_a,1,1,0,10,0,1,0,9.9,0,7:58:00 AM,2,Y,Intermitent cannon and machinery.
+06/10/2014,FT21804G,FT21804G-1,32,7:45:00 AM,n_a,1,0,0,7.4,0,0,0,7.6,0,7:55:00 AM,0,N,
+06/10/2014,FT21804N,FT21804N-1,87,6:20:00 AM,n_a,1,0,0,7.1,0,2,0,5.7,0,6:30:00 AM,2,Y,Intermitent cannon and machinery.
+06/10/2014,FT21804W,FT21804W-1,87,5:30:00 AM,n_a,1,2,0,6.2,1,1,0,5,1,5:40:00 AM,2,Y,"Intermitent cannon and machinery.  Wolves.  After the PC, a BOOW,  CHSP, and SWTH sang within 50m and two GRAJ adults flew into area."
+06/10/2014,FT21805G,FT21805G-1,32,7:00:00 AM,n_a,1,0,0,5.8,0,0,0,6.1,0,7:10:00 AM,1,N,Noise from distant CNRL plant in MOSA
+06/10/2014,FT21805N,FT21805N-1,87,8:50:00 AM,n_a,1,1,0,12.5,0,0,0,11.5,0,9:00:00 AM,2,Y,Intermitent cannon and machinery.
+06/10/2014,FT21805S,FT21805S-1,87,4:44:00 AM,n_a,1,2,0,9.6,1,2,0,6.6,1,4:54:00 AM,2,Y,Intermitent cannon.
+06/10/2014,FT21806G,FT21806G-1,32,4:45:00 AM,n_a,1,0,0,6.6,0,1,0,5.8,0,4:55:00 AM,1,Y,Noise from distant CNRL plant in MOSA
+06/10/2014,FT21808G,FT21808G-1,32,5:57:00 AM,n_a,1,1,0,5.7,0,0,0,5.4,0,6:07:00 AM,1,Y,Noise from distant CNRL plant in MOSA
+06/10/2014,FT21809G,FT21809G-1,32,6:25:00 AM,n_a,1,0,0,5.5,0,0,0,5.5,0,6:35:00 AM,1,Y,Noise from distant CNRL plant in MOSA
+06/10/2014,FT21890G,FT21890G-1,32,5:25:00 AM,n_a,1,2,0,5.7,1,1,0,6.2,1,5:35:00 AM,1,Y,Noise from distant CNRL plant in MOSA. New location of 7N which was too noisy.
+06/09/2014,FT21901G,FT21901G-1,32,8:10:00 AM,n_a,1,3,2,12.7,3,3,2,12.5,3,8:20:00 AM,0,N,
+06/09/2014,FT21902G,FT21902G-1,32,6:25:00 AM,n_a,1,0,0,12.3,3,0,0,12.2,3,6:35:00 AM,0,N,
+06/09/2014,FT21902N,FT21902N-1,87,5:04:00 AM,n_a,1,2,0,14.1,2,2,0,11.5,2,5:14:00 AM,0,N,Wind gusts.  Mostly high thin clouds.  Another TTWO drummed before the PC.
+06/09/2014,FT21902S,FT21902S-1,87,5:44:00 AM,n_a,1,2,0,13.3,3,3,0,12.4,3,5:54:00 AM,0,N,"Entire area is burned, like a savannah, with a small band of trees to the NW about 100m from the PC center and a thin small stand to the West about 20m from PC center.  Regenerating: grasses, sedges, Bear Berry and Blue Berry plus POPUTRE and PRUNVIR. "
+06/09/2014,FT21903G,FT21903G-1,32,6:14:00 AM,n_a,1,2,0,12.1,3,1,0,12.1,3,6:24:00 AM,0,N,
+06/09/2014,FT21903N,FT21903N-1,87,6:51:00 AM,n_a,1,0,0,12.8,3,2,0,12.1,3,7:01:00 AM,1,N,High thin clouds; boom of cannon.  Calling RESQ before PC.
+06/09/2014,FT21903S,FT21903S-1,87,6:13:00 AM,n_a,1,1,0,12.6,3,2,0,11.6,3,6:23:00 AM,0,N,"UNGR is not fully drumming, just thudding a bit.  Two other WTSP further North were likely recorded on PC02S."
+06/09/2014,FT21904G,FT21904G-1,32,5:40:00 AM,n_a,1,0,0,11.8,3,2,0,12.2,3,5:50:00 AM,0,N,
+06/09/2014,FT21904N,FT21904N-1,87,8:02:00 AM,n_a,1,2,3,12.3,3,2,2,11.6,3,8:12:00 AM,1,N,"Delayed PC due to rain.  A LEFL within 50m in NE, REVI, and a YRWA within 50m inNW sang on the hike into the PC. Wind gusts to 3 at ground level and 5 in the canopy.   "
+06/09/2014,FT21904S,FT21904S-1,87,7:28:00 AM,n_a,1,1,2,14.1,3,1,0,14.3,3,7:38:00 AM,1,N,A PHVI flew in from the NW after the PC.  **Double check the HETH and SWTH on recorder**
+06/09/2014,FT21905G,FT21905G-1,32,6:47:00 AM,n_a,1,0,0,12.4,3,0,0,12.4,3,6:57:00 AM,0,N,
+06/09/2014,FT21906G,FT21906G-1,32,7:55:00 AM,n_a,1,0,0,13,3,3,2,12.8,3,8:05:00 AM,0,N,
+06/09/2014,FT21907G,FT21907G-1,32,7:30:00 AM,n_a,1,0,0,12.8,3,2,0,12.7,3,7:40:00 AM,0,N,
+06/09/2014,FT21908G,FT21908G-1,32,7:05:00 AM,n_a,1,0,0,12.4,3,0,0,12.4,3,7:15:00 AM,0,N,
+06/09/2014,FT21909G,FT21909G-1,32,5:09:00 AM,n_a,1,0,0,,3,0,0,11.8,3,5:19:00 AM,0,N,No start temperature
+07/01/2014,FT22101G,FT22101G-1,63,6:08:00 AM,n_a,1,0,0,12,3,0,0,12,3,6:18:00 AM,0,N,
+07/01/2014,FT22102G,FT22102G-1,63,6:45:00 AM,n_a,1,0,0,13,3,0,0,13,3,6:55:00 AM,1,N,propane air cannon deterrents heard (?? >20 km away)
+07/01/2014,FT22102N,FT22102N-1,26,8:34:00 AM,n_a,1,0,0,18.5,3,1,0,19.1,3,8:44:00 AM,1,N,NOISE IS DUE TO MOSQUITOES
+07/01/2014,FT22102S,FT22102S-1,87,8:00:00 AM,n_a,1,0,0,16.8,3,0,0,20.2,3,8:10:00 AM,1,N,Dragonflies and Mosquito noise.  Two GRAJ called within 50m to NE before PC and a RCKI sang 50-100m after the PC.
+07/01/2014,FT22103G,FT22103G-1,63,7:10:00 AM,n_a,1,0,0,14,3,0,0,14,3,7:20:00 AM,0,N,
+07/01/2014,FT22104G,FT22104G-1,63,5:33:00 AM,n_a,1,0,0,12,3,0,0,12,3,5:43:00 AM,0,N,
+07/01/2014,FT22104N,FT22104N-1,87,6:16:00 AM,n_a,1,0,0,15.8,3,1,0,14.6,3,6:26:00 AM,1,N,"Machine/cannon thudding in East.  Two countersinging BBWA within 50m, one in SW and one in SE after the PC>"
+07/01/2014,FT22105G,FT22105G-1,63,8:18:00 AM,n_a,1,0,0,15,3,0,0,15,3,8:28:00 AM,0,N,
+07/01/2014,FT22106G,FT22106G-1,63,7:50:00 AM,n_a,1,0,0,14,3,0,0,14,3,8:00:00 AM,0,N,
+07/01/2014,FT22107G,FT22107G-1,63,5:06:00 AM,n_a,1,0,0,11,3,0,0,11,3,5:16:00 AM,0,N,
+07/01/2014,FT22107N,FT22107N-1,26,6:08:00 AM,n_a,1,0,0,12.2,3,0,0,11.5,3,6:18:00 AM,2,N,NOISE IS DUE TO TOO MANY MOSQUITOES!
+07/01/2014,FT22107S,FT22107S-1,26,7:15:00 AM,n_a,1,0,0,14.4,3,0,0,15.2,3,7:25:00 AM,2,N,NOISE DUE TO AIR TRAFFIC AND MOSQUITOES
+07/01/2014,FT22108G,FT22108G-1,63,4:26:00 AM,n_a,1,0,0,10,3,0,0,10,3,4:36:00 AM,0,N,
+07/01/2014,FT22108N,FT22108N-1,87,7:11:00 AM,n_a,1,2,0,14.9,3,2,0,15.1,3,7:21:00 AM,1,N,Mosquitos.  High thin clouds.
+07/01/2014,FT22108S,FT22108S-1,26,6:44:00 AM,n_a,1,0,0,13.5,3,0,0,13.5,3,6:54:00 AM,2,N,NOISE DUE TO TOO MANY MOSQUITOES!
+07/01/2014,FT22109G,FT22109G-1,63,4:04:00 AM,n_a,1,0,0,9,3,0,0,9,3,4:14:00 AM,0,N,
+07/01/2014,FT22174S,FT22174S-1,87,4:42:00 AM,n_a,1,0,0,12,3,0,0,11.7,3,4:52:00 AM,1,N,Mosquitos noise.  This is a wide SL.
+07/01/2014,FT22176N,FT22176N-1,26,4:58:00 AM,n_a,1,0,0,13.2,3,0,0,8.5,3,5:08:00 AM,0,N,
+07/01/2014,FT22176S,FT22176S-1,87,4:06:00 AM,n_a,1,0,0,14.1,3,0,0,9.9,3,4:16:00 AM,1,N,"Mosquitos.  This is a wide seismic line, possibly a PL.  An AMRO called and BHVI sang 50-100m to NW after PC."
+06/06/2014,FT22201G,FT22201G-1,28,7:45:00 AM,n_a,1,0,0,7,1,0,0,6,0,7:55:00 AM,0,N,
+06/06/2014,FT22201N,FT22201N-1,26,5:17:00 AM,n_a,1,0,0,3.6,3,0,0,2.2,3,5:27:00 AM,1,N,NOISE DUE TO DISTANT POUNDING
+06/06/2014,FT22201S,FT22201S-1,26,4:38:00 AM,n_a,1,0,0,4.3,3,0,0,1,3,4:48:00 AM,1,N,NOISE IS DUE TO DISTANT POUNDING. SEISMIC LINE IS ~3M WIDE
+06/06/2014,FT22202G,FT22202G-1,28,8:27:00 AM,n_a,1,0,0,8.7,1,1,0,7.7,1,8:37:00 AM,0,N,
+06/06/2014,FT22202N,FT22202N-1,26,5:52:00 AM,n_a,1,0,0,4.1,3,0,0,3,3,6:02:00 AM,1,N,NOISE DUE TO DISTANT POUNDING 
+06/06/2014,FT22202S,FT22202S-1,26,8:58:00 AM,n_a,1,1,0,8,1,1,0,7.3,1,9:08:00 AM,1,N,NOISE IS DUE TO POUNDING IN THE DISTANCE
+06/06/2014,FT22203G,FT22203G-1,28,9:27:00 AM,n_a,1,1,0,11.8,1,2,0,10.5,1,9:37:00 AM,0,N,
+06/06/2014,FT22203N,FT22203N-1,26,6:47:00 AM,n_a,1,0,0,6.3,2,0,0,6.2,2,6:57:00 AM,1,N,NOISE DUE TO FAINT POUNDING IN THE DISTANCE
+06/06/2014,FT22203S,FT22203S-1,26,7:35:00 AM,n_a,1,0,0,6.3,2,0,0,7.4,1,7:45:00 AM,1,N,NOISE DUE TO DISTANT POUNDING. SEISMIC LINE ~3M WIDE
+06/06/2014,FT22204G,FT22204G-1,28,7:04:00 AM,n_a,1,0,0,6.5,2,0,0,5.7,2,7:14:00 AM,0,N,BWHA + WWCR detected after PC
+06/06/2014,FT22204N,FT22204N-1,26,8:18:00 AM,n_a,1,1,0,7.5,1,1,0,8.1,1,8:28:00 AM,1,N,NOISE DUE TO DISTANT POUNDING.  
+06/06/2014,FT22205G,FT22205G-1,28,8:56:00 AM,n_a,1,1,0,9.1,1,,,,,9:06:00 AM,0,N,forgot to record weather at end of count
+06/06/2014,FT22205N,FT22205N-1,87,9:45:00 AM,n_a,1,3,0,11.5,2,3,0,11.8,1,9:55:00 AM,0,N,Wind gusts.   **Notes for P 97 are on Site Notes tab; unable to enter into P 97*
+06/06/2014,FT22205S,FT22205S-1,28,10:08:00 AM,n_a,1,1,0,12.9,1,2,0,11.8,1,10:18:00 AM,0,N,Noise up to 2 after 5 minues (due to heli)
+06/06/2014,FT22206G,FT22206G-1,28,4:26:00 AM,n_a,1,0,0,3.5,3,0,0,2.7,3,4:36:00 AM,1,N,Helicoperter flew over mid-count
+06/06/2014,FT22206N,FT22206N-1,87,5:12:00 AM,n_a,1,2,0,5.5,3,2,0,2.9,3,5:22:00 AM,1,N,
+06/06/2014,FT22206S,FT22206S-1,87,6:20:00 AM,n_a,1,1,0,4.7,3,2,0,4.5,3,6:30:00 AM,0,N,
+06/06/2014,FT22207G,FT22207G-1,28,6:31:00 AM,n_a,1,0,0,5.4,2,0,0,5,2,6:41:00 AM,0,N,
+06/06/2014,FT22207N,FT22207N-1,87,7:24:00 AM,n_a,1,1,0,6.9,2,2,0,5.2,1,7:34:00 AM,0,N,RUGR fully drummed as I hiked in.
+06/06/2014,FT22207S,FT22207S-1,87,8:42:00 AM,n_a,1,2,0,11.5,2,3,0,8.8,2,8:52:00 AM,1,N,Intermittent pounding and wind gusts to 3.   A COYE countersang from NW 50-100m with a COYE in NE after the PC.
+06/06/2014,FT22208G,FT22208G-1,28,5:49:00 AM,n_a,1,0,0,2.9,3,,,,,5:59:00 AM,0,N,forgot to record weather at end of count
+06/06/2014,FT22209G,FT22209G-1,28,5:08:00 AM,n_a,1,0,0,2.9,3,,,,,5:18:00 AM,0,N,forgot to record weather at end of count
+06/06/2014,FT22301G,FT22301G-1,32,6:40:00 AM,n_a,1,0,0,4.3,3,0,0,4.6,3,6:50:00 AM,0,N,
+06/06/2014,FT22302G,FT22302G-1,32,7:24:00 AM,n_a,1,1,0,5.7,2,1,0,5.6,2,7:34:00 AM,0,N,
+06/06/2014,FT22303G,FT22303G-1,32,8:00:00 AM,n_a,1,1,0,6.9,2,1,0,7.9,2,8:10:00 AM,0,N,
+06/06/2014,FT22304G,FT22304G-1,32,6:07:00 AM,n_a,1,0,0,2.2,3,0,0,2,3,6:17:00 AM,0,N,
+06/06/2014,FT22305G,FT22305G-1,32,8:44:00 AM,n_a,1,1,0,9.9,2,0,0,8.9,2,8:54:00 AM,0,N,
+06/06/2014,FT22306G,FT22306G-1,32,9:08:00 AM,n_a,1,0,0,9.4,2,0,0,8.3,2,9:18:00 AM,0,N,
+06/06/2014,FT22306N,FT22306N-1,63,8:00:00 AM,n_a,1,0,0,3,1,0,0,3,2,8:10:00 AM,0,N,
+06/06/2014,FT22306S,FT22306S-1,63,7:26:00 AM,n_a,1,0,0,2,2,0,0,2,2,7:36:00 AM,0,N,no seismic line visible anywhere nearby
+06/06/2014,FT22307G,FT22307G-1,32,5:35:00 AM,n_a,1,0,0,3.1,3,0,0,1.3,3,5:45:00 AM,0,N,
+06/06/2014,FT22307N,FT22307N-1,63,5:42:00 AM,n_a,1,0,0,1,3,0,0,1,3,5:52:00 AM,0,N,
+06/06/2014,FT22307W,FT22307W-1,63,4:48:00 AM,n_a,1,0,0,1,3,0,0,1,3,4:58:00 AM,0,N,3+ wolves heard howling to E of PC
+06/06/2014,FT22308G,FT22308G-1,32,10:00:00 AM,n_a,1,3,0,10.5,1,1,0,10.5,1,10:10:00 AM,0,N,
+06/06/2014,FT22308N,FT22308N-1,63,6:15:00 AM,n_a,1,0,0,2,2,0,0,2,2,6:25:00 AM,0,N,
+06/06/2014,FT22308S,FT22308S-1,63,9:20:00 AM,n_a,1,0,0,5,2,0,0,5,1,9:30:00 AM,0,N,
+06/06/2014,FT22309G,FT22309G-1,32,9:32:00 AM,n_a,1,2,0,7.8,1,2,0,8.6,2,9:42:00 AM,0,N,
+06/01/2014,HF20101G,HF20101G-1,63,5:12:00 AM,n_a,1,0,0,8,3,1,0,8,3,5:22:00 AM,0,Y,
+06/01/2014,HF20101N,HF20101N-1,87,9:54:00 AM,n_a,1,2,0,12,3,2,0,11.9,3,10:04:00 AM,0,Y,Didn't record PC.
+06/01/2014,HF20101S,HF20101S-1,87,8:59:00 AM,n_a,1,2,3,8.5,3,3,0,8.4,3,9:09:00 AM,0,Y,"Delayed PC due to heavier rain and did not record it.  First delay 1 1/2 hours, did 2:30 more, then another delay another hour and then another half hour delay."
+06/01/2014,HF20102G,HF20102G-1,63,5:40:00 AM,n_a,1,1,0,8,2,1,0,8,2,5:50:00 AM,0,Y,Heli noise at ~3 mins
+06/01/2014,HF20102N,HF20102N-1,87,6:43:00 AM,n_a,1,2,0,11.5,3,2,0,8.7,3,6:53:00 AM,0,Y,A WISN winnowed after the PC.
+06/01/2014,HF20102S,HF20102S-1,87,5:57:00 AM,n_a,1,2,0,9.1,3,2,0,8.4,3,6:07:00 AM,0,Y,
+06/01/2014,HF20103G,HF20103G-1,63,6:01:00 AM,n_a,1,0,0,9,3,0,0,9,3,6:11:00 AM,0,N,
+06/01/2014,HF20103S,HF20103S-1,87,5:21:00 AM,n_a,1,3,0,9.9,1,2,0,8.5,3,5:31:00 AM,0,Y,
+06/01/2014,HF20104G,HF20104G-1,63,6:23:00 AM,n_a,1,0,0,10,3,1,0,10,3,6:33:00 AM,0,N,
+06/01/2014,HF20105G,HF20105G-1,63,6:52:00 AM,n_a,1,1,0,9,3,1,0,9,3,7:02:00 AM,0,N,GRAJ from PC 05G heard >200 m
+06/01/2014,HF20106G,HF20106G-1,63,7:20:00 AM,n_a,1,0,1,9,3,0,1,9,3,7:30:00 AM,0,N,
+06/01/2014,HF20107G,HF20107G-1,63,8:23:00 AM,n_a,1,0,2,10,3,0,3,10,3,8:33:00 AM,0,N,"Recording skipped due to drizzle, PC delayed by rain"
+06/01/2014,HF20108G,HF20108G-1,63,9:24:00 AM,n_a,1,0,1,10,3,0,0,10,3,9:34:00 AM,0,N,
+06/01/2014,HF20109G,HF20109G-1,63,9:49:00 AM,n_a,1,0,0,10,3,0,0,10,3,9:59:00 AM,0,N,
+06/01/2014,HF20201G,HF20201G-1,32,6:30:00 AM,n_a,1,1,0,9.4,3,0,0,9.3,3,6:40:00 AM,0,Y,
+06/01/2014,HF20202G,HF20202G-1,32,7:15:00 AM,n_a,1,0,3,9.6,3,1,3,8.4,3,7:25:00 AM,0,Y,No recording (rain). Very low bird activity.
+06/01/2014,HF20203G,HF20203G-1,32,7:55:00 AM,n_a,1,0,3,9.7,3,0,4,8.1,3,8:05:00 AM,0,Y,No recording (rain). Low bird activity.
+06/01/2014,HF20204G,HF20204G-1,32,8:30:00 AM,n_a,1,0,3,8.5,3,0,3,,3,8:40:00 AM,0,Y,No recording (rain). Low bird activity.
+06/01/2014,HF20204N,HF20204N-1,28,9:19:00 AM,n_a,1,1,0,9.3,3,1,0,9.5,3,9:29:00 AM,0,Y,"Clearing drawn on PC form approx 30m x 50m, but rangefinder measurements not taken."
+06/01/2014,HF20204S,HF20204S-1,28,9:49:00 AM,n_a,1,2,0,9.8,3,2,0,9.3,3,9:59:00 AM,0,Y,
+06/01/2014,HF20205G,HF20205G-1,32,9:09:00 AM,n_a,1,2,0,10.5,3,2,0,9.4,3,9:19:00 AM,0,Y,
+06/01/2014,HF20205N,HF20205N-1,28,5:07:00 AM,n_a,1,1,0,8.8,2,,,,,5:17:00 AM,0,Y,Forgot to record weather at end of count.
+06/01/2014,HF20205W,HF20205W-1,28,6:33:00 AM,n_a,1,2,0,9.5,3,2,0,8.8,3,6:43:00 AM,0,Y,
+06/01/2014,HF20206G,HF20206G-1,32,6:00:00 AM,n_a,1,1,0,9.8,3,1,0,8.6,3,6:10:00 AM,0,Y,
+06/01/2014,HF20206N,HF20206N-1,28,5:42:00 AM,n_a,1,2,0,8.5,3,2,0,8.4,3,5:52:00 AM,0,Y,
+06/01/2014,HF20206S,HF20206S-1,28,7:19:00 AM,n_a,1,1,1,8.9,3,1,2,8.4,3,7:29:00 AM,0,Y,
+06/01/2014,HF20207G,HF20207G-1,32,5:19:00 AM,n_a,1,0,0,8.5,3,1,0,8.4,3,5:29:00 AM,0,Y,
+06/01/2014,HF20208G,HF20208G-1,32,10:18:00 AM,n_a,1,0,0,10.2,3,1,0,11.7,3,10:28:00 AM,0,Y,
+06/01/2014,HF20209G,HF20209G-1,32,9:45:00 AM,n_a,1,2,0,9.4,3,2,0,9.6,3,9:55:00 AM,0,Y,
+06/01/2014,HF20211N,HF20211N-1,28,8:39:00 AM,n_a,1,1,1,8.3,3,0,1,8,3,8:49:00 AM,1,Y,
+06/01/2014,HF20211S,HF20211S-1,28,8:01:00 AM,n_a,1,1,2,8.7,3,,,,,8:11:00 AM,1,Y,forgot to record weather at end of count
+06/02/2014,HF20401G,HF20401G-1,87,7:15:00 AM,n_a,1,1,0,9.3,2,1,0,9.6,1,7:25:00 AM,1,Y,
+06/02/2014,HF20402G,HF20402G-1,87,6:39:00 AM,n_a,1,1,0,7.2,3,1,0,6.7,2,6:49:00 AM,0,Y,
+06/02/2014,HF20402N,HF20402N-1,32,5:19:00 AM,n_a,1,0,0,4.7,3,0,0,4.3,3,5:29:00 AM,0,N,
+06/02/2014,HF20402S,HF20402S-1,32,4:40:00 AM,n_a,1,0,0,9.2,2,0,0,3.9,2,4:50:00 AM,0,N,Real temperature much closer to 3.9. Miss read the thermometre?
+06/02/2014,HF20403G,HF20403G-1,87,6:04:00 AM,n_a,1,0,0,7.7,3,1,0,5.8,3,6:14:00 AM,0,Y,
+06/02/2014,HF20403N,HF20403N-1,32,6:14:00 AM,n_a,1,0,0,6.9,3,0,0,6.4,3,6:24:00 AM,0,N,
+06/02/2014,HF20403S,HF20403S-1,32,6:55:00 AM,n_a,1,0,0,9.7,3,0,0,8,3,7:05:00 AM,0,N,
+06/02/2014,HF20404G,HF20404G-1,87,5:18:00 AM,n_a,1,1,3,4.3,0,1,0,4.7,0,5:28:00 AM,0,Y,"SWTH countersang in zone 2 SE after the PC.  A few rain drops occurred at start of PC, then rain."
+06/02/2014,HF20404N,HF20404N-1,32,8:26:00 AM,n_a,1,0,0,13.7,1,0,0,14.7,1,8:36:00 AM,0,N,
+06/02/2014,HF20404S,HF20404S-1,32,7:28:00 AM,n_a,1,0,0,8.5,2,0,0,9.4,2,7:38:00 AM,0,N,
+06/02/2014,HF20405G,HF20405G-1,87,9:37:00 AM,n_a,1,2,0,18.5,2,1,0,19.2,2,9:47:00 AM,0,Y,
+06/02/2014,HF20405N,HF20405N-1,28,8:29:00 AM,n_a,1,0,0,14.6,1,0,0,14.5,1,8:39:00 AM,0,Y,
+06/02/2014,HF20405S,HF20405S-1,32,9:05:00 AM,n_a,1,0,0,15.1,3,0,0,15.8,3,9:15:00 AM,0,N,Added 1 minute to recording due to radio contact with pilot.
+06/02/2014,HF20406G,HF20406G-1,87,8:02:00 AM,n_a,1,1,0,13.7,1,2,0,13.6,1,8:12:00 AM,1,Y,
+06/02/2014,HF20406N,HF20406N-1,28,5:25:00 AM,n_a,1,0,1,1.9,1,0,0,2.1,1,5:35:00 AM,0,Y,
+06/02/2014,HF20406W,HF20406W-1,28,4:37:00 AM,n_a,1,1,0,0.5,1,1,0,0.7,1,4:47:00 AM,0,Y,
+06/02/2014,HF20407G,HF20407G-1,87,8:48:00 AM,n_a,1,2,0,15.3,2,2,0,15.9,2,8:58:00 AM,0,Y,
+06/02/2014,HF20407N,HF20407N-1,28,5:56:00 AM,n_a,1,0,0,3.6,2,,,,,6:06:00 AM,0,Y,forgot to record weather at end of count
+06/02/2014,HF20407P,HF20407P-1,28,6:24:00 AM,n_a,1,0,0,5.4,2,0,0,5.3,2,6:34:00 AM,0,Y,
+06/02/2014,HF20408G,HF20408G-1,28,9:53:00 AM,n_a,1,0,0,16.3,1,,,,,10:03:00 AM,0,Y,forgot to record weather at end of count
+06/02/2014,HF20408N,HF20408N-1,32,9:47:00 AM,n_a,1,0,0,17.9,1,0,0,17.3,1,9:57:00 AM,0,N,
+06/02/2014,HF20408P,HF20408P-1,28,7:14:00 AM,n_a,1,0,0,7.9,2,0,0,8.7,2,7:24:00 AM,0,Y,Heli flew over just prior to PC start. 1 Graj omitted (following)
+06/02/2014,HF20409G,HF20409G-1,28,9:27:00 AM,n_a,1,2,0,15.2,1,2,0,18.2,1,9:37:00 AM,0,Y,
+06/02/2014,HF20501G,HF20501G-1,26,5:04:00 AM,n_a,1,1,0,6.9,2,0,0,4.8,2,5:14:00 AM,0,Y,
+06/02/2014,HF20501N,HF20501N-1,63,6:33:00 AM,n_a,1,0,0,6,3,0,0,6,3,6:43:00 AM,0,Y,
+06/02/2014,HF20501S,HF20501S-1,63,5:45:00 AM,n_a,1,0,0,4,2,0,0,5,2,5:55:00 AM,0,Y,
+06/02/2014,HF20502G,HF20502G-1,26,5:32:00 AM,n_a,1,0,0,5.3,2,0,0,4.5,2,5:42:00 AM,0,Y,
+06/02/2014,HF20502N,HF20502N-1,63,6:08:00 AM,n_a,1,0,0,5,3,0,0,5,3,6:18:00 AM,1,Y,
+06/02/2014,HF20502P,HF20502P-1,63,5:20:00 AM,n_a,1,0,0,3,2,0,0,3,2,5:30:00 AM,0,Y,
+06/02/2014,HF20503G,HF20503G-1,26,9:28:00 AM,n_a,1,0,0,16.3,2,0,0,17.4,1,9:38:00 AM,1,Y,NOISE DUE TO AIR TRAFFIC  
+06/02/2014,HF20503N,HF20503N-1,63,6:54:00 AM,n_a,1,0,0,5,3,0,0,5,3,7:04:00 AM,0,Y,
+06/02/2014,HF20503W,HF20503W-1,63,4:53:00 AM,n_a,1,0,0,3,1,0,0,3,1,5:03:00 AM,1,Y,
+06/02/2014,HF20504G,HF20504G-1,26,8:58:00 AM,n_a,1,1,0,13,2,0,0,14.9,2,9:08:00 AM,1,Y,
+06/02/2014,HF20504N,HF20504N-1,63,7:15:00 AM,n_a,1,0,0,6,3,0,0,6,2,7:25:00 AM,0,Y,
+06/02/2014,HF20504P,HF20504P-1,63,9:09:00 AM,n_a,1,2,0,11,2,2,0,11,2,9:19:00 AM,0,Y,
+06/02/2014,HF20505G,HF20505G-1,26,5:59:00 AM,n_a,1,0,0,7.1,3,1,0,6.7,3,6:09:00 AM,0,Y,
+06/02/2014,HF20505N,HF20505N-1,63,7:34:00 AM,n_a,1,0,0,7,2,0,0,7,2,7:44:00 AM,1,Y,
+06/02/2014,HF20505P,HF20505P-1,63,8:42:00 AM,n_a,1,2,0,9,2,2,0,9,2,8:52:00 AM,0,Y,
+06/02/2014,HF20506G,HF20506G-1,26,6:34:00 AM,n_a,1,0,0,8,3,0,0,8,3,6:44:00 AM,0,Y,
+06/02/2014,HF20506N,HF20506N-1,63,7:55:00 AM,n_a,1,0,0,8,2,0,0,8,1,8:05:00 AM,0,Y,
+06/02/2014,HF20506P,HF20506P-1,63,8:15:00 AM,n_a,1,1,0,8,2,1,0,8,2,8:25:00 AM,0,Y,
+06/02/2014,HF20507G,HF20507G-1,26,7:04:00 AM,n_a,1,0,0,9,3,0,0,8.7,2,7:14:00 AM,2,Y,"2 WWCR CALLING WERE FLUSHED UPON MY ARRIVAL, NOISE BECAUSE OF HELICOPTER CHECK IN. SWSP SINGING AFTER PC. "
+06/02/2014,HF20508G,HF20508G-1,26,7:36:00 AM,n_a,1,1,0,9.9,2,1,0,10.2,2,7:46:00 AM,0,Y,
+06/02/2014,HF20509G,HF20509G-1,26,8:27:00 AM,n_a,1,1,0,11.2,2,1,0,11,2,8:37:00 AM,1,Y,NOISE DUE TO AIR TRAFFIC 
+06/10/2014,HF20601G,HF20601G-1,26,7:24:00 AM,n_a,1,2,0,11.9,0,2,0,12.2,0,7:34:00 AM,1,Y,NOISE DUE TO WIND IN THE DEAD CANOPY
+06/10/2014,HF20602G,HF20602G-1,26,7:50:00 AM,n_a,1,1,0,14,0,2,0,15.7,0,8:00:00 AM,0,Y,FLUSHED A CONI ~ 150M WEST OF PC
+06/10/2014,HF20602N,HF20602N-1,28,8:26:00 AM,n_a,1,2,0,13.7,0,2,0,13.6,0,8:36:00 AM,0,Y,
+06/10/2014,HF20602W,HF20602W-1,28,8:05:00 AM,n_a,1,2,0,13.7,0,2,0,14.4,0,8:15:00 AM,0,Y,
+06/10/2014,HF20603G,HF20603G-1,26,8:23:00 AM,n_a,1,2,0,15.4,0,2,0,15.4,0,8:33:00 AM,2,Y,NOISE DUE TO HELICOPTER BRINGING IN AND DORPPING OFF JONATHAN. PC RECORDING IN TWO PARTS. 
+06/10/2014,HF20604G,HF20604G-1,26,5:00:00 AM,n_a,1,0,0,7.9,2,0,0,7.8,2,5:10:00 AM,1,Y,NOISE DUE TO DISTANT POUNDING. PC RECORDING PAUSED FOR 2 MINS THEREFORE IS IN 2 PARTS. 
+06/10/2014,HF20604N,HF20604N-1,28,9:45:00 AM,n_a,1,3,0,16.7,0,3,0,16.8,0,9:55:00 AM,0,Y,
+06/10/2014,HF20604S,HF20604S-1,28,7:39:00 AM,n_a,1,3,0,12.4,0,2,0,12.5,0,7:49:00 AM,0,Y,"Gusty but not too windy, just very quiet"
+06/10/2014,HF20605G,HF20605G-1,26,8:59:00 AM,n_a,1,1,0,16,0,2,0,16.2,0,9:09:00 AM,2,Y,NOISE DUE TO WIND AND AIR TRAFFIC
+06/10/2014,HF20605N,HF20605N-1,28,9:15:00 AM,n_a,1,2,0,15.5,0,2,0,15.9,0,9:25:00 AM,0,Y,
+06/10/2014,HF20605P,HF20605P-1,28,7:16:00 AM,n_a,1,2,0,12.6,0,2,0,14,0,7:26:00 AM,0,Y,Within visible and audible range of 06p - AMRO omitted from count fro this reason
+06/10/2014,HF20606G,HF20606G-1,26,6:57:00 AM,n_a,1,1,0,11.4,0,1,0,10.5,0,7:07:00 AM,1,Y,NOISE DUE TO WIND IN THE CANOPY
+06/10/2014,HF20606N,HF20606N-1,28,8:50:00 AM,n_a,1,2,0,14.5,0,3,0,14.6,0,9:00:00 AM,0,Y,
+06/10/2014,HF20606P,HF20606P-1,28,6:45:00 AM,n_a,1,1,0,10.5,0,1,0,11.6,0,6:55:00 AM,0,Y,
+06/10/2014,HF20607G,HF20607G-1,26,6:30:00 AM,n_a,1,1,0,12.3,0,1,0,11.1,0,6:40:00 AM,1,Y,NOISE DUE TO DISTANT POUNDING
+06/10/2014,HF20607N,HF20607N-1,28,5:56:00 AM,n_a,1,0,0,9.5,0,0,0,8.3,0,6:06:00 AM,0,Y,
+06/10/2014,HF20607W,HF20607W-1,28,6:22:00 AM,n_a,1,0,0,8.5,0,0,0,9.6,0,6:32:00 AM,0,Y,
+06/10/2014,HF20608G,HF20608G-1,26,6:04:00 AM,n_a,1,1,0,10.2,0,1,0,10.2,0,6:14:00 AM,1,Y,NOISE DUE TO DISTANT POUNDING 
+06/10/2014,HF20609G,HF20609G-1,26,5:40:00 AM,n_a,1,0,0,7.7,1,1,0,7.8,0,5:50:00 AM,1,Y,NOISE DUE TO DISTANT POUNDING IN THE SOUTH 
+06/10/2014,HF20612N,HF20612N-1,63,9:30:00 AM,n_a,1,2,0,14,0,2,0,14,0,9:40:00 AM,0,N,
+06/10/2014,HF20612S,HF20612S-1,26,9:43:00 AM,n_a,1,3,0,15.2,0,3,0,16.7,0,9:53:00 AM,2,Y,NOISE DUE TO WIND GUSTING TO 4 
+06/10/2014,HF20614N,HF20614N-1,63,8:30:00 AM,n_a,1,1,0,13,0,2,0,14,1,8:40:00 AM,0,N,
+06/10/2014,HF20614W,HF20614W-1,63,9:08:00 AM,n_a,1,1,0,14,0,1,0,15,0,9:18:00 AM,0,N,
+06/03/2014,HF20701G,HF20701G-1,32,5:10:00 AM,n_a,1,0,0,7.2,1,0,0,7.4,0,5:20:00 AM,0,N,There is a 10m wide SL about 10m away from PC
+06/03/2014,HF20701N,HF20701N-1,28,5:17:00 AM,n_a,1,0,0,5.3,0,0,0,4,0,5:27:00 AM,1,N,
+06/03/2014,HF20701W,HF20701W-1,28,4:43:00 AM,n_a,1,0,0,5.1,0,0,0,3.6,0,4:53:00 AM,0,N,
+06/03/2014,HF20702G,HF20702G-1,32,5:38:00 AM,n_a,1,0,0,9.5,0,1,0,10,0,5:48:00 AM,0,N,
+06/03/2014,HF20702N,HF20702N-1,28,6:26:00 AM,n_a,1,0,0,11.5,0,0,0,11.4,0,6:36:00 AM,0,N,
+06/03/2014,HF20702S,HF20702S-1,28,5:52:00 AM,n_a,1,0,0,9.2,0,0,0,10.8,0,6:02:00 AM,0,N,
+06/03/2014,HF20703G,HF20703G-1,32,6:23:00 AM,n_a,1,0,0,10.3,1,0,0,9.9,0,6:33:00 AM,0,N,
+06/03/2014,HF20703N,HF20703N-1,63,8:15:00 AM,n_a,1,1,0,12,1,2,0,13,1,8:25:00 AM,0,N,
+06/03/2014,HF20703S,HF20703S-1,28,7:09:00 AM,n_a,1,2,0,14.2,1,,,15.9,,7:19:00 AM,0,N,Forgot to get complete weather at end of count
+06/03/2014,HF20704G,HF20704G-1,32,4:44:00 AM,n_a,1,0,0,,1,0,0,7,1,4:54:00 AM,0,N,No start temperature - On  well pad (50 x 50m) with regeneration of 2m tall Pj on the sides. See photos.
+06/03/2014,HF20704N,HF20704N-1,63,5:22:00 AM,n_a,1,0,0,4,0,0,0,5,0,5:32:00 AM,0,N,
+06/03/2014,HF20704W,HF20704W-1,63,4:46:00 AM,n_a,1,0,0,4,0,0,0,3,0,4:56:00 AM,0,N,
+06/03/2014,HF20705G,HF20705G-1,32,9:04:00 AM,n_a,1,3,0,17.6,1,3,0,18.5,1,9:14:00 AM,0,N,"Helicopter flies over and conversation with pilot very loud, so up to 3 minutes added to PC, but still very quiet. 10m wide SL abaout 25m north of PC."
+06/03/2014,HF20705N,HF20705N-1,63,6:03:00 AM,n_a,1,0,0,5,1,0,0,5,2,6:13:00 AM,0,N,
+06/03/2014,HF20705S,HF20705S-1,63,7:00:00 AM,n_a,1,3,0,7,1,2,0,8,1,7:10:00 AM,0,N,
+06/03/2014,HF20706G,HF20706G-1,32,7:00:00 AM,n_a,1,1,0,11.1,0,2,0,12,0,7:10:00 AM,0,N,10m wide SL about 15m away from PC center
+06/03/2014,HF20707G,HF20707G-1,32,8:25:00 AM,n_a,1,2,0,17.2,1,2,0,17.2,1,8:35:00 AM,0,N,SL (10m wide) about 20m away from PC
+06/03/2014,HF20708G,HF20708G-1,32,8:05:00 AM,n_a,1,2,0,16.6,0,2,0,14.7,0,8:15:00 AM,0,N,
+06/03/2014,HF20708N,HF20708N-1,28,8:34:00 AM,n_a,1,2,0,19.3,1,2,0,19.2,1,8:44:00 AM,0,N,
+06/03/2014,HF20708S,HF20708S-1,28,7:59:00 AM,n_a,1,2,0,16.1,0,2,0,16.2,0,8:09:00 AM,0,N,Gusting to BF-3 at end of count
+06/03/2014,HF20709G,HF20709G-1,32,7:35:00 AM,n_a,1,1,0,12.9,1,1,0,12.8,1,7:45:00 AM,0,N,
+06/03/2014,HF20799N,HF20799N-1,63,8:52:00 AM,n_a,1,1,0,18,1,2,0,19,0,9:02:00 AM,0,N,
+06/03/2014,HF20799W,HF20799W-1,28,9:15:00 AM,n_a,1,2,0,19.7,1,3,0,19.7,1,9:25:00 AM,0,N,
+06/03/2014,HF20801G,HF20801G-1,26,8:41:00 AM,n_a,1,2,0,17.1,1,2,0,18.2,1,8:51:00 AM,0,N,PIPELINE IS ~5M WIDE
+06/03/2014,HF20801N,HF20801N-1,87,7:12:00 AM,n_a,1,3,0,14.5,2,3,0,13.9,1,7:22:00 AM,0,N,Two countersinging DEJUs after the PC.
+06/03/2014,HF20801S,HF20801S-1,87,4:43:00 AM,n_a,1,2,0,10.5,1,2,0,8,1,4:53:00 AM,0,N,
+06/03/2014,HF20802G,HF20802G-1,26,9:08:00 AM,n_a,1,2,0,19.4,1,2,0,21.3,1,9:18:00 AM,1,N,NOISE DUE TO HELICOPTER CHECK-IN
+06/03/2014,HF20802N,HF20802N-1,87,8:40:00 AM,n_a,1,2,0,18.5,1,1,0,18.1,1,8:50:00 AM,0,N,The same WISN winnowed/displayed as at 02W thus not recorded here.
+06/03/2014,HF20802W,HF20802W-1,87,7:56:00 AM,n_a,1,3,0,16.5,1,3,0,16.3,1,8:06:00 AM,0,N,Wind gusts to 4.
+06/03/2014,HF20803G,HF20803G-1,26,4:46:00 AM,n_a,1,0,0,,0,0,0,3.6,0,4:56:00 AM,0,N,20 WWCR CALLING AND VISUAL ID FO JUST BEFORE PC. I FORGOT TO RECORD START TEMPERATURE
+06/03/2014,HF20804G,HF20804G-1,26,8:05:00 AM,n_a,1,1,0,14.2,1,1,0,14.8,1,8:15:00 AM,0,N,WINTER ROAD IS ~10M WIDE
+06/03/2014,HF20805G,HF20805G-1,26,6:56:00 AM,n_a,1,2,0,14.5,1,2,0,15.7,1,7:06:00 AM,0,N,WIND GUSTING TO 3/4 AND SURVEY IS BEING DONE IN AN OPEN AREA
+06/03/2014,HF20805N,HF20805N-1,87,6:24:00 AM,n_a,1,2,0,13,1,3,0,12,1,6:34:00 AM,0,N,UNVI heard after PC-- either slow REVI or less simple PHVI.
+06/03/2014,HF20805S,HF20805S-1,87,5:19:00 AM,n_a,1,1,0,8.7,1,1,0,7.9,1,5:29:00 AM,0,N,BRCR and and was seen after the PC survey.
+06/03/2014,HF20806G,HF20806G-1,26,5:10:00 AM,n_a,1,0,0,5,0,0,0,3.8,0,5:20:00 AM,0,N,
+06/03/2014,HF20807G,HF20807G-1,26,7:34:00 AM,n_a,1,1,0,13.7,1,1,0,12.7,1,7:44:00 AM,0,N,
+06/03/2014,HF20808G,HF20808G-1,26,6:22:00 AM,n_a,1,0,0,13,1,1,0,13.4,1,6:32:00 AM,0,N,
+06/03/2014,HF20809G,HF20809G-1,26,5:44:00 AM,n_a,1,0,0,7.8,0,0,0,8.8,1,5:54:00 AM,0,N,NO RECORDING… SHORT ON TIME FOR SURVEYING TODAY I BELIEVE!
+06/08/2014,HF20901G,HF20901G-1,32,8:50:00 AM,n_a,1,2,0,6.8,0,1,0,6.8,0,9:00:00 AM,0,N,
+06/08/2014,HF20901N,HF20901N-1,87,5:20:00 AM,n_a,1,1,0,4.5,0,2,0,-0.4,0,5:30:00 AM,0,N,
+06/08/2014,HF20901W,HF20901W-1,87,4:19:00 AM,n_a,1,2,0,1.5,1,2,0,-1.7,1,4:29:00 AM,0,N,Howling wolves!
+06/08/2014,HF20902G,HF20902G-1,32,8:45:00 AM,n_a,1,0,0,11.6,0,0,0,11.6,0,8:55:00 AM,0,N,
+06/08/2014,HF20902N,HF20902N-1,87,6:09:00 AM,n_a,1,1,0,3.1,0,1,0,0.1,0,6:19:00 AM,0,N,After the PC a GRYE was harassed by a Juvenile GRAJ and 2 GRAJ adults came in nearby.
+06/08/2014,HF20902S,HF20902S-1,87,7:04:00 AM,n_a,1,1,0,9.9,0,2,0,11.6,0,7:14:00 AM,0,N,"Wind gusts to 3.  A RCKI sang in SW at a distance of 1, a COYE in the SW at distance 2, and a HETH sang within 50m to the NW afte the PC."
+06/08/2014,HF20903G,HF20903G-1,32,4:45:00 AM,n_a,1,0,0,0.1,0,1,0,0.1,0,4:55:00 AM,0,N,
+06/08/2014,HF20903N,HF20903N-1,87,8:55:00 AM,n_a,1,2,0,13,0,1,0,17.3,0,9:05:00 AM,0,N,
+06/08/2014,HF20903S,HF20903S-1,87,7:59:00 AM,n_a,1,1,0,14.2,0,2,0,14.2,0,8:09:00 AM,0,N,Two WIWA sang and were seen ~500m to the West along a wet seismic line.
+06/08/2014,HF20904G,HF20904G-1,32,7:25:00 AM,n_a,1,1,0,7.5,3,2,0,10.2,3,7:35:00 AM,0,N,
+06/08/2014,HF20904N,HF20904N-1,26,5:09:00 AM,n_a,1,0,0,1.6,1,0,0,0.5,1,5:19:00 AM,0,N,"AMBI MUST BE IN THE FEN NORTH OF THIS PC STATION - I'M ASSUMING HELICOPTER, DIDN'T RECORD ON DATA SHEET WHY I SAID THIS"
+06/08/2014,HF20904W,HF20904W-1,26,4:13:00 AM,n_a,1,0,0,1.1,1,0,0,-0.6,1,4:23:00 AM,1,N,NOISE DUE TO HELICOPTER CHECK-IN AND LANDING. RECORDING IN 2 PARTS DUE DO TO THE HELICOPTER LANDING NEARBY. SEISMIC LINE ~5M WIDE
+06/08/2014,HF20905G,HF20905G-1,32,8:17:00 AM,n_a,1,1,0,9.1,0,1,0,9.7,0,8:27:00 AM,0,N,
+06/08/2014,HF20905N,HF20905N-1,26,5:47:00 AM,n_a,1,0,0,2.2,0,0,0,1.6,0,5:57:00 AM,0,N,AUDIO RECORDING STOPPED HALFWAY THROUGH PC. ZOOM NOT WORKING CORRECTLY. 
+06/08/2014,HF20905W,HF20905W-1,26,6:14:00 AM,n_a,1,0,0,1.2,0,0,0,0.2,0,6:24:00 AM,0,N,"NO RECORDING, ZOOM NOT WORKING"
+06/08/2014,HF20906G,HF20906G-1,32,5:23:00 AM,n_a,1,0,0,1.8,0,0,0,1,0,5:33:00 AM,0,N,
+06/08/2014,HF20906N,HF20906N-1,26,6:45:00 AM,n_a,1,0,0,2.2,0,0,0,1.7,0,6:55:00 AM,0,N,"NO RECORDING, ZOOM NOT WORKING"
+06/08/2014,HF20906W,HF20906W-1,26,7:17:00 AM,n_a,1,0,0,4,0,0,0,5.8,0,7:27:00 AM,0,N,"NO RECORDING, ZOOM NOT WORKING"
+06/08/2014,HF20907G,HF20907G-1,32,6:50:00 AM,n_a,1,0,0,,0,0,0,2.8,0,7:00:00 AM,0,N,No start temperature
+06/08/2014,HF20907N,HF20907N-1,26,7:55:00 AM,n_a,1,0,0,8.3,0,0,0,9.3,0,8:05:00 AM,0,N,"NO RECORDING, ZOOM NOT WORKING"
+06/08/2014,HF20907W,HF20907W-1,26,8:19:00 AM,n_a,1,0,0,13.6,0,0,0,13,0,8:29:00 AM,0,N,"NO RECORDING, ZOOM NOT WORKING"
+06/08/2014,HF20908G,HF20908G-1,32,6:20:00 AM,n_a,1,0,0,1.3,0,0,0,1.4,0,6:30:00 AM,0,N,
+06/08/2014,HF20909G,HF20909G-1,32,5:55:00 AM,n_a,1,0,0,0,0,0,0,-0.1,0,6:05:00 AM,0,N,
+5/25/2014,LB20101G,LB20101G-1,32,9:37:00 AM,n_a,1,0,0,12.9,0,0,0,13,0,9:47:00 AM,0,N,
+5/25/2014,LB20102G,LB20102G-1,28,9:50:00 AM,n_a,1,1,0,18.2,0,1,0,17,0,10:00:00 AM,0,N,
+5/25/2014,LB20103G,LB20103G-1,28,8:09:00 AM,n_a,1,1,0,10.3,0,1,0,10.3,0,8:19:00 AM,0,N,
+5/25/2014,LB20103N,LB20103N-1,32,8:37:00 AM,n_a,1,1,0,11.8,0,2,0,11.6,0,8:47:00 AM,0,N,
+5/25/2014,LB20103W,LB20103W-1,87,8:46:00 AM,n_a,1,1,0,12.3,1,1,0,12.3,1,8:56:00 AM,0,N,"Zoom did not record the PC, just the intro.  A sample 2:49 long wasa recorded after the PC.  There is no well pad or structures and it is not maintained.  A BCCH 50m in NE is very active, possibly nest building.  Perhaps the three Vireos may be one or two birds as all are in the North and within 75m from center."
+5/25/2014,LB20104G,LB20104G-1,28,9:01:00 AM,n_a,1,1,0,12.9,1,1,0,13.1,1,9:11:00 AM,0,N,
+5/25/2014,LB20104N,LB20104N-1,32,6:40:00 AM,n_a,1,0,0,6.7,0,0,0,6.5,0,6:50:00 AM,0,N,Birds done by BL and vegetation done by NL
+5/25/2014,LB20104S,LB20104S-1,32,8:00:00 AM,n_a,1,1,0,11,0,0,0,11.2,0,8:10:00 AM,0,N,Birds done by BL and vegetation done by NL
+5/25/2014,LB20105G,LB20105G-1,28,8:39:00 AM,n_a,1,1,0,10.3,1,1,0,12.7,1,8:49:00 AM,0,N,
+5/25/2014,LB20106G,LB20106G-1,28,7:37:00 AM,n_a,1,1,0,10.3,0,0,0,9.9,0,7:47:00 AM,0,N,
+07/03/2014,LB20106N,LB20106N-1,87,9:36:00 AM,n_a,1,4,0,20.2,1,4,0,22.5,0,9:46:00 AM,0,Y,Wind gusts to 5 and 6.  It appears to have rained locally in the evening/overnight.  A second WTSP countersang and a RBNU sang within 50m in the SE plus a BRCR sang within 50m in SW after the PC.
+07/03/2014,LB20106S,LB20106S-1,87,8:50:00 AM,n_a,1,4,0,19.3,1,4,0,18,1,9:00:00 AM,0,Y,Wind gusts to 5 and 6.  It appears to have rained locally in the evening/overnight.  A second WTSP countersang and a RBNU sang within 50m in the SE plus a BRCR sang within 50m in SW after the PC.
+5/25/2014,LB20107G,LB20107G-1,28,6:08:00 AM,n_a,1,0,0,8.9,0,0,0,8.4,0,6:18:00 AM,0,N,
+07/03/2014,LB20107N,LB20107N-1,26,9:12:00 AM,n_a,1,2,0,18.8,3,2,0,19.2,3,9:22:00 AM,2,N,WIND GUSTING TO 3/4. NOISE DUE TO WIND.  
+07/03/2014,LB20107S,LB20107S-1,26,8:33:00 AM,n_a,1,2,0,17.7,3,2,0,17.9,3,8:43:00 AM,2,N,WIND GUSTING TO 3/4. NOISE DUE TO WIND. SORRY FOR MY STOMACH GROWL. GRAJ CALLING AFTER PC <50M IN QUADRANT 2
+5/25/2014,LB20108G,LB20108G-1,28,6:38:00 AM,n_a,1,0,0,8.1,0,0,0,7.7,0,6:48:00 AM,0,N,
+5/25/2014,LB20109G,LB20109G-1,28,7:06:00 AM,n_a,1,0,0,8.1,0,1,0,7.9,0,7:16:00 AM,0,N,
+6/23/2014,LB20201G,LB20201G-1,28,9:30:00 AM,n_a,1,1,0,18.6,2,1,0,17.9,2,9:40:00 AM,0,Y,
+6/23/2014,LB20201N,LB20201N-1,32,8:00:00 AM,n_a,1,0,0,16.5,3,0,0,15.7,3,8:10:00 AM,0,Y,
+6/23/2014,LB20201S,LB20201S-1,32,8:40:00 AM,n_a,1,2,0,17.4,3,,,,,8:50:00 AM,0,Y,
+6/23/2014,LB20202G,LB20202G-1,28,8:59:00 AM,n_a,1,0,0,17.5,2,0,0,17.8,2,9:09:00 AM,0,Y,
+6/23/2014,LB20202N,LB20202N-1,32,7:20:00 AM,n_a,1,0,0,15.5,3,0,0,15.4,3,7:30:00 AM,0,Y,
+6/23/2014,LB20202S,LB20202S-1,32,6:50:00 AM,n_a,1,0,0,,3,0,0,14.9,3,7:00:00 AM,0,Y,No start temperature
+6/23/2014,LB20203G,LB20203G-1,28,8:33:00 AM,n_a,1,0,0,16.8,2,0,0,17.1,2,8:43:00 AM,0,Y,Steep slope blocking sounds from SW
+6/23/2014,LB20203N,LB20203N-1,32,6:10:00 AM,n_a,1,0,0,13.8,3,0,0,13.3,3,6:20:00 AM,0,Y,
+6/23/2014,LB20203S,LB20203S-1,32,5:40:00 AM,n_a,1,0,0,14.5,3,0,0,13.4,3,5:50:00 AM,0,Y,
+6/23/2014,LB20204G,LB20204G-1,28,8:08:00 AM,n_a,1,0,0,16.5,2,0,0,15.7,2,8:18:00 AM,0,Y,
+6/23/2014,LB20205G,LB20205G-1,28,7:39:00 AM,n_a,1,0,0,16.2,2,0,0,15.6,2,7:49:00 AM,0,Y,
+6/23/2014,LB20206G,LB20206G-1,28,7:05:00 AM,n_a,1,0,0,15,2,0,0,14.3,2,7:15:00 AM,0,Y,
+6/23/2014,LB20207G,LB20207G-1,28,6:35:00 AM,n_a,1,0,0,13.3,2,0,0,13.2,2,6:45:00 AM,0,Y,
+6/23/2014,LB20208G,LB20208G-1,28,6:12:00 AM,n_a,1,0,0,13.1,3,0,0,12.8,3,6:22:00 AM,0,Y,
+6/23/2014,LB20209G,LB20209G-1,28,5:36:00 AM,n_a,1,0,0,14.4,3,0,0,13.2,3,5:46:00 AM,0,Y,
+6/20/2014,WA20101G,WA20101G-1,28,7:19:00 AM,n_a,1,0,0,15.4,2,1,0,15.6,2,7:29:00 AM,0,N,
+6/20/2014,WA20102G,WA20102G-1,28,6:29:00 AM,n_a,1,0,0,16,3,0,0,14.8,3,6:39:00 AM,0,N,
+6/20/2014,WA20103G,WA20103G-1,32,6:25:00 AM,n_a,1,0,0,15.3,3,0,0,15,3,6:35:00 AM,0,N,Cut line is 5m wide
+6/20/2014,WA20104G,WA20104G-1,32,7:00:00 AM,n_a,1,0,0,15.6,3,,,,,7:10:00 AM,0,N,Noise: insects. PC recording in two parts
+6/20/2014,WA20104N,WA20104N-1,28,9:04:00 AM,n_a,1,0,0,16.9,3,0,0,16.6,3,9:14:00 AM,0,N,
+6/20/2014,WA20104S,WA20104S-1,32,9:10:00 AM,n_a,1,0,0,17.9,3,0,0,16.8,3,9:20:00 AM,1,N,Noise are insects. Old cut line (3m wide) mostly covered by tree canopy
+6/20/2014,WA20105G,WA20105G-1,32,8:25:00 AM,n_a,1,0,0,16.5,3,0,0,16.7,3,8:35:00 AM,1,N,Noise: Mosquitoes
+6/20/2014,WA20106G,WA20106G-1,28,7:48:00 AM,n_a,1,0,0,16.2,0,0,0,16.2,0,7:58:00 AM,0,N,
+6/20/2014,WA20107G,WA20107G-1,28,8:16:00 AM,n_a,1,0,0,16.5,3,0,0,16.6,3,8:26:00 AM,0,N,
+6/20/2014,WA20108G,WA20108G-1,32,7:55:00 AM,n_a,1,0,0,16.9,3,0,0,16.6,3,8:05:00 AM,1,N,Noise: Mosquitoes
+6/20/2014,WA20109G,WA20109G-1,32,7:30:00 AM,n_a,1,0,0,16.8,3,0,0,16.2,3,7:40:00 AM,1,N,Noise: Mosquitoes
+6/22/2014,WA20201G,WA20201G-1,32,7:30:00 AM,n_a,1,2,0,9.1,0,0,0,9.3,0,7:40:00 AM,0,N,
+6/22/2014,WA20202G,WA20202G-1,32,6:45:00 AM,n_a,1,0,0,6.7,0,0,0,6.8,0,6:55:00 AM,0,N,
+6/22/2014,WA20202N,WA20202N-1,28,7:36:00 AM,n_a,1,1,0,9.5,0,1,0,9.1,0,7:46:00 AM,1,N,
+6/22/2014,WA20202P,WA20202P-1,28,8:00:00 AM,n_a,1,1,0,13.3,0,2,0,14.5,0,8:10:00 AM,0,N,
+6/22/2014,WA20203G,WA20203G-1,32,6:10:00 AM,n_a,1,0,0,3.6,0,0,0,3.2,0,6:20:00 AM,0,N,
+6/22/2014,WA20203N,WA20203N-1,28,6:46:00 AM,n_a,1,0,0,8.3,0,0,0,8.6,0,6:56:00 AM,1,N,
+6/22/2014,WA20203P,WA20203P-1,28,6:16:00 AM,n_a,1,1,0,6,0,1,0,6.9,0,6:26:00 AM,1,N,
+6/22/2014,WA20204G,WA20204G-1,32,8:30:00 AM,n_a,1,2,0,10.6,0,1,0,11,0,8:40:00 AM,0,N,
+6/22/2014,WA20204N,WA20204N-1,28,5:19:00 AM,n_a,1,0,0,2.7,0,0,0,1.1,0,5:29:00 AM,0,N,
+6/22/2014,WA20204P,WA20204P-1,28,5:51:00 AM,n_a,1,0,0,2.7,0,0,0,2.2,0,6:01:00 AM,0,N,
+6/22/2014,WA20205G,WA20205G-1,32,8:05:00 AM,n_a,1,0,0,9.6,0,0,0,9.3,0,8:15:00 AM,0,N,
+6/22/2014,WA20206G,WA20206G-1,32,5:40:00 AM,n_a,1,0,0,5.9,0,0,0,6,0,5:50:00 AM,1,N,Noise is from a stream flowing about 10m away
+6/22/2014,WA20207G,WA20207G-1,32,8:55:00 AM,n_a,1,2,0,12.2,0,3,0,13.1,0,9:05:00 AM,0,N,
+6/22/2014,WA20207N,WA20207N-1,28,7:11:00 AM,n_a,1,1,0,9.5,0,1,0,9,0,7:21:00 AM,0,N,
+6/22/2014,WA20207P,WA20207P-1,28,9:01:00 AM,n_a,1,2,0,16.3,0,2,0,21.6,0,9:11:00 AM,0,N,
+6/22/2014,WA20208G,WA20208G-1,32,9:25:00 AM,n_a,1,3,0,13.3,0,3,0,13.9,0,9:35:00 AM,0,N,
+6/22/2014,WA20209G,WA20209G-1,32,5:00:00 AM,n_a,1,0,0,,0,0,0,1.6,0,5:10:00 AM,0,N,No start temperature
+6/17/2014,WA20501G,WA20501G-1,32,6:39:00 AM,n_a,1,0,2,7.5,3,0,2,7.3,3,6:49:00 AM,0,Y,
+6/17/2014,WA20501N,WA20501N-1,28,9:59:00 AM,n_a,1,0,0,14.8,2,0,0,15.8,2,10:09:00 AM,0,Y,
+6/17/2014,WA20501R,WA20501R-1,28,9:25:00 AM,n_a,1,0,0,12,2,0,0,12.5,2,9:35:00 AM,0,Y,
+6/17/2014,WA20502G,WA20502G-1,32,7:15:00 AM,n_a,1,0,3,9.9,3,0,3,8.7,3,7:25:00 AM,0,Y,No recording because of rain
+6/17/2014,WA20503G,WA20503G-1,32,7:56:00 AM,n_a,1,0,0,9.3,3,0,0,9.4,3,8:06:00 AM,0,Y,
+6/18/2014,WA20503N,WA20503N-1,28,5:57:00 AM,n_a,1,0,0,6.5,0,0,0,8.3,0,6:07:00 AM,0,N,
+6/18/2014,WA20503R,WA20503R-1,28,6:31:00 AM,n_a,1,1,0,10.5,0,1,0,10.9,0,6:41:00 AM,0,N,
+6/17/2014,WA20504G,WA20504G-1,32,6:09:00 AM,n_a,1,0,1,7.6,3,0,1,6.7,3,6:19:00 AM,0,Y,
+6/17/2014,WA20504N,WA20504N-1,28,6:26:00 AM,n_a,1,0,1,9.4,3,0,1,8.9,3,6:36:00 AM,0,Y,
+6/17/2014,WA20504S,WA20504S-1,28,6:53:00 AM,n_a,1,0,1,9,3,,,,,7:03:00 AM,1,Y,forgot to record weather at end of count
+6/17/2014,WA20505G,WA20505G-1,32,9:10:00 AM,n_a,1,0,0,12,3,0,0,12.2,3,9:20:00 AM,0,Y,
+6/17/2014,WA20506G,WA20506G-1,32,8:35:00 AM,n_a,1,0,0,10.3,3,,,,,8:45:00 AM,0,Y,
+6/18/2014,WA20506R,WA20506R-1,28,8:01:00 AM,n_a,1,3,0,18.4,0,3,0,19.1,0,8:11:00 AM,0,N,"Too windy, (relatively) quiet --- very hot as well. Natural for this pair was not completed due to condition"
+6/17/2014,WA20507G,WA20507G-1,32,5:37:00 AM,n_a,1,0,1,8.4,3,0,0,7.8,3,5:47:00 AM,0,Y,"Probably more than WTSP at over 100m, but hard to distinguish individuals"
+6/18/2014,WA20507N,WA20507N-1,28,7:04:00 AM,n_a,1,0,0,10,0,0,0,12.2,0,7:14:00 AM,0,N,OSFL in recording already counted
+6/18/2014,WA20507R,WA20507R-1,28,5:17:00 AM,n_a,1,0,0,2.9,0,0,0,2.9,0,5:27:00 AM,0,N,
+6/17/2014,WA20508G,WA20508G-1,32,9:40:00 AM,n_a,1,0,0,12.4,3,0,0,12.6,3,9:50:00 AM,0,Y,
+6/17/2014,WA20508N,WA20508N-1,28,7:24:00 AM,n_a,1,0,1,8.7,3,0,1,8.7,3,7:34:00 AM,1,Y,
+6/17/2014,WA20508S,WA20508S-1,28,8:00:00 AM,n_a,1,0,0,10,3,0,0,9.5,3,8:10:00 AM,0,Y,
+6/18/2014,WA20581N,WA20581N-1,32,8:45:00 AM,n_a,1,3,0,,3,,,,,8:55:00 AM,0,N,No start temperature
+6/18/2014,WA20581R,WA20581R-1,32,6:30:00 AM,n_a,1,1,0,7.8,3,2,0,10.2,3,6:40:00 AM,0,N,
+6/18/2014,WA20590G,WA20590G-1,32,5:35:00 AM,n_a,1,0,0,3,0,0,0,2.3,0,5:45:00 AM,1,N,"Point 9G is inaccessible (located in a swamp and surrounded by beaver dams and ponds). Point conducted as close as possible, but still 400m away. Noise is a flowing beaver dam."
+6/14/2014,WA20601G,WA20601G-1,32,7:30:00 AM,n_a,1,0,0,15.6,0,0,0,14.8,0,7:40:00 AM,0,N,
+6/14/2014,WA20601N,WA20601N-1,28,9:06:00 AM,n_a,1,1,0,23.4,0,1,0,27.7,0,9:16:00 AM,0,N,
+6/14/2014,WA20601W,WA20601W-1,28,8:36:00 AM,n_a,1,1,0,17.6,0,1,0,16.9,0,8:46:00 AM,0,N,
+6/14/2014,WA20602G,WA20602G-1,32,7:00:00 AM,n_a,1,0,0,10.9,0,0,0,12.6,0,7:10:00 AM,0,N,
+6/14/2014,WA20603G,WA20603G-1,32,6:35:00 AM,n_a,1,0,0,7.5,0,0,0,9.9,0,6:45:00 AM,1,N,
+6/14/2014,WA20604G,WA20604G-1,32,7:55:00 AM,n_a,1,0,0,16.2,0,1,0,14.7,0,8:05:00 AM,0,N,
+6/14/2014,WA20604N,WA20604N-1,28,7:57:00 AM,n_a,1,0,0,15.1,0,0,0,18.5,0,8:07:00 AM,0,N,
+6/14/2014,WA20604W,WA20604W-1,28,7:28:00 AM,n_a,1,0,0,16.5,0,0,0,13.9,0,7:38:00 AM,0,N,
+6/14/2014,WA20605G,WA20605G-1,32,8:20:00 AM,n_a,1,2,0,17.2,0,0,0,17.4,0,8:30:00 AM,0,N,
+6/14/2014,WA20605N,WA20605N-1,28,5:42:00 AM,n_a,1,0,0,2.4,0,0,0,1.3,0,5:52:00 AM,0,N,
+6/14/2014,WA20605W,WA20605W-1,28,5:12:00 AM,n_a,1,0,0,0.7,0,0,0,0.4,0,5:22:00 AM,0,N,
+6/14/2014,WA20606G,WA20606G-1,32,6:00:00 AM,n_a,1,0,0,5,0,0,0,5.5,0,6:10:00 AM,1,N,Noise is from plant in background.
+6/14/2014,WA20607G,WA20607G-1,32,8:55:00 AM,n_a,1,3,0,16.4,0,3,0,16.4,0,9:05:00 AM,0,N,
+6/14/2014,WA20608G,WA20608G-1,32,9:20:00 AM,n_a,1,2,0,17.9,0,1,0,26.4,0,9:30:00 AM,0,N,Thermometer in the sun for second reading.
+6/14/2014,WA20609G,WA20609G-1,32,5:25:00 AM,n_a,1,0,0,3.1,1,0,0,1.8,1,5:35:00 AM,0,N,
+6/14/2014,WA20609N,WA20609N-1,28,6:09:00 AM,n_a,1,0,0,2.7,0,0,0,2.5,0,6:19:00 AM,0,N,
+6/14/2014,WA20609W,WA20609W-1,28,6:34:00 AM,n_a,1,0,0,13.1,0,0,0,18.6,0,6:44:00 AM,0,N,
+6/15/2014,WA20701G,WA20701G-1,28,4:59:00 AM,n_a,1,0,0,4.3,0,0,0,4.2,0,5:09:00 AM,0,N,
+6/15/2014,WA20701N,WA20701N-1,32,6:48:00 AM,n_a,1,0,0,7.3,1,0,0,7.5,1,6:58:00 AM,0,N,
+6/15/2014,WA20701S,WA20701S-1,32,5:25:00 AM,n_a,1,0,0,6.1,1,0,0,5.5,1,5:35:00 AM,0,N,
+6/15/2014,WA20702G,WA20702G-1,28,9:16:00 AM,n_a,1,1,0,21.2,0,1,0,18.6,0,9:26:00 AM,0,N,
+6/15/2014,WA20702N,WA20702N-1,32,7:20:00 AM,n_a,1,0,0,9.5,0,0,0,9.2,0,7:30:00 AM,0,N,
+6/15/2014,WA20702S,WA20702S-1,32,4:55:00 AM,n_a,1,0,0,7.7,1,0,0,6.7,1,5:05:00 AM,0,N,
+6/15/2014,WA20703G,WA20703G-1,28,8:14:00 AM,n_a,1,0,0,12.7,0,,,,,8:24:00 AM,0,N,forgot to record weather at end of count
+6/15/2014,WA20703N,WA20703N-1,32,8:20:00 AM,n_a,1,2,0,13.2,1,1,0,13.2,1,8:30:00 AM,0,N,
+6/15/2014,WA20703W,WA20703W-1,32,8:50:00 AM,n_a,1,1,0,16.1,0,1,0,17.6,0,9:00:00 AM,0,N,Well pad overgrown in part with Pb regen. Center of WP is 27m from GPS coordinates.
+6/15/2014,WA20704G,WA20704G-1,28,5:34:00 AM,n_a,1,0,0,4.8,0,0,0,4.5,0,5:44:00 AM,0,N,
+6/15/2014,WA20704N,WA20704N-1,32,7:50:00 AM,n_a,1,0,0,11.6,0,1,0,12.4,0,8:00:00 AM,0,N,
+6/15/2014,WA20704R,WA20704R-1,32,9:20:00 AM,n_a,1,2,0,20.2,0,3,0,19.3,0,9:30:00 AM,0,N,
+6/15/2014,WA20705G,WA20705G-1,28,8:47:00 AM,n_a,1,0,0,17.6,0,0,0,18.2,0,8:57:00 AM,0,N,
+6/15/2014,WA20706G,WA20706G-1,28,7:43:00 AM,n_a,1,0,0,10.7,0,0,0,10.3,0,7:53:00 AM,0,N,
+6/15/2014,WA20706N,WA20706N-1,32,5:50:00 AM,n_a,1,0,0,5.5,1,0,0,4.3,1,6:00:00 AM,0,N,
+6/15/2014,WA20706S,WA20706S-1,32,6:23:00 AM,n_a,1,0,0,5.8,1,0,0,5.7,1,6:33:00 AM,0,N,
+6/15/2014,WA20707G,WA20707G-1,28,6:06:00 AM,n_a,1,0,0,6.2,0,0,0,6.1,0,6:16:00 AM,0,N,
+6/15/2014,WA20707R,WA20707R-1,32,9:55:00 AM,n_a,1,3,0,21.8,0,3,0,22.9,0,10:05:00 AM,0,N,
+6/15/2014,WA20708G,WA20708G-1,28,6:37:00 AM,n_a,1,0,0,7,0,0,0,6.6,0,6:47:00 AM,0,N,
+6/15/2014,WA20709G,WA20709G-1,28,7:04:00 AM,n_a,1,0,0,8.9,0,0,0,8.2,0,7:14:00 AM,0,N,
+6/13/2014,WR20001G,WR20001G-1,26,8:50:00 AM,n_a,1,2,0,15.8,2,2,0,15.6,0,9:00:00 AM,1,N,NOISE DUE TO AIR TRAFFIC AND WIND. MY STOMACH GROWLED DURING PC. POSSIBLY A WETA CALLING 50-100M IN QUADRANT 2 BUT I'M NOT 100% SURE…
+6/13/2014,WR20002G,WR20002G-1,26,7:30:00 AM,n_a,1,1,0,11.8,0,0,0,13.3,0,7:40:00 AM,1,N,NOISE DUE TO AIR TRAFFIC 
+6/13/2014,WR20003G,WR20003G-1,26,6:56:00 AM,n_a,1,1,0,8.8,0,0,0,8.3,0,7:06:00 AM,1,N,FLUSHED A SPGR BETWEEN 100-5M IN QUADRANT 3 ON WALK OVER. NOISE IS DUE TO AIR TRAFFIC. NOFL SINGING AFTER PC IN <50M IN QUADRANT 1
+6/13/2014,WR20004G,WR20004G-1,26,9:27:00 AM,n_a,1,2,0,17.4,0,2,0,17.6,0,9:37:00 AM,1,N,NOISE IS DUE TO WIND. GCKI CALLING AFTER PC <50M IN QUADRANT 1
+6/13/2014,WR20004N,WR20004N-1,87,7:26:00 AM,n_a,1,1,0,13.8,0,2,0,13.9,0,7:36:00 AM,1,N,Machinery
+6/13/2014,WR20004W,WR20004W-1,87,8:30:00 AM,n_a,1,2,0,17.78,1,2,0,18.9,2,8:40:00 AM,1,N,Machinery.  A RBNU called in the SE after the PC.
+6/13/2014,WR20005G,WR20005G-1,26,8:16:00 AM,n_a,1,1,0,15.4,1,2,0,16.3,1,8:26:00 AM,1,N,BEFORE PC - BABY MAMAL CALLING ~150M IN THE NE. NOISE DUE TO AIR TRAFFIC
+6/13/2014,WR20005N,WR20005N-1,87,9:28:00 AM,n_a,1,2,0,20.6,0,2,0,19.8,0,9:38:00 AM,1,N,Machinery
+6/13/2014,WR20006G,WR20006G-1,26,6:23:00 AM,n_a,1,2,0,8.5,0,1,0,9,0,6:33:00 AM,0,N,WIND GUSTING TO 3
+6/13/2014,WR20006N,WR20006N-1,87,6:09:00 AM,n_a,1,1,0,4.1,0,2,0,3,0,6:19:00 AM,0,N,A YBFL sang after the PC.
+6/13/2014,WR20006P,WR20006P-1,87,5:21:00 AM,n_a,1,1,0,1.4,0,2,0,1,0,5:31:00 AM,0,N,The Pipeline is half regenerating pioneers and half used as winter access.
+6/13/2014,WR20007G,WR20007G-1,26,4:42:00 AM,n_a,1,1,0,8.8,0,1,0,8.4,0,4:52:00 AM,0,N,
+6/13/2014,WR20008G,WR20008G-1,26,5:20:00 AM,n_a,1,1,0,6.3,2,1,0,5.5,2,5:30:00 AM,0,N,SWSP SINGING AFTER PC <50M IN QUADRANT 4
+6/13/2014,WR20009G,WR20009G-1,26,5:52:00 AM,n_a,1,1,0,8.3,0,2,0,8.4,0,6:02:00 AM,0,N,WIND GUSTING TO 2/3. BHVI SINGING AFTER PC <50M IN QUADRANT 2
+6/14/2014,WR20101G,WR20101G-1,26,7:08:00 AM,n_a,1,1,0,10.1,2,1,0,10.2,2,7:18:00 AM,0,N,2 EVGR CALLING AFTER PC <50M IN QUADRANT 3
+6/15/2014,WR20101N,WR20101N-1,87,7:24:00 AM,n_a,1,2,0,9.8,0,2,0,9.3,0,7:34:00 AM,1,N,Machinery.  Evidence of RESQ: midden.
+6/15/2014,WR20101R,WR20101R-1,87,5:20:00 AM,n_a,1,2,0,5.6,0,3,0,4.2,0,5:30:00 AM,0,N,Wind changed to 3 at ~1:15
+6/14/2014,WR20102G,WR20102G-1,26,7:36:00 AM,n_a,1,2,0,12.3,2,2,0,12.5,2,7:46:00 AM,0,N,WTSP SINGING AFTER >100M IN QUADRANT 4 
+6/15/2014,WR20102N,WR20102N-1,87,6:39:00 AM,n_a,1,1,0,9.2,0,2,0,5.5,0,6:49:00 AM,2,N,Machinery. A RESQ was seen to the NW about 70m from PC center after the PC.
+6/15/2014,WR20102R,WR20102R-1,87,4:38:00 AM,n_a,1,1,0,5.2,0,2,0,3.4,0,4:48:00 AM,0,N,
+6/14/2014,WR20103G,WR20103G-1,26,8:39:00 AM,n_a,1,1,0,15.4,1,1,0,15.6,1,8:49:00 AM,0,N,
+6/14/2014,WR20104G,WR20104G-1,26,6:41:00 AM,n_a,1,0,0,9.1,2,0,0,9.3,2,6:51:00 AM,0,N,
+6/14/2014,WR20105G,WR20105G-1,26,8:04:00 AM,n_a,1,1,0,11.8,1,1,0,13.3,1,8:14:00 AM,1,N,NOISE  DUE TO AIR TRAFFIC
+6/14/2014,WR20105N,WR20105N-1,87,9:24:00 AM,n_a,1,2,0,17,0,2,0,16.5,0,9:34:00 AM,0,N,Temperature taken in the shade.
+6/14/2014,WR20105W,WR20105W-1,87,8:32:00 AM,n_a,1,2,0,15,0,2,0,14.5,0,8:42:00 AM,2,N,Machinery
+6/14/2014,WR20106G,WR20106G-1,26,4:35:00 AM,n_a,1,1,0,5,3,0,0,5,3,4:45:00 AM,0,N,
+6/14/2014,WR20106N,WR20106N-1,87,6:10:00 AM,n_a,1,0,0,8.8,3,1,0,8.8,3,6:20:00 AM,0,N,"PC is in a forest gap.  Wind gusts to 3, loud TEWA and RESQ noise. A CMWA sang as I approached in NW within 50m.  Bumped timer and went into overtime."
+6/14/2014,WR20106R,WR20106R-1,87,5:12:00 AM,n_a,1,1,0,6.8,0,2,0,5.3,0,5:22:00 AM,0,N,The WIWR and two WTSP heard at 07R were also heard here.  A COHA called before the PC.
+6/14/2014,WR20107G,WR20107G-1,26,6:07:00 AM,n_a,1,0,0,8.2,2,0,0,8.1,2,6:17:00 AM,0,N,
+6/14/2014,WR20107N,WR20107N-1,87,7:25:00 AM,n_a,1,2,0,17.5,1,2,0,19,1,7:35:00 AM,0,N,A RESQ called to NE after the PC and a CCSP sang as I set up for the PC.
+6/14/2014,WR20107R,WR20107R-1,87,4:29:00 AM,n_a,1,2,0,7.2,1,2,0,5.7,1,4:39:00 AM,2,N,Stream noise and hard to hear past the TEWAs and WIWRs.  A COHA called after the PC.
+6/14/2014,WR20108G,WR20108G-1,26,5:36:00 AM,n_a,1,1,0,6.4,2,2,0,7.4,2,5:46:00 AM,0,N,
+6/14/2014,WR20109G,WR20109G-1,26,5:04:00 AM,n_a,1,0,0,4.3,3,0,0,2.8,2,5:14:00 AM,0,N,7 CANG CALLING AND VISUAL ID FO AFTER PC. STREAM ~1M WIDE AND DEEP
+6/15/2014,WR20109N,WR20109N-1,87,8:31:00 AM,n_a,1,2,0,13.8,0,3,0,13.3,0,8:41:00 AM,0,N,
+6/15/2014,WR20109S,WR20109S-1,87,9:12:00 AM,n_a,1,2,0,22.1,0,2,0,25.1,0,9:22:00 AM,1,N,Machinery and wind gusts to 4.  
+6/20/2014,WR20301G,WR20301G-1,87,4:32:00 AM,n_a,1,0,0,14.8,3,0,0,13.2,3,4:42:00 AM,2,Y,Light rain previous evening. Mosquitos very bad & noisy. Hwy 63 traffic and heavy equipment work. CONW withing 50m in quadrant 4 (NW) after PC.
+6/20/2014,WR20302G,WR20302G-1,87,9:10:00 AM,n_a,1,0,0,17.6,3,1,0,15.9,3,9:20:00 AM,3,Y,Very noisy: highway 63 and construction
+6/20/2014,WR20303G,WR20303G-1,87,9:46:00 AM,n_a,1,2,0,16.9,3,0,0,16.6,3,9:56:00 AM,3,Y,"Noise is crazy as nuts. WTSP singing to SE at 50-100m after PC. NOFL calling, visual female within 10m to SE after PC. Mawa singing to SE within 50m after PC"
+6/20/2014,WR20304G,WR20304G-1,87,7:57:00 AM,n_a,1,1,0,15.6,3,0,0,15.4,3,8:07:00 AM,2,Y,HWy 63
+6/20/2014,WR20305G,WR20305G-1,87,8:36:00 AM,n_a,1,2,0,17.8,3,2,0,16.7,3,8:46:00 AM,3,Y,Heavy machinery for hwy construction and hwy 63 traffic.  **Identified and added a calling WISN in time code 3 that was not noticed in PC.
+6/20/2014,WR20305N,WR20305N-1,26,8:16:00 AM,n_a,1,0,0,15,3,0,0,15.2,3,8:26:00 AM,0,Y,
+6/20/2014,WR20305W,WR20305W-1,26,9:49:00 AM,n_a,1,1,0,15.9,3,0,0,16,3,9:59:00 AM,3,Y,NOISE DUE TO HWY 63 TO THE WEST
+6/20/2014,WR20306G,WR20306G-1,87,5:13:00 AM,n_a,1,0,0,14,3,0,0,13.5,3,5:23:00 AM,2,Y,Light rain previous evening. Same WISN and WTSP as WR20301G (omitted). HWY 63 traffic & construction.
+6/20/2014,WR20306N,WR20306N-1,26,6:32:00 AM,n_a,1,0,0,14.2,2,0,0,12.5,2,6:42:00 AM,1,Y,
+6/20/2014,WR20306P,WR20306P-1,26,4:26:00 AM,n_a,1,0,0,13.4,3,1,0,13.4,3,4:36:00 AM,2,Y,NOISE DUE TO HWY 63 ~750M EAST OF STATION
+6/20/2014,WR20307G,WR20307G-1,87,5:58:00 AM,n_a,1,0,0,15,1,0,0,12.6,2,6:08:00 AM,2,Y,Light rain prevous evening possibly overnight
+6/20/2014,WR20307N,WR20307N-1,26,7:20:00 AM,n_a,1,0,0,13.8,2,0,0,13.7,2,7:30:00 AM,2,Y,NOISE DUE TO HWY 63 TO THE WEST. COLO SINGING AFTER PC >100M IN QUADRANT 1
+6/20/2014,WR20307P,WR20307P-1,26,4:54:00 AM,n_a,1,0,0,13.8,3,0,0,13.6,3,5:04:00 AM,3,Y,NOISE DUE TO HWY 63 ~170M EAST OF STATION
+6/20/2014,WR20308G,WR20308G-1,87,6:48:00 AM,n_a,1,0,0,13.6,2,0,0,12.9,2,6:58:00 AM,2,Y,Hwy 63 + construction
+6/20/2014,WR20309G,WR20309G-1,87,7:21:00 AM,n_a,1,0,0,14.2,2,0,0,13.8,3,7:31:00 AM,3,Y,Hwy 63 + construction
+6/16/2014,WR20401G,WR20401G-1,87,6:33:00 AM,n_a,1,2,0,11.2,3,2,0,7.9,3,6:43:00 AM,2,N ,HWY 63 traffic and construction. High thin clouds. WISN winnowing after PC amd MAWA singing within 50m SW before PC
+6/16/2014,WR20402G,WR20402G-1,87,8:08:00 AM,n_a,1,2,0,15.2,3,1,0,17,3,8:18:00 AM,2,N,"Machinery due to  road building on Hwy 63. Can hear 75-100m in most of radius, but noise at 3 periodically. WTSP counter-singing with other after PC within 50m SE. OVEN and LEFL singing NE within 50m after PC"
+6/17/2014,WR20403G,WR20403G-1,87,6:06:00 AM,n_a,1,1,0,12.1,3,1,0,10.6,3,6:16:00 AM,2,Y,Seismic line to west ~12m running E-W. Pipeline ~25m running E.  **This is a second visit; the first visit was not undertaken due to excessive noise (I was then told excessive disturbance noise is fine).  There is a data sheet for it.
+6/17/2014,WR20404G,WR20404G-1,87,6:57:00 AM,n_a,1,1,0,12.6,3,2,0,12.1,3,7:07:00 AM,2,N,"Noise to 3: hwy 63 traffic and construction, nearby camp as well. HETH singing to NW after PC; UNYE calling to SE at >100m after PC"
+6/17/2014,WR20405G,WR20405G-1,87,5:22:00 AM,n_a,1,0,0,10.9,3,1,0,9.3,3,5:32:00 AM,2,Y,"HWY 63 traffic and machinery. WTSP entered withn 5m at end of PC.  **A first visiton 16 July was aborted due to excessive noise, wind and time of day.  There is a data sheet for it."
+6/18/2014,WR20406G,WR20406G-1,87,5:17:00 AM,n_a,1,2,0,10.1,3,2,0,8.9,3,5:27:00 AM,2,N,Highway 63 intermittent traffic and construction.  High thin clouds.
+6/18/2014,WR20407G,WR20407G-1,87,5:09:00 AM,n_a,1,2,0,13.4,3,2,0,11,3,5:19:00 AM,2,Y,HWY 63 traffic.  The 2 PAWAs in the South were contact calling and an ALFL sang to NE at 50-100m.
+6/18/2014,WR20408G,WR20408G-1,87,5:50:00 AM,n_a,1,1,0,11.6,2,1,0,11,2,6:00:00 AM,2,Y,HWY 63 construction and traffic.  There are at least a4 PAWA singing.  The two CORAs calling Flew Over from 7G after the PC.  It is harder to hear the SW sector.
+6/18/2014,WR20409G,WR20409G-1,87,6:40:00 AM,n_a,1,1,0,14.2,2,1,0,13.7,1,6:50:00 AM,3,Y,Highway 63intermittent traffic and construction.  There might be 2 OSFL in the NE but it's hard to tell with the noise.  A RCKI sang in SE within 50m and a PIWO sang in SW afte the PC.  **An initial survey was started and aborted at 6:23 into the survey due to Sour Gas Alarm;  there is a hard copy of that data available.
+6/18/2014,WR20410G,WR20410G-1,26,8:14:00 AM,n_a,1,1,0,16.5,1,1,0,17.4,1,8:24:00 AM,2,Y,NOISE DUE TO HWY CONSTRUCTION NEARBY. ALFL CALLING AFTER PC <50M IN QUADRANT
+6/18/2014,WR20411G,WR20411G-1,26,7:36:00 AM,n_a,1,2,0,13.8,2,2,0,13.3,2,7:46:00 AM,3,Y,NOISE DUE TO HWY CONSTRUCTION NEARBY. RECORDER DIED AFTER 7MINS. STOPPED RECORDING THEN BECAUSE I HAD TO HURRY/KEEP MOVING BEFORE THE RAIN ARRIVED. 
+6/18/2014,WR20412G,WR20412G-1,26,6:43:00 AM,n_a,1,0,0,12.6,1,0,0,12.5,1,6:53:00 AM,2,Y,"NOISE DUE TO HWY CONSTRUCTION. QUADRANT #1,2,4 ARE OPEN SHRUBS WITH LOTS OF EXPOSED WATER, QUADRANT 3 IN DENSE FEN WITH LOTS OF LT, AND BETUPUM"
+6/17/2014,WR20413G,WR20413G-1,26,7:58:00 AM,n_a,1,1,0,12,2,2,0,11.5,3,8:08:00 AM,3,Y,"NOISE DUE TO HWY CONSTRUCTION <400M EAST OF HERE. CAN HEAR WITHIN 50M, POSSIBLY FURTHR DEPENDING ON HWY TRAFFIC. FLUSHED A DEJU (VISUAL ID - MALE) UPON ARRIVAL 50-100M IN QUADRANT 3. EXCUSE MY COUGHING. PC IN 2 PARTS"
+6/18/2014,WR20414G,WR20414G-1,26,5:48:00 AM,n_a,1,0,0,11.1,2,0,0,10.7,2,5:58:00 AM,3,Y,NOISE IS DUE TO HIGHWAY CONSTRUCTION. CAN HEAR ~70M AROUND ME
+6/17/2014,WR20415G,WR20415G-1,26,5:27:00 AM,n_a,1,1,0,9.9,3,0,0,9.2,3,5:37:00 AM,3,Y,"NOISE IS A 3 DUE TO HWY <400M AWAY, BUT I THINK I CAN STILL HEAR WITHIN 100M"
+6/17/2014,WR20416G,WR20416G-1,26,6:10:00 AM,n_a,1,1,0,10.9,3,1,0,10.1,3,6:20:00 AM,3,Y,NOISE DUE TO HWY <400M AWAY. I THINK I CAN STILL HEAR 100M AWAY BETWEEN THE CARS GOING BY. SURVEYING IN A BURN; SOUND CARRIES 
+6/17/2014,WR20417G,WR20417G-1,26,6:56:00 AM,n_a,1,1,0,11,0,1,0,11.1,2,7:06:00 AM,3,Y,"NOISE DUE TO HWY TRAFFIC AND CONSTRUCTION <400M EAST OF NEW TWIN HIGHWAY. CAN HEAR ~50M AWAY, POSSIBLY MORE IF TRAFFIC EVER DIES DOWN. BOTH SEISMIC LINES ~3M WIDE. FLUSHED A NOHA ~200M SW OF SITE DURING HIKE IN. 3 CEDW (VISUAL AND CALLING) FO AFTER PC. "
+6/19/2014,WR20501G,WR20501G-1,87,7:51:00 AM,n_a,1,1,0,15.3,3,2,0,14.6,3,8:01:00 AM,1,N,Machinery and mosquitos.  Two CORA were observed flying over the PC.
+6/19/2014,WR20502G,WR20502G-1,87,7:09:00 AM,n_a,1,0,0,13.6,3,0,0,13.3,3,7:19:00 AM,1,N,Machinery and mosquitos.  High clouds thickening.  A WIWR sang in NE over 100m and flew West is same as PC3.  A BBWO or TTWO drummed after the PC.
+6/19/2014,WR20502N,WR20502N-1,26,5:15:00 AM,n_a,1,0,0,12.9,3,0,0,11,3,5:25:00 AM,2,N,SHOULD BE LABELED WR20502P - GIS ERROR. NOISE DUE TO HWY 63 TRAFFIC AND CONSTRUCTION. PIPELINES ARE BOTH ~5M WIDE AND VERY WET. 
+6/19/2014,WR20502P,WR20502P-1,26,5:46:00 AM,n_a,1,0,0,12.5,3,0,0,11.8,3,5:56:00 AM,2,N,SHOULD BE LABELED WR20502N - GIS ERROR. NOISE DUE HWY 63 TRAFFIC AND CONSTRUCTION. SORRY FOR MY STOMACH GROWLING DURING PC
+6/19/2014,WR20503G,WR20503G-1,87,6:25:00 AM,n_a,1,0,0,15.5,3,0,0,14,3,6:35:00 AM,1,N,High clouds.  Distant machinery and mosquitos.
+6/19/2014,WR20504G,WR20504G-1,87,5:40:00 AM,n_a,1,0,0,12.9,3,1,0,13,3,5:50:00 AM,2,N,Machinery and loud mosquito noise.  High thin clouds.  A UNWO drummed (PIWO?) before the PC and two BOCH called within 2m after the PC.
+6/19/2014,WR20504N,WR20504N-1,26,9:22:00 AM,n_a,1,0,0,15.5,3,0,0,15,3,9:32:00 AM,1,N,NOISE DUE TO AIR TRAFFIC AND HWY 63 IN THE DISTANCE
+6/19/2014,WR20504P,WR20504P-1,26,9:58:00 AM,n_a,1,1,0,17.1,3,2,2,16.7,3,10:08:00 AM,2,N,MINUTE 7 LIGHT RAIN STARTED; STOPPED ZOOM RECORDING. NOISE IS DUE TO HIGHWAY AND COMPRESSOR STATION NEARBY 
+6/19/2014,WR20505G,WR20505G-1,87,4:44:00 AM,n_a,1,0,0,11.5,3,0,0,10.6,3,4:54:00 AM,1,N,HWY 63 and machinery plus loud mob of mosquitos. A few rain drops fell.  A DEJU called after the PC 2m to the NW then East.
+6/19/2014,WR20505N,WR20505N-1,26,6:19:00 AM,n_a,1,0,0,12.4,3,0,0,12.4,3,6:29:00 AM,2,N,NOISE DUE TO HWY 63 TRAFFIC AND CONSTRUCTION 
+6/18/2014,WR20505P,WR20505P-1,87,8:38:00 AM,n_a,1,2,0,17.9,0,2,0,19.6,0,8:48:00 AM,2,Y,
+6/19/2014,WR20506G,WR20506G-1,87,8:32:00 AM,n_a,1,1,0,16.9,3,1,0,14.7,3,8:42:00 AM,1,N,"Machinery and mosquitos, airplanes.  A second YBFL countersang to the NE after the PC."
+6/19/2014,WR20506N,WR20506N-1,26,4:47:00 AM,n_a,1,0,0,13.2,3,0,0,12,3,4:57:00 AM,1,N,NOISE DUE TO HWY 63 CONSTRUCTION JUST A COUPLE KILOMETERS AWAY (AND THE MOSQUITOES!)
+6/18/2014,WR20506P,WR20506P-1,87,9:26:00 AM,n_a,1,2,0,22.7,0,1,0,23,1,9:36:00 AM,2,Y,Heavy equipment and machinery.
+6/19/2014,WR20507G,WR20507G-1,87,9:20:00 AM,n_a,1,0,0,15.6,3,0,0,14.6,3,9:30:00 AM,1,N,"Machinery and mosquitos, aircraft.  A few intermittent raindrops and wind gusts to 2.  A RCKI sang to the SE at within 50m after the PC."
+6/19/2014,WR20508G,WR20508G-1,26,8:18:00 AM,n_a,1,0,0,14.9,3,0,0,14.2,3,8:28:00 AM,1,N,NOISE IS DUE TO AIR TRAFFIC AND DISTANT HWY 63 TRAFFIC AND CONSTRUCTION 
+6/19/2014,WR20509G,WR20509G-1,26,7:40:00 AM,n_a,1,1,0,14.3,3,0,0,14.1,3,7:50:00 AM,1,N,NOISE DUE TO DISTANT HWY 63 TRAFFIC AND CONSTRUCTION

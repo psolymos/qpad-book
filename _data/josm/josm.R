@@ -90,12 +90,14 @@ z12$DateTime <- d2 - 600
 #'
 #' Calculate surise time
 library(maptools)
-z12$SunRise <- sunriset(
+srise <- sunriset(
   as.matrix(x12[match(z12$SiteID, x12$SiteID), c("Longitude", "Latitude")]),
   z12$DateTime,
   direction="sunrise",
   POSIXct.out=TRUE)
-z12$TSSR <- as.numeric(z12$DateTime - z12$SunRise$time) / (60*60*24)
+z12$SunRiseTime <- srise$time
+z12$SunRiseFrac <- srise$day_frac
+z12$TSSR <- as.numeric(z12$DateTime - z12$SunRiseTime) / (60*60*24)
 #' Ordinal day
 z12$OrdinalDay <- as.POSIXlt(z12$DateTime)$yday
 z12$DAY <- z12$OrdinalDay / 365
@@ -132,26 +134,48 @@ for (i in colnames(y12))
 levels(y12$Species)[levels(y12$Species) == "YEWA"] <- "YWAR"
 y12 <- y12[y12$Species %in% s12$SpeciesID,]
 y12$Species <- droplevels(y12$Species)
-
+#' Drop rows where some key variables are `NA`
 y12 <- y12[!is.na(y12$TimeInterval) &
   !is.na(y12$Distance) &
   y12$Distance != 0 & # unknown distance
   !is.na(y12$DetectType1), ]
-
 table(y12$Distance,y12$TimeInterval,useNA = "a")
-
+#' Specify human readable time and distance intervals
 y12$Dur <- as.factor(y12$TimeInterval)
 levels(y12$Dur) <- c("0-3min", "3-5min", "5-10min")
 y12$Dis <- as.factor(y12$Distance)
 levels(y12$Dis) <-c("0-50m", "50-100min", "100+m", "100+m")
-
-table(y12$Sex, y12$Age, useNA = "a")
 table(y12$Dur, y12$Dis, useNA = "a")
-
+#' Some other columns of interest
+table(y12$Sex, y12$Age, useNA = "a")
 table(y12$DetectType1, useNA="a")
-
-
-#TODO:
-#  derive predictors (veg + hf ~ Mahon)
-#  intersect and store at site level
-#  assemble into rda object
+#'
+#' # Spatial covariates
+#'
+#' These 1km resolution rasters follow Solymos et al. in review (PIF/PIX manuscript)
+library(raster)
+library(sp)
+library(RColorBrewer)
+rr <- stack(file.path("_data", "josm", "landcover-hfi2016.grd"))
+plot(rr)
+#' Define CRS NAD83 for our sites
+xy <- x12[,c("Longitude", "Latitude")]
+coordinates(xy) <- ~ Longitude + Latitude
+proj4string(xy) <- "+proj=longlat +ellps=GRS80 +datum=NAD83 +no_defs"
+xy <- spTransform(xy, proj4string(rr))
+#' Plot the sites over the water layer
+col <- colorRampPalette(c("lightgrey", "blue"))(100)
+plot(rr[["Water"]], col=col, axes=FALSE, box=FALSE)
+plot(xy, add=TRUE, pch=19, cex=0.5)
+#'
+#' Extract values at each point
+v <- extract(rr, xy)
+#'
+#' # Assamble and save the output object
+#'
+josm <- list(
+  sites=data.frame(x12, v),
+  surveys=z12,
+  counts=y12)
+if (interactive())
+  save(josm, file=file.path("_data", "josm", "josm.rds"))

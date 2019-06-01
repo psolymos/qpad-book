@@ -6,19 +6,21 @@
 #' # Preamble
 #'
 library(mefa4)
-knitr::opts_chunk$set(eval=FALSE)
+#knitr::opts_chunk$set(eval=FALSE)
+if (interactive())
+  setwd("_data/josm")
 #'
 #' # Bird species
 #'
 #' From data set 1
-s1 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies-v1.csv"),
-  skip=17)
+s1 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_BirdSpecies-v1.csv",
+  skip=17, encoding="latin1")
 str(s1)
 s1$ScientificName <- s1$Scientific.Name
 #' From data set 2
-s2 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_BirdSpecies-v1.csv"),
+s2 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_BirdSpecies-v1.csv",
   skip=18)
 str(s2)
 #' Bind the 2 tables and select columns of interest
@@ -34,13 +36,13 @@ summary(s12)
 #' # Sites
 #'
 #' From data set 1
-x1 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_Sites-v1.csv"),
+x1 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_Sites-v1.csv",
   skip=17)
 str(x1)
 #' From data set 2
-x2 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_Sites-v1.csv"),
+x2 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_Sites-v1.csv",
   skip=18)
 str(x2)
 #' Bind the 2 tables and select columns of interest, use `SiteID`s as row names
@@ -55,14 +57,14 @@ plot(Latitude ~ Longitude, x12, pch=".")
 #' Stations are 300m apart at the site location.
 #'
 #' From data set 1
-z1 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_SiteSurveyInfo-v1.csv"),
+z1 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_SiteSurveyInfo-v1.csv",
   skip=17)
 str(z1)
 z1$Date <- as.Date(as.character(z1$Date), "%d/%m/%Y")
 #' From data set 2
-z2 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo-v1.csv"),
+z2 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SiteSurveyInfo-v1.csv",
   skip=18)
 str(z2)
 z2$Date <- as.Date(as.character(z2$Date), "%m/%d/%Y")
@@ -105,13 +107,13 @@ plot(TSSR ~ jitter(DAY), z12, pch=".")
 #'
 #' # Species counts
 #'
-y1 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_SpeciesObservationLog-v1.csv"),
+y1 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2011-13_SpeciesObservationLog-v1.csv",
   skip=17)
 str(y1)
 #' From data set 2
-y2 <- read.csv(file.path("_data", "josm",
-  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SpeciesObservationLog-v1.csv"),
+y2 <- read.csv(
+  "Cause-Effect-Biodiversity-Monitoring-Landbirds-2014_SpeciesObservationLog-v1.csv",
   skip=18)
 str(y2)
 colnames(y2)[colnames(y2) == "X"] <- "ObservationID"
@@ -129,7 +131,6 @@ for (i in colnames(y12))
     y12[[i]][y12[[i]] == ""] <- NA
     y12[[i]] <- droplevels(y12[[i]])
   }
-
 #' Some tweaks to species labels
 levels(y12$Species)[levels(y12$Species) == "YEWA"] <- "YWAR"
 y12 <- y12[y12$Species %in% s12$SpeciesID,]
@@ -149,15 +150,16 @@ table(y12$Dur, y12$Dis, useNA = "a")
 #' Some other columns of interest
 table(y12$Sex, y12$Age, useNA = "a")
 table(y12$DetectType1, useNA="a")
+#' Check if all `SiteID`s and `StationID`s are accounted for
+compare_sets(x12$SiteID, y12$SiteID)
+compare_sets(z12$StationID, y12$StationID)
 #'
 #' # Spatial covariates
 #'
 #' These 1km resolution rasters follow Solymos et al. in review (PIF/PIX manuscript)
 library(raster)
 library(sp)
-library(RColorBrewer)
-rr <- stack(file.path("_data", "josm", "landcover-hfi2016.grd"))
-plot(rr)
+rr <- stack("landcover-hfi2016.grd")
 #' Define CRS NAD83 for our sites
 xy <- x12[,c("Longitude", "Latitude")]
 coordinates(xy) <- ~ Longitude + Latitude
@@ -178,4 +180,4 @@ josm <- list(
   surveys=z12,
   counts=y12)
 if (interactive())
-  save(josm, file=file.path("_data", "josm", "josm.rds"))
+  save(josm, file="josm.rda")

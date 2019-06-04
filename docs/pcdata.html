@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it</title>
+  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  <meta name="github-repo" content="psolymos/qpad-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it" />
+  
+  <meta name="twitter:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  
+
+<meta name="author" content="Peter Solymos" />
+
+
+<meta name="date" content="2019-06-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="regression.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">QPAD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i><b>1.1</b> About the book and the course</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>1.2</b> About the author</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#summary-of-course-objectives"><i class="fa fa-check"></i><b>1.3</b> Summary of course objectives</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i><b>1.4</b> Installing</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i><b>1.5</b> These are just reminders, to be deleted later</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#apples-and-oranges"><i class="fa fa-check"></i><b>2.1</b> Apples and oranges</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#apples-to-apples"><i class="fa fa-check"></i><b>2.2</b> Apples to apples</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#effects-can-be-significant"><i class="fa fa-check"></i><b>2.3</b> Effects can be significant</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#so-what-is-a-point-count"><i class="fa fa-check"></i><b>2.4</b> So what is a point count?</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#questions-we-want-to-answer-using-point-counts"><i class="fa fa-check"></i><b>2.5</b> Questions we want to answer using point counts</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#standardization-by-design"><i class="fa fa-check"></i><b>2.6</b> Standardization by design</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#protocols-do-vary"><i class="fa fa-check"></i><b>2.7</b> Protocols do vary</a></li>
+<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#pop-quiz"><i class="fa fa-check"></i><b>2.8</b> Pop quiz</a></li>
+<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#moving-away-from-standards"><i class="fa fa-check"></i><b>2.9</b> Moving away from standards</a></li>
+<li class="chapter" data-level="2.10" data-path="intro.html"><a href="intro.html#model-based-approaches"><i class="fa fa-check"></i><b>2.10</b> Model based approaches</a></li>
+<li class="chapter" data-level="2.11" data-path="intro.html"><a href="intro.html#models-come-with-assumptions"><i class="fa fa-check"></i><b>2.11</b> Models come with assumptions</a></li>
+<li class="chapter" data-level="2.12" data-path="intro.html"><a href="intro.html#assumptions-are-everywhere"><i class="fa fa-check"></i><b>2.12</b> Assumptions are everywhere</a></li>
+<li class="chapter" data-level="2.13" data-path="intro.html"><a href="intro.html#pop-quiz-1"><i class="fa fa-check"></i><b>2.13</b> Pop quiz</a></li>
+<li class="chapter" data-level="2.14" data-path="intro.html"><a href="intro.html#the-hard-truth"><i class="fa fa-check"></i><b>2.14</b> The hard truth</a></li>
+<li class="chapter" data-level="2.15" data-path="intro.html"><a href="intro.html#our-approach"><i class="fa fa-check"></i><b>2.15</b> Our approach</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>3</b> Organizing and Processing Point Count Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="pcdata.html"><a href="pcdata.html#josm-joint-oil-sands-monitoring-data"><i class="fa fa-check"></i><b>3.1</b> JOSM (Joint Oil Sands Monitoring) data</a></li>
+<li class="chapter" data-level="3.2" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>3.2</b> Cross tabulating species counts</a></li>
+<li class="chapter" data-level="3.3" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>3.3</b> Joining species data with predictors</a></li>
+<li class="chapter" data-level="3.4" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>3.4</b> Explore predictor variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>4</b> A Primer in Regression Techniques</a></li>
+<li class="chapter" data-level="5" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>5</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="6" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>6</b> The Detection Process</a></li>
+<li class="chapter" data-level="7" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>7</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="8" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8</b> A Closer Look at Assumptions</a></li>
+<li class="chapter" data-level="9" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>9</b> Understanding Roadside Surveys</a></li>
+<li class="chapter" data-level="10" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>10</b> Miscellaneous Topics</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/psolymos/qpad-book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Point count data analysis: How to violate assumptions and get away with it</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pcdata" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Organizing and Processing Point Count Data</h1>
+<blockquote>
+<p>All data are messy, but some are missing</p>
+</blockquote>
+<p>It is often called <em>data processing</em>, <em>data munging</em>,
+<em>data wrangling</em>, <em>data cleaning</em>.
+None of these expressions capture the dread associated with the actual activity.</p>
+<p>Luckily, there are only 4 things that can get messed up:</p>
+<ol style="list-style-type: decimal">
+<li>space (e.g. wrong UTM zones),</li>
+<li>time (ISO format please),</li>
+<li>taxonomy (UNK, mis-ID),</li>
+<li>something else (if there were no errors, check again).</li>
+</ol>
+<div id="josm-joint-oil-sands-monitoring-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> JOSM (Joint Oil Sands Monitoring) data</h2>
+<p>Look at the source code in the <code>_data/josm</code> directory of the book
+if you are interested in data processing details.
+We skip that for now.</p>
+<p><img src="_images/mahon-2016-fig-1.png" width="500" /></p>
+<p>Cause-Effect Monitoring Migratory Landbirds at Regional Scales:
+understand how boreal songbirds are affected by human activity in the oil sands area.</p>
+<p><img src="_images/mahon-2016-fig-2.png" width="500" /></p>
+<p>Survey area boundary (<span class="math inline">\(r\)</span>=2.5 km circle), habitat type and human footprint mapping,
+and clustered point count site locations.</p>
+<p>Surveys were spatially replicated because:</p>
+<ul>
+<li>we want to make inferences about a population,</li>
+<li>full census is out of reach,</li>
+<li>thus we take a sample of the population</li>
+<li>that is representative and random.</li>
+<li>Ideally, sample size should be as large as possible,</li>
+<li>it reduces variability and</li>
+<li>increases statistical power.</li>
+</ul>
+<p>Survey locations were pucked based on various criteria:</p>
+<ul>
+<li>stratification (land cover),</li>
+<li>gradients (disturbance levels),</li>
+<li>random location (control for unmeasured effects),</li>
+<li>take into account historical surveys (avoid, or revisit),</li>
+<li>access, cost (clusters).</li>
+</ul>
+<p>The <code>josm</code> obejct is a list with 3 elements:</p>
+<ul>
+<li><code>surveys</code>: data frame with survey specific information,</li>
+<li><code>species</code>: lookup table for species,</li>
+<li><code>counts</code>: individual counts by survey and species.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)
+<span class="kw">load</span>(<span class="st">&quot;./_data/josm/josm.rda&quot;</span>)
+<span class="kw">names</span>(josm)</code></pre>
+<pre><code>## [1] &quot;surveys&quot; &quot;species&quot; &quot;counts&quot;</code></pre>
+<p>Species info: species codes, common and scientific names. The table could also contain
+taxonomic, trait, etc. information as well.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(josm<span class="op">$</span>species)</code></pre>
+<p>At the survey level, we have coordinates, date/time info,
+variables capturing survey conditions, and land cover info extracted from 1 km<span class="math inline">\(^2\)</span> resolution rasters.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(josm<span class="op">$</span>surveys)</code></pre>
+<pre><code>##  [1] &quot;SiteID&quot;        &quot;SurveyArea&quot;    &quot;Longitude&quot;    
+##  [4] &quot;Latitude&quot;      &quot;Date&quot;          &quot;StationID&quot;    
+##  [7] &quot;ObserverID&quot;    &quot;TimeStart&quot;     &quot;VisitID&quot;      
+## [10] &quot;WindStart&quot;     &quot;PrecipStart&quot;   &quot;TempStart&quot;    
+## [13] &quot;CloudStart&quot;    &quot;WindEnd&quot;       &quot;PrecipEnd&quot;    
+## [16] &quot;TempEnd&quot;       &quot;CloudEnd&quot;      &quot;TimeFin&quot;      
+## [19] &quot;Noise&quot;         &quot;OvernightRain&quot; &quot;DateTime&quot;     
+## [22] &quot;SunRiseTime&quot;   &quot;SunRiseFrac&quot;   &quot;TSSR&quot;         
+## [25] &quot;OrdinalDay&quot;    &quot;DAY&quot;           &quot;Open&quot;         
+## [28] &quot;Water&quot;         &quot;Agr&quot;           &quot;UrbInd&quot;       
+## [31] &quot;SoftLin&quot;       &quot;Roads&quot;         &quot;Decid&quot;        
+## [34] &quot;OpenWet&quot;       &quot;Conif&quot;         &quot;ConifWet&quot;</code></pre>
+<p>The count table contains one row for each unique individual
+of a species (<code>SpeciesID</code> links to the species lookup table)
+observed during a survey (<code>StationID</code> links to the survey attribute table).
+Check the data dictionary in <code>_data/josm</code> folder for a detailed explanation of each column.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(josm<span class="op">$</span>counts)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    52372 obs. of  18 variables:
+##  $ ObservationID: Factor w/ 57024 levels &quot;CL10102-130622-001&quot;,..: 1 2 3 4 5 6 8 9 10 11 ...
+##  $ SiteID       : Factor w/ 4569 levels &quot;CL10102&quot;,&quot;CL10106&quot;,..: 1 1 1 1 1 1 1 1 2 2 ...
+##  $ StationID    : Factor w/ 4569 levels &quot;CL10102-1&quot;,&quot;CL10106-1&quot;,..: 1 1 1 1 1 1 1 1 2 2 ...
+##  $ TimeInterval : int  1 1 1 1 5 5 1 1 1 1 ...
+##  $ Direction    : int  1 2 2 2 1 4 4 4 1 1 ...
+##  $ Distance     : int  1 2 2 1 3 3 2 1 1 1 ...
+##  $ DetectType1  : Factor w/ 3 levels &quot;C&quot;,&quot;S&quot;,&quot;V&quot;: 2 2 2 2 1 1 2 2 2 2 ...
+##  $ DetectType2  : Factor w/ 3 levels &quot;C&quot;,&quot;S&quot;,&quot;V&quot;: NA NA NA NA NA NA NA NA NA NA ...
+##  $ DetectType3  : Factor w/ 3 levels &quot;C&quot;,&quot;S&quot;,&quot;V&quot;: NA NA NA NA NA NA NA NA NA NA ...
+##  $ Sex          : Factor w/ 4 levels &quot;F&quot;,&quot;M&quot;,&quot;P&quot;,&quot;U&quot;: 2 2 2 2 4 4 2 2 2 2 ...
+##  $ Age          : Factor w/ 6 levels &quot;A&quot;,&quot;F&quot;,&quot;J&quot;,&quot;JUV&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Activity1    : Factor w/ 17 levels &quot;BE&quot;,&quot;CF&quot;,&quot;CH&quot;,..: 5 5 5 5 NA NA NA 5 5 NA ...
+##  $ Activity2    : Factor w/ 17 levels &quot;48&quot;,&quot;BE&quot;,&quot;CF&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ Activity3    : Factor w/ 7 levels &quot;CF&quot;,&quot;DC&quot;,&quot;DR&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ ActivityNote : Factor w/ 959 levels &quot;AGITATED&quot;,&quot;AGITATED CALLING&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
+##  $ Dur          : Factor w/ 3 levels &quot;0-3min&quot;,&quot;3-5min&quot;,..: 1 1 1 1 3 3 1 1 1 1 ...
+##  $ Dis          : Factor w/ 3 levels &quot;0-50m&quot;,&quot;50-100min&quot;,..: 1 2 2 1 3 3 2 1 1 1 ...
+##  $ SpeciesID    : Factor w/ 150 levels &quot;ALFL&quot;,&quot;AMBI&quot;,..: 107 95 95 107 46 43 140 95 125 38 ...</code></pre>
+</div>
+<div id="cross-tabulating-species-counts" class="section level2">
+<h2><span class="header-section-number">3.2</span> Cross tabulating species counts</h2>
+<p>Take the following dummy data frame (long format):</p>
+<pre class="sourceCode r"><code class="sourceCode r">(d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">sample=</span><span class="kw">factor</span>(<span class="kw">paste0</span>(<span class="st">&quot;S&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)), <span class="kw">paste0</span>(<span class="st">&quot;S&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)),
+  <span class="dt">species=</span><span class="kw">c</span>(<span class="st">&quot;BTNW&quot;</span>, <span class="st">&quot;OVEN&quot;</span>, <span class="st">&quot;CANG&quot;</span>, <span class="st">&quot;AMRO&quot;</span>, <span class="st">&quot;CANG&quot;</span>),
+  <span class="dt">abundance=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>),
+  <span class="dt">behavior=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;heard&quot;</span>,<span class="st">&quot;seen&quot;</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>))))
+<span class="kw">str</span>(d)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  4 variables:
+##  $ sample   : Factor w/ 3 levels &quot;S1&quot;,&quot;S2&quot;,&quot;S3&quot;: 1 1 1 2 2
+##  $ species  : Factor w/ 4 levels &quot;AMRO&quot;,&quot;BTNW&quot;,..: 2 4 3 1 3
+##  $ abundance: num  1 1 2 1 1
+##  $ behavior : Factor w/ 2 levels &quot;heard&quot;,&quot;seen&quot;: 1 1 1 1 2</code></pre>
+<p>We want to add up the <code>abundance</code>s for each sample (rows) and species (column):</p>
+<pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="kw">Xtab</span>(abundance <span class="op">~</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>species, d))</code></pre>
+<pre><code>## 3 x 4 sparse Matrix of class &quot;dgCMatrix&quot;
+##    AMRO BTNW CANG OVEN
+## S1    .    1    2    1
+## S2    1    .    1    .
+## S3    .    .    .    .</code></pre>
+<p><code>y</code> is a sparse matrix, that is a very compact representation:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(d[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</code></pre>
+<pre><code>## 2328 bytes</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(y)</code></pre>
+<pre><code>## 2160 bytes</code></pre>
+<p>Notice that we have 3 rows, but <code>d$sample</code> did not have an <code>S3</code> value, but it was a level.
+We can drop such unused levels, but it is generally not recommended, and we need to be careful
+not to drop samples where no species was detected (this can happen quite often depending on timing of
+surveys)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Xtab</span>(abundance <span class="op">~</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>species, d, <span class="dt">drop.unused.levels =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## 2 x 4 sparse Matrix of class &quot;dgCMatrix&quot;
+##    AMRO BTNW CANG OVEN
+## S1    .    1    2    1
+## S2    1    .    1    .</code></pre>
+<p>A sparse matrix can be converted to ordinary matrix</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.matrix</span>(y)</code></pre>
+<pre><code>##    AMRO BTNW CANG OVEN
+## S1    0    1    2    1
+## S2    1    0    1    0
+## S3    0    0    0    0</code></pre>
+<p>The nice thing about this cross tabulation is that we can finter the records without
+changing the structure (rows, columns) of the table:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Xtab</span>(abundance <span class="op">~</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>species, d[d<span class="op">$</span>behavior <span class="op">==</span><span class="st"> &quot;heard&quot;</span>,])</code></pre>
+<pre><code>## 3 x 4 sparse Matrix of class &quot;dgCMatrix&quot;
+##    AMRO BTNW CANG OVEN
+## S1    .    1    2    1
+## S2    1    .    .    .
+## S3    .    .    .    .</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Xtab</span>(abundance <span class="op">~</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>species, d[d<span class="op">$</span>behavior <span class="op">==</span><span class="st"> &quot;seen&quot;</span>,])</code></pre>
+<pre><code>## 3 x 4 sparse Matrix of class &quot;dgCMatrix&quot;
+##    AMRO BTNW CANG OVEN
+## S1    .    .    .    .
+## S2    .    .    1    .
+## S3    .    .    .    .</code></pre>
+<p>Now let’s do this for the real data. We have no abundance column, because
+each row stands for exactly one individual. We can add a column with 1’s,
+or we can just count the number of rows by using only the right-hand-side of the
+formula in <code>Xtab</code>. <code>ytot</code> will be our total count matrix for now.</p>
+<p>We also want to filter the records to contain only <code>S</code>ongs and <code>C</code>alls, without
+<code>V</code>visual detections:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(josm<span class="op">$</span>counts<span class="op">$</span>DetectType1, <span class="dt">useNA=</span><span class="st">&quot;always&quot;</span>)</code></pre>
+<pre><code>## 
+##     C     S     V  &lt;NA&gt; 
+##  9180 41808  1384     0</code></pre>
+<p>We use <code>SiteID</code> for row names, because only 1 station and visit was done at each site:</p>
+<pre class="sourceCode r"><code class="sourceCode r">ytot &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])</code></pre>
+<p>See how not storing 0’s affect size compared to the long formar and an ordinary wide matrix</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## 2-column data frame as reference</span>
+tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">object.size</span>(
+  josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;StationID&quot;</span>, <span class="st">&quot;SpeciesID&quot;</span>)]))
+<span class="co">## spare matrix</span>
+<span class="kw">as.numeric</span>(<span class="kw">object.size</span>(ytot)) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
+<pre><code>## [1] 0.1366087</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## dense matrix</span>
+<span class="kw">as.numeric</span>(<span class="kw">object.size</span>(<span class="kw">as.matrix</span>(ytot))) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
+<pre><code>## [1] 1.106463</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## matrix fill</span>
+<span class="kw">sum</span>(ytot <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span><span class="kw">prod</span>(<span class="kw">dim</span>(ytot))</code></pre>
+<pre><code>## [1] 0.0491063</code></pre>
+<p>Check if counts are as expected:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(ytot) <span class="co"># this is interesting</span></code></pre>
+<pre><code>## [1] 200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(<span class="kw">apply</span>(<span class="kw">as.matrix</span>(ytot), <span class="dv">2</span>, max)) <span class="co"># it is CANG</span></code></pre>
+<pre><code>## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU 
+##    0    0    0    0    0    0    0    0    0    0 
+## WWSC CANV NOPI AMBI AMCO AMGO BAEA BAOR BEKI BOWA 
+##    0    0    0    1    1    1    1    1    1    1 
+## CONI CSWA EAPH GBHE GCTH GGOW GHOW HOWR LEOW MERL 
+##    1    1    1    1    1    1    1    1    1    1 
+## NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA WBNU 
+##    1    1    1    1    1    1    1    1    1    1 
+## BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO 
+##    1    1    1    1    1    2    2    2    2    2 
+## BHCO BLBW BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL 
+##    2    2    2    2    2    2    2    2    2    2 
+## LEYE NAWA NOPO OSFL OSPR PIWO PUFI RNDU SORA SSHA 
+##    2    2    2    2    2    2    2    2    2    2 
+## COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW CMWA FOSP 
+##    2    3    3    3    3    3    3    3    3    3 
+## FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR 
+##    3    3    3    3    3    3    3    3    3    3 
+## TRES WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA 
+##    3    3    3    3    3    3    4    4    4    4 
+## CAWA CONW COTE GRYE NOWA NRWS OCWA REVI RNGR RUBL 
+##    4    4    4    4    4    4    4    4    4    4 
+## RWBL WAVI WEWP WISN YBFL YWAR ALFL AMRE CHSP CORA 
+##    4    4    4    4    4    4    5    5    5    5 
+## EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
+##    5    5    5    5    5    5    5    6    6    6 
+## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA 
+##    6    6    6    6    6    6    7    7    8    8 
+## WTSP YRWA COLO TEWA AMPI WWCR CEDW PISI RECR CANG 
+##    8    8    9   12   12   20   23   50   51  200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## lyover (FO) flock (FL) beyond 100m distance</span>
+<span class="kw">head</span>(josm<span class="op">$</span>counts[
+  josm<span class="op">$</span>counts<span class="op">$</span>SiteID <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(ytot)[<span class="kw">which</span>(ytot[,<span class="st">&quot;CANG&quot;</span>] <span class="op">==</span><span class="st"> </span><span class="dv">200</span>)] <span class="op">&amp;</span>
+<span class="st">  </span>josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> &quot;CANG&quot;</span>,])</code></pre>
+<p>We can check overall mean counts</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">sort</span>(<span class="kw">colMeans</span>(ytot)), <span class="dv">4</span>)</code></pre>
+<pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA 
+## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
+##   NHOW   NSHO   RTHU   WWSC   CANV   NOPI   GBHE 
+## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0002 
+##   GCTH   GHOW   LEOW   NOHA   RBGU   BRBL   CAGU 
+## 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 
+##   AMCO   BAEA   BARS   NESP   NOGO   NOPO   NSWO 
+## 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
+##   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS 
+## 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 
+##   SSHA   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU 
+## 0.0007 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 
+##   AMGO   AMWI   BOWA   CONI   EAPH   HOWR   NRWS 
+## 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 
+##   BLTE   COGR   EAKI   GGOW   NAWA   COSN   COTE 
+## 0.0013 0.0013 0.0013 0.0013 0.0013 0.0013 0.0015 
+##   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
+## 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
+##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP 
+## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 
+##   RUBL   MALL   PUFI   DOWO   SORA   LEYE   ATTW 
+## 0.0044 0.0046 0.0048 0.0059 0.0068 0.0094 0.0096 
+##   HAWO   RNGR   BBWO   BLJA   BOGU   AMCR   EVGR 
+## 0.0101 0.0101 0.0107 0.0134 0.0140 0.0166 0.0169 
+##   RWBL   OSFL   LCSP   TRES   FOSP   WEWP   WIWA 
+## 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 0.0236 
+##   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA 
+## 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 
+##   SACR   BTNW   NOWA   OCWA   BRCR   CCSP   COLO 
+## 0.0322 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 
+##   PHVI   CONW   CEDW   RUGR   MOWA   WAVI   BCCH 
+## 0.0394 0.0429 0.0449 0.0475 0.0477 0.0582 0.0593 
+##   BOCH   NOFL   SWSP   GRYE   WWCR   AMRO   RBNU 
+## 0.0593 0.0622 0.0659 0.0685 0.0751 0.0757 0.0766 
+##   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
+## 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
+##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL 
+## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 
+##   MAWA   PISI   RBGR   LISP   DEJU   GRAJ   CANG 
+## 0.1727 0.1775 0.1832 0.2169 0.2725 0.2898 0.3018 
+##   PAWA   REVI   RCKI   HETH   CHSP   SWTH   WTSP 
+## 0.3053 0.3344 0.3898 0.4344 0.4460 0.7402 0.8091 
+##   OVEN   YRWA   TEWA 
+## 0.8831 0.8934 1.2221</code></pre>
+</div>
+<div id="joining-species-data-with-predictors" class="section level2">
+<h2><span class="header-section-number">3.3</span> Joining species data with predictors</h2>
+<p>Let’s join the species counts with the survey attributes. This is how we can prepare the
+input data for regression analysis.</p>
+<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
+josm<span class="op">$</span>species[spp,]
+
+<span class="kw">compare_sets</span>(<span class="kw">rownames</span>(x),<span class="kw">rownames</span>(ytot))</code></pre>
+<pre><code>##        xlength ylength intersect union xbutnoty
+## labels    4569    4569      4569  4569        0
+## unique    4569    4569      4569  4569        0
+##        ybutnotx
+## labels        0
+## unique        0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>josm<span class="op">$</span>surveys
+x<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ytot[<span class="kw">rownames</span>(x), spp])</code></pre>
+</div>
+<div id="explore-predictor-variables" class="section level2">
+<h2><span class="header-section-number">3.4</span> Explore predictor variables</h2>
+<p>Locations</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="kw">library</span>(sp)
+rr &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="st">&quot;./_data/josm/landcover-hfi2016.grd&quot;</span>)
+<span class="co">#&#39; Define CRS NAD83 for our sites</span>
+xy &lt;-<span class="st"> </span>x[,<span class="kw">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>)]
+<span class="kw">coordinates</span>(xy) &lt;-<span class="st"> </span><span class="er">~</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude
+<span class="kw">proj4string</span>(xy) &lt;-<span class="st"> &quot;+proj=longlat +ellps=GRS80 +datum=NAD83 +no_defs&quot;</span>
+xy &lt;-<span class="st"> </span><span class="kw">spTransform</span>(xy, <span class="kw">proj4string</span>(rr))
+col &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;lightgrey&quot;</span>, <span class="st">&quot;blue&quot;</span>))(<span class="dv">100</span>)
+<span class="kw">plot</span>(rr[[<span class="st">&quot;Water&quot;</span>]], <span class="dt">col=</span>col, <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">box=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(xy, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/xy-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">cn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open&quot;</span>, <span class="st">&quot;Water&quot;</span>, <span class="st">&quot;Agr&quot;</span>, <span class="st">&quot;UrbInd&quot;</span>, <span class="st">&quot;SoftLin&quot;</span>, <span class="st">&quot;Roads&quot;</span>, 
+  <span class="st">&quot;Decid&quot;</span>, <span class="st">&quot;OpenWet&quot;</span>, <span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)
+<span class="kw">plot</span>(x[,cn])</code></pre>
+<p><img src="qpad-book_files/figure-html/pred-1.png" width="672" /></p>
+<p>Add here:</p>
+<ul>
+<li>those kinds of transformations that are needed for regression</li>
+</ul>
+<p>Exercise:</p>
+<ul>
+<li>play with the data to understand the distributions</li>
+<li>use <code>summary</code>, <code>table</code>, <code>hist</code>, <code>plot</code></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/psolymos/qpad-book/edit/master/02-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["qpad-book.pdf", "qpad-book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

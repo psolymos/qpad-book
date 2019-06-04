@@ -1,29 +1,148 @@
 # Introduction {#intro}
 
-Put here 
-
-- motivation
-- install instructions
+> All assumptions are violated, but some are more than others
 
 
-## These are just reminders, to be deleted later
+## Apples and oranges
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+_"A comparison of apples and oranges occurs when two items or groups of items are compared that 
+cannot be practically compared."_ [_Wikipedia_]
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+How we measure things can have big impact on our results.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
+- You might say: I saw 5 robins (walking down the road),
+- I might say: I only saw one (sitting on my porch)
+
+
+## Apples to apples
+
+Effort:
+
+- area of the physical space searched,
+- amount of time spent,
+- number of individuals identified.
+
+Experience, skill, "sensitivity":
+
+- number of years in field work,
+- eye sight, hearing ability,
+- mic sensitivity.
+
+The goal is to make our measurements comparable.
+
+
+## Effects can be significant
+
+\centering
+```{r echo=FALSE}
+include_graphics("./_images/matsuoka-2014-fig-2.png")
 ```
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+10-min unlimited count ~300% increase over 3-min 50-m count. 
+Average across 54 species of boreal songbirds.
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
+
+## So what is a point count?
+
+- A trained observer 
+- records all the birds 
+- seen and heard 
+- from a point count station 
+- for a set period of time
+- within a defined distance radius.
+
+
+## Questions we want to answer using point counts
+
+- How many? (Abundance, density, population size)
+- Is this location part of the range? (0/1)
+- How is abundance changing in space? (Distribution)
+- How is abundance changing in time? (Trend)
+- What is the effect of a treatment on abundance?
+
+## Standardization by design
+
+Have a set of standards/recommendations that people will follow to
+
+- maximize efficiency in the numbers of birds and species counted,
+- minimize extraneous variability in the counts.
+
+But programs started to deviate from standards:
+
+_"For example, only 3% of 196,000 point counts conducted during the period
+1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius."_
+
+## Protocols do vary
+
+\centering
+```{r echo=FALSE}
+include_graphics("./_images/barker-2015-fig-2.png")
 ```
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+Survey methodology variation (colors) among contributed projects
+in the Boreal Avian Modelling (BAM) data base as of 2014.
+
+
+## Pop quiz
+
+> - In what regard can protocols differ?
+> - What drives protocol variation among projects?
+> - Why have we abandoned following protocols?
+
+## Moving away from standards
+
+- Detection probabilities might vary even with fixed effort (we'll cover this more later),
+- programs might have their own goals and constraints (access, training, etc).
+
+## Model based approaches
+
+Less labour intensive methods for unmarked populations has come to the forefront:
+
+- double observer ([Nichols et al. 2000](https://doi.org/10.1642/0004-8038(2000)117[0393:ADOAFE]2.0.CO;2)),
+- distance sampling ([Buckland et al. 2001](https://global.oup.com/academic/product/introduction-to-distance-sampling-9780198509271)),
+- removal sampling ([Farnsworth et al. 2002](https://doi.org/10.1642/0004-8038(2002)119[0414:ARMFED]2.0.CO;2)),
+- multiple visit occupancy ([MacKenzie et al. 2002](https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2)),
+- multiple visit abundance ([Royle 2004](https://doi.org/10.1111/j.0006-341X.2004.00142.x)).
+
+## Models come with assumptions
+
+- Population is closed during multiple visits,
+- observers are independent,
+- all individuals emit cues with identical rates,
+- spatial distribution of individuals is uniform,
+- etc. (we will investigate this further in depth).
+
+## Assumptions are everywhere
+
+Although assumptions are everywhere, we are really good at ignoring them:
+
+- Relativistic time dilation is negligible (as long as we are not on a space station),
+- samples are independent.
+
+## Pop quiz
+
+> - Can you mention some other common assumptions?
+> - Can you explain why we neglect/violate assumptions?
+
+## The hard truth
+
+Assumptions are violated in many ways, because we seek simplicity.
+
+The main question we have to ask: **does it matter in practice**?
+
+***
+
+## Our approach
+
+1. We will introduce a concept,
+2. understand how we can infer it from data,
+3. then we recreate the situation _in silico_,
+4. and see how the outcome changes as we make different assumptions.
+
+It is guaranteed that we violate **every** assumption we make.
+
+To get away with it, we need to understand **how much is too much**.
+
+_"All assumptions are violated, but some are more than others."_
+
+

@@ -1,5 +1,5 @@
 --- 
-title: "QPAD: Point Count Data Analysis Made Simple"
+title: "Point count data analysis: How to violate assumptions and get away with it"
 author: "Peter Solymos"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -12,9 +12,70 @@ github-repo: psolymos/qpad-book
 description: "This book provides material for the workshop 'Analysis of point-count data in the presence of variable survey methodologies and detection error' at the AOS 2019 conference."
 ---
 
-# Prerequisites
+```{r setup,include=FALSE}
+options(scipen=999)
+par(las=1)
+library(knitr)
+```
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+# Foreword
+
+This book provides material for the workshop
+*Analysis of point-count data in the presence of variable survey methodologies and detection error*
+at the [AOS 2019 conference](https://amornithmeeting.org/)
+by [Peter Solymos](http://peter.solymos.org).
+
+The book and related materials in this repository is the basis of a
+full day workshop (8 hours long with 3 breaks).
+
+Prior exposure to [R](https://www.r-project.org/) language is necessary
+(i.e. basic R object types and their manipulation, such as arrays, data frames, indexing)
+because this is not covered as part of the course.
+Check [this](_etc/R-basics.pdf) intro.
+
+## About the book and the course
+
+You'll learn
+
+- how to analyze your point count data when it combines different methodologies/protocols/technologies,
+- how to violate assumptions and get away with it.
+
+## About the author
+
+- Ecologist (molluscs, birds),
+- pretty good at stats (modeling, detectability, data cloning, multivariate),
+- R programmer (vegan, detect, ResourceSelection, pbapply),
+- sometimes I teach (like today).
+
+## Summary of course objectives
+
+This course is aimed towards ornithologists analyzing field observations,
+who are often faced by data heterogeneities due to
+field sampling protocols changing from one project to another,
+or through time over the lifespan of projects, or trying to combine
+'legacy' data sets with new data collected by recording units.
+Such heterogeneities can bias analyses when data sets are integrated
+inadequately, or can lead to information loss when filtered and standardized to
+common standards. Accounting for these issues is important for better
+inference regarding status and trend of bird species and communities.
+
+Analysts of such 'messy' data sets need to feel comfortable
+with manipulating the data, need a full understanding the mechanics of the
+models being used (i.e. critically interpreting the results and acknowledging
+assumptions and limitations), and should be able to make informed choices when
+faced with methodological challenges.
+
+The course emphasizes critical thinking and active learning.
+Participants will be asked to take part in the analysis:
+first hand analytics experience from start to finish.
+We will use publicly available data sets to demonstrate the data manipulation
+and analysis. We will use freely available and open-source R packages.
+
+The expected outcome of the course is a solid foundation for further
+professional development via increased confidence in applying these methods
+for field observations.
+
+## Installing
 
 The **bookdown** package can be installed from CRAN or Github:
 
@@ -31,16 +92,91 @@ bookdown::render_book('index.Rmd', 'bookdown::gitbook')
 bookdown::render_book('index.Rmd', 'bookdown::epub_book')
 ```
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
-
 To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
 
 ```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+# select used packages here + install
+
+pkgs <- c("abind", "acepack", "ade4", "adegenet", "ADPclust", "akima", 
+  "ALS", "ape", "askpass", "assertthat", "backports", "base", "base64enc", 
+  "betareg", "BH", "BiasedUrn", "bibtex", "bindr", "bindrcpp", 
+  "bit", "bit64", "bitops", "blob", "bookdown", "boot", "brew", 
+  "Brobdingnag", "broom", "brotli", "BRugs", "callr", "car", "carData", 
+  "caTools", "cellranger", "checkmate", "class", "classInt", "cli", 
+  "clipr", "clisymbols", "cluster", "coda", "codetools", "colorspace", 
+  "compiler", "crayon", "crosstalk", "cure4insect", "curl", "d3heatmap", 
+  "data.table", "datasets", "DBI", "dbplyr", "dclone", "dcmle", 
+  "deldir", "dendextend", "DEoptim", "desc", "detect", "devtools", 
+  "digest", "dismo", "distillery", "doParallel", "dotCall64", "dplyr", 
+  "DT", "e1071", "ellipse", "ellipsis", "epiR", "evaluate", "expm", 
+  "extRemes", "fansi", "fields", "fiery", "flexmix", "forcats", 
+  "foreach", "forecast", "foreign", "formatR", "Formula", "fracdiff", 
+  "fs", "future", "gbm", "gdalUtils", "gdata", "gdtools", "generics", 
+  "ggplot2", "ggvis", "gh", "git2r", "glmnet", "globals", "glue", 
+  "gmodels", "gmp", "graphics", "grDevices", "grid", "gridBase", 
+  "gridExtra", "gtable", "gtools", "haven", "hexbin", "highcharter", 
+  "highr", "Hmisc", "hms", "htmlTable", "htmltools", "htmlwidgets", 
+  "httpuv", "httr", "igraph", "ineq", "ini", "inline", "intrval", 
+  "inum", "Iso", "iterators", "jpeg", "jsonlite", "KernSmooth", 
+  "knitr", "labdsv", "labeling", "later", "lattice", "latticeExtra", 
+  "lazyeval", "leafem", "leaflet", "leaflet.extras", "leafpm", 
+  "leafpop", "LearnBayes", "libcoin", "lintr", "listenv", "lme4", 
+  "Lmoments", "lmtest", "loo", "lubridate", "magick", "magrittr", 
+  "manipulateWidget", "mapedit", "maps", "maptools", "mapview", 
+  "markdown", "MASS", "Matrix", "MatrixModels", "matrixStats", 
+  "mefa", "mefa4", "memoise", "methods", "mgcv", "mime", "miniUI", 
+  "minqa", "mnormt", "modelr", "modeltools", "MuMIn", "munsell", 
+  "mvtnorm", "nlme", "nloptr", "NMF", "nnet", "nnls", "numDeriv", 
+  "odbc", "opencpu", "openssl", "openxlsx", "opticut", "parallel", 
+  "parsedate", "partitions", "partykit", "pbapply", "pbkrtest", 
+  "permute", "pillar", "pkgbuild", "pkgconfig", "pkgload", "pkgmaker", 
+  "plogr", "plotrix", "plyr", "png", "polynom", "praise", "prettyunits", 
+  "pROC", "processx", "progress", "promises", "protolite", "ps", 
+  "pscl", "purrr", "PVAClone", "quadprog", "quantmod", "quantreg", 
+  "R.methodsS3", "R.oo", "R.utils", "R2OpenBUGS", "R2WinBUGS", 
+  "R6", "rappdirs", "raster", "rcmdcheck", "RColorBrewer", "Rcpp", 
+  "RcppArmadillo", "RcppEigen", "readr", "readxl", "registry", 
+  "rematch", "rematch2", "remotes", "reprex", "reqres", "reshape", 
+  "reshape2", "ResourceSelection", "rex", "rgdal", "rgeos", "rgl", 
+  "rio", "rioja", "rjags", "rlang", "rlecuyer", "rlist", "rmarkdown", 
+  "rngtools", "RODBC", "routr", "rpart", "rprojroot", "RSQLite", 
+  "rstan", "rstudioapi", "rvest", "sandwich", "satellite", "scales", 
+  "scatterplot3d", "segmented", "selectr", "sendmailR", "seqinr", 
+  "sessioninfo", "sf", "sharx", "shiny", "shinyBS", "shinyjqui", 
+  "shinyjs", "shinythemes", "simba", "sn", "snow", "sourcetools", 
+  "sp", "spam", "SparseM", "spatial", "spData", "spdep", "splines", 
+  "StanHeaders", "stats", "stats4", "stringdist", "stringi", "stringr", 
+  "survival", "svglite", "sys", "tcltk", "testthat", "tibble", 
+  "tidyr", "tidyselect", "tidyverse", "timeDate", "tinytex", "tools", 
+  "triebeard", "tseries", "TTR", "units", "unmarked", 
+  "untb", "urca", "urltools", "uroot", "usethis", "utf8", "utils", 
+  "uuid", "vctrs", "vegan", "viridis", "viridisLite", "webshot", 
+  "webutils", "whisker", "withr", "xfun", "XML", "xml2", "xopen", 
+  "xtable", "xts", "yaml", "zeallot", "zip", "zoo")
+
+knitr::write_bib(pkgs, 'packages.bib')
 ```
 
 
+## These are just reminders, to be deleted later
+
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
 

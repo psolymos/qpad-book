@@ -32,14 +32,14 @@ _"All data are messy, but some are missing."_
 
 ***
 
-# The evil trio
+# The four horsemen
 
 Luckily, there are only 4 things that can get messed up:
 
-- space (e.g. wrong UTM zones),
-- time (ISO format please),
-- taxonomy (UNK, mis-ID),
-- something else.
+1. space (e.g. wrong UTM zones),
+2. time (ISO format please),
+3. taxonomy (UNK, mis-ID),
+4. something else ($\rightarrow$ check again).
 
 Check out source code if you are interested in data processing,
 we skip that for now to concentrate on the fun part.
@@ -97,7 +97,7 @@ and clustered point count site locations.
 
 # Dive into the JOMS data now
 
-```{r echo}
+```{r}
 load("../_data/josm/josm.rda")
 names(josm)
 ```

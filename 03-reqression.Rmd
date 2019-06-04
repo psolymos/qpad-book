@@ -1,5 +1,7 @@
 # A Primer in Regression Techniques {#regression}
 
+> All models are wrong, but some are useful -- Box
+
 lm, glm
 
 main effects, interactions, offsets

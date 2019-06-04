@@ -7,8 +7,9 @@
 #'
 library(mefa4)
 #knitr::opts_chunk$set(eval=FALSE)
-if (interactive())
-  setwd("_data/josm")
+if (interactive()) {
+  od <- setwd("_data/josm")
+}
 #'
 #' # Bird species
 #'
@@ -175,9 +176,17 @@ v <- extract(rr, xy)
 #'
 #' # Assamble and save the output object
 #'
+#' Join survey level variables
+jn <- data.frame(x12, z12[match(x12$SiteID, z12$SiteID),], v)
+jn$SiteID.1 <- NULL
+s12 <- droplevels(s12[s12$SpeciesID %in% y12$Species,])
+#' Add life history traits and phylogenetic correlation
+#sp <- lhreg_data[match(s12$SpeciesName, lhreg_data$common_name),]
 josm <- list(
-  sites=data.frame(x12, v),
-  surveys=z12,
+  surveys=jn,
+  species=s12,
   counts=y12)
-if (interactive())
+if (interactive()) {
   save(josm, file="josm.rda")
+  setwd(od)
+}

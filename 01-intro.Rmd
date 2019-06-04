@@ -33,7 +33,6 @@ The goal is to make our measurements comparable.
 
 ## Effects can be significant
 
-\centering
 ```{r echo=FALSE}
 include_graphics("./_images/matsuoka-2014-fig-2.png")
 ```
@@ -74,7 +73,6 @@ _"For example, only 3% of 196,000 point counts conducted during the period
 
 ## Protocols do vary
 
-\centering
 ```{r echo=FALSE}
 include_graphics("./_images/barker-2015-fig-2.png")
 ```

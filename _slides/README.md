@@ -1,3 +1,3 @@
 # Slides
 
-Slides decks.
+Slide decks.

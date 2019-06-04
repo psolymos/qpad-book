@@ -200,6 +200,8 @@ It is guaranteed that we violate **every** assumption we make.
 
 To get away with it, we need to understand **how much is too much**.
 
+_"All assumptions are violated, but some are more than others."_
+
 ***
 
 # The rest of the day

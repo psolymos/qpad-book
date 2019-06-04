@@ -228,6 +228,7 @@ plot(x[,cn])
 Add here:
 
 - those kinds of transformations that are needed for regression
+- need to add absolute links to figures???
 
 Exercise: 
 

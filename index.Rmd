@@ -17,7 +17,7 @@ monofontoptions: "Scale=0.8"
 ---
 
 ```{r setup,include=FALSE}
-options("width"=53, scipen=999)
+options("width"=65, scipen=999)
 par(las=1)
 library(knitr)
 ```

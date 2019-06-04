@@ -32,6 +32,20 @@ _"All data are messy, but some are missing."_
 
 ***
 
+# The evil trio
+
+Luckily, there are only 4 things that can get messed up:
+
+- space (e.g. wrong UTM zones),
+- time (ISO format please),
+- taxonomy (UNK, mis-ID),
+- something else.
+
+Check out source code if you are interested in data processing,
+we skip that for now to concentrate on the fun part.
+
+***
+
 # JOSM (Joint Oil Sands Monitoring) data
 
 \centering
@@ -75,23 +89,16 @@ and clustered point count site locations.
 
 - Stratification,
 - gradients,
-- random location to control for unmeasured effects,
+- random location (control for unmeasured effects),
 - take into account historical surveys (avoid, or revisit),
 - access, cost (clusters).
 
 ***
 
-# The evil trio
+# Dive into the JOMS data now
 
-- Space
-- Time
-- Taxonomy
-
-***
-
-# Etc
-
-```{r}
-load("_data/josm/josm.rda")
+```{r echo}
+load("../_data/josm/josm.rda")
+names(josm)
 ```
 

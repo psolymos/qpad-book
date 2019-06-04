@@ -33,6 +33,9 @@ s12 <- rbind(
 s12 <- s12[!duplicated(s12$SpeciesID),]
 rownames(s12) <- s12$SpeciesID
 summary(s12)
+#' Prune species list a bit:
+#' keep only 4-letter codes, drop unknowns
+s12 <- s12[nchar(rownames(s12)) == 4 & !startsWith(rownames(s12), "UN"),]
 #'
 #' # Sites
 #'
@@ -154,6 +157,9 @@ table(y12$DetectType1, useNA="a")
 #' Check if all `SiteID`s and `StationID`s are accounted for
 compare_sets(x12$SiteID, y12$SiteID)
 compare_sets(z12$StationID, y12$StationID)
+#' `SpeciesID` column to be consistent with lookup species table
+y12$SpeciesID <- y12$Species
+y12$Species <- NULL
 #'
 #' # Spatial covariates
 #'
@@ -179,7 +185,7 @@ v <- extract(rr, xy)
 #' Join survey level variables
 jn <- data.frame(x12, z12[match(x12$SiteID, z12$SiteID),], v)
 jn$SiteID.1 <- NULL
-s12 <- droplevels(s12[s12$SpeciesID %in% y12$Species,])
+s12 <- droplevels(s12[s12$SpeciesID %in% y12$SpeciesID,])
 #' Add life history traits and phylogenetic correlation
 #sp <- lhreg_data[match(s12$SpeciesName, lhreg_data$common_name),]
 josm <- list(

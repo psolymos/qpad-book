@@ -20,14 +20,14 @@ if you are interested in data processing details.
 We skip that for now.
 
 ```{r data_echo=FALSE}
-include_graphics("./_images/mahon-2016-fig-1.png")
+include_graphics("./images/mahon-2016-fig-1.png")
 ```
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales: 
 understand how boreal songbirds are affected by human activity in the oil sands area.
 
 ```{r data_echo=FALSE}
-include_graphics("./_images/mahon-2016-fig-2.png")
+include_graphics("./images/mahon-2016-fig-2.png")
 ```
 
 Survey area boundary ($r$=2.5 km circle), habitat type and human footprint mapping, 
@@ -194,7 +194,7 @@ input data for regression analysis.
 spp <- "OVEN" # which species
 josm$species[spp,]
 
-compare_sets(rownames(x),rownames(ytot))
+compare_sets(rownames(josm$surveys),rownames(ytot))
 
 x <- josm$surveys
 x$y <- as.numeric(ytot[rownames(x), spp])

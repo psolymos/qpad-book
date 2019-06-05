@@ -34,7 +34,7 @@ The goal is to make our measurements comparable.
 ## Effects can be significant
 
 ```{r echo=FALSE}
-include_graphics("./_images/matsuoka-2014-fig-2.png")
+include_graphics("./images/matsuoka-2014-fig-2.png")
 ```
 
 10-min unlimited count ~300% increase over 3-min 50-m count. 
@@ -74,7 +74,7 @@ _"For example, only 3% of 196,000 point counts conducted during the period
 ## Protocols do vary
 
 ```{r echo=FALSE}
-include_graphics("./_images/barker-2015-fig-2.png")
+include_graphics("./images/barker-2015-fig-2.png")
 ```
 
 Survey methodology variation (colors) among contributed projects
@@ -128,7 +128,6 @@ Assumptions are violated in many ways, because we seek simplicity.
 
 The main question we have to ask: **does it matter in practice**?
 
-***
 
 ## Our approach
 

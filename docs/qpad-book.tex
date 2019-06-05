@@ -1,4 +1,4 @@
-\documentclass[12pt,]{scrbook}
+\documentclass[12pt,]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -21,6 +21,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Point count data analysis: How to violate assumptions and get away with it},
@@ -108,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -142,8 +143,6 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\listoftables
-\listoffigures
 \hypertarget{foreword}{%
 \chapter{Foreword}\label{foreword}}
 
@@ -228,9 +227,9 @@ The \textbf{bookdown} package can be installed from CRAN or Github:
 \CommentTok{# or the development version}
 \CommentTok{# devtools::install_github("rstudio/bookdown")}
 
-\CommentTok{## clean up }
+\NormalTok{## clean up }
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{clean_book}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)}
-\CommentTok{## rendering the book}
+\NormalTok{## rendering the book}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::pdf_book'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::gitbook'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::epub_book'}\NormalTok{)}
@@ -365,7 +364,7 @@ The goal is to make our measurements comparable.
 \hypertarget{effects-can-be-significant}{%
 \section{Effects can be significant}\label{effects-can-be-significant}}
 
-\includegraphics[width=4.82in]{./_images/matsuoka-2014-fig-2}
+\includegraphics[width=4.82in]{./images/matsuoka-2014-fig-2}
 
 10-min unlimited count \textasciitilde{}300\% increase over 3-min 50-m count.
 Average across 54 species of boreal songbirds.
@@ -427,7 +426,7 @@ But programs started to deviate from standards:
 \hypertarget{protocols-do-vary}{%
 \section{Protocols do vary}\label{protocols-do-vary}}
 
-\includegraphics[width=9.43in]{./_images/barker-2015-fig-2}
+\includegraphics[width=9.43in]{./images/barker-2015-fig-2}
 
 Survey methodology variation (colors) among contributed projects
 in the Boreal Avian Modelling (BAM) data base as of 2014.
@@ -527,8 +526,6 @@ Assumptions are violated in many ways, because we seek simplicity.
 
 The main question we have to ask: \textbf{does it matter in practice}?
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
 \hypertarget{our-approach}{%
 \section{Our approach}\label{our-approach}}
 
@@ -584,12 +581,24 @@ Look at the source code in the \texttt{\_data/josm} directory of the book
 if you are interested in data processing details.
 We skip that for now.
 
-\includegraphics[width=13.89in]{./_images/mahon-2016-fig-1}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{include_graphics}\NormalTok{(}\StringTok{"./images/mahon-2016-fig-1.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=13.89in]{./images/mahon-2016-fig-1}
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales:
 understand how boreal songbirds are affected by human activity in the oil sands area.
 
-\includegraphics[width=13.89in]{./_images/mahon-2016-fig-2}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{include_graphics}\NormalTok{(}\StringTok{"./images/mahon-2016-fig-2.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=13.89in]{./images/mahon-2016-fig-2}
 
 Survey area boundary (\(r\)=2.5 km circle), habitat type and human footprint mapping,
 and clustered point count site locations.
@@ -663,23 +672,6 @@ taxonomic, trait, etc. information as well.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##      SpeciesID        SpeciesName
-## ALFL      ALFL   Alder Flycatcher
-## AMBI      AMBI   American Bittern
-## AMCO      AMCO      American Coot
-## AMCR      AMCR      American Crow
-## AMGO      AMGO American Goldfinch
-## AMKE      AMKE   American Kestrel
-##             ScientificName
-## ALFL     Empidonax alnorum
-## AMBI Botaurus lentiginosus
-## AMCO      Fulica americana
-## AMCR Corvus brachyrhynchos
-## AMGO     Carduelis tristis
-## AMKE      Falco sparverius
-\end{verbatim}
-
 At the survey level, we have coordinates, date/time info,
 variables capturing survey conditions, and land cover info extracted from 1 km\(^2\) resolution rasters.
 
@@ -749,20 +741,6 @@ Take the following dummy data frame (long format):
   \DataTypeTok{species=}\KeywordTok{c}\NormalTok{(}\StringTok{"BTNW"}\NormalTok{, }\StringTok{"OVEN"}\NormalTok{, }\StringTok{"CANG"}\NormalTok{, }\StringTok{"AMRO"}\NormalTok{, }\StringTok{"CANG"}\NormalTok{),}
   \DataTypeTok{abundance=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
   \DataTypeTok{behavior=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"heard"}\NormalTok{,}\StringTok{"seen"}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{))))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   sample species abundance behavior
-## 1     S1    BTNW         1    heard
-## 2     S1    OVEN         1    heard
-## 3     S1    CANG         2    heard
-## 4     S2    AMRO         1    heard
-## 5     S2    CANG         1     seen
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{str}\NormalTok{(d)}
 \end{Highlighting}
 \end{Shaded}
@@ -909,10 +887,10 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## 2-column data frame as reference}
+\NormalTok{## 2-column data frame as reference}
 \NormalTok{tmp <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"StationID"}\NormalTok{, }\StringTok{"SpeciesID"}\NormalTok{)]))}
-\CommentTok{## spare matrix}
+\NormalTok{## spare matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(ytot)) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
@@ -923,7 +901,7 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## dense matrix}
+\NormalTok{## dense matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(ytot))) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
@@ -934,7 +912,7 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## matrix fill}
+\NormalTok{## matrix fill}
 \KeywordTok{sum}\NormalTok{(ytot }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{prod}\NormalTok{(}\KeywordTok{dim}\NormalTok{(ytot))}
 \end{Highlighting}
 \end{Shaded}
@@ -962,91 +940,40 @@ Check if counts are as expected:
 \end{Shaded}
 
 \begin{verbatim}
-## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU 
-##    0    0    0    0    0    0    0    0    0    0 
-## WWSC CANV NOPI AMBI AMCO AMGO BAEA BAOR BEKI BOWA 
-##    0    0    0    1    1    1    1    1    1    1 
-## CONI CSWA EAPH GBHE GCTH GGOW GHOW HOWR LEOW MERL 
-##    1    1    1    1    1    1    1    1    1    1 
-## NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA WBNU 
-##    1    1    1    1    1    1    1    1    1    1 
-## BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO 
-##    1    1    1    1    1    2    2    2    2    2 
-## BHCO BLBW BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL 
-##    2    2    2    2    2    2    2    2    2    2 
-## LEYE NAWA NOPO OSFL OSPR PIWO PUFI RNDU SORA SSHA 
-##    2    2    2    2    2    2    2    2    2    2 
-## COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW CMWA FOSP 
-##    2    3    3    3    3    3    3    3    3    3 
-## FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR 
-##    3    3    3    3    3    3    3    3    3    3 
-## TRES WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA 
-##    3    3    3    3    3    3    4    4    4    4 
-## CAWA CONW COTE GRYE NOWA NRWS OCWA REVI RNGR RUBL 
-##    4    4    4    4    4    4    4    4    4    4 
-## RWBL WAVI WEWP WISN YBFL YWAR ALFL AMRE CHSP CORA 
-##    4    4    4    4    4    4    5    5    5    5 
-## EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
-##    5    5    5    5    5    5    5    6    6    6 
-## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA 
-##    6    6    6    6    6    6    7    7    8    8 
-## WTSP YRWA COLO TEWA AMPI WWCR CEDW PISI RECR CANG 
-##    8    8    9   12   12   20   23   50   51  200
+## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU WWSC CANV NOPI 
+##    0    0    0    0    0    0    0    0    0    0    0    0    0 
+## AMBI AMCO AMGO BAEA BAOR BEKI BOWA CONI CSWA EAPH GBHE GCTH GGOW 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## GHOW HOWR LEOW MERL NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## WBNU BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO BHCO BLBW 
+##    1    1    1    1    1    1    2    2    2    2    2    2    2 
+## BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL LEYE NAWA NOPO OSFL OSPR 
+##    2    2    2    2    2    2    2    2    2    2    2    2    2 
+## PIWO PUFI RNDU SORA SSHA COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW 
+##    2    2    2    2    2    2    3    3    3    3    3    3    3 
+## CMWA FOSP FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR TRES 
+##    3    3    3    3    3    3    3    3    3    3    3    3    3 
+## WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA CAWA CONW COTE GRYE 
+##    3    3    3    3    3    4    4    4    4    4    4    4    4 
+## NOWA NRWS OCWA REVI RNGR RUBL RWBL WAVI WEWP WISN YBFL YWAR ALFL 
+##    4    4    4    4    4    4    4    4    4    4    4    4    5 
+## AMRE CHSP CORA EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
+##    5    5    5    5    5    5    5    5    5    5    6    6    6 
+## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA WTSP YRWA COLO 
+##    6    6    6    6    6    6    7    7    8    8    8    8    9 
+## TEWA AMPI WWCR CEDW PISI RECR CANG 
+##   12   12   20   23   50   51  200
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## lyover (FO) flock (FL) beyond 100m distance}
+\NormalTok{## lyover (FO) flock (FL) beyond 100m distance}
 \KeywordTok{head}\NormalTok{(josm}\OperatorTok{$}\NormalTok{counts[}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SiteID }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(ytot)[}\KeywordTok{which}\NormalTok{(ytot[,}\StringTok{"CANG"}\NormalTok{] }\OperatorTok{==}\StringTok{ }\DecValTok{200}\NormalTok{)] }\OperatorTok{&}
 \StringTok{  }\NormalTok{josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SpeciesID }\OperatorTok{==}\StringTok{ "CANG"}\NormalTok{,])}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-##                         ObservationID  SiteID
-## CO10712-130603-008 CO10712-130603-008 CO10712
-## CO10712-130603-009 CO10712-130603-009 CO10712
-## CO10712-130603-010 CO10712-130603-010 CO10712
-## CO10712-130603-011 CO10712-130603-011 CO10712
-## CO10712-130603-012 CO10712-130603-012 CO10712
-## CO10712-130603-013 CO10712-130603-013 CO10712
-##                    StationID TimeInterval Direction
-## CO10712-130603-008 CO10712-1            1         2
-## CO10712-130603-009 CO10712-1            1         2
-## CO10712-130603-010 CO10712-1            1         2
-## CO10712-130603-011 CO10712-1            1         2
-## CO10712-130603-012 CO10712-1            1         2
-## CO10712-130603-013 CO10712-1            1         2
-##                    Distance DetectType1 DetectType2
-## CO10712-130603-008        3           C        <NA>
-## CO10712-130603-009        3           C        <NA>
-## CO10712-130603-010        3           C        <NA>
-## CO10712-130603-011        3           C        <NA>
-## CO10712-130603-012        3           C        <NA>
-## CO10712-130603-013        3           C        <NA>
-##                    DetectType3 Sex Age Activity1
-## CO10712-130603-008        <NA>   U   A        FO
-## CO10712-130603-009        <NA>   U   A        FO
-## CO10712-130603-010        <NA>   U   A        FO
-## CO10712-130603-011        <NA>   U   A        FO
-## CO10712-130603-012        <NA>   U   A        FO
-## CO10712-130603-013        <NA>   U   A        FO
-##                    Activity2 Activity3 ActivityNote
-## CO10712-130603-008        FL      <NA>         <NA>
-## CO10712-130603-009        FL      <NA>         <NA>
-## CO10712-130603-010        FL      <NA>         <NA>
-## CO10712-130603-011        FL      <NA>         <NA>
-## CO10712-130603-012        FL      <NA>         <NA>
-## CO10712-130603-013        FL      <NA>         <NA>
-##                       Dur   Dis SpeciesID
-## CO10712-130603-008 0-3min 100+m      CANG
-## CO10712-130603-009 0-3min 100+m      CANG
-## CO10712-130603-010 0-3min 100+m      CANG
-## CO10712-130603-011 0-3min 100+m      CANG
-## CO10712-130603-012 0-3min 100+m      CANG
-## CO10712-130603-013 0-3min 100+m      CANG
-\end{verbatim}
 
 We can check overall mean counts
 
@@ -1057,50 +984,40 @@ We can check overall mean counts
 \end{Shaded}
 
 \begin{verbatim}
-##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA 
-## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
-##   NHOW   NSHO   RTHU   WWSC   CANV   NOPI   GBHE 
-## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0002 
-##   GCTH   GHOW   LEOW   NOHA   RBGU   BRBL   CAGU 
-## 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 
-##   AMCO   BAEA   BARS   NESP   NOGO   NOPO   NSWO 
-## 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
-##   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS 
-## 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 
-##   SSHA   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU 
-## 0.0007 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 
-##   AMGO   AMWI   BOWA   CONI   EAPH   HOWR   NRWS 
-## 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 
-##   BLTE   COGR   EAKI   GGOW   NAWA   COSN   COTE 
-## 0.0013 0.0013 0.0013 0.0013 0.0013 0.0013 0.0015 
-##   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
-## 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
-##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP 
-## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 
-##   RUBL   MALL   PUFI   DOWO   SORA   LEYE   ATTW 
-## 0.0044 0.0046 0.0048 0.0059 0.0068 0.0094 0.0096 
-##   HAWO   RNGR   BBWO   BLJA   BOGU   AMCR   EVGR 
-## 0.0101 0.0101 0.0107 0.0134 0.0140 0.0166 0.0169 
-##   RWBL   OSFL   LCSP   TRES   FOSP   WEWP   WIWA 
-## 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 0.0236 
-##   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA 
-## 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 
-##   SACR   BTNW   NOWA   OCWA   BRCR   CCSP   COLO 
-## 0.0322 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 
-##   PHVI   CONW   CEDW   RUGR   MOWA   WAVI   BCCH 
-## 0.0394 0.0429 0.0449 0.0475 0.0477 0.0582 0.0593 
-##   BOCH   NOFL   SWSP   GRYE   WWCR   AMRO   RBNU 
-## 0.0593 0.0622 0.0659 0.0685 0.0751 0.0757 0.0766 
-##   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
-## 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
-##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL 
-## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 
-##   MAWA   PISI   RBGR   LISP   DEJU   GRAJ   CANG 
-## 0.1727 0.1775 0.1832 0.2169 0.2725 0.2898 0.3018 
-##   PAWA   REVI   RCKI   HETH   CHSP   SWTH   WTSP 
-## 0.3053 0.3344 0.3898 0.4344 0.4460 0.7402 0.8091 
-##   OVEN   YRWA   TEWA 
-## 0.8831 0.8934 1.2221
+##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO 
+## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
+##   RTHU   WWSC   CANV   NOPI   GBHE   GCTH   GHOW   LEOW   NOHA 
+## 0.0000 0.0000 0.0000 0.0000 0.0002 0.0002 0.0002 0.0002 0.0002 
+##   RBGU   BRBL   CAGU   AMCO   BAEA   BARS   NESP   NOGO   NOPO 
+## 0.0002 0.0002 0.0002 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
+##   NSWO   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS   SSHA 
+## 0.0004 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 0.0007 
+##   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU   AMGO   AMWI   BOWA 
+## 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 0.0011 0.0011 0.0011 
+##   CONI   EAPH   HOWR   NRWS   BLTE   COGR   EAKI   GGOW   NAWA 
+## 0.0011 0.0011 0.0011 0.0011 0.0013 0.0013 0.0013 0.0013 0.0013 
+##   COSN   COTE   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
+## 0.0013 0.0015 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
+##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP   RUBL   MALL 
+## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 0.0044 0.0046 
+##   PUFI   DOWO   SORA   LEYE   ATTW   HAWO   RNGR   BBWO   BLJA 
+## 0.0048 0.0059 0.0068 0.0094 0.0096 0.0101 0.0101 0.0107 0.0134 
+##   BOGU   AMCR   EVGR   RWBL   OSFL   LCSP   TRES   FOSP   WEWP 
+## 0.0140 0.0166 0.0169 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 
+##   WIWA   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA   SACR 
+## 0.0236 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 0.0322 
+##   BTNW   NOWA   OCWA   BRCR   CCSP   COLO   PHVI   CONW   CEDW 
+## 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 0.0394 0.0429 0.0449 
+##   RUGR   MOWA   WAVI   BCCH   BOCH   NOFL   SWSP   GRYE   WWCR 
+## 0.0475 0.0477 0.0582 0.0593 0.0593 0.0622 0.0659 0.0685 0.0751 
+##   AMRO   RBNU   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
+## 0.0757 0.0766 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
+##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL   MAWA   PISI 
+## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 0.1727 0.1775 
+##   RBGR   LISP   DEJU   GRAJ   CANG   PAWA   REVI   RCKI   HETH 
+## 0.1832 0.2169 0.2725 0.2898 0.3018 0.3053 0.3344 0.3898 0.4344 
+##   CHSP   SWTH   WTSP   OVEN   YRWA   TEWA 
+## 0.4460 0.7402 0.8091 0.8831 0.8934 1.2221
 \end{verbatim}
 
 \hypertarget{joining-species-data-with-predictors}{%
@@ -1113,27 +1030,15 @@ input data for regression analysis.
 \begin{Highlighting}[]
 \NormalTok{spp <-}\StringTok{ "OVEN"} \CommentTok{# which species}
 \NormalTok{josm}\OperatorTok{$}\NormalTok{species[spp,]}
+
+\KeywordTok{compare_sets}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(josm}\OperatorTok{$}\NormalTok{surveys),}\KeywordTok{rownames}\NormalTok{(ytot))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##      SpeciesID SpeciesName       ScientificName
-## OVEN      OVEN    Ovenbird Seiurus aurocapillus
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{compare_sets}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(x),}\KeywordTok{rownames}\NormalTok{(ytot))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##        xlength ylength intersect union xbutnoty
-## labels    4569    4569      4569  4569        0
-## unique    4569    4569      4569  4569        0
-##        ybutnotx
-## labels        0
-## unique        0
+##        xlength ylength intersect union xbutnoty ybutnotx
+## labels    4569    4569      4569  4569        0        0
+## unique    4569    4569      4569  4569        0        0
 \end{verbatim}
 
 \begin{Shaded}
@@ -1164,7 +1069,7 @@ Locations
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/xy-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/data_xy-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1174,7 +1079,7 @@ Locations
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/pred-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/data_pred-1.pdf}
 
 Add here:
 
@@ -1182,6 +1087,8 @@ Add here:
 \tightlist
 \item
   those kinds of transformations that are needed for regression
+\item
+  need to add absolute links to figures???
 \end{itemize}
 
 Exercise:

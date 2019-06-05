@@ -50,7 +50,7 @@ we skip that for now to concentrate on the fun part.
 
 \centering
 ```{r echo=FALSE,out.width="220px"}
-include_graphics("../_images/mahon-2016-fig-1.png")
+include_graphics("../images/mahon-2016-fig-1.png")
 ```
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales[^1][^2]: 
@@ -65,7 +65,7 @@ understand how boreal songbirds are affected by human activity in the oil sands 
 
 \centering
 ```{r echo=FALSE,out.width="250px"}
-include_graphics("../_images/mahon-2016-fig-2.png")
+include_graphics("../images/mahon-2016-fig-2.png")
 ```
 
 Survey area boundary ($r$=2.5 km circle), habitat type and human footprint mapping, 

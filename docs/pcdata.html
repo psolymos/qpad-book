@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Chapter 3 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it</title>
-  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Chapter 3 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it" />
   <meta property="og:type" content="book" />
@@ -21,14 +22,14 @@
   <meta name="twitter:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
   
 
-<meta name="author" content="Peter Solymos" />
+<meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-04" />
+<meta name="date" content="2019-06-04">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="intro.html">
@@ -52,7 +53,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -65,11 +66,13 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -207,10 +210,12 @@ None of these expressions capture the dread associated with the actual activity.
 <p>Look at the source code in the <code>_data/josm</code> directory of the book
 if you are interested in data processing details.
 We skip that for now.</p>
-<p><img src="_images/mahon-2016-fig-1.png" width="500" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">include_graphics</span>(<span class="st">&quot;./images/mahon-2016-fig-1.png&quot;</span>)</code></pre>
+<p><img src="images/mahon-2016-fig-1.png" width="500" /></p>
 <p>Cause-Effect Monitoring Migratory Landbirds at Regional Scales:
 understand how boreal songbirds are affected by human activity in the oil sands area.</p>
-<p><img src="_images/mahon-2016-fig-2.png" width="500" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">include_graphics</span>(<span class="st">&quot;./images/mahon-2016-fig-2.png&quot;</span>)</code></pre>
+<p><img src="images/mahon-2016-fig-2.png" width="500" /></p>
 <p>Survey area boundary (<span class="math inline">\(r\)</span>=2.5 km circle), habitat type and human footprint mapping,
 and clustered point count site locations.</p>
 <p>Surveys were spatially replicated because:</p>
@@ -352,102 +357,86 @@ formula in <code>Xtab</code>. <code>ytot</code> will be our total count matrix f
 <p>We use <code>SiteID</code> for row names, because only 1 station and visit was done at each site:</p>
 <pre class="sourceCode r"><code class="sourceCode r">ytot &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])</code></pre>
 <p>See how not storing 0’s affect size compared to the long formar and an ordinary wide matrix</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## 2-column data frame as reference</span>
+<pre class="sourceCode r"><code class="sourceCode r">## 2-column data frame as reference
 tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">object.size</span>(
   josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;StationID&quot;</span>, <span class="st">&quot;SpeciesID&quot;</span>)]))
-<span class="co">## spare matrix</span>
+## spare matrix
 <span class="kw">as.numeric</span>(<span class="kw">object.size</span>(ytot)) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
 <pre><code>## [1] 0.1366087</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## dense matrix</span>
+<pre class="sourceCode r"><code class="sourceCode r">## dense matrix
 <span class="kw">as.numeric</span>(<span class="kw">object.size</span>(<span class="kw">as.matrix</span>(ytot))) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
 <pre><code>## [1] 1.106463</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## matrix fill</span>
+<pre class="sourceCode r"><code class="sourceCode r">## matrix fill
 <span class="kw">sum</span>(ytot <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span><span class="kw">prod</span>(<span class="kw">dim</span>(ytot))</code></pre>
 <pre><code>## [1] 0.0491063</code></pre>
 <p>Check if counts are as expected:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(ytot) <span class="co"># this is interesting</span></code></pre>
 <pre><code>## [1] 200</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(<span class="kw">apply</span>(<span class="kw">as.matrix</span>(ytot), <span class="dv">2</span>, max)) <span class="co"># it is CANG</span></code></pre>
-<pre><code>## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU 
-##    0    0    0    0    0    0    0    0    0    0 
-## WWSC CANV NOPI AMBI AMCO AMGO BAEA BAOR BEKI BOWA 
-##    0    0    0    1    1    1    1    1    1    1 
-## CONI CSWA EAPH GBHE GCTH GGOW GHOW HOWR LEOW MERL 
-##    1    1    1    1    1    1    1    1    1    1 
-## NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA WBNU 
-##    1    1    1    1    1    1    1    1    1    1 
-## BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO 
-##    1    1    1    1    1    2    2    2    2    2 
-## BHCO BLBW BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL 
-##    2    2    2    2    2    2    2    2    2    2 
-## LEYE NAWA NOPO OSFL OSPR PIWO PUFI RNDU SORA SSHA 
-##    2    2    2    2    2    2    2    2    2    2 
-## COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW CMWA FOSP 
-##    2    3    3    3    3    3    3    3    3    3 
-## FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR 
-##    3    3    3    3    3    3    3    3    3    3 
-## TRES WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA 
-##    3    3    3    3    3    3    4    4    4    4 
-## CAWA CONW COTE GRYE NOWA NRWS OCWA REVI RNGR RUBL 
-##    4    4    4    4    4    4    4    4    4    4 
-## RWBL WAVI WEWP WISN YBFL YWAR ALFL AMRE CHSP CORA 
-##    4    4    4    4    4    4    5    5    5    5 
-## EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
-##    5    5    5    5    5    5    5    6    6    6 
-## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA 
-##    6    6    6    6    6    6    7    7    8    8 
-## WTSP YRWA COLO TEWA AMPI WWCR CEDW PISI RECR CANG 
-##    8    8    9   12   12   20   23   50   51  200</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## lyover (FO) flock (FL) beyond 100m distance</span>
+<pre><code>## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU WWSC CANV NOPI 
+##    0    0    0    0    0    0    0    0    0    0    0    0    0 
+## AMBI AMCO AMGO BAEA BAOR BEKI BOWA CONI CSWA EAPH GBHE GCTH GGOW 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## GHOW HOWR LEOW MERL NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## WBNU BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO BHCO BLBW 
+##    1    1    1    1    1    1    2    2    2    2    2    2    2 
+## BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL LEYE NAWA NOPO OSFL OSPR 
+##    2    2    2    2    2    2    2    2    2    2    2    2    2 
+## PIWO PUFI RNDU SORA SSHA COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW 
+##    2    2    2    2    2    2    3    3    3    3    3    3    3 
+## CMWA FOSP FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR TRES 
+##    3    3    3    3    3    3    3    3    3    3    3    3    3 
+## WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA CAWA CONW COTE GRYE 
+##    3    3    3    3    3    4    4    4    4    4    4    4    4 
+## NOWA NRWS OCWA REVI RNGR RUBL RWBL WAVI WEWP WISN YBFL YWAR ALFL 
+##    4    4    4    4    4    4    4    4    4    4    4    4    5 
+## AMRE CHSP CORA EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
+##    5    5    5    5    5    5    5    5    5    5    6    6    6 
+## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA WTSP YRWA COLO 
+##    6    6    6    6    6    6    7    7    8    8    8    8    9 
+## TEWA AMPI WWCR CEDW PISI RECR CANG 
+##   12   12   20   23   50   51  200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">## lyover (FO) flock (FL) beyond 100m distance
 <span class="kw">head</span>(josm<span class="op">$</span>counts[
   josm<span class="op">$</span>counts<span class="op">$</span>SiteID <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(ytot)[<span class="kw">which</span>(ytot[,<span class="st">&quot;CANG&quot;</span>] <span class="op">==</span><span class="st"> </span><span class="dv">200</span>)] <span class="op">&amp;</span>
 <span class="st">  </span>josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> &quot;CANG&quot;</span>,])</code></pre>
 <p>We can check overall mean counts</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">sort</span>(<span class="kw">colMeans</span>(ytot)), <span class="dv">4</span>)</code></pre>
-<pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA 
-## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
-##   NHOW   NSHO   RTHU   WWSC   CANV   NOPI   GBHE 
-## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0002 
-##   GCTH   GHOW   LEOW   NOHA   RBGU   BRBL   CAGU 
-## 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 
-##   AMCO   BAEA   BARS   NESP   NOGO   NOPO   NSWO 
-## 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
-##   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS 
-## 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 
-##   SSHA   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU 
-## 0.0007 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 
-##   AMGO   AMWI   BOWA   CONI   EAPH   HOWR   NRWS 
-## 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 
-##   BLTE   COGR   EAKI   GGOW   NAWA   COSN   COTE 
-## 0.0013 0.0013 0.0013 0.0013 0.0013 0.0013 0.0015 
-##   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
-## 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
-##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP 
-## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 
-##   RUBL   MALL   PUFI   DOWO   SORA   LEYE   ATTW 
-## 0.0044 0.0046 0.0048 0.0059 0.0068 0.0094 0.0096 
-##   HAWO   RNGR   BBWO   BLJA   BOGU   AMCR   EVGR 
-## 0.0101 0.0101 0.0107 0.0134 0.0140 0.0166 0.0169 
-##   RWBL   OSFL   LCSP   TRES   FOSP   WEWP   WIWA 
-## 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 0.0236 
-##   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA 
-## 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 
-##   SACR   BTNW   NOWA   OCWA   BRCR   CCSP   COLO 
-## 0.0322 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 
-##   PHVI   CONW   CEDW   RUGR   MOWA   WAVI   BCCH 
-## 0.0394 0.0429 0.0449 0.0475 0.0477 0.0582 0.0593 
-##   BOCH   NOFL   SWSP   GRYE   WWCR   AMRO   RBNU 
-## 0.0593 0.0622 0.0659 0.0685 0.0751 0.0757 0.0766 
-##   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
-## 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
-##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL 
-## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 
-##   MAWA   PISI   RBGR   LISP   DEJU   GRAJ   CANG 
-## 0.1727 0.1775 0.1832 0.2169 0.2725 0.2898 0.3018 
-##   PAWA   REVI   RCKI   HETH   CHSP   SWTH   WTSP 
-## 0.3053 0.3344 0.3898 0.4344 0.4460 0.7402 0.8091 
-##   OVEN   YRWA   TEWA 
-## 0.8831 0.8934 1.2221</code></pre>
+<pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO 
+## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
+##   RTHU   WWSC   CANV   NOPI   GBHE   GCTH   GHOW   LEOW   NOHA 
+## 0.0000 0.0000 0.0000 0.0000 0.0002 0.0002 0.0002 0.0002 0.0002 
+##   RBGU   BRBL   CAGU   AMCO   BAEA   BARS   NESP   NOGO   NOPO 
+## 0.0002 0.0002 0.0002 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
+##   NSWO   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS   SSHA 
+## 0.0004 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 0.0007 
+##   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU   AMGO   AMWI   BOWA 
+## 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 0.0011 0.0011 0.0011 
+##   CONI   EAPH   HOWR   NRWS   BLTE   COGR   EAKI   GGOW   NAWA 
+## 0.0011 0.0011 0.0011 0.0011 0.0013 0.0013 0.0013 0.0013 0.0013 
+##   COSN   COTE   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
+## 0.0013 0.0015 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
+##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP   RUBL   MALL 
+## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 0.0044 0.0046 
+##   PUFI   DOWO   SORA   LEYE   ATTW   HAWO   RNGR   BBWO   BLJA 
+## 0.0048 0.0059 0.0068 0.0094 0.0096 0.0101 0.0101 0.0107 0.0134 
+##   BOGU   AMCR   EVGR   RWBL   OSFL   LCSP   TRES   FOSP   WEWP 
+## 0.0140 0.0166 0.0169 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 
+##   WIWA   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA   SACR 
+## 0.0236 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 0.0322 
+##   BTNW   NOWA   OCWA   BRCR   CCSP   COLO   PHVI   CONW   CEDW 
+## 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 0.0394 0.0429 0.0449 
+##   RUGR   MOWA   WAVI   BCCH   BOCH   NOFL   SWSP   GRYE   WWCR 
+## 0.0475 0.0477 0.0582 0.0593 0.0593 0.0622 0.0659 0.0685 0.0751 
+##   AMRO   RBNU   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
+## 0.0757 0.0766 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
+##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL   MAWA   PISI 
+## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 0.1727 0.1775 
+##   RBGR   LISP   DEJU   GRAJ   CANG   PAWA   REVI   RCKI   HETH 
+## 0.1832 0.2169 0.2725 0.2898 0.3018 0.3053 0.3344 0.3898 0.4344 
+##   CHSP   SWTH   WTSP   OVEN   YRWA   TEWA 
+## 0.4460 0.7402 0.8091 0.8831 0.8934 1.2221</code></pre>
 </div>
 <div id="joining-species-data-with-predictors" class="section level2">
 <h2><span class="header-section-number">3.3</span> Joining species data with predictors</h2>
@@ -456,13 +445,10 @@ input data for regression analysis.</p>
 <pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
 josm<span class="op">$</span>species[spp,]
 
-<span class="kw">compare_sets</span>(<span class="kw">rownames</span>(x),<span class="kw">rownames</span>(ytot))</code></pre>
-<pre><code>##        xlength ylength intersect union xbutnoty
-## labels    4569    4569      4569  4569        0
-## unique    4569    4569      4569  4569        0
-##        ybutnotx
-## labels        0
-## unique        0</code></pre>
+<span class="kw">compare_sets</span>(<span class="kw">rownames</span>(josm<span class="op">$</span>surveys),<span class="kw">rownames</span>(ytot))</code></pre>
+<pre><code>##        xlength ylength intersect union xbutnoty ybutnotx
+## labels    4569    4569      4569  4569        0        0
+## unique    4569    4569      4569  4569        0        0</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>josm<span class="op">$</span>surveys
 x<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ytot[<span class="kw">rownames</span>(x), spp])</code></pre>
 </div>
@@ -480,14 +466,15 @@ xy &lt;-<span class="st"> </span><span class="kw">spTransform</span>(xy, <span c
 col &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;lightgrey&quot;</span>, <span class="st">&quot;blue&quot;</span>))(<span class="dv">100</span>)
 <span class="kw">plot</span>(rr[[<span class="st">&quot;Water&quot;</span>]], <span class="dt">col=</span>col, <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">box=</span><span class="ot">FALSE</span>)
 <span class="kw">plot</span>(xy, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/xy-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/data_xy-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">cn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open&quot;</span>, <span class="st">&quot;Water&quot;</span>, <span class="st">&quot;Agr&quot;</span>, <span class="st">&quot;UrbInd&quot;</span>, <span class="st">&quot;SoftLin&quot;</span>, <span class="st">&quot;Roads&quot;</span>, 
   <span class="st">&quot;Decid&quot;</span>, <span class="st">&quot;OpenWet&quot;</span>, <span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)
 <span class="kw">plot</span>(x[,cn])</code></pre>
-<p><img src="qpad-book_files/figure-html/pred-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/data_pred-1.png" width="672" /></p>
 <p>Add here:</p>
 <ul>
 <li>those kinds of transformations that are needed for regression</li>
+<li>need to add absolute links to figures???</li>
 </ul>
 <p>Exercise:</p>
 <ul>

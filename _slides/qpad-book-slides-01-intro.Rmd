@@ -69,7 +69,7 @@ The goal is to make our measurements comparable.
 
 \centering
 ```{r echo=FALSE,out.width="200px"}
-include_graphics("../_images/matsuoka-2014-fig-2.png")
+include_graphics("../images/matsuoka-2014-fig-2.png")
 ```
 
 10-min unlimited count ~300% increase over 3-min 50-m count. 
@@ -120,7 +120,7 @@ _"For example, only 3% of 196,000 point counts conducted during the period
 
 \centering
 ```{r echo=FALSE,out.width="250px"}
-include_graphics("../_images/barker-2015-fig-2.png")
+include_graphics("../images/barker-2015-fig-2.png")
 ```
 
 Survey methodology variation (colors) among contributed projects

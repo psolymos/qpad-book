@@ -3,7 +3,7 @@
 > All assumptions are violated, but some are more than others
 
 
-## Apples and oranges
+#### Apples and oranges
 
 _"A comparison of apples and oranges occurs when two items or groups of items are compared that 
 cannot be practically compared."_ [_Wikipedia_]
@@ -14,7 +14,7 @@ How we measure things can have big impact on our results.
 - I might say: I only saw one (sitting on my porch)
 
 
-## Apples to apples
+#### Apples to apples
 
 Effort:
 
@@ -31,9 +31,9 @@ Experience, skill, "sensitivity":
 The goal is to make our measurements comparable.
 
 
-## Effects can be significant
+#### Effects can be significant
 
-```{r echo=FALSE}
+```{r intro_1,echo=FALSE}
 include_graphics("./images/matsuoka-2014-fig-2.png")
 ```
 
@@ -41,7 +41,7 @@ include_graphics("./images/matsuoka-2014-fig-2.png")
 Average across 54 species of boreal songbirds.
 
 
-## So what is a point count?
+#### So what is a point count?
 
 - A trained observer 
 - records all the birds 
@@ -51,7 +51,7 @@ Average across 54 species of boreal songbirds.
 - within a defined distance radius.
 
 
-## Questions we want to answer using point counts
+#### Questions we want to answer using point counts
 
 - How many? (Abundance, density, population size)
 - Is this location part of the range? (0/1)
@@ -59,7 +59,7 @@ Average across 54 species of boreal songbirds.
 - How is abundance changing in time? (Trend)
 - What is the effect of a treatment on abundance?
 
-## Standardization by design
+#### Standardization by design
 
 Have a set of standards/recommendations that people will follow to
 
@@ -71,28 +71,32 @@ But programs started to deviate from standards:
 _"For example, only 3% of 196,000 point counts conducted during the period
 1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius."_
 
-## Protocols do vary
+#### Protocols do vary
 
-```{r echo=FALSE}
+```{r intro_2,echo=FALSE}
 include_graphics("./images/barker-2015-fig-2.png")
 ```
 
 Survey methodology variation (colors) among contributed projects
 in the Boreal Avian Modelling (BAM) data base as of 2014.
 
+```{block2, type='rmdexercise'}
+**Exercise**
 
-## Pop quiz
+In what regard can protocols differ?
 
-> - In what regard can protocols differ?
-> - What drives protocol variation among projects?
-> - Why have we abandoned following protocols?
+What drives protocol variation among projects?
 
-## Moving away from standards
+Why have we abandoned following protocols?
+```
+
+
+#### Moving away from standards
 
 - Detection probabilities might vary even with fixed effort (we'll cover this more later),
 - programs might have their own goals and constraints (access, training, etc).
 
-## Model based approaches
+#### Model based approaches
 
 Less labour intensive methods for unmarked populations has come to the forefront:
 
@@ -102,7 +106,7 @@ Less labour intensive methods for unmarked populations has come to the forefront
 - multiple visit occupancy ([MacKenzie et al. 2002](https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2)),
 - multiple visit abundance ([Royle 2004](https://doi.org/10.1111/j.0006-341X.2004.00142.x)).
 
-## Models come with assumptions
+#### Models come with assumptions
 
 - Population is closed during multiple visits,
 - observers are independent,
@@ -110,26 +114,29 @@ Less labour intensive methods for unmarked populations has come to the forefront
 - spatial distribution of individuals is uniform,
 - etc. (we will investigate this further in depth).
 
-## Assumptions are everywhere
+#### Assumptions are everywhere
 
 Although assumptions are everywhere, we are really good at ignoring them:
 
 - Relativistic time dilation is negligible (as long as we are not on a space station),
 - samples are independent.
 
-## Pop quiz
+```{block2, type='rmdexercise'}
+**Exercise**
 
-> - Can you mention some other common assumptions?
-> - Can you explain why we neglect/violate assumptions?
+Can you mention some other common assumptions?
 
-## The hard truth
+Can you explain why we neglect/violate assumptions?
+```
+
+#### The hard truth
 
 Assumptions are violated in many ways, because we seek simplicity.
 
 The main question we have to ask: **does it matter in practice**?
 
 
-## Our approach
+#### Our approach
 
 1. We will introduce a concept,
 2. understand how we can infer it from data,

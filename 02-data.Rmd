@@ -19,14 +19,14 @@ Look at the source code in the `_data/josm` directory of the book
 if you are interested in data processing details.
 We skip that for now.
 
-```{r data_echo=FALSE}
+```{r data_1,echo=FALSE}
 include_graphics("./images/mahon-2016-fig-1.png")
 ```
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales: 
 understand how boreal songbirds are affected by human activity in the oil sands area.
 
-```{r data_echo=FALSE}
+```{r data_2,echo=FALSE}
 include_graphics("./images/mahon-2016-fig-2.png")
 ```
 

@@ -366,7 +366,7 @@ All assumptions are violated, but some are more than others
 \end{quote}
 
 \hypertarget{apples-and-oranges}{%
-\section{Apples and oranges}\label{apples-and-oranges}}
+\subsubsection{Apples and oranges}\label{apples-and-oranges}}
 
 \emph{``A comparison of apples and oranges occurs when two items or groups of items are compared that
 cannot be practically compared.''} {[}\emph{Wikipedia}{]}
@@ -382,7 +382,7 @@ How we measure things can have big impact on our results.
 \end{itemize}
 
 \hypertarget{apples-to-apples}{%
-\section{Apples to apples}\label{apples-to-apples}}
+\subsubsection{Apples to apples}\label{apples-to-apples}}
 
 Effort:
 
@@ -411,7 +411,7 @@ Experience, skill, ``sensitivity'':
 The goal is to make our measurements comparable.
 
 \hypertarget{effects-can-be-significant}{%
-\section{Effects can be significant}\label{effects-can-be-significant}}
+\subsubsection{Effects can be significant}\label{effects-can-be-significant}}
 
 \includegraphics[width=4.82in]{./images/matsuoka-2014-fig-2}
 
@@ -419,7 +419,7 @@ The goal is to make our measurements comparable.
 Average across 54 species of boreal songbirds.
 
 \hypertarget{so-what-is-a-point-count}{%
-\section{So what is a point count?}\label{so-what-is-a-point-count}}
+\subsubsection{So what is a point count?}\label{so-what-is-a-point-count}}
 
 \begin{itemize}
 \tightlist
@@ -438,7 +438,7 @@ Average across 54 species of boreal songbirds.
 \end{itemize}
 
 \hypertarget{questions-we-want-to-answer-using-point-counts}{%
-\section{Questions we want to answer using point counts}\label{questions-we-want-to-answer-using-point-counts}}
+\subsubsection{Questions we want to answer using point counts}\label{questions-we-want-to-answer-using-point-counts}}
 
 \begin{itemize}
 \tightlist
@@ -455,7 +455,7 @@ Average across 54 species of boreal songbirds.
 \end{itemize}
 
 \hypertarget{standardization-by-design}{%
-\section{Standardization by design}\label{standardization-by-design}}
+\subsubsection{Standardization by design}\label{standardization-by-design}}
 
 Have a set of standards/recommendations that people will follow to
 
@@ -473,30 +473,25 @@ But programs started to deviate from standards:
 1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius.''}
 
 \hypertarget{protocols-do-vary}{%
-\section{Protocols do vary}\label{protocols-do-vary}}
+\subsubsection{Protocols do vary}\label{protocols-do-vary}}
 
 \includegraphics[width=9.43in]{./images/barker-2015-fig-2}
 
 Survey methodology variation (colors) among contributed projects
 in the Boreal Avian Modelling (BAM) data base as of 2014.
 
-\hypertarget{pop-quiz}{%
-\section{Pop quiz}\label{pop-quiz}}
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
 
-\begin{quote}
-\begin{itemize}
-\tightlist
-\item
-  In what regard can protocols differ?
-\item
-  What drives protocol variation among projects?
-\item
-  Why have we abandoned following protocols?
-\end{itemize}
-\end{quote}
+In what regard can protocols differ?
+
+What drives protocol variation among projects?
+
+Why have we abandoned following protocols?
+\EndKnitrBlock{rmdexercise}
 
 \hypertarget{moving-away-from-standards}{%
-\section{Moving away from standards}\label{moving-away-from-standards}}
+\subsubsection{Moving away from standards}\label{moving-away-from-standards}}
 
 \begin{itemize}
 \tightlist
@@ -507,7 +502,7 @@ in the Boreal Avian Modelling (BAM) data base as of 2014.
 \end{itemize}
 
 \hypertarget{model-based-approaches}{%
-\section{Model based approaches}\label{model-based-approaches}}
+\subsubsection{Model based approaches}\label{model-based-approaches}}
 
 Less labour intensive methods for unmarked populations has come to the forefront:
 
@@ -526,7 +521,7 @@ Less labour intensive methods for unmarked populations has come to the forefront
 \end{itemize}
 
 \hypertarget{models-come-with-assumptions}{%
-\section{Models come with assumptions}\label{models-come-with-assumptions}}
+\subsubsection{Models come with assumptions}\label{models-come-with-assumptions}}
 
 \begin{itemize}
 \tightlist
@@ -543,7 +538,7 @@ Less labour intensive methods for unmarked populations has come to the forefront
 \end{itemize}
 
 \hypertarget{assumptions-are-everywhere}{%
-\section{Assumptions are everywhere}\label{assumptions-are-everywhere}}
+\subsubsection{Assumptions are everywhere}\label{assumptions-are-everywhere}}
 
 Although assumptions are everywhere, we are really good at ignoring them:
 
@@ -555,28 +550,23 @@ Although assumptions are everywhere, we are really good at ignoring them:
   samples are independent.
 \end{itemize}
 
-\hypertarget{pop-quiz-1}{%
-\section{Pop quiz}\label{pop-quiz-1}}
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
 
-\begin{quote}
-\begin{itemize}
-\tightlist
-\item
-  Can you mention some other common assumptions?
-\item
-  Can you explain why we neglect/violate assumptions?
-\end{itemize}
-\end{quote}
+Can you mention some other common assumptions?
+
+Can you explain why we neglect/violate assumptions?
+\EndKnitrBlock{rmdexercise}
 
 \hypertarget{the-hard-truth}{%
-\section{The hard truth}\label{the-hard-truth}}
+\subsubsection{The hard truth}\label{the-hard-truth}}
 
 Assumptions are violated in many ways, because we seek simplicity.
 
 The main question we have to ask: \textbf{does it matter in practice}?
 
 \hypertarget{our-approach}{%
-\section{Our approach}\label{our-approach}}
+\subsubsection{Our approach}\label{our-approach}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -630,22 +620,10 @@ Look at the source code in the \texttt{\_data/josm} directory of the book
 if you are interested in data processing details.
 We skip that for now.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{include_graphics}\NormalTok{(}\StringTok{"./images/mahon-2016-fig-1.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \includegraphics[width=13.89in]{./images/mahon-2016-fig-1}
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales:
 understand how boreal songbirds are affected by human activity in the oil sands area.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{include_graphics}\NormalTok{(}\StringTok{"./images/mahon-2016-fig-2.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \includegraphics[width=13.89in]{./images/mahon-2016-fig-2}
 
@@ -721,6 +699,16 @@ taxonomic, trait, etc. information as well.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+##      SpeciesID        SpeciesName        ScientificName
+## ALFL      ALFL   Alder Flycatcher     Empidonax alnorum
+## AMBI      AMBI   American Bittern Botaurus lentiginosus
+## AMCO      AMCO      American Coot      Fulica americana
+## AMCR      AMCR      American Crow Corvus brachyrhynchos
+## AMGO      AMGO American Goldfinch     Carduelis tristis
+## AMKE      AMKE   American Kestrel      Falco sparverius
+\end{verbatim}
+
 At the survey level, we have coordinates, date/time info,
 variables capturing survey conditions, and land cover info extracted from 1 km\(^2\) resolution rasters.
 
@@ -790,6 +778,20 @@ Take the following dummy data frame (long format):
   \DataTypeTok{species=}\KeywordTok{c}\NormalTok{(}\StringTok{"BTNW"}\NormalTok{, }\StringTok{"OVEN"}\NormalTok{, }\StringTok{"CANG"}\NormalTok{, }\StringTok{"AMRO"}\NormalTok{, }\StringTok{"CANG"}\NormalTok{),}
   \DataTypeTok{abundance=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
   \DataTypeTok{behavior=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"heard"}\NormalTok{,}\StringTok{"seen"}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sample species abundance behavior
+## 1     S1    BTNW         1    heard
+## 2     S1    OVEN         1    heard
+## 3     S1    CANG         2    heard
+## 4     S2    AMRO         1    heard
+## 5     S2    CANG         1     seen
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{str}\NormalTok{(d)}
 \end{Highlighting}
 \end{Shaded}
@@ -1024,6 +1026,44 @@ Check if counts are as expected:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+##                         ObservationID  SiteID StationID
+## CO10712-130603-008 CO10712-130603-008 CO10712 CO10712-1
+## CO10712-130603-009 CO10712-130603-009 CO10712 CO10712-1
+## CO10712-130603-010 CO10712-130603-010 CO10712 CO10712-1
+## CO10712-130603-011 CO10712-130603-011 CO10712 CO10712-1
+## CO10712-130603-012 CO10712-130603-012 CO10712 CO10712-1
+## CO10712-130603-013 CO10712-130603-013 CO10712 CO10712-1
+##                    TimeInterval Direction Distance DetectType1
+## CO10712-130603-008            1         2        3           C
+## CO10712-130603-009            1         2        3           C
+## CO10712-130603-010            1         2        3           C
+## CO10712-130603-011            1         2        3           C
+## CO10712-130603-012            1         2        3           C
+## CO10712-130603-013            1         2        3           C
+##                    DetectType2 DetectType3 Sex Age Activity1
+## CO10712-130603-008        <NA>        <NA>   U   A        FO
+## CO10712-130603-009        <NA>        <NA>   U   A        FO
+## CO10712-130603-010        <NA>        <NA>   U   A        FO
+## CO10712-130603-011        <NA>        <NA>   U   A        FO
+## CO10712-130603-012        <NA>        <NA>   U   A        FO
+## CO10712-130603-013        <NA>        <NA>   U   A        FO
+##                    Activity2 Activity3 ActivityNote    Dur   Dis
+## CO10712-130603-008        FL      <NA>         <NA> 0-3min 100+m
+## CO10712-130603-009        FL      <NA>         <NA> 0-3min 100+m
+## CO10712-130603-010        FL      <NA>         <NA> 0-3min 100+m
+## CO10712-130603-011        FL      <NA>         <NA> 0-3min 100+m
+## CO10712-130603-012        FL      <NA>         <NA> 0-3min 100+m
+## CO10712-130603-013        FL      <NA>         <NA> 0-3min 100+m
+##                    SpeciesID
+## CO10712-130603-008      CANG
+## CO10712-130603-009      CANG
+## CO10712-130603-010      CANG
+## CO10712-130603-011      CANG
+## CO10712-130603-012      CANG
+## CO10712-130603-013      CANG
+\end{verbatim}
+
 We can check overall mean counts
 
 \begin{Shaded}
@@ -1079,7 +1119,16 @@ input data for regression analysis.
 \begin{Highlighting}[]
 \NormalTok{spp <-}\StringTok{ "OVEN"} \CommentTok{# which species}
 \NormalTok{josm}\OperatorTok{$}\NormalTok{species[spp,]}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+##      SpeciesID SpeciesName       ScientificName
+## OVEN      OVEN    Ovenbird Seiurus aurocapillus
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{compare_sets}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(josm}\OperatorTok{$}\NormalTok{surveys),}\KeywordTok{rownames}\NormalTok{(ytot))}
 \end{Highlighting}
 \end{Shaded}

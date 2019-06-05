@@ -221,7 +221,7 @@ plot(xy, add=TRUE, pch=19, cex=0.5)
 ```{r data_pred}
 cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", 
   "Decid", "OpenWet", "Conif", "ConifWet")
-plot(x[,cn])
+#plot(x[,cn])
 ```
 
 
@@ -234,3 +234,16 @@ Exercise:
 
 - play with the data to understand the distributions
 - use `summary`, `table`, `hist`, `plot`
+
+
+```{block2, type='rmdexercise'}
+This is an exercise.
+```
+
+```{block2, type='rmdnote'}
+This is a note.
+```
+
+```{block2, type='rmdwarning'}
+This is a warning.
+```

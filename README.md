@@ -2,7 +2,7 @@
 
 > How to violate assumptions and get away with it
 
-![](_images/bsims.gif)
+![](images/bsims.gif)
 
 This book provides material for the workshop
 *Analysis of point-count data in the presence of variable survey methodologies and detection error*

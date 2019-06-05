@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Point count data analysis: How to violate assumptions and get away with it</title>
-  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Point count data analysis: How to violate assumptions and get away with it" />
   <meta property="og:type" content="book" />
-  
-  
+  <meta property="og:url" content="http://peter.solymos.org/qpad-book/" />
+  <meta property="og:image" content="http://peter.solymos.org/qpad-book/images/cover.png" />
   <meta property="og:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
   <meta name="github-repo" content="psolymos/qpad-book" />
 
@@ -20,27 +19,27 @@
   <meta name="twitter:title" content="Point count data analysis: How to violate assumptions and get away with it" />
   
   <meta name="twitter:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
-  
+  <meta name="twitter:image" content="http://peter.solymos.org/qpad-book/images/cover.png" />
 
-<meta name="author" content="Peter Solymos">
+<meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-04">
+<meta name="date" content="2019-06-05" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 
 <link rel="next" href="intro.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -53,7 +52,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -66,13 +65,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -132,46 +129,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">QPAD Book</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i><b>1.1</b> About the book and the course</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>1.2</b> About the author</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#summary-of-course-objectives"><i class="fa fa-check"></i><b>1.3</b> Summary of course objectives</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i><b>1.4</b> Installing</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i><b>1.5</b> These are just reminders, to be deleted later</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a><ul style="display:none;">
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i><b>0.1</b> About the book and the course</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>0.2</b> About the author</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#summary-of-course-objectives"><i class="fa fa-check"></i><b>0.3</b> Summary of course objectives</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i><b>0.4</b> Installing</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i><b>0.5</b> These are just reminders, to be deleted later</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#apples-and-oranges"><i class="fa fa-check"></i><b>2.1</b> Apples and oranges</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#apples-to-apples"><i class="fa fa-check"></i><b>2.2</b> Apples to apples</a></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#effects-can-be-significant"><i class="fa fa-check"></i><b>2.3</b> Effects can be significant</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#so-what-is-a-point-count"><i class="fa fa-check"></i><b>2.4</b> So what is a point count?</a></li>
-<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#questions-we-want-to-answer-using-point-counts"><i class="fa fa-check"></i><b>2.5</b> Questions we want to answer using point counts</a></li>
-<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#standardization-by-design"><i class="fa fa-check"></i><b>2.6</b> Standardization by design</a></li>
-<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#protocols-do-vary"><i class="fa fa-check"></i><b>2.7</b> Protocols do vary</a></li>
-<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#pop-quiz"><i class="fa fa-check"></i><b>2.8</b> Pop quiz</a></li>
-<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#moving-away-from-standards"><i class="fa fa-check"></i><b>2.9</b> Moving away from standards</a></li>
-<li class="chapter" data-level="2.10" data-path="intro.html"><a href="intro.html#model-based-approaches"><i class="fa fa-check"></i><b>2.10</b> Model based approaches</a></li>
-<li class="chapter" data-level="2.11" data-path="intro.html"><a href="intro.html#models-come-with-assumptions"><i class="fa fa-check"></i><b>2.11</b> Models come with assumptions</a></li>
-<li class="chapter" data-level="2.12" data-path="intro.html"><a href="intro.html#assumptions-are-everywhere"><i class="fa fa-check"></i><b>2.12</b> Assumptions are everywhere</a></li>
-<li class="chapter" data-level="2.13" data-path="intro.html"><a href="intro.html#pop-quiz-1"><i class="fa fa-check"></i><b>2.13</b> Pop quiz</a></li>
-<li class="chapter" data-level="2.14" data-path="intro.html"><a href="intro.html#the-hard-truth"><i class="fa fa-check"></i><b>2.14</b> The hard truth</a></li>
-<li class="chapter" data-level="2.15" data-path="intro.html"><a href="intro.html#our-approach"><i class="fa fa-check"></i><b>2.15</b> Our approach</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul style="display:none;">
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#apples-and-oranges"><i class="fa fa-check"></i><b>1.1</b> Apples and oranges</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#apples-to-apples"><i class="fa fa-check"></i><b>1.2</b> Apples to apples</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#effects-can-be-significant"><i class="fa fa-check"></i><b>1.3</b> Effects can be significant</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#so-what-is-a-point-count"><i class="fa fa-check"></i><b>1.4</b> So what is a point count?</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#questions-we-want-to-answer-using-point-counts"><i class="fa fa-check"></i><b>1.5</b> Questions we want to answer using point counts</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#standardization-by-design"><i class="fa fa-check"></i><b>1.6</b> Standardization by design</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#protocols-do-vary"><i class="fa fa-check"></i><b>1.7</b> Protocols do vary</a></li>
+<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#pop-quiz"><i class="fa fa-check"></i><b>1.8</b> Pop quiz</a></li>
+<li class="chapter" data-level="1.9" data-path="intro.html"><a href="intro.html#moving-away-from-standards"><i class="fa fa-check"></i><b>1.9</b> Moving away from standards</a></li>
+<li class="chapter" data-level="1.10" data-path="intro.html"><a href="intro.html#model-based-approaches"><i class="fa fa-check"></i><b>1.10</b> Model based approaches</a></li>
+<li class="chapter" data-level="1.11" data-path="intro.html"><a href="intro.html#models-come-with-assumptions"><i class="fa fa-check"></i><b>1.11</b> Models come with assumptions</a></li>
+<li class="chapter" data-level="1.12" data-path="intro.html"><a href="intro.html#assumptions-are-everywhere"><i class="fa fa-check"></i><b>1.12</b> Assumptions are everywhere</a></li>
+<li class="chapter" data-level="1.13" data-path="intro.html"><a href="intro.html#pop-quiz-1"><i class="fa fa-check"></i><b>1.13</b> Pop quiz</a></li>
+<li class="chapter" data-level="1.14" data-path="intro.html"><a href="intro.html#the-hard-truth"><i class="fa fa-check"></i><b>1.14</b> The hard truth</a></li>
+<li class="chapter" data-level="1.15" data-path="intro.html"><a href="intro.html#our-approach"><i class="fa fa-check"></i><b>1.15</b> Our approach</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>3</b> Organizing and Processing Point Count Data</a><ul>
-<li class="chapter" data-level="3.1" data-path="pcdata.html"><a href="pcdata.html#josm-joint-oil-sands-monitoring-data"><i class="fa fa-check"></i><b>3.1</b> JOSM (Joint Oil Sands Monitoring) data</a></li>
-<li class="chapter" data-level="3.2" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>3.2</b> Cross tabulating species counts</a></li>
-<li class="chapter" data-level="3.3" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>3.3</b> Joining species data with predictors</a></li>
-<li class="chapter" data-level="3.4" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>3.4</b> Explore predictor variables</a></li>
+<li class="chapter" data-level="2" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>2</b> Organizing and Processing Point Count Data</a><ul style="display:none;">
+<li class="chapter" data-level="2.1" data-path="pcdata.html"><a href="pcdata.html#josm-joint-oil-sands-monitoring-data"><i class="fa fa-check"></i><b>2.1</b> JOSM (Joint Oil Sands Monitoring) data</a></li>
+<li class="chapter" data-level="2.2" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.2</b> Cross tabulating species counts</a></li>
+<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.3</b> Joining species data with predictors</a></li>
+<li class="chapter" data-level="2.4" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>2.4</b> Explore predictor variables</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>4</b> A Primer in Regression Techniques</a></li>
-<li class="chapter" data-level="5" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>5</b> Behavioral Complexities</a></li>
-<li class="chapter" data-level="6" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>6</b> The Detection Process</a></li>
-<li class="chapter" data-level="7" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>7</b> Dealing with Recordings</a></li>
-<li class="chapter" data-level="8" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8</b> A Closer Look at Assumptions</a></li>
-<li class="chapter" data-level="9" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>9</b> Understanding Roadside Surveys</a></li>
-<li class="chapter" data-level="10" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>10</b> Miscellaneous Topics</a></li>
+<li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> A Primer in Regression Techniques</a></li>
+<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
+<li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
+<li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/psolymos/qpad-book" target="blank">Published with bookdown</a></li>
+<li><a href="http://peter.solymos.org/qpad-book/" target="blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -193,10 +190,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Point count data analysis: How to violate assumptions and get away with it</h1>
 <p class="author"><em>Peter Solymos</em></p>
-<p class="date"><em>2019-06-04</em></p>
+<p class="date"><em>2019-06-05</em></p>
 </div>
-<div id="foreword" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Foreword</h1>
+<div id="foreword" class="section level1 unnumbered">
+<h1>Foreword</h1>
 <p>This book provides material for the workshop
 <em>Analysis of point-count data in the presence of variable survey methodologies and detection error</em>
 at the <a href="https://amornithmeeting.org/">AOS 2019 conference</a>
@@ -208,7 +205,7 @@ full day workshop (8 hours long with 3 breaks).</p>
 because this is not covered as part of the course.
 Check <a href="_etc/R-basics.pdf">this</a> intro.</p>
 <div id="about-the-book-and-the-course" class="section level2">
-<h2><span class="header-section-number">1.1</span> About the book and the course</h2>
+<h2><span class="header-section-number">0.1</span> About the book and the course</h2>
 <p>You’ll learn</p>
 <ul>
 <li>how to analyze your point count data when it combines different methodologies/protocols/technologies,</li>
@@ -216,7 +213,7 @@ Check <a href="_etc/R-basics.pdf">this</a> intro.</p>
 </ul>
 </div>
 <div id="about-the-author" class="section level2">
-<h2><span class="header-section-number">1.2</span> About the author</h2>
+<h2><span class="header-section-number">0.2</span> About the author</h2>
 <ul>
 <li>Ecologist (molluscs, birds),</li>
 <li>pretty good at stats (modeling, detectability, data cloning, multivariate),</li>
@@ -225,7 +222,7 @@ Check <a href="_etc/R-basics.pdf">this</a> intro.</p>
 </ul>
 </div>
 <div id="summary-of-course-objectives" class="section level2">
-<h2><span class="header-section-number">1.3</span> Summary of course objectives</h2>
+<h2><span class="header-section-number">0.3</span> Summary of course objectives</h2>
 <p>This course is aimed towards ornithologists analyzing field observations,
 who are often faced by data heterogeneities due to
 field sampling protocols changing from one project to another,
@@ -250,39 +247,39 @@ professional development via increased confidence in applying these methods
 for field observations.</p>
 </div>
 <div id="installing" class="section level2">
-<h2><span class="header-section-number">1.4</span> Installing</h2>
+<h2><span class="header-section-number">0.4</span> Installing</h2>
 <p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)
 <span class="co"># or the development version</span>
 <span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span>
 
-## clean up 
+<span class="co">## clean up </span>
 bookdown<span class="op">::</span><span class="kw">clean_book</span>(<span class="ot">TRUE</span>)
-## rendering the book
+<span class="co">## rendering the book</span>
 bookdown<span class="op">::</span><span class="kw">render_book</span>(<span class="st">&#39;index.Rmd&#39;</span>, <span class="st">&#39;bookdown::pdf_book&#39;</span>)
 bookdown<span class="op">::</span><span class="kw">render_book</span>(<span class="st">&#39;index.Rmd&#39;</span>, <span class="st">&#39;bookdown::gitbook&#39;</span>)
 bookdown<span class="op">::</span><span class="kw">render_book</span>(<span class="st">&#39;index.Rmd&#39;</span>, <span class="st">&#39;bookdown::epub_book&#39;</span>)</code></pre>
 <p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>.</p>
 </div>
 <div id="these-are-just-reminders-to-be-deleted-later" class="section level2">
-<h2><span class="header-section-number">1.5</span> These are just reminders, to be deleted later</h2>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="#methods"><strong>??</strong></a>.</p>
+<h2><span class="header-section-number">0.5</span> These are just reminders, to be deleted later</h2>
+<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">1</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="#methods"><strong>??</strong></a>.</p>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))
 <span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
 <img src="qpad-book_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
 <p class="caption">
-Figure 1.1: Here is a nice figure!
+Figure 0.1: Here is a nice figure!
 </p>
 </div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="index.html#fig:nice-fig">1.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="index.html#tab:nice-tab">1.1</a>.</p>
+<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="index.html#fig:nice-fig">0.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="index.html#tab:nice-tab">0.1</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(
   <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,
   <span class="dt">booktabs =</span> <span class="ot">TRUE</span>
 )</code></pre>
 <table>
-<caption><span id="tab:nice-tab">Table 1.1: </span>Here is a nice table!</caption>
+<caption><span id="tab:nice-tab">Table 0.1: </span>Here is a nice table!</caption>
 <thead>
 <tr class="header">
 <th align="right">Sepal.Length</th>
@@ -435,17 +432,17 @@ Figure 1.1: Here is a nice figure!
 </tr>
 </tbody>
 </table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2018</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
+<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2019</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2018. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown" class="uri">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
 <div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+</div>
+<div id="ref-R-bookdown">
+<p>Xie, Yihui. 2019. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
 </div>
             </section>
@@ -457,19 +454,19 @@ Figure 1.1: Here is a nice figure!
 <a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "google": false,
 "linkedin": false,
@@ -493,7 +490,7 @@ gitbook.start({
 },
 "download": ["qpad-book.pdf", "qpad-book.epub"],
 "toc": {
-"collapse": "subsection"
+"collapse": true
 }
 });
 });

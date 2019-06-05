@@ -21,12 +21,15 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{unicode=true,
             pdftitle={Point count data analysis: How to violate assumptions and get away with it},
             pdfauthor={Peter Solymos},
-            pdfborder={0 0 0},
+            colorlinks=true,
+            linkcolor=Maroon,
+            citecolor=Blue,
+            urlcolor=Blue,
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
@@ -109,7 +112,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,10 +128,14 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-04}
+    \date{2019-06-05}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
+\usepackage[many]{tcolorbox}
+\usepackage{graphicx}
+\usetikzlibrary{calc}
+
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
@@ -136,15 +143,57 @@
 }
 \makeatother
 
+% Create our general design
+\newtcolorbox{customBlockImage}[2][]{
+  enhanced,
+  top=10pt,
+  bottom=10pt,
+  colframe = white,
+  width=\textwidth,
+  boxsep=5pt,
+  arc=1pt,
+  outer arc=1pt,
+  leftupper=1.5cm,
+overlay={
+    \node[anchor=west]
+      at ([xshift=10pt] $ (interior.north west)!0.5!(interior.south west) $ )
+       {{\setkeys{Gin}{width=3em,keepaspectratio}\includegraphics{#2}}};},
+#1}
+
+% Define the colours to match the CSS
+\definecolor{cexercise}{HTML}{2BBBAD}
+\definecolor{cnote}{HTML}{4285F4}
+\definecolor{cwarning}{HTML}{AA66CC}
+
+ % Create the new environments for R Markdown
+\newenvironment{rmdexercise}
+  {\begin{customBlockImage}[colback=cexercise]{images/exercise}}
+  {\end{customBlockImage}}
+
+\newenvironment{rmdnote}
+  {\begin{customBlockImage}[colback=cnote]{images/note}}
+  {\end{customBlockImage}}
+
+\newenvironment{rmdwarning}
+  {\begin{customBlockImage}[colback=cwarning]{images/warning}}
+  {\end{customBlockImage}}
+
+\urlstyle{tt}
+
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
 {
-\setcounter{tocdepth}{1}
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
+\listoftables
+\listoffigures
 \hypertarget{foreword}{%
-\chapter{Foreword}\label{foreword}}
+\chapter*{Foreword}\label{foreword}}
+\addcontentsline{toc}{chapter}{Foreword}
 
 This book provides material for the workshop
 \emph{Analysis of point-count data in the presence of variable survey methodologies and detection error}
@@ -227,9 +276,9 @@ The \textbf{bookdown} package can be installed from CRAN or Github:
 \CommentTok{# or the development version}
 \CommentTok{# devtools::install_github("rstudio/bookdown")}
 
-\NormalTok{## clean up }
+\CommentTok{## clean up }
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{clean_book}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{## rendering the book}
+\CommentTok{## rendering the book}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::pdf_book'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::gitbook'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::epub_book'}\NormalTok{)}
@@ -887,38 +936,38 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 2-column data frame as reference}
+\CommentTok{## 2-column data frame as reference}
 \NormalTok{tmp <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"StationID"}\NormalTok{, }\StringTok{"SpeciesID"}\NormalTok{)]))}
-\NormalTok{## spare matrix}
+\CommentTok{## spare matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(ytot)) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1366087
+## [1] 0.1366
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## dense matrix}
+\CommentTok{## dense matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(ytot))) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.106463
+## [1] 1.106
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## matrix fill}
+\CommentTok{## matrix fill}
 \KeywordTok{sum}\NormalTok{(ytot }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{prod}\NormalTok{(}\KeywordTok{dim}\NormalTok{(ytot))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.0491063
+## [1] 0.04911
 \end{verbatim}
 
 Check if counts are as expected:
@@ -968,7 +1017,7 @@ Check if counts are as expected:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## lyover (FO) flock (FL) beyond 100m distance}
+\CommentTok{## lyover (FO) flock (FL) beyond 100m distance}
 \KeywordTok{head}\NormalTok{(josm}\OperatorTok{$}\NormalTok{counts[}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SiteID }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(ytot)[}\KeywordTok{which}\NormalTok{(ytot[,}\StringTok{"CANG"}\NormalTok{] }\OperatorTok{==}\StringTok{ }\DecValTok{200}\NormalTok{)] }\OperatorTok{&}
 \StringTok{  }\NormalTok{josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SpeciesID }\OperatorTok{==}\StringTok{ "CANG"}\NormalTok{,])}
@@ -1075,11 +1124,9 @@ Locations
 \begin{Highlighting}[]
 \NormalTok{cn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Open"}\NormalTok{, }\StringTok{"Water"}\NormalTok{, }\StringTok{"Agr"}\NormalTok{, }\StringTok{"UrbInd"}\NormalTok{, }\StringTok{"SoftLin"}\NormalTok{, }\StringTok{"Roads"}\NormalTok{, }
   \StringTok{"Decid"}\NormalTok{, }\StringTok{"OpenWet"}\NormalTok{, }\StringTok{"Conif"}\NormalTok{, }\StringTok{"ConifWet"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(x[,cn])}
+\CommentTok{#plot(x[,cn])}
 \end{Highlighting}
 \end{Shaded}
-
-\includegraphics{qpad-book_files/figure-latex/data_pred-1.pdf}
 
 Add here:
 
@@ -1100,6 +1147,18 @@ Exercise:
 \item
   use \texttt{summary}, \texttt{table}, \texttt{hist}, \texttt{plot}
 \end{itemize}
+
+\BeginKnitrBlock{rmdexercise}
+This is an exercise.
+\EndKnitrBlock{rmdexercise}
+
+\BeginKnitrBlock{rmdnote}
+This is a note.
+\EndKnitrBlock{rmdnote}
+
+\BeginKnitrBlock{rmdwarning}
+This is a warning.
+\EndKnitrBlock{rmdwarning}
 
 \hypertarget{regression}{%
 \chapter{A Primer in Regression Techniques}\label{regression}}

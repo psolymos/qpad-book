@@ -105,14 +105,14 @@ install.packages("bookdown")
 ## clean up 
 bookdown::clean_book(TRUE)
 ## rendering the book
-bookdown::render_book('index.Rmd', 'bookdown::pdf_book')
 bookdown::render_book('index.Rmd', 'bookdown::gitbook')
+bookdown::render_book('index.Rmd', 'bookdown::pdf_book')
 bookdown::render_book('index.Rmd', 'bookdown::epub_book')
 ```
 
 To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
 
-```{r include=FALSE}
+```{r include=FALSE,eval=FALSE}
 # select used packages here + install
 
 pkgs <- c("abind", "acepack", "ade4", "adegenet", "ADPclust", "akima", 

@@ -13,20 +13,20 @@ Luckily, there are only 4 things that can get messed up:
 3. taxonomy (UNK, mis-ID),
 4. something else (if there were no errors, check again).
 
-## JOSM (Joint Oil Sands Monitoring) data
+## JOSM data set
 
 Look at the source code in the `_data/josm` directory of the book
 if you are interested in data processing details.
 We skip that for now.
 
-```{r data_1,echo=FALSE}
+```{r data-1,echo=FALSE}
 include_graphics("./images/mahon-2016-fig-1.png")
 ```
 
 Cause-Effect Monitoring Migratory Landbirds at Regional Scales: 
 understand how boreal songbirds are affected by human activity in the oil sands area.
 
-```{r data_2,echo=FALSE}
+```{r data-2,echo=FALSE}
 include_graphics("./images/mahon-2016-fig-2.png")
 ```
 
@@ -57,7 +57,7 @@ The `josm` obejct is a list with 3 elements:
 - `species`: lookup table for species,
 - `counts`: individual counts by survey and species.
 
-```{r data_load_josm_data}
+```{r data-load_josm_data}
 library(mefa4)
 load("./_data/josm/josm.rda")
 names(josm)
@@ -66,14 +66,14 @@ names(josm)
 Species info: species codes, common and scientific names. The table could also contain
 taxonomic, trait, etc. information as well.
 
-```{r data_josm_species}
+```{r data-josm_species}
 head(josm$species)
 ```
 
 At the survey level, we have coordinates, date/time info,
 variables capturing survey conditions, and land cover info extracted from 1 km$^2$ resolution rasters.
 
-```{r data_josm_surveys}
+```{r data-josm_surveys}
 colnames(josm$surveys)
 ```
 
@@ -82,7 +82,7 @@ of a species (`SpeciesID` links to the species lookup table)
 observed during a survey (`StationID` links to the survey attribute table).
 Check the data dictionary in `_data/josm` folder for a detailed explanation of each column.
 
-```{r data_josm_counts}
+```{r data-josm_counts}
 str(josm$counts)
 ```
 
@@ -90,7 +90,7 @@ str(josm$counts)
 
 Take the following dummy data frame (long format):
 
-```{r data_dummy_data}
+```{r data-dummy_data}
 (d <- data.frame(
   sample=factor(paste0("S", c(1,1,1,2,2)), paste0("S", 1:3)),
   species=c("BTNW", "OVEN", "CANG", "AMRO", "CANG"),
@@ -101,13 +101,13 @@ str(d)
 
 We want to add up the `abundance`s for each sample (rows) and species (column):
 
-```{r data_xtab_1}
+```{r data-xtab_1}
 (y <- Xtab(abundance ~ sample + species, d))
 ```
 
 `y` is a sparse matrix, that is a very compact representation:
 
-```{r data_xtab_matrix}
+```{r data-xtab_matrix}
 object.size(d[,1:3])
 object.size(y)
 ```
@@ -117,13 +117,13 @@ We can drop such unused levels, but it is generally not recommended, and we need
 not to drop samples where no species was detected (this can happen quite often depending on timing of
 surveys)
 
-```{r data_xtab_2}
+```{r data-xtab_2}
 Xtab(abundance ~ sample + species, d, drop.unused.levels = TRUE)
 ```
 
 A sparse matrix can be converted to ordinary matrix
 
-```{r data_xtab_as_matrix}
+```{r data-xtab_as_matrix}
 as.matrix(y)
 ```
 
@@ -131,7 +131,7 @@ as.matrix(y)
 The nice thing about this cross tabulation is that we can finter the records without
 changing the structure (rows, columns) of the table:
 
-```{r data_xtab_3}
+```{r data-xtab_3}
 Xtab(abundance ~ sample + species, d[d$behavior == "heard",])
 Xtab(abundance ~ sample + species, d[d$behavior == "seen",])
 ```
@@ -144,19 +144,19 @@ formula in `Xtab`. `ytot` will be our total count matrix for now.
 We also want to filter the records to contain only `S`ongs and `C`alls, without
 `V`visual detections:
 
-```{r data_beh}
+```{r data-beh}
 table(josm$counts$DetectType1, useNA="always")
 ```
 
 We use `SiteID` for row names, because only 1 station and visit was done at each site:
 
-```{r data_xtab_4}
+```{r data-xtab_4}
 ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
 ```
 
 See how not storing 0's affect size compared to the long formar and an ordinary wide matrix
 
-```{r data_xtab_matrix_2}
+```{r data-xtab_matrix_2}
 ## 2-column data frame as reference
 tmp <- as.numeric(object.size(
   josm$counts[josm$counts$DetectType1 != "V", c("StationID", "SpeciesID")]))
@@ -181,7 +181,7 @@ head(josm$counts[
 
 We can check overall mean counts
 
-```{r data_mean_counts}
+```{r data-mean_counts}
 round(sort(colMeans(ytot)), 4)
 ```
 
@@ -190,7 +190,7 @@ round(sort(colMeans(ytot)), 4)
 Let's join the species counts with the survey attributes. This is how we can prepare the
 input data for regression analysis.
 
-```{r data_join}
+```{r data-join}
 spp <- "OVEN" # which species
 josm$species[spp,]
 
@@ -204,7 +204,7 @@ x$y <- as.numeric(ytot[rownames(x), spp])
 
 Locations
 
-```{r data_xy}
+```{r data-xy}
 library(raster)
 library(sp)
 rr <- stack("./_data/josm/landcover-hfi2016.grd")
@@ -218,7 +218,7 @@ plot(rr[["Water"]], col=col, axes=FALSE, box=FALSE)
 plot(xy, add=TRUE, pch=19, cex=0.5)
 ```
 
-```{r data_pred}
+```{r data-pred}
 cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", 
   "Decid", "OpenWet", "Conif", "ConifWet")
 #plot(x[,cn])

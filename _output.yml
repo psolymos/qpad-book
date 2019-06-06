@@ -2,7 +2,6 @@ bookdown::gitbook:
   css: style.css
   config:
     toc:
-      collapse: yes
       before: |
         <li><a href="./">QPAD Book</a></li>
       after: |

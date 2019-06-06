@@ -3,15 +3,15 @@
   margin-bottom: 10px;
 }
 .rmdexercise {
-  background: #2bbbad 5px center/3em no-repeat;
+  background: #a1be95 5px center/3em no-repeat;
   background-image: url("./images/exercise.png");
 }
 .rmdnote {
-  background: #4285f4 5px center/3em no-repeat;
+  background: #92aac7 5px center/3em no-repeat;
   background-image: url("./images/note.png");
 }
 .rmdwarning {
-  background: #aa66cc 5px center/3em no-repeat;
+  background: #ed5752 5px center/3em no-repeat;
   background-image: url("./images/warning.png");
 }
 p.caption {

@@ -2,14 +2,436 @@
 
 > All models are wrong, but some are useful -- Box
 
-lm, glm
+## Introduction
 
-main effects, interactions, offsets
+This chapter will provide all the foundations we need for the coming chapters.
+It is not intended as a general and all-exhaustive introduction to
+regression techniques, but rather the minimum requirement moving forwards.
+We will also hone our data processing and plotting skills.
 
-lasso, brt, boot/bagging, glmm
+## Prerequisites
 
-conditional and marginal effects
+```{r regr-libs,message=FALSE,warning=FALSE}
+library(mefa4)    # Data manipulation
+library(mgcv)     # GAMs
+library(pscl)     # zero-inflated models
+library(lme4)     # GLMMs
+library(MASS)     # Negative Binomial GLM
+library(partykit) # regression trees
+library(intrval)  # interval magic
+library(opticut)  # optimal partitioning
+library(visreg)   # regression visualization
+library(MuMIn)    # multi-model inference
+source("functions.R")
+```
 
-maybe opticut
+## Poisson null model
 
-cloglog motivation
+```{r regr-data}
+load("./_data/josm/josm.rda")
+
+spp <- "OVEN" # which species
+
+ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+ytot <- ytot[,colSums(ytot > 0) > 0]
+x <- data.frame(
+  josm$surveys, 
+  y=as.numeric(ytot[rownames(x), spp]))
+
+table(x$y)
+```
+
+$E[Y_i] = \lambda_i = \lambda$, $(Y_i \mid \lambda) \sim Poisson(\lambda)$, 
+$log(\lambda) = \beta_0$, $\lambda = e^{\beta_0}$
+
+Null model
+
+```{r regr-pois1}
+mP0 <- glm(y ~ 1, data=x, family=poisson)
+mean(x$y)
+mean(fitted(mP0))
+exp(coef(mP0))
+
+summary(mP0)
+```
+
+## Exploring covariates
+
+What is a useful covariate?
+
+```{r regr-ctree}
+mCT <- ctree(y ~ Open + Water + Agr + UrbInd + SoftLin + Roads + 
+  Decid + OpenWet + Conif + ConifWet, data=x)
+plot(mCT, cex=0.5)
+```
+
+## Poisson GLM with one covariate
+
+```{r regr-pois2}
+mP1 <- glm(y ~ Decid, data=x, family=poisson)
+mean(x$y)
+mean(fitted(mP0))
+
+summary(mP1)
+AIC(mP0, mP1)
+
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1)), 4)
+
+xnew <- data.frame(Decid=seq(0, 1, 0.01))
+CI0 <- predict_sim(mP0, xnew, interval="confidence", level=0.95, B=999)
+PI0 <- predict_sim(mP0, xnew, interval="prediction", level=0.95, B=999)
+CI1 <- predict_sim(mP1, xnew, interval="confidence", level=0.95, B=999)
+PI1 <- predict_sim(mP1, xnew, interval="prediction", level=0.95, B=999)
+
+## nominal coverage is 95%
+sum(x$y %[]% predict_sim(mP0, interval="prediction", level=0.95, B=999)[,c("lwr", "upr")]) / nrow(x)
+sum(x$y %[]% predict_sim(mP1, interval="prediction", level=0.95, B=999)[,c("lwr", "upr")]) / nrow(x)
+```
+
+## Additive model
+
+```{r}
+mGAM <- mgcv::gam(y ~ s(Decid), x, family=poisson)
+plot(mGAM)
+
+fitCT <- predict(mCT, x[order(x$Decid),])
+fitGAM <- predict(mGAM, xnew, type="response")
+
+op <- par(mfrow=c(2,2))
+plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
+lines(CI0$fit ~ xnew$Decid, lty=1, col=4)
+lines(CI0$lwr ~ xnew$Decid, lty=2, col=4)
+lines(CI0$upr ~ xnew$Decid, lty=2, col=4)
+lines(PI0$lwr ~ xnew$Decid, lty=3, col=4)
+lines(PI0$upr ~ xnew$Decid, lty=3, col=4)
+
+plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P1")
+lines(CI1$fit ~ xnew$Decid, lty=1, col=4)
+lines(CI1$lwr ~ xnew$Decid, lty=2, col=4)
+lines(CI1$upr ~ xnew$Decid, lty=2, col=4)
+lines(PI1$lwr ~ xnew$Decid, lty=3, col=4)
+lines(PI1$upr ~ xnew$Decid, lty=3, col=4)
+
+plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="ctree")
+lines(fitCT ~ x$Decid[order(x$Decid)], lty=1, col=4)
+
+plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="GAM")
+lines(fitGAM ~ xnew$Decid, lty=1, col=4)
+par(op)
+
+```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Play with GAM and other variables to understand responses:
+`plot(mgcv::gam(y ~ s(<variable_name>), data=x, family=poisson))`
+```
+
+## Multiple main effects
+
+
+```{r}
+mP2 <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
+  Decid + OpenWet + Conif + ConifWet + 
+  OvernightRain + TSSR + DAY + Longitude + Latitude,
+  data=x, family=poisson), trace=0)
+
+summary(mP2)
+AIC(mP0, mP1, mP2)
+
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2)), 4)
+```
+
+## Nonlinear terms
+
+Polynomials
+
+```{r}
+mP12 <- glm(y ~ Decid + I(Decid^2), data=x, family=poisson)
+mP13 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3), data=x, family=poisson)
+mP14 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3) + I(Decid^4), data=x, family=poisson)
+AIC(mP1, mP12, mP13, mP14)
+
+pr <- cbind(
+  predict(mP1, xnew, type="response"),
+  predict(mP12, xnew, type="response"),
+  predict(mP13, xnew, type="response"),
+  predict(mP14, xnew, type="response"),
+  fitGAM)
+matplot(xnew$Decid, pr, lty=1, type="l")
+```
+
+## Categorical variables
+
+Categories
+
+```{r}
+cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
+  "OpenWet", "Conif", "ConifWet")
+h <- find_max(x[,cn])
+hist(h$value)
+table(h$index)
+x$hab <- droplevels(h$index)
+
+mP3 <- glm(y ~ hab, data=x, family=poisson)
+
+summary(mP3)
+AIC(mP0, mP1, mP2, mP3)
+
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2), mP3=R2dev(mP3)), 4)
+```
+
+### Optimal partitioning
+
+```{r}
+oc <- opticut(as.matrix(ytot) ~ 1, strata = x$hab, dist="poisson")
+plot(oc)
+```
+
+### Finding optimal combinations of factor levels
+
+Categorical and compositional data
+
+```{r}
+# dominant hab
+M <- model.matrix(~hab-1, x)
+colnames(M) <- levels(x$hab)
+ol1 <- optilevels(x$y, M, dist="poisson")
+sort(exp(coef(bestmodel(ol1))))
+## estimates
+exp(ol1$coef)
+## optimal classification
+ol1$rank
+ol1$levels[[length(ol1$levels)]]
+
+# composition
+ol2 <- optilevels(x$y, x[,cn], dist="poisson")
+sort(exp(coef(bestmodel(ol2))))
+## estimates
+exp(ol2$coef)
+## optimal classification
+ol2$rank
+head(mefa4::groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
+```
+
+## Interactions
+
+```{r}
+mP4 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
+mP5 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
+AIC(mP0, mP1, mP4, mP5)
+summary(mP5)
+
+visreg(mGAM, scale="response")
+
+visreg(mP1, scale="response")
+visreg(mP4, scale="response")
+visreg(mP5, scale="response", xvar="Decid", by="ConifWet")
+
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2), mP3=R2dev(mP3),
+  mP4=R2dev(mP4), mP5=R2dev(mP5)), 4)
+model.sel(mP0, mP1, mP2, mP3, mP4, mP5)
+
+```
+
+## Different error distributions
+
+```{r}
+mP <- mP5 # best Poisson
+mNB <- glm.nb(y ~ Decid * ConifWet, data=x)
+mZIP <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="poisson")
+mZINB <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="negbin")
+
+AIC(mP, mNB, mZIP, mZINB)
+summary(mZINB)
+
+plogis(coef(mZINB, "zero")) # P of 0
+mZINB$theta # V(mu) = mu + mu^2/theta, ~inverse of variance
+
+# Variance function, 1:1 is Poisson
+mu <- seq(0, 5, 0.01)
+theta <- mZINB$theta
+plot(mu, mu + mu^2/mZINB$theta, type="l", col=2)
+lines(mu, mu + mu^2/mNB$theta, type="l", col=4)
+abline(0,1)
+
+```
+
+Poisson-Lognormal random effects, iid. and clustered:
+
+```{r}
+mPLN1 <- glmer(y ~ Decid * ConifWet + (1 | SiteID), data=x, family=poisson)
+mPLN2 <- glmer(y ~ Decid * ConifWet + (1 | SurveyArea), data=x, family=poisson)
+AIC(mP, mNB, mZIP, mZINB, mPLN1, mPLN2)
+summary(mPLN2)
+```
+
+## Counting time effects
+
+```{r}
+spp <- "OVEN" # which species
+
+ydur <- Xtab(~ SiteID + Dur + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+
+y <- as.matrix(ydur[[spp]])
+head(y)
+colMeans(y)
+cumsum(colMeans(y))
+
+x <- data.frame(
+  josm$surveys, 
+  y3=y[,"0-3min"],
+  y5=y[,"0-3min"]+y[,"3-5min"],
+  y10=rowSums(y))
+
+table(x$y3)
+table(x$y5)
+table(x$y10)
+
+m3 <- glm(y3 ~ Decid, data=x, family=poisson)
+m5 <- glm(y5 ~ Decid, data=x, family=poisson)
+m10 <- glm(y10 ~ Decid, data=x, family=poisson)
+mean(fitted(m3))
+mean(fitted(m5))
+mean(fitted(m10))
+
+set.seed(1)
+x$meth <- sample(c("A", "B", "C"), nrow(x), replace=TRUE)
+x$y <- x$y3
+x$y[x$meth == "B"] <- x$y5[x$meth == "B"]
+x$y[x$meth == "C"] <- x$y10[x$meth == "C"]
+boxplot(y ~ meth, x)
+
+mm <- glm(y ~ meth - 1, data=x, family=poisson)
+summary(mm)
+exp(coef(mm))
+
+mm <- glm(y ~ Decid + meth, data=x, family=poisson)
+summary(mm)
+boxplot(fitted(mm) ~ meth, x)
+exp(coef(mm))
+
+cumsum(colMeans(y))
+mean(y[,1]) * c(1, exp(coef(mm))[3:4])
+```
+
+It is all relative, depends on reference methodology/protocol.
+
+## Counting radius effects
+
+Use area subsets to demonstrate use of offsets
+
+```{r}
+spp <- "OVEN" # which species
+
+ydis <- Xtab(~ SiteID + Dis + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+
+y <- as.matrix(ydis[[spp]])
+head(y)
+colMeans(y)
+cumsum(colMeans(y))
+
+x <- data.frame(
+  josm$surveys, 
+  y50=y[,"0-50m"],
+  y100=y[,"0-50m"]+y[,"50-100m"])
+
+table(x$y50)
+table(x$y100)
+
+m50 <- glm(y50 ~ Decid, data=x, family=poisson)
+m100 <- glm(y100 ~ Decid, data=x, family=poisson)
+mean(fitted(m50))
+mean(fitted(m100))
+coef(m50)
+coef(m100)
+```
+
+## Offsets
+
+```{r}
+m50 <- glm(y50 ~ Decid, data=x, family=poisson, 
+  offset=rep(log(0.5^2*pi), nrow(x)))
+m100 <- glm(y100 ~ Decid, data=x, family=poisson,
+  offset=rep(log(1^2*pi), nrow(x)))
+coef(m50)
+coef(m100)
+mean(exp(model.matrix(m50) %*% coef(m50)))
+mean(exp(model.matrix(m100) %*% coef(m100)))
+
+set.seed(1)
+x$meth <- sample(c("A", "B"), nrow(x), replace=TRUE)
+x$y <- x$y50
+x$y[x$meth == "B"] <- x$y100[x$meth == "B"]
+boxplot(y ~ meth, x)
+
+mm <- glm(y ~ meth - 1, data=x, family=poisson)
+summary(mm)
+exp(coef(mm))
+
+mm <- glm(y ~ Decid + meth, data=x, family=poisson)
+summary(mm)
+boxplot(fitted(mm) ~ meth, x)
+exp(coef(mm))
+
+cumsum(colMeans(y))[1:2]
+mean(y[,1]) * c(1, exp(coef(mm))[3])
+
+
+mm <- glm(y ~ Decid, data=x, family=poisson,
+  offset=log(ifelse(x$meth == "A", 0.5, 1)^2*pi))
+summary(mm)
+boxplot(fitted(mm) ~ meth, x)
+
+cumsum(colMeans(y))[1:2]
+c(0.5, 1)^2*pi * mean(exp(model.matrix(mm) %*% coef(mm))) # /ha
+
+
+```
+
+## Definitions
+
+Discuss definitions of:
+
+- relative abundance,
+- abundance,
+- occupancy,
+- density.
+
+## Binomial model and censoring
+
+Try cloglog with a rare species, like BOCH
+
+```{r}
+#spp <- "OVEN" # which species
+spp <- "BOCH" # which species
+#spp <- "CAWA" # which species
+
+x <- data.frame(
+  josm$surveys, 
+  y=as.numeric(ytot[rownames(x), spp]))
+x$y01 <- ifelse(x$y > 0, 1, 0)
+
+table(x$y)
+
+
+mP <- glm(y ~ Decid * ConifWet, x, family=poisson)
+mBc <- glm(y01 ~ Decid * ConifWet, x, family=binomial("cloglog"))
+mBl <- glm(y01 ~ Decid * ConifWet, x, family=binomial("logit"))
+
+coef(mP)
+coef(mBc)
+coef(mBl)
+
+plot(fitted(mBc) ~ fitted(mP), col=4, 
+  ylim=c(0, max(fitted(mP))), xlim=c(0, max(fitted(mP))))
+points(exp(model.matrix(mBc) %*% coef(mBc)) ~ fitted(mP), col=2)
+abline(0,1)
+```
+
+

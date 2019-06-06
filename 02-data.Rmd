@@ -214,7 +214,7 @@ coordinates(xy) <- ~ Longitude + Latitude
 proj4string(xy) <- "+proj=longlat +ellps=GRS80 +datum=NAD83 +no_defs"
 xy <- spTransform(xy, proj4string(rr))
 col <- colorRampPalette(c("lightgrey", "blue"))(100)
-plot(rr[["Water"]], col=col, axes=FALSE, box=FALSE)
+plot(rr[["Water"]], col=col, axes=FALSE, box=FALSE, legend=FALSE)
 plot(xy, add=TRUE, pch=19, cex=0.5)
 ```
 
@@ -225,25 +225,11 @@ cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads",
 ```
 
 
-Add here:
-
-- those kinds of transformations that are needed for regression
-- need to add absolute links to figures???
-
-Exercise: 
-
-- play with the data to understand the distributions
-- use `summary`, `table`, `hist`, `plot`
-
-
 ```{block2, type='rmdexercise'}
-This is an exercise.
+**Exercise**
+
+Play with the data to understand the distributions and associations.
+Use `summary`, `table`, `hist`, `plot`, etc.
 ```
 
-```{block2, type='rmdnote'}
-This is a note.
-```
 
-```{block2, type='rmdwarning'}
-This is a warning.
-```

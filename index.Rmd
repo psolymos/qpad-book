@@ -36,7 +36,11 @@ par(las=1)
 library(knitr)
 ```
 
-# Foreword {-}
+# Preface {-#foreword}
+
+```{r fig.align='center',echo=FALSE,include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('images/cover.png')
+```
 
 This book provides material for the workshop
 *Analysis of point-count data in the presence of variable survey methodologies and detection error*
@@ -51,23 +55,14 @@ Prior exposure to [R](https://www.r-project.org/) language is necessary
 because this is not covered as part of the course.
 Check [this](_etc/R-basics.pdf) intro.
 
-## About the book and the course
+## About the book and the course {-}
 
 You'll learn
 
 - how to analyze your point count data when it combines different methodologies/protocols/technologies,
 - how to violate assumptions and get away with it.
 
-## About the author
-
-- Ecologist (molluscs, birds),
-- pretty good at stats (modeling, detectability, data cloning, multivariate),
-- R programmer (vegan, detect, ResourceSelection, pbapply),
-- sometimes I teach (like today).
-
-## Summary of course objectives
-
-This course is aimed towards ornithologists analyzing field observations,
+This book/course is aimed towards ornithologists analyzing field observations,
 who are often faced by data heterogeneities due to
 field sampling protocols changing from one project to another,
 or through time over the lifespan of projects, or trying to combine
@@ -93,7 +88,12 @@ The expected outcome of the course is a solid foundation for further
 professional development via increased confidence in applying these methods
 for field observations.
 
-## Installing
+## About the author {-}
+
+Peter Solymos is an ecologist (molluscs, birds), he is pretty good at stats (modeling, detectability, data cloning, multivariate), an R programmer (vegan, detect, ResourceSelection, pbapply),
+sometimes he teaches (like the contents of this book).
+
+## Installing {-}
 
 The **bookdown** package can be installed from CRAN or Github:
 
@@ -176,7 +176,26 @@ knitr::write_bib(pkgs, 'packages.bib')
 ```
 
 
-## These are just reminders, to be deleted later
+### How this works {-}
+
+
+```{block2, type='rmdexercise'}
+This is an exercise.
+```
+
+```{block2, type='rmdnote'}
+This is a note.
+```
+
+```{block2, type='rmdwarning'}
+This is a warning.
+```
+
+
+## Acknowledgments {-}
+
+
+## These are just reminders, to be deleted later {-}
 
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 

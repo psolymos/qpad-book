@@ -149,7 +149,7 @@ table(y12$Distance,y12$TimeInterval,useNA = "a")
 y12$Dur <- as.factor(y12$TimeInterval)
 levels(y12$Dur) <- c("0-3min", "3-5min", "5-10min")
 y12$Dis <- as.factor(y12$Distance)
-levels(y12$Dis) <-c("0-50m", "50-100min", "100+m", "100+m")
+levels(y12$Dis) <-c("0-50m", "50-100m", "100+m", "100+m")
 table(y12$Dur, y12$Dis, useNA = "a")
 #' Some other columns of interest
 table(y12$Sex, y12$Age, useNA = "a")

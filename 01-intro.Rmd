@@ -151,6 +151,10 @@ sich as this preprint version of Norman Matloff's *The Art of R Programming* boo
 
 R is a great calculator:
 
+```{r include=FALSE}
+knitr::opts_chunk$set(eval=FALSE)
+```
+
 ```{r}
 1 + 2
 ```
@@ -311,5 +315,9 @@ summary(z)
 summary(m)
 summary(l)
 summary(d)
+```
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval=TRUE)
 ```
 

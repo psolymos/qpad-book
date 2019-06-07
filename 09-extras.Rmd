@@ -13,3 +13,59 @@ N-mixture ideas
 phylogenetic and life history/trait stuff
 
 PIF methods
+
+## These are just reminders, to be deleted later {-}
+
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway.
+
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+## Binomial model and censoring
+
+Try cloglog with a rare species, like BOCH
+
+```{r eval=FALSE}
+#spp <- "OVEN" # which species
+spp <- "BOCH" # which species
+#spp <- "CAWA" # which species
+
+x <- data.frame(
+  josm$surveys, 
+  y=as.numeric(ytot[rownames(x), spp]))
+x$y01 <- ifelse(x$y > 0, 1, 0)
+
+table(x$y)
+
+
+mP <- glm(y ~ Decid * ConifWet, x, family=poisson)
+mBc <- glm(y01 ~ Decid * ConifWet, x, family=binomial("cloglog"))
+mBl <- glm(y01 ~ Decid * ConifWet, x, family=binomial("logit"))
+
+coef(mP)
+coef(mBc)
+coef(mBl)
+
+plot(fitted(mBc) ~ fitted(mP), col=4, 
+  ylim=c(0, max(fitted(mP))), xlim=c(0, max(fitted(mP))))
+points(exp(model.matrix(mBc) %*% coef(mBc)) ~ fitted(mP), col=2)
+abline(0,1)
+```
+
+
+
+
+

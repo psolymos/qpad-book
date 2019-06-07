@@ -2,36 +2,222 @@
 
 > All data are messy, but some are missing
 
+## Introduction
+
 It is often called _data processing_, _data munging_,
 _data wrangling_, _data cleaning_.
 None of these expressions capture the dread associated with the actual activity.
+Luckily, this book and course is not about data manipulation,
+and we can gladly skip these steps. But keep in mind,
+in real life, you'll often have to worry about at least four things
+that can go wrong:
 
-Luckily, there are only 4 things that can get messed up:
-
-1. space (e.g. wrong UTM zones),
+1. space (e.g. wrong UTM zones, errors),
 2. time (ISO format please),
-3. taxonomy (UNK, mis-ID),
+3. taxonomy (unknowns, mis-identifications),
 4. something else (if there were no errors, check again).
+
+This chapter sets you up for the required data skills for the
+rest of the book/course.
+
+## Prerequisites
+
+```{r data-load_josm_data}
+library(mefa4)                # data manipulation
+library(raster)               # reading raster files
+library(sp)                   # spatial data manipulation
+load("_data/josm/josm.rda")   # load bird data
+rr <- stack("_data/josm/landcover-hfi2016.grd") # rasters
+```
+
+## R basics
+
+This short document is intended to help you brush up your R skills.
+If you feel that these R basics are not very familiar,
+I suggest to take a look at some introductory R books,
+sich as this preprint version of Norman Matloff's *The Art of R Programming* book: http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf, check out Chapters 1--6.
+
+R is a great calculator:
+
+```{r eval=FALSE}
+1 + 2
+```
+
+Assign a value and print an object using `=` or `<-` (preferred in this book):
+
+```{r eval=FALSE}
+(x = 2) # shorthand for print
+print(x)
+x == 2 # logical operator, not assignment
+y <- x + 0.5
+y # another way to print
+```
+
+Logical operators come handy:
+
+```{r eval=FALSE}
+x == y # equal
+x != y # not eaqual
+x < y # smaller than
+x >= y # greater than or equal
+```
+
+Vectors and sequences are created most often by the functions
+`c`, `:`, `seq`, and `rep`:
+
+```{r eval=FALSE}
+x <- c(1, 2, 3)
+x
+1:3
+seq(1, 3, by = 1)
+
+rep(1, 5)
+rep(1:2, 5)
+rep(1:2, each = 5)
+```
+
+When doing operations with vectors remember that values of
+the shorter object are recycled:
+
+```{r eval=FALSE}
+x + 0.5
+x * c(10, 11, 12, 13)
+```
+
+Indexing and ordering vectors is a a fundamental skill:
+
+```{r eval=FALSE}
+x[1]
+x[c(1, 1, 1)] # a way of repeatig values
+x[1:2]
+x[x != 2]
+x[x == 2]
+x[x > 1 & x < 3]
+order(x, decreasing=TRUE)
+x[order(x, decreasing=TRUE)]
+rev(x) # reverse
+```
+
+See how `NA` values can influence
+sorting character vectors:
+
+```{r eval=FALSE}
+z <- c("b", "a", "c", NA)
+z[z == "a"]
+z[!is.na(z) & z == "a"]
+z[is.na(z) | z == "a"]
+is.na(z)
+which(is.na(z))
+sort(z)
+sort(z, na.last=TRUE)
+```
+
+There are a few special values:
+
+```{r eval=FALSE}
+as.numeric(c("1", "a")) # NA: not available (missing or invalid)
+0/0 # NaN: not a number
+1/0 # Inf
+-1/0 # -Inf
+```
+
+Matrices and arrays are vectors with dimensions, elements are in same mode: 
+
+
+```{r eval=FALSE}
+(m <- matrix(1:12, 4, 3))
+matrix(1:12, 4, 3, byrow=TRUE)
+
+array(1:12, c(2, 2, 3))
+```
+
+Many objects have attributes:
+
+```{r eval=FALSE}
+dim(m)
+dim(m) <- NULL
+m
+dim(m) <- c(4, 3)
+m
+dimnames(m) <- list(letters[1:4], LETTERS[1:3])
+m
+attributes(m)
+```
+
+Matrice and indices:
+
+```{r eval=FALSE}
+m[1:2,]
+m[1,2]
+m[,2]
+m[,2,drop=FALSE]
+m[2]
+
+m[rownames(m) == "c",]
+m[rownames(m) != "c",]
+m[rownames(m) %in% c("a", "c", "e"),]
+m[!(rownames(m) %in% c("a", "c", "e")),]
+```
+
+Lists and indexing:
+
+```{r eval=FALSE}
+l <- list(m = m, x = x, z = z)
+l
+l$ddd <- sqrt(l$x)
+l[2:3]
+l[["ddd"]]
+```
+
+Data frames are often required for statistical modeling.
+A data frame is a list where length of elements match and elements 
+can be in different mode.
+
+
+```{r eval=FALSE}
+d <- data.frame(x = x, sqrt_x = sqrt(x))
+d
+```
+
+Inspect structure of R objects:
+
+```{r eval=FALSE}
+str(x)
+str(z)
+str(m)
+str(l)
+str(d)
+str(as.data.frame(m))
+str(as.list(d))
+```
+
+Get summaries of these objects:
+
+```{r eval=FALSE}
+summary(x)
+summary(z)
+summary(m)
+summary(l)
+summary(d)
+```
+
 
 ## JOSM data set
 
+The data is based on the project _Cause-Effect Monitoring Migratory Landbirds at Regional Scales: 
+understand how boreal songbirds are affected by human activity in the oil sands area_ (\@ref(fig:data-1) and \@ref(fig:data-2), [@mahon2016]).
+JOSM stands for Joint Oil Sands Monitoring.
 Look at the source code in the `_data/josm` directory of the book
 if you are interested in data processing details.
 We skip that for now.
 
-```{r data-1,echo=FALSE}
-include_graphics("./images/mahon-2016-fig-1.png")
+```{r data-1,echo=FALSE,fig.cap='JOSM bird data survey locations from [@mahon2016].',out.width='80%'}
+include_graphics("images/mahon-2016-fig-1.png")
 ```
 
-Cause-Effect Monitoring Migratory Landbirds at Regional Scales: 
-understand how boreal songbirds are affected by human activity in the oil sands area.
-
-```{r data-2,echo=FALSE}
-include_graphics("./images/mahon-2016-fig-2.png")
+```{r data-2,echo=FALSE,fig.cap='Survey area boundary, habitat types and human footprint mapping [@mahon2016].',out.width='80%'}
+include_graphics("images/mahon-2016-fig-2.png")
 ```
-
-Survey area boundary ($r$=2.5 km circle), habitat type and human footprint mapping, 
-and clustered point count site locations.
 
 Surveys were spatially replicated because:
 
@@ -57,9 +243,7 @@ The `josm` obejct is a list with 3 elements:
 - `species`: lookup table for species,
 - `counts`: individual counts by survey and species.
 
-```{r data-load_josm_data}
-library(mefa4)
-load("./_data/josm/josm.rda")
+```{r data-josm_data}
 names(josm)
 ```
 
@@ -179,7 +363,7 @@ head(josm$counts[
   josm$counts$SpeciesID == "CANG",])
 ```
 
-We can check overall mean counts
+We can check overall mean counts:
 
 ```{r data-mean_counts}
 round(sort(colMeans(ytot)), 4)
@@ -187,8 +371,8 @@ round(sort(colMeans(ytot)), 4)
 
 ## Joining species data with predictors
 
-Let's join the species counts with the survey attributes. This is how we can prepare the
-input data for regression analysis.
+Let's join the species counts with the survey attributes. 
+This is how we can prepare the input data for regression analysis.
 
 ```{r data-join}
 spp <- "OVEN" # which species
@@ -202,13 +386,9 @@ x$y <- as.numeric(ytot[rownames(x), spp])
 
 ## Explore predictor variables
 
-Locations
+Put the locations on the map:
 
 ```{r data-xy}
-library(raster)
-library(sp)
-rr <- stack("./_data/josm/landcover-hfi2016.grd")
-#' Define CRS NAD83 for our sites
 xy <- x[,c("Longitude", "Latitude")]
 coordinates(xy) <- ~ Longitude + Latitude
 proj4string(xy) <- "+proj=longlat +ellps=GRS80 +datum=NAD83 +no_defs"
@@ -218,18 +398,12 @@ plot(rr[["Water"]], col=col, axes=FALSE, box=FALSE, legend=FALSE)
 plot(xy, add=TRUE, pch=19, cex=0.5)
 ```
 
-```{r data-pred}
-cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", 
-  "Decid", "OpenWet", "Conif", "ConifWet")
-#plot(x[,cn])
-```
-
 
 ```{block2, type='rmdexercise'}
 **Exercise**
 
 Play with the data to understand the distributions and associations.
-Use `summary`, `table`, `hist`, `plot`, etc.
+Use `summary`, `table`, `hist`, `plot` (bivariate, scatterplot matrix), etc.
 ```
 
 

@@ -12,24 +12,23 @@ We will also hone our data processing and plotting skills.
 ## Prerequisites
 
 ```{r regr-libs,message=FALSE,warning=FALSE}
-library(mefa4)    # Data manipulation
-library(mgcv)     # GAMs
-library(pscl)     # zero-inflated models
-library(lme4)     # GLMMs
-library(MASS)     # Negative Binomial GLM
-library(partykit) # regression trees
-library(intrval)  # interval magic
-library(opticut)  # optimal partitioning
-library(visreg)   # regression visualization
-library(MuMIn)    # multi-model inference
-source("functions.R")
+library(mefa4)        # data manipulation
+library(mgcv)         # GAMs
+library(pscl)         # zero-inflated models
+library(lme4)         # GLMMs
+library(MASS)         # Negative Binomial GLM
+library(partykit)     # regression trees
+library(intrval)      # interval magic
+library(opticut)      # optimal partitioning
+library(visreg)       # regression visualization
+library(MuMIn)        # multi-model inference
+source("functions.R") # some useful stuff
+load("./_data/josm/josm.rda") # JOSM data
 ```
 
 ## Poisson null model
 
 ```{r regr-data}
-load("./_data/josm/josm.rda")
-
 spp <- "OVEN" # which species
 
 ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
@@ -402,36 +401,4 @@ Discuss definitions of:
 - abundance,
 - occupancy,
 - density.
-
-## Binomial model and censoring
-
-Try cloglog with a rare species, like BOCH
-
-```{r}
-#spp <- "OVEN" # which species
-spp <- "BOCH" # which species
-#spp <- "CAWA" # which species
-
-x <- data.frame(
-  josm$surveys, 
-  y=as.numeric(ytot[rownames(x), spp]))
-x$y01 <- ifelse(x$y > 0, 1, 0)
-
-table(x$y)
-
-
-mP <- glm(y ~ Decid * ConifWet, x, family=poisson)
-mBc <- glm(y01 ~ Decid * ConifWet, x, family=binomial("cloglog"))
-mBl <- glm(y01 ~ Decid * ConifWet, x, family=binomial("logit"))
-
-coef(mP)
-coef(mBc)
-coef(mBl)
-
-plot(fitted(mBc) ~ fitted(mP), col=4, 
-  ylim=c(0, max(fitted(mP))), xlim=c(0, max(fitted(mP))))
-points(exp(model.matrix(mBc) %*% coef(mBc)) ~ fitted(mP), col=2)
-abline(0,1)
-```
-
 

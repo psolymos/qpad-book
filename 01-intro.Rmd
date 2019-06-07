@@ -2,7 +2,6 @@
 
 > All assumptions are violated, but some are more than others
 
-
 A comparison of apples and oranges occurs when two items or 
 groups of items are compared that cannot be practically compared 
 ([Wikipedia](https://en.wikipedia.org/wiki/Apples_and_oranges)).
@@ -38,10 +37,10 @@ Point count duration and distance have profound effect
 on the counts, as shown in Figure \@ref(fig:intro-1)
 showing that a 10-min unlimited distance count 
 is roughly 300% increased compared to 3-min 50-m counts 
-(averaged across 54 species of boreal songbirds, Matsuoka et al. 2014).
+(averaged across 54 species of boreal songbirds, [@matsuoka2014]).
 
-```{r intro-1,echo=FALSE,fig.cap='Effects of duration and distance on mean counts (Matsuoka et al. 2014).',out.width='80%'}
-include_graphics("./images/matsuoka-2014-fig-2.png")
+```{r intro-1,echo=FALSE,fig.cap='Effects of duration and distance on mean counts, from [@matsuoka2014].',out.width='80%'}
+include_graphics("images/matsuoka-2014-fig-2.png")
 ```
 
 Point counts are commonly used to answer questions like:
@@ -60,12 +59,12 @@ minimize extraneous variability in the counts.
 
 But programs started to deviate from standards:
 _"For example, only 3% of 196,000 point counts conducted during the period
-1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius"_ (Matsuoka et al. 2014).
+1992--2011 across Alaska and Canada followed the standards recommended for the count period and count radius"_ ([@matsuoka2014]).
 Figure \@ref(fig:intro-2) show how point count protocol varies
 across the boreal region of North America.
 
-```{r intro-2,echo=FALSE,fig.cap='Survey methodology variation (colors) among contributed projects in the Boreal Avian Modelling (BAM) data base (Barker et al. 2015).',out.width='80%'}
-include_graphics("./images/barker-2015-fig-2.png")
+```{r intro-2,echo=FALSE,fig.cap='Survey methodology variation (colors) among contributed projects in the Boreal Avian Modelling (BAM) data base, from [@barker2015].',out.width='80%'}
+include_graphics("images/barker-2015-fig-2.png")
 ```
 
 
@@ -141,183 +140,4 @@ To get away with it, we need to understand how much is too much,
 and whether it has an impact in practice.
 If there is a practical consequence, we will look at ways to minimize
 that effects -- so that we can safely ignore the assumption.
-
-## R basics
-
-This short document is intended to help you brush up your R skills.
-If you feel that these R basics are not very familiar,
-I suggest to take a look at some introductory R books,
-sich as this preprint version of Norman Matloff's *The Art of R Programming* book: http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf, check out Chapters 1--6.
-
-R is a great calculator:
-
-```{r include=FALSE}
-knitr::opts_chunk$set(eval=FALSE)
-```
-
-```{r}
-1 + 2
-```
-
-Assign a value and print an object using `=` or `<-` (preferred in this book):
-
-```{r}
-(x = 2) # shorthand for print
-print(x)
-x == 2 # logical operator, not assignment
-y <- x + 0.5
-y # another way to print
-```
-
-Logical operators come handy:
-
-```{r}
-x == y # equal
-x != y # not eaqual
-x < y # smaller than
-x >= y # greater than or equal
-```
-
-Vectors and sequences are created most often by the functions
-`c`, `:`, `seq`, and `rep`:
-
-```{r}
-x <- c(1, 2, 3)
-x
-1:3
-seq(1, 3, by = 1)
-
-rep(1, 5)
-rep(1:2, 5)
-rep(1:2, each = 5)
-```
-
-When doing operations with vectors remember that values of
-the shorter object are recycled:
-
-```{r}
-x + 0.5
-x * c(10, 11, 12, 13)
-```
-
-Indexing and ordering vectors is a a fundamental skill:
-
-```{r}
-x[1]
-x[c(1, 1, 1)] # a way of repeatig values
-x[1:2]
-x[x != 2]
-x[x == 2]
-x[x > 1 & x < 3]
-order(x, decreasing=TRUE)
-x[order(x, decreasing=TRUE)]
-rev(x) # reverse
-```
-
-See how `NA` values can influence
-sorting character vectors:
-
-```{r}
-z <- c("b", "a", "c", NA)
-z[z == "a"]
-z[!is.na(z) & z == "a"]
-z[is.na(z) | z == "a"]
-is.na(z)
-which(is.na(z))
-sort(z)
-sort(z, na.last=TRUE)
-```
-
-There are a few special values:
-
-```{r}
-as.numeric(c("1", "a")) # NA: not available (missing or invalid)
-0/0 # NaN: not a number
-1/0 # Inf
--1/0 # -Inf
-```
-
-Matrices and arrays are vectors with dimensions, elements are in same mode: 
-
-
-```{r}
-(m <- matrix(1:12, 4, 3))
-matrix(1:12, 4, 3, byrow=TRUE)
-
-array(1:12, c(2, 2, 3))
-```
-
-Many objects have attributes:
-
-```{r}
-dim(m)
-dim(m) <- NULL
-m
-dim(m) <- c(4, 3)
-m
-dimnames(m) <- list(letters[1:4], LETTERS[1:3])
-m
-attributes(m)
-```
-
-Matrice and indices:
-
-```{r}
-m[1:2,]
-m[1,2]
-m[,2]
-m[,2,drop=FALSE]
-m[2]
-
-m[rownames(m) == "c",]
-m[rownames(m) != "c",]
-m[rownames(m) %in% c("a", "c", "e"),]
-m[!(rownames(m) %in% c("a", "c", "e")),]
-```
-
-Lists and indexing:
-
-```{r}
-l <- list(m = m, x = x, z = z)
-l
-l$ddd <- sqrt(l$x)
-l[2:3]
-l[["ddd"]]
-```
-
-Data frames are often required for statistical modeling.
-A data frame is a list where length of elements match and elements 
-can be in different mode.
-
-
-```{r}
-d <- data.frame(x = x, sqrt_x = sqrt(x))
-d
-```
-
-Inspect structure of R objects:
-
-```{r}
-str(x)
-str(z)
-str(m)
-str(l)
-str(d)
-str(as.data.frame(m))
-str(as.list(d))
-```
-
-Get summaries of these objects:
-
-```{r}
-summary(x)
-summary(z)
-summary(m)
-summary(l)
-summary(d)
-```
-
-```{r include=FALSE}
-knitr::opts_chunk$set(eval=TRUE)
-```
 

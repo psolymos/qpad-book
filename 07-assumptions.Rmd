@@ -1,4 +1,0 @@
-# A Closer Look at Assumptions {#assumptions}
-
-break thos assumptions
-

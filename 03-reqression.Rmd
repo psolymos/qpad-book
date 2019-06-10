@@ -35,7 +35,13 @@ ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",]
 ytot <- ytot[,colSums(ytot > 0) > 0]
 x <- data.frame(
   josm$surveys, 
-  y=as.numeric(ytot[rownames(x), spp]))
+  y=as.numeric(ytot[rownames(josm$surveys), spp]))
+x$FOR <- x$Decid + x$Conif+ x$ConifWet # forest
+x$AHF <- x$Agr + x$UrbInd + x$Roads # 'alienating' human footprint
+x$WET <- x$OpenWet + x$ConifWet + x$Water # wet + water
+cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
+  "OpenWet", "Conif", "ConifWet")
+x$HAB <- droplevels(find_max(x[,cn])$index) # drop empty levels
 
 table(x$y)
 ```
@@ -58,10 +64,10 @@ summary(mP0)
 
 What is a useful covariate?
 
-```{r regr-ctree}
+```{r regr-ctree,fig.width=20}
 mCT <- ctree(y ~ Open + Water + Agr + UrbInd + SoftLin + Roads + 
   Decid + OpenWet + Conif + ConifWet, data=x)
-plot(mCT, cex=0.5)
+plot(mCT)
 ```
 
 ## Poisson GLM with one covariate
@@ -75,49 +81,55 @@ summary(mP1)
 AIC(mP0, mP1)
 
 round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1)), 4)
+```
 
+```{r regr-pois_pred,cache=TRUE}
+B <- 999
 xnew <- data.frame(Decid=seq(0, 1, 0.01))
-CI0 <- predict_sim(mP0, xnew, interval="confidence", level=0.95, B=999)
-PI0 <- predict_sim(mP0, xnew, interval="prediction", level=0.95, B=999)
-CI1 <- predict_sim(mP1, xnew, interval="confidence", level=0.95, B=999)
-PI1 <- predict_sim(mP1, xnew, interval="prediction", level=0.95, B=999)
+CI0 <- predict_sim(mP0, xnew, interval="confidence", level=0.95, B=B)
+PI0 <- predict_sim(mP0, xnew, interval="prediction", level=0.95, B=B)
+CI1 <- predict_sim(mP1, xnew, interval="confidence", level=0.95, B=B)
+PI1 <- predict_sim(mP1, xnew, interval="prediction", level=0.95, B=B)
 
 ## nominal coverage is 95%
-sum(x$y %[]% predict_sim(mP0, interval="prediction", level=0.95, B=999)[,c("lwr", "upr")]) / nrow(x)
-sum(x$y %[]% predict_sim(mP1, interval="prediction", level=0.95, B=999)[,c("lwr", "upr")]) / nrow(x)
+sum(x$y %[]% predict_sim(mP0, interval="prediction", level=0.95, B=B)[,c("lwr", "upr")]) / nrow(x)
+sum(x$y %[]% predict_sim(mP1, interval="prediction", level=0.95, B=B)[,c("lwr", "upr")]) / nrow(x)
 ```
 
 ## Additive model
 
-```{r}
+```{r regr-gam}
 mGAM <- mgcv::gam(y ~ s(Decid), x, family=poisson)
 plot(mGAM)
+```
 
+```{r regr-glm_plots}
 fitCT <- predict(mCT, x[order(x$Decid),])
 fitGAM <- predict(mGAM, xnew, type="response")
+yj <- jitter(x$y, 0.5)
 
 op <- par(mfrow=c(2,2))
-plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
   ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI0$lwr, rev(PI0$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI0$lwr, rev(CI0$upr)), border=NA, col="#0000ff88")
 lines(CI0$fit ~ xnew$Decid, lty=1, col=4)
-lines(CI0$lwr ~ xnew$Decid, lty=2, col=4)
-lines(CI0$upr ~ xnew$Decid, lty=2, col=4)
-lines(PI0$lwr ~ xnew$Decid, lty=3, col=4)
-lines(PI0$upr ~ xnew$Decid, lty=3, col=4)
 
-plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
   ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P1")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI1$lwr, rev(PI1$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI1$lwr, rev(CI1$upr)), border=NA, col="#0000ff88")
 lines(CI1$fit ~ xnew$Decid, lty=1, col=4)
-lines(CI1$lwr ~ xnew$Decid, lty=2, col=4)
-lines(CI1$upr ~ xnew$Decid, lty=2, col=4)
-lines(PI1$lwr ~ xnew$Decid, lty=3, col=4)
-lines(PI1$upr ~ xnew$Decid, lty=3, col=4)
 
-plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
   ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="ctree")
 lines(fitCT ~ x$Decid[order(x$Decid)], lty=1, col=4)
 
-plot(jitter(y, 0.5) ~ Decid, x, xlab="Decid", ylab="E[Y]",
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
   ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="GAM")
 lines(fitGAM ~ xnew$Decid, lty=1, col=4)
 par(op)
@@ -131,31 +143,18 @@ Play with GAM and other variables to understand responses:
 `plot(mgcv::gam(y ~ s(<variable_name>), data=x, family=poisson))`
 ```
 
-## Multiple main effects
-
-
-```{r}
-mP2 <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
-  Decid + OpenWet + Conif + ConifWet + 
-  OvernightRain + TSSR + DAY + Longitude + Latitude,
-  data=x, family=poisson), trace=0)
-
-summary(mP2)
-AIC(mP0, mP1, mP2)
-
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2)), 4)
-```
-
 ## Nonlinear terms
 
 Polynomials
 
-```{r}
+```{r regr-pois_poly}
 mP12 <- glm(y ~ Decid + I(Decid^2), data=x, family=poisson)
 mP13 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3), data=x, family=poisson)
 mP14 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3) + I(Decid^4), data=x, family=poisson)
 AIC(mP1, mP12, mP13, mP14)
+```
 
+```{r regr-pois_poly_plot}
 pr <- cbind(
   predict(mP1, xnew, type="response"),
   predict(mP12, xnew, type="response"),
@@ -163,34 +162,75 @@ pr <- cbind(
   predict(mP14, xnew, type="response"),
   fitGAM)
 matplot(xnew$Decid, pr, lty=1, type="l")
+legend("topleft", lty=1, col=1:5, bty="n",
+  legend=c("linear", "quadratic", "cubic", "quartic", "GAM"))
+```
+
+```{r regr-pois_poly_pi,cache=TRUE}
+CI12 <- predict_sim(mP12, xnew, interval="confidence", level=0.95, B=B)
+PI12 <- predict_sim(mP12, xnew, interval="prediction", level=0.95, B=B)
+CI13 <- predict_sim(mP13, xnew, interval="confidence", level=0.95, B=B)
+PI13 <- predict_sim(mP13, xnew, interval="prediction", level=0.95, B=B)
+CI14 <- predict_sim(mP14, xnew, interval="confidence", level=0.95, B=B)
+PI14 <- predict_sim(mP14, xnew, interval="prediction", level=0.95, B=B)
+
+op <- par(mfrow=c(2,2))
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="Linear")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI1$lwr, rev(PI1$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI1$lwr, rev(CI1$upr)), border=NA, col="#0000ff88")
+lines(CI1$fit ~ xnew$Decid, lty=1, col=4)
+lines(fitGAM ~ xnew$Decid, lty=2, col=1)
+
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="Quadratic")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI12$lwr, rev(PI12$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI12$lwr, rev(CI12$upr)), border=NA, col="#0000ff88")
+lines(CI12$fit ~ xnew$Decid, lty=1, col=4)
+lines(fitGAM ~ xnew$Decid, lty=2, col=1)
+
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI13$lwr, rev(PI13$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI13$lwr, rev(CI13$upr)), border=NA, col="#0000ff88")
+lines(CI13$fit ~ xnew$Decid, lty=1, col=4)
+lines(fitGAM ~ xnew$Decid, lty=2, col=1)
+
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI14$lwr, rev(PI14$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI14$lwr, rev(CI14$upr)), border=NA, col="#0000ff88")
+lines(CI14$fit ~ xnew$Decid, lty=1, col=4)
+lines(fitGAM ~ xnew$Decid, lty=2, col=1)
+
+
+par(op)
+
 ```
 
 ## Categorical variables
 
 Categories
 
-```{r}
-cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
-  "OpenWet", "Conif", "ConifWet")
-h <- find_max(x[,cn])
-hist(h$value)
-table(h$index)
-x$hab <- droplevels(h$index)
+```{r regr-pois_cat}
+mP2 <- glm(y ~ HAB, data=x, family=poisson)
 
-mP3 <- glm(y ~ hab, data=x, family=poisson)
+summary(mP2)
+AIC(mP0, mP1, mP12, mP13, mP14, mP2)
 
-summary(mP3)
-AIC(mP0, mP1, mP2, mP3)
-
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2), mP3=R2dev(mP3)), 4)
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), 
+  mP12=R2dev(mP12), mP13=R2dev(mP13), mP14=R2dev(mP14), 
+  mP2=R2dev(mP2)), 4)
 ```
 
-### Optimal partitioning
-
-```{r}
-oc <- opticut(as.matrix(ytot) ~ 1, strata = x$hab, dist="poisson")
-plot(oc)
-```
 
 ### Finding optimal combinations of factor levels
 
@@ -198,15 +238,15 @@ Categorical and compositional data
 
 ```{r}
 # dominant hab
-M <- model.matrix(~hab-1, x)
-colnames(M) <- levels(x$hab)
+M <- model.matrix(~HAB-1, x)
+colnames(M) <- levels(x$HAB)
 ol1 <- optilevels(x$y, M, dist="poisson")
 sort(exp(coef(bestmodel(ol1))))
 ## estimates
 exp(ol1$coef)
 ## optimal classification
 ol1$rank
-ol1$levels[[length(ol1$levels)]]
+data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
 
 # composition
 ol2 <- optilevels(x$y, x[,cn], dist="poisson")
@@ -215,28 +255,44 @@ sort(exp(coef(bestmodel(ol2))))
 exp(ol2$coef)
 ## optimal classification
 ol2$rank
-head(mefa4::groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
+head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
 ```
 
 ## Interactions
 
 ```{r}
-mP4 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
-mP5 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
-AIC(mP0, mP1, mP4, mP5)
-summary(mP5)
+scope <- as.formula(paste("~ FOR + WET + AHF +",paste(cn, collapse="+")))
+tmp <- add1(mP1, scope)
+tmp$dAIC <- tmp$AIC-min(tmp$AIC)
+
+mP3 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
+mP4 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
+AIC(mP0, mP1, mP3, mP4)
+summary(mP4)
 
 visreg(mGAM, scale="response")
 
 visreg(mP1, scale="response")
-visreg(mP4, scale="response")
-visreg(mP5, scale="response", xvar="Decid", by="ConifWet")
-
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), mP2=R2dev(mP2), mP3=R2dev(mP3),
-  mP4=R2dev(mP4), mP5=R2dev(mP5)), 4)
-model.sel(mP0, mP1, mP2, mP3, mP4, mP5)
-
+visreg(mP3, scale="response")
+visreg(mP4, scale="response", xvar="ConifWet", by="Decid")
 ```
+
+## Multiple main effects
+
+```{r}
+mP5 <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
+  Decid + OpenWet + Conif + ConifWet + 
+  OvernightRain + TSSR + DAY + Longitude + Latitude,
+  data=x, family=poisson), trace=0)
+summary(mP5)
+
+round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1),
+  mP12=R2dev(mP12), mP13=R2dev(mP13), mP14=R2dev(mP14), 
+  mP2=R2dev(mP2), mP3=R2dev(mP3), mP4=R2dev(mP4),
+  mP5=R2dev(mP5)), 4)
+model.sel(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5)
+```
+
 
 ## Different error distributions
 
@@ -402,3 +458,13 @@ Discuss definitions of:
 - occupancy,
 - density.
 
+
+
+
+
+### Optimal partitioning
+
+```{r regr-oc,cache=TRUE}
+oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
+plot(oc)
+```

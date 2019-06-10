@@ -17,15 +17,16 @@ level=0.95, B=99, ...) {
     fun <- switch(family(object)$family,
         "gaussian"=function(x) rnorm(length(x), x, summary(object)$sigma),
         "poisson"= function(x) rpois(length(x), x),
-        "binomial"=function(x) rbinom(length(x), 1, x))
+        "binomial"=function(x) rbinom(length(x), 1, x),
+        stop("model family not recognized"))
     if (interval=="none")
-        return(predict(object, newdata))
+        return(predict(object, newdata, ...))
     if (B < 2)
         stop("Are you kidding? B must be > 1")
     if (type == "asymp") {
         cm <- rbind(coef(object),
             MASS::mvrnorm(B, coef(object), vcov(object)))
-        fm <- apply(cm, 1, function(z) X %*% z)
+        #fm <- apply(cm, 1, function(z) X %*% z)
     }
     if (type == "boot") {
         cm <- matrix(0, B+1, length(coef(object)))
@@ -35,7 +36,7 @@ level=0.95, B=99, ...) {
             j <- sample.int(n, n, replace=TRUE)
             cm[i,] <- coef(update(object, data=xx[j,]))
         }
-        fm <- apply(cm, 1, function(z) X %*% z)
+        #fm <- apply(cm, 1, function(z) X %*% z)
     }
     if (type == "npboot") {
         cm <- matrix(0, B+1, length(coef(object)))
@@ -47,16 +48,14 @@ level=0.95, B=99, ...) {
             xx[,j] <- fun(f)
             cm[i,] <- coef(update(object, data=xx))
         }
-        fm <- apply(cm, 1, function(z) X %*% z)
+        #fm <- apply(cm, 1, function(z) X %*% z)
     }
+    fm <- X %*% t(cm)
     fm <- family(object)$linkinv(fm)
-    if (interval=="prediction") {
-        y <- matrix(fun(fm), n, B+1)
-    } else {
-        y <- fm
-    }
+    y <- if (interval == "prediction")
+        matrix(fun(fm), n, B+1) else fm
     rownames(y) <- rownames(x)
-    p <- c(0.5, (1-level)/2, 1-(1-level)/2)
+    p <- c(0.5, (1-level) / 2, 1 - (1-level) / 2)
     stat_fun <- function(x)
         c(mean(x), sd(x), quantile(x, p))
     out <- cbind(fm[,1], t(apply(y, 1, stat_fun)))

@@ -402,8 +402,29 @@ plot(xy, add=TRUE, pch=19, cex=0.5)
 ```{block2, type='rmdexercise'}
 **Exercise**
 
-Play with the data to understand the distributions and associations.
+Explore the data to understand the distributions and associations.
 Use `summary`, `table`, `hist`, `plot` (bivariate, scatterplot matrix), etc.
+```
+
+## Derived variables
+
+Add up some of the compositional variables into meaningful units:
+
+```{r data-deriv1}
+x$FOR <- x$Decid + x$Conif+ x$ConifWet # forest
+x$AHF <- x$Agr + x$UrbInd + x$Roads # 'alienating' human footprint
+x$WET <- x$OpenWet + x$ConifWet + x$Water # wet + water
+```
+
+Classify surveys locations based on dominant land cover type:
+
+```{r data-deriv1}
+cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
+  "OpenWet", "Conif", "ConifWet")
+h <- find_max(x[,cn])
+hist(h$value)
+table(h$index)
+x$HAB <- droplevels(h$index) # drop empty levels
 ```
 
 

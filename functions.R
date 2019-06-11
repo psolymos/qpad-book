@@ -87,16 +87,15 @@ size=1, null=NULL, p=0)
     R2adj <- 1 - (1 - R2) * ((n-1) / (n-(p+1)))
     D0 <- -2 * (ll0 - lls)
     DR <- -2 * (llf - lls)
-    p_value <- 1 - pchisq(D0 - DR, p)
-    #p_value <- 1 - pchisq(DR, length(observed)-(p+1))
+    #p_value <- 1 - pchisq(D0 - DR, p)
+    p_value <- 1 - pchisq(DR, length(observed)-(p+1))
     c(R2=R2, R2adj=R2adj, Deviance=D0 - DR, Dev0=D0, DevR=DR,
         #df=p,
         df0=length(observed)-1, dfR=length(observed)-(p+1),
         p_value=p_value)
 }
-#'
-#' Deviance based R^2
-R2dev <-
+#' Deviance based R^2 from a model
+.getR2dev <-
 function(object, ...) {
     y <- model.response(model.frame(object), "numeric")
     f <- fitted(object)
@@ -104,3 +103,22 @@ function(object, ...) {
         distr=family(object)$family, size=1, null=NULL,
         p=length(coef(object))-1)
 }
+#' This function makes a nice table
+R2dev <-
+function(x, ...)
+{
+    obj <- list(x, ...)
+    rval <- as.data.frame(t(sapply(obj, .getR2dev)))
+    rownames(rval) <- as.character(match.call()[-1])
+    class(rval) <- c("R2dev", class(rval))
+    rval
+}
+#' This prints the table
+print.R2dev <-
+function (x, digits = max(3, getOption("digits") - 3), ...)
+{
+    printCoefmat(x, digits=digits, has.Pvalue=TRUE,
+        tst.ind=1:7, ...)
+    invisible(x)
+}
+

@@ -12,24 +12,26 @@ We will also hone our data processing and plotting skills.
 ## Prerequisites
 
 ```{r regr-libs,message=FALSE,warning=FALSE}
-library(mefa4)        # data manipulation
-library(mgcv)         # GAMs
-library(pscl)         # zero-inflated models
-library(lme4)         # GLMMs
-library(MASS)         # Negative Binomial GLM
-library(partykit)     # regression trees
-library(intrval)      # interval magic
-library(opticut)      # optimal partitioning
-library(visreg)       # regression visualization
-library(MuMIn)        # multi-model inference
-source("functions.R") # some useful stuff
-load("./_data/josm/josm.rda") # JOSM data
+library(mefa4)                # data manipulation
+library(mgcv)                 # GAMs
+library(pscl)                 # zero-inflated models
+library(lme4)                 # GLMMs
+library(MASS)                 # Negative Binomial GLM
+library(partykit)             # regression trees
+library(intrval)              # interval magic
+library(opticut)              # optimal partitioning
+library(visreg)               # regression visualization
+library(ResourceSelection)    # marginal effects
+library(MuMIn)                # multi-model inference
+source("functions.R")         # some useful stuff
+load("_data/josm/josm.rda") # JOSM data
 ```
 
-## Poisson null model
+Let's pick a species, Ovenbird (`OVEN`), that is quite common and abundant in the data set.
+We put together a little data set to work with:
 
 ```{r regr-data}
-spp <- "OVEN" # which species
+spp <- "OVEN"
 
 ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
 ytot <- ytot[,colSums(ytot > 0) > 0]
@@ -42,14 +44,23 @@ x$WET <- x$OpenWet + x$ConifWet + x$Water # wet + water
 cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
   "OpenWet", "Conif", "ConifWet")
 x$HAB <- droplevels(find_max(x[,cn])$index) # drop empty levels
+x$DEC <- ifelse(x$HAB == "Decid", 1, 0)
 
 table(x$y)
 ```
 
-$E[Y_i] = \lambda_i = \lambda$, $(Y_i \mid \lambda) \sim Poisson(\lambda)$, 
-$log(\lambda) = \beta_0$, $\lambda = e^{\beta_0}$
+## Poisson null model
 
-Null model
+The null model states that the expected values of the count at all locations
+are identical: $E[Y_i]=\lambda$ ($i=1,...,n$), where $Y_i$ is a random variable
+that follows a Poisson distribution with mean $\lambda$:
+$(Y_i \mid \lambda) \sim Poisson(\lambda)$.
+The observation ($y_i$) is a realization of the random variables $Y$ at site $i$,
+these observations are independent and identically distributed (i.i.d.),
+and we have $n$ observations in total.
+
+Saying the the distribution is Poisson is an assumption in itself. For example
+we assume that the variance equals the mean ($V(\mu)=\mu$).
 
 ```{r regr-pois1}
 mP0 <- glm(y ~ 1, data=x, family=poisson)
@@ -60,9 +71,33 @@ exp(coef(mP0))
 summary(mP0)
 ```
 
+The `family=poisson` specification implicitly assumes that we use a logarithmic link functions,
+that is to say that $log(\lambda) = \beta_0$, or equivalently: $\lambda = e^{\beta_0}$.
+The mean of the observations equal the mean of the fitted values, as expected.
+
+The logarithmic function is called the link function, its inverse, the exponential function
+is called the inverse link function. The model family has these convenently stored for us:
+
+```{r regr-family}
+mP0$family
+mP0$family$linkfun
+mP0$family$linkinv
+```
+
 ## Exploring covariates
 
-What is a useful covariate?
+Now, in the absence of info about species biology, we are looking at a blank page.
+How should we proceed? What kind of covariate (linear predictor) should we use?
+We can do a quick and dirty exploration to see what are the likely candidates.
+We use a regression tree (`ctree` refers to conditional trees). It is 
+a nonparametric method based on binary recursive partitioning in a conditional inference framework.
+This means that binary splits are made along the predictor variables,
+and the explanatory power of the split is assessed based on how it
+maximized difference between the splits and minimized the difference inside the splits.
+It is called conditional, because every new split is conditional on the previous splits
+(difference can be measured in many different ways, think e.g. sum of squares).
+The stopping rule in this implementation is based on permutation tests (see `?ctree` or details
+and references).
 
 ```{r regr-ctree,fig.width=20}
 mCT <- ctree(y ~ Open + Water + Agr + UrbInd + SoftLin + Roads + 
@@ -70,89 +105,190 @@ mCT <- ctree(y ~ Open + Water + Agr + UrbInd + SoftLin + Roads +
 plot(mCT)
 ```
 
+The model can be seen as a piecewise constant regression, where each bucket (defined by
+the splits along the tree) yields a constant predictions based on the mean of the
+observations in the bucket. Any new data classified
+into the same bucket will get the same value. There is no notion of uncertainty
+(confidence or prediction intervals) in this nonparameric model.
+
+But we see something very useful: the proportion of deciduous forest in the landscape
+seems to be vary influential for Ovenbird abundance.
+
 ## Poisson GLM with one covariate
+
+With this new found knowledge, let's fit a parametric (Poisson) linear model
+using `Decid` as a predictor:
 
 ```{r regr-pois2}
 mP1 <- glm(y ~ Decid, data=x, family=poisson)
 mean(x$y)
 mean(fitted(mP0))
-
-summary(mP1)
-AIC(mP0, mP1)
-
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1)), 4)
+coef(mP1)
 ```
+
+Same as before, the mean of the observations equal the mean of the fitted values.
+But instead of only the intercapt, now we have 2 coefficients estimated.
+Our linear predictor thus looks like:
+$log(\lambda_i) = \beta_0 + \beta_1 x_{1i}$. This means that expected abundance is 
+$e^{\beta_0}$ where `Decid`=0,
+$e^{\beta_0}e^{\beta_1}$ where `Decid`=1, 
+and $e^{\beta_0+\beta_1 x_{1}}$ in between.
+
+The relationship can be visualized by plotting the fitted values against the predictor,
+or using the coefficients to make predictions using our formula:
+
+```{r regr-pois2_plot}
+dec <- seq(0, 1, 0.01)
+lam <- exp(coef(mP1)[1] + coef(mP1)[2] * dec)
+plot(fitted(mP1) ~ Decid, x, pch=19, col="grey")
+lines(lam ~ dec, col=2)
+rug(x$Decid)
+```
+
+The model summary tells us that resudials are not quite right (we would expect
+0 median and symmertic tails), in line with residual deviance
+being much higher than residual degrees of freedom
+(these should be close if the Poisson assumption holds).
+But, the `Decid` effect is significant (meaning that the effect size is
+large compared to the standard error):
+
+```{r regr-pois2_summary}
+summary(mP1)
+```
+
+We can compare this model to the null (constant, intercept-only) model:
+
+```{r regr-pois2_aic}
+AIC(mP0, mP1)
+BIC(mP0, mP1)
+model.sel(mP0, mP1)
+R2dev(mP0, mP1)
+```
+
+AIC uses the negative log likelihood and the number of parameters as penalty.
+Smaller value indicate a model that is closer to the (unknowable) true model
+(caveat: this statement is true only asymptotically, i.e. it holds for very large
+sample sizes). For small samples, we of ten use BIC (more penalty for complex models
+when sample size is small), or AICc (as in `MuMIn::model.sel`).
+
+The other little table returned by `R2dev` shows deviance based (quasi) $R^2$ and adjusted
+$R^2$ for some GLM classes, just for the sake of completeness. The Chi-squared based
+test indicates good fit when the $p$-value is high (probability of being distributed
+according the Poisson). 
+
+None of these two models is a particularly good fit in terms
+of the parametric distribution.
+This, however does not mean these models are not useful for making inferential statements
+about ovenbirds. How useful these statements are, that is another question.
+Let's dive into cinfidence and prediction intervals a bit.
 
 ```{r regr-pois_pred,cache=TRUE}
 B <- 999
+alpha <- 0.05
 xnew <- data.frame(Decid=seq(0, 1, 0.01))
-CI0 <- predict_sim(mP0, xnew, interval="confidence", level=0.95, B=B)
-PI0 <- predict_sim(mP0, xnew, interval="prediction", level=0.95, B=B)
-CI1 <- predict_sim(mP1, xnew, interval="confidence", level=0.95, B=B)
-PI1 <- predict_sim(mP1, xnew, interval="prediction", level=0.95, B=B)
+CI0 <- predict_sim(mP0, xnew, interval="confidence", level=1-alpha, B=B)
+PI0 <- predict_sim(mP0, xnew, interval="prediction", level=1-alpha, B=B)
+CI1 <- predict_sim(mP1, xnew, interval="confidence", level=1-alpha, B=B)
+PI1 <- predict_sim(mP1, xnew, interval="prediction", level=1-alpha, B=B)
 
 ## nominal coverage is 95%
-sum(x$y %[]% predict_sim(mP0, interval="prediction", level=0.95, B=B)[,c("lwr", "upr")]) / nrow(x)
-sum(x$y %[]% predict_sim(mP1, interval="prediction", level=0.95, B=B)[,c("lwr", "upr")]) / nrow(x)
+sum(x$y %[]% predict_sim(mP0, interval="prediction", level=1-alpha, B=B)[,c("lwr", "upr")]) / nrow(x)
+sum(x$y %[]% predict_sim(mP1, interval="prediction", level=1-alpha, B=B)[,c("lwr", "upr")]) / nrow(x)
 ```
+
+A model is said to have good _coverage_ when the prediction intervals
+encompass the right amount of the observations. When the nominal level is 95% ($100 \times (1-\alpha)$,
+where $\alpha$ is Type I. error rate),
+we expect 95% of the observations fall within the 95% _prediction interval_.
+The prediction interval includes the uncertainty around the coefficients
+(confidence intervals, uncertainty in $\hat{\lambda$}) and the stochasticity coming from the 
+Poisson distribution ($Y_i \sim Poisson(\hat{\lambda})$).
+
+The code above calculate the confidence and prediction intervals for the two models.
+We also compared the prediction intervals and the nomial levels, and those were quite
+close (ours being a bit more conservative), hinting that maybe the Poisson
+distributional assumption is not very bad after all, but we'll come back to this later.
+
+Let's see our confidence and prediction intervals for the two models:
+
+```{r regr-pois_PI}
+yj <- jitter(x$y, 0.5)
+
+plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
+  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
+
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI0$lwr, rev(PI0$upr)), border=NA, col="#0000ff44")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI0$lwr, rev(CI0$upr)), border=NA, col="#0000ff44")
+lines(CI0$fit ~ xnew$Decid, lty=1, col=4)
+
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(PI1$lwr, rev(PI1$upr)), border=NA, col="#ff000044")
+polygon(c(xnew$Decid, rev(xnew$Decid)),
+  c(CI1$lwr, rev(CI1$upr)), border=NA, col="#ff000044")
+lines(CI1$fit ~ xnew$Decid, lty=1, col=2)
+
+legend("topleft", bty="n", fill=c("#0000ff44", "#ff000044"), lty=1, col=c(4,2),
+  border=NA, c("Null", "Decid"))
+```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+What can we conclude from this plot?
+
+Coverage is comparable, so what is the difference then?
+  
+Which model should I use for prediction and why? (Hint: look at the non overlapping regions.)
+```
+
 
 ## Additive model
 
+Generalized additive models (GAMs) are semiparametric, meaning that
+parametric assumptions apply, but responses are modelled more flexibly.
+
 ```{r regr-gam}
 mGAM <- mgcv::gam(y ~ s(Decid), x, family=poisson)
+summary(mGAM)
 plot(mGAM)
 ```
 
 ```{r regr-glm_plots}
 fitCT <- predict(mCT, x[order(x$Decid),])
 fitGAM <- predict(mGAM, xnew, type="response")
-yj <- jitter(x$y, 0.5)
 
-op <- par(mfrow=c(2,2))
 plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
   ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P0")
-polygon(c(xnew$Decid, rev(xnew$Decid)),
-  c(PI0$lwr, rev(PI0$upr)), border=NA, col="#0000ff44")
-polygon(c(xnew$Decid, rev(xnew$Decid)),
-  c(CI0$lwr, rev(CI0$upr)), border=NA, col="#0000ff88")
-lines(CI0$fit ~ xnew$Decid, lty=1, col=4)
-
-plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
-  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="P1")
-polygon(c(xnew$Decid, rev(xnew$Decid)),
-  c(PI1$lwr, rev(PI1$upr)), border=NA, col="#0000ff44")
-polygon(c(xnew$Decid, rev(xnew$Decid)),
-  c(CI1$lwr, rev(CI1$upr)), border=NA, col="#0000ff88")
-lines(CI1$fit ~ xnew$Decid, lty=1, col=4)
-
-plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
-  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="ctree")
-lines(fitCT ~ x$Decid[order(x$Decid)], lty=1, col=4)
-
-plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
-  ylim=c(0, max(PI1$upr)+1), pch=19, col="#bbbbbb33", main="GAM")
+lines(CI0$fit ~ xnew$Decid, lty=1, col=1)
+lines(CI1$fit ~ xnew$Decid, lty=1, col=2)
+lines(fitCT ~ x$Decid[order(x$Decid)], lty=1, col=3)
 lines(fitGAM ~ xnew$Decid, lty=1, col=4)
-par(op)
-
+legend("topleft", bty="n", lty=1, col=1:4,
+  legend=c("Null", "Decid", "ctree", "GAM"))
 ```
 
 ```{block2, type='rmdexercise'}
 **Exercise**
 
-Play with GAM and other variables to understand responses:
+Play with GAM and other variables to understand response curves:
 `plot(mgcv::gam(y ~ s(<variable_name>), data=x, family=poisson))`
 ```
 
 ## Nonlinear terms
 
-Polynomials
+We can use polynomial terms to approximate the GAM fit:
 
 ```{r regr-pois_poly}
 mP12 <- glm(y ~ Decid + I(Decid^2), data=x, family=poisson)
 mP13 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3), data=x, family=poisson)
 mP14 <- glm(y ~ Decid + I(Decid^2) + I(Decid^3) + I(Decid^4), data=x, family=poisson)
-AIC(mP1, mP12, mP13, mP14)
+model.sel(mP1, mP12, mP13, mP14, mGAM)
 ```
+
+Not a surprise that the most complex model won. GAM was more complex than that.
+
 
 ```{r regr-pois_poly_plot}
 pr <- cbind(
@@ -161,18 +297,21 @@ pr <- cbind(
   predict(mP13, xnew, type="response"),
   predict(mP14, xnew, type="response"),
   fitGAM)
-matplot(xnew$Decid, pr, lty=1, type="l")
+matplot(xnew$Decid, pr, lty=1, type="l",
+  xlab="Decid", ylab="E[Y]")
 legend("topleft", lty=1, col=1:5, bty="n",
-  legend=c("linear", "quadratic", "cubic", "quartic", "GAM"))
+  legend=c("Linear", "Quadratic", "Cubic", "Quartic", "GAM"))
 ```
 
+Let's see how these affect our prediction intervals:
+
 ```{r regr-pois_poly_pi,cache=TRUE}
-CI12 <- predict_sim(mP12, xnew, interval="confidence", level=0.95, B=B)
-PI12 <- predict_sim(mP12, xnew, interval="prediction", level=0.95, B=B)
-CI13 <- predict_sim(mP13, xnew, interval="confidence", level=0.95, B=B)
-PI13 <- predict_sim(mP13, xnew, interval="prediction", level=0.95, B=B)
-CI14 <- predict_sim(mP14, xnew, interval="confidence", level=0.95, B=B)
-PI14 <- predict_sim(mP14, xnew, interval="prediction", level=0.95, B=B)
+CI12 <- predict_sim(mP12, xnew, interval="confidence", level=1-alpha, B=B)
+PI12 <- predict_sim(mP12, xnew, interval="prediction", level=1-alpha, B=B)
+CI13 <- predict_sim(mP13, xnew, interval="confidence", level=1-alpha, B=B)
+PI13 <- predict_sim(mP13, xnew, interval="prediction", level=1-alpha, B=B)
+CI14 <- predict_sim(mP14, xnew, interval="confidence", level=1-alpha, B=B)
+PI14 <- predict_sim(mP14, xnew, interval="prediction", level=1-alpha, B=B)
 
 op <- par(mfrow=c(2,2))
 plot(yj ~ Decid, x, xlab="Decid", ylab="E[Y]",
@@ -210,34 +349,67 @@ polygon(c(xnew$Decid, rev(xnew$Decid)),
   c(CI14$lwr, rev(CI14$upr)), border=NA, col="#0000ff88")
 lines(CI14$fit ~ xnew$Decid, lty=1, col=4)
 lines(fitGAM ~ xnew$Decid, lty=2, col=1)
-
-
 par(op)
-
 ```
 
 ## Categorical variables
 
-Categories
+Categorical variables are expanded into a _model matrix_ before estimation. 
+The model matrix usually contains indicator variables for each level
+(value 1 when factor value equals a particular label, 0 otherwise)
+except for the _reference category_
+(check `relevel` if you want to change the reference category).
+
+The estimate for the reference category comes from the intercept,
+the rest of the estimates are relative to the reference category.
+In the log-linear model example this means a ratio.
 
 ```{r regr-pois_cat}
-mP2 <- glm(y ~ HAB, data=x, family=poisson)
-
+head(model.matrix(~DEC, x))
+mP2 <- glm(y ~ DEC, data=x, family=poisson)
 summary(mP2)
-AIC(mP0, mP1, mP12, mP13, mP14, mP2)
-
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1), 
-  mP12=R2dev(mP12), mP13=R2dev(mP13), mP14=R2dev(mP14), 
-  mP2=R2dev(mP2)), 4)
+coef(mP2)
 ```
 
+The estimate for a non-deciduous landscape is
+$e^{\beta_0}$, and it is $e^{\beta_0}e^{\beta_1}$ for deciduous landscapes.
+Of course such binary classification at the landscape (1 km$^2$) level
+doesn't really makes sense for various reasons:
 
-### Finding optimal combinations of factor levels
+```{r regr-pois_cat1}
+boxplot(Decid ~ DEC, x)
+model.sel(mP1, mP2)
+R2dev(mP1, mP2)
+```
 
-Categorical and compositional data
+Having estimates for each land cover type improves the model,
+but the  model using continuous variable is still better
 
-```{r}
-# dominant hab
+```{r regr-pois_cat2}
+mP3 <- glm(y ~ HAB, data=x, family=poisson)
+summary(mP3)
+
+model.sel(mP1, mP2, mP3)
+R2dev(mP1, mP2, mP3)
+```
+
+When we have categorical or compositional (when e.g. proportions add up to 1) data,
+we often want to simplify and merge classes or add up columns.
+We can do this based on the structural understanding of these land cover classes
+(call all treed classes Forest, like what we did for `FOR`, `WET` and `AHF`).
+
+Alternatively, we can let the data (the birds) tell us how to merge the classes.
+The algorithm does the following:
+
+1. fit model with all classes,
+2. order estimates for each class from smallest to largest,
+3. merge classes that are near each others, 2 at a time, moving from smallest to largest,
+4. compare $\Delta$AIC or $\Delta$BIC values for the merged models and pick the smallest,
+5. treat this best merged model as an input in step 1 and star over until $\Delta$ is negative (no improvement).
+
+Here is the code for simplifying categories using the `opticut::optilevels` function:
+
+```{r regr-optilev1}
 M <- model.matrix(~HAB-1, x)
 colnames(M) <- levels(x$HAB)
 ol1 <- optilevels(x$y, M, dist="poisson")
@@ -247,8 +419,11 @@ exp(ol1$coef)
 ## optimal classification
 ol1$rank
 data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
+```
 
-# composition
+Here is the code for simplifying compositional data:
+
+```{r regr-optilev2}
 ol2 <- optilevels(x$y, x[,cn], dist="poisson")
 sort(exp(coef(bestmodel(ol2))))
 ## estimates
@@ -275,6 +450,7 @@ visreg(mGAM, scale="response")
 visreg(mP1, scale="response")
 visreg(mP3, scale="response")
 visreg(mP4, scale="response", xvar="ConifWet", by="Decid")
+mep(mP4)
 ```
 
 ## Multiple main effects
@@ -286,18 +462,15 @@ mP5 <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads +
   data=x, family=poisson), trace=0)
 summary(mP5)
 
-round(rbind(mP0=R2dev(mP0), mP1=R2dev(mP1),
-  mP12=R2dev(mP12), mP13=R2dev(mP13), mP14=R2dev(mP14), 
-  mP2=R2dev(mP2), mP3=R2dev(mP3), mP4=R2dev(mP4),
-  mP5=R2dev(mP5)), 4)
-model.sel(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5)
+R2dev(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM)
+model.sel(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM)
 ```
 
 
 ## Different error distributions
 
 ```{r}
-mP <- mP5 # best Poisson
+mP <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
 mNB <- glm.nb(y ~ Decid * ConifWet, data=x)
 mZIP <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="poisson")
 mZINB <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="negbin")
@@ -311,10 +484,12 @@ mZINB$theta # V(mu) = mu + mu^2/theta, ~inverse of variance
 # Variance function, 1:1 is Poisson
 mu <- seq(0, 5, 0.01)
 theta <- mZINB$theta
-plot(mu, mu + mu^2/mZINB$theta, type="l", col=2)
-lines(mu, mu + mu^2/mNB$theta, type="l", col=4)
-abline(0,1)
-
+plot(mu, mu + mu^2/mNB$theta, type="l", col=2,
+  ylab=expression(V(mu)), xlab=expression(mu))
+lines(mu, mu + mu^2/mZINB$theta, type="l", col=4)
+abline(0,1, lty=2)
+legend("topleft", bty="n", lty=1, col=c(2,4),
+  legend=paste(c("NB", "ZINB"), round(c(mNB$theta, mZINB$theta), 2)))
 ```
 
 Poisson-Lognormal random effects, iid. and clustered:
@@ -464,7 +639,7 @@ Discuss definitions of:
 
 ### Optimal partitioning
 
-```{r regr-oc,cache=TRUE}
+```{r regr-oc,cache=TRUE,eval=FALSE}
 oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
 plot(oc)
 ```

@@ -24,7 +24,7 @@ cover-image: images/cover.png
 options(
   htmltools.dir.version = FALSE, formatR.indent = 2,
   digits = 4, warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE,
-  width = 65, scipen = 999
+  width = 65#, scipen = 10
 )
 local({
   r = getOption('repos')

@@ -99,7 +99,7 @@ It is called conditional, because every new split is conditional on the previous
 The stopping rule in this implementation is based on permutation tests (see `?ctree` or details
 and references).
 
-```{r regr-ctree,fig.width=20}
+```{r regr-ctree,fig.width=20,fig.height=15}
 mCT <- ctree(y ~ Open + Water + Agr + UrbInd + SoftLin + Roads + 
   Decid + OpenWet + Conif + ConifWet, data=x)
 plot(mCT)
@@ -114,7 +114,7 @@ into the same bucket will get the same value. There is no notion of uncertainty
 But we see something very useful: the proportion of deciduous forest in the landscape
 seems to be vary influential for Ovenbird abundance.
 
-## Poisson GLM with one covariate
+## Single covariate
 
 With this new found knowledge, let's fit a parametric (Poisson) linear model
 using `Decid` as a predictor:
@@ -183,8 +183,9 @@ about ovenbirds. How useful these statements are, that is another question.
 Let's dive into cinfidence and prediction intervals a bit.
 
 ```{r regr-pois_pred,cache=TRUE}
-B <- 999
+B <- 2000
 alpha <- 0.05
+
 xnew <- data.frame(Decid=seq(0, 1, 0.01))
 CI0 <- predict_sim(mP0, xnew, interval="confidence", level=1-alpha, B=B)
 PI0 <- predict_sim(mP0, xnew, interval="prediction", level=1-alpha, B=B)
@@ -201,7 +202,7 @@ encompass the right amount of the observations. When the nominal level is 95% ($
 where $\alpha$ is Type I. error rate),
 we expect 95% of the observations fall within the 95% _prediction interval_.
 The prediction interval includes the uncertainty around the coefficients
-(confidence intervals, uncertainty in $\hat{\lambda$}) and the stochasticity coming from the 
+(confidence intervals, uncertainty in $\hat{\lambda}$) and the stochasticity coming from the 
 Poisson distribution ($Y_i \sim Poisson(\hat{\lambda})$).
 
 The code above calculate the confidence and prediction intervals for the two models.
@@ -273,6 +274,7 @@ legend("topleft", bty="n", lty=1, col=1:4,
 **Exercise**
 
 Play with GAM and other variables to understand response curves:
+
 `plot(mgcv::gam(y ~ s(<variable_name>), data=x, family=poisson))`
 ```
 
@@ -393,81 +395,90 @@ model.sel(mP1, mP2, mP3)
 R2dev(mP1, mP2, mP3)
 ```
 
-When we have categorical or compositional (when e.g. proportions add up to 1) data,
-we often want to simplify and merge classes or add up columns.
-We can do this based on the structural understanding of these land cover classes
-(call all treed classes Forest, like what we did for `FOR`, `WET` and `AHF`).
-
-Alternatively, we can let the data (the birds) tell us how to merge the classes.
-The algorithm does the following:
-
-1. fit model with all classes,
-2. order estimates for each class from smallest to largest,
-3. merge classes that are near each others, 2 at a time, moving from smallest to largest,
-4. compare $\Delta$AIC or $\Delta$BIC values for the merged models and pick the smallest,
-5. treat this best merged model as an input in step 1 and star over until $\Delta$ is negative (no improvement).
-
-Here is the code for simplifying categories using the `opticut::optilevels` function:
-
-```{r regr-optilev1}
-M <- model.matrix(~HAB-1, x)
-colnames(M) <- levels(x$HAB)
-ol1 <- optilevels(x$y, M, dist="poisson")
-sort(exp(coef(bestmodel(ol1))))
-## estimates
-exp(ol1$coef)
-## optimal classification
-ol1$rank
-data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
-```
-
-Here is the code for simplifying compositional data:
-
-```{r regr-optilev2}
-ol2 <- optilevels(x$y, x[,cn], dist="poisson")
-sort(exp(coef(bestmodel(ol2))))
-## estimates
-exp(ol2$coef)
-## optimal classification
-ol2$rank
-head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
-```
-
-## Interactions
-
-```{r}
-scope <- as.formula(paste("~ FOR + WET + AHF +",paste(cn, collapse="+")))
-tmp <- add1(mP1, scope)
-tmp$dAIC <- tmp$AIC-min(tmp$AIC)
-
-mP3 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
-mP4 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
-AIC(mP0, mP1, mP3, mP4)
-summary(mP4)
-
-visreg(mGAM, scale="response")
-
-visreg(mP1, scale="response")
-visreg(mP3, scale="response")
-visreg(mP4, scale="response", xvar="ConifWet", by="Decid")
-mep(mP4)
-```
+The prediction in this case would look like:
+$log(\lambda_i)=\beta_0 + \sum_{j=1}^{k-1} \beta_j x_{ji}$, where we have $k$ factor levels
+(and $k-1$ indicator variables besides the intercept).
 
 ## Multiple main effects
 
-```{r}
-mP5 <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
-  Decid + OpenWet + Conif + ConifWet + 
-  OvernightRain + TSSR + DAY + Longitude + Latitude,
-  data=x, family=poisson), trace=0)
-summary(mP5)
+We can keep adding variables to the model in a forwards-selection fashion.
+`add1` adds variables one at a time, selecting from the scope defined by the formula:
 
-R2dev(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM)
-model.sel(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM)
+```{r regr-add1}
+scope <- as.formula(paste("~ FOR + WET + AHF +",paste(cn, collapse="+")))
+tmp <- add1(mP1, scope)
+tmp$AIC_drop <- tmp$AIC-tmp$AIC[1] # current model
+tmp[order(tmp$AIC),]
 ```
 
+It looks like `ConifWet` is the best covariate to add next because it leads to the biggest drop in AIC,
+and both effects are significant.
+
+```{r regr-var2}
+mP4 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
+summary(mP4)
+```
+
+The `step` function can be used to automatically select the best model
+based on adding/dropping terms (`drop1` is the function opposite to `add1`):
+
+```{r-var_all}
+mPstep <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
+  Decid + OpenWet + Conif + ConifWet + 
+  OvernightRain + TSSR + DAY + Longitude + Latitude,
+  data=x, family=poisson), trace=0) # use trace=1 to see all the steps
+summary(mPstep)
+```
+
+## Interaction
+
+When we consider interactions between two variables (say $x_1$ and $x_2$),
+we really referring to adding another variable to the model matrix
+that is a product of the two ($x_{12}=x_1 x_2$):
+
+```{r}
+head(model.matrix(~x1 * x2, data.frame(x1=1:4, x2=10:7)))
+```
+
+```{r regr-inter}
+mP5 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
+summary(mP5)
+model.sel(mP0, mP1, mP4, mP5)
+```
+
+The model with the interaction is best supported, but how do we make sense of this
+relationship? We can't easily visualize it in a single plot. We can either
+
+1. fix all variables (at their mean/meadian) and see how the response is changing along a single variable: this is called a _conditional_ effect (conditional on fixing other variables), this is what `visreg::visreg` does;
+2. or plot the fitted values against the predictor variables, this is called a _marginal_ effects, and this is what `ResourceSelection::mep` does.
+
+```{r regr-visreg2}
+visreg(mP5, scale="response", xvar="ConifWet", by="Decid")
+```
+```{r regr-visreg2,fig.show = 'hold',out.width='33%'}
+mep(mP5)
+```
+
+Let's use GAM to fit a bivariate spline:
+
+```{r regr-GAM2}
+mGAM2 <- mgcv::gam(y ~ s(Decid, ConifWet), data=x, family=poisson)
+plot(mGAM2)
+```
+
+Final battle of Poisson models: 
+
+```{r}
+model.sel(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM, mGAM2)
+R2dev(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM, mGAM2)
+```
+
+Of course, the most complex model wins 
+but the Chi-square test is still significant. Let's try different error distribution.
 
 ## Different error distributions
+
+We will fit Negative Binomial, and 
 
 ```{r}
 mP <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
@@ -642,4 +653,49 @@ Discuss definitions of:
 ```{r regr-oc,cache=TRUE,eval=FALSE}
 oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
 plot(oc)
+```
+
+
+
+### Optilevels
+
+When we have categorical or compositional (when e.g. proportions add up to 1, also called
+the unit sum constraint) data,
+we often want to simplify and merge classes or add up columns.
+We can do this based on the structural understanding of these land cover classes
+(call all treed classes Forest, like what we did for `FOR`, `WET` and `AHF`).
+
+Alternatively, we can let the data (the birds) tell us how to merge the classes.
+The algorithm does the following:
+
+1. fit model with all classes,
+2. order estimates for each class from smallest to largest,
+3. merge classes that are near each others, 2 at a time, moving from smallest to largest,
+4. compare $\Delta$AIC or $\Delta$BIC values for the merged models and pick the smallest,
+5. treat this best merged model as an input in step 1 and star over until $\Delta$ is negative (no improvement).
+
+Here is the code for simplifying categories using the `opticut::optilevels` function:
+
+```{r regr-optilev1,eval=FALSE}
+M <- model.matrix(~HAB-1, x)
+colnames(M) <- levels(x$HAB)
+ol1 <- optilevels(x$y, M, dist="poisson")
+sort(exp(coef(bestmodel(ol1))))
+## estimates
+exp(ol1$coef)
+## optimal classification
+ol1$rank
+data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
+```
+
+Here is the code for simplifying compositional data:
+
+```{r regr-optilev2,eval=FALSE}
+ol2 <- optilevels(x$y, x[,cn], dist="poisson")
+sort(exp(coef(bestmodel(ol2))))
+## estimates
+exp(ol2$coef)
+## optimal classification
+ol2$rank
+head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
 ```

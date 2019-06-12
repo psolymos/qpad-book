@@ -647,7 +647,7 @@ clustered GLMM bi be the best model?
 ```
 
 
-## Counting time effects
+## Count duration effects
 
 Let's change gears a bit now, and steer closer to the main focus
 of this book. We want to account for methodological differences
@@ -760,7 +760,7 @@ What kind of function would we need and why?
 What is the underlying biological mechanism?
 ```
 
-## Counting radius effects
+## Count radius effects
 
 Before solving the count duration issue, let us look at the 
 effect of survey area.

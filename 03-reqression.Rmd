@@ -908,11 +908,11 @@ So what is it that we are estimating and predicting as our $\lambda$?
 Here are some deifinitions for further discussion:
 
 - **relative abundance**: $\lambda$ without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,
-- **abundance**: $N$, this refers to the number of individuals within the area surveyed, the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),
+- **abundance**: $N=\lambda/C$, $C$ is a correction factor and $N$ refers to the number of individuals within the area surveyed -- the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),
 - **occupancy**: the probability that the survey area is occupied, this is really equivalent to the indicator function $N>0$,
-- **density** $D = N/A$, abundance per unit area, same problems as above: both $N$ and $A$ are unknowns.
+- **density** $D = N/A = \lambda/AC$, abundance per unit area -- same problems as above: both $N$ and $A$ are unknowns.
 
 Our objective in the next chapters is to work out the details of 
-estimateing abundance and density in some clever ways, and learning
-a lot more other stuff along the way.
+estimating abundance and density in some clever ways through
+learning about the nature of the mechanisms contributing to $C$.
 

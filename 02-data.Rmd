@@ -418,7 +418,7 @@ x$WET <- x$OpenWet + x$ConifWet + x$Water # wet + water
 
 Classify surveys locations based on dominant land cover type:
 
-```{r data-deriv1}
+```{r data-deriv2}
 cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
   "OpenWet", "Conif", "ConifWet")
 h <- find_max(x[,cn])

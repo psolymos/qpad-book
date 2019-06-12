@@ -399,6 +399,17 @@ The prediction in this case would look like:
 $log(\lambda_i)=\beta_0 + \sum_{j=1}^{k-1} \beta_j x_{ji}$, where we have $k$ factor levels
 (and $k-1$ indicator variables besides the intercept).
 
+Here is a general way of calculating fitted values or making
+predictions based on the design matrix (`X`) and the coefficients (`b`)
+(column ordering in `X` must match the elements in `b`)
+given a parametric log-linear model `object` and data frame `df`:
+
+```{r regr-pred_general,eval=FALSE}
+b <- coef(object)
+X <- model.matrix(formula(object), df)
+exp(X %*% b)
+```
+
 ## Multiple main effects
 
 We can keep adding variables to the model in a forwards-selection fashion.
@@ -419,14 +430,25 @@ mP4 <- glm(y ~ Decid + ConifWet, data=x, family=poisson)
 summary(mP4)
 ```
 
-The `step` function can be used to automatically select the best model
-based on adding/dropping terms (`drop1` is the function opposite to `add1`):
+`drop1` is the function opposite of `add1`, it assesses which term should
+be dropped from a more saturated model:
 
-```{r-var_all}
-mPstep <- step(glm(y ~ Open + Agr + UrbInd + SoftLin + Roads + 
+```{r regr-var_drop1}
+formula_all <- y ~ Open + Agr + UrbInd + SoftLin + Roads + 
   Decid + OpenWet + Conif + ConifWet + 
-  OvernightRain + TSSR + DAY + Longitude + Latitude,
-  data=x, family=poisson), trace=0) # use trace=1 to see all the steps
+  OvernightRain + TSSR + DAY + Longitude + Latitude
+
+tmp <- drop1(glm(formula_all, data=x, family=poisson))
+tmp$AIC_drop <- tmp$AIC-tmp$AIC[1] # current model
+tmp[order(tmp$AIC),]
+```
+
+The `step` function can be used to automatically select the best model
+based on adding/dropping terms:
+
+```{r regr-var_all,cache=TRUE}
+mPstep <- step(glm(formula_all, data=x, family=poisson), 
+  trace=0) # use trace=1 to see all the steps
 summary(mPstep)
 ```
 
@@ -434,11 +456,13 @@ summary(mPstep)
 
 When we consider interactions between two variables (say $x_1$ and $x_2$),
 we really referring to adding another variable to the model matrix
-that is a product of the two ($x_{12}=x_1 x_2$):
+that is a product of the two variables ($x_{12}=x_1 x_2$):
 
 ```{r}
 head(model.matrix(~x1 * x2, data.frame(x1=1:4, x2=10:7)))
 ```
+
+Let's consider interaction between our two predictors from before:
 
 ```{r regr-inter}
 mP5 <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
@@ -455,7 +479,7 @@ relationship? We can't easily visualize it in a single plot. We can either
 ```{r regr-visreg2}
 visreg(mP5, scale="response", xvar="ConifWet", by="Decid")
 ```
-```{r regr-visreg2,fig.show = 'hold',out.width='33%'}
+```{r regr-visreg3,fig.show = 'hold',out.width='33%'}
 mep(mP5)
 ```
 
@@ -463,7 +487,7 @@ Let's use GAM to fit a bivariate spline:
 
 ```{r regr-GAM2}
 mGAM2 <- mgcv::gam(y ~ s(Decid, ConifWet), data=x, family=poisson)
-plot(mGAM2)
+plot(mGAM2, scheme=2, rug=FALSE)
 ```
 
 Final battle of Poisson models: 
@@ -474,27 +498,81 @@ R2dev(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM, mGAM2)
 ```
 
 Of course, the most complex model wins 
-but the Chi-square test is still significant. Let's try different error distribution.
+but the Chi-square test is still significant (indicating lack of fit). 
+Let's try different error distribution.
 
 ## Different error distributions
 
-We will fit Negative Binomial, and 
+We will use the 2-variable model with interaction:
 
-```{r}
+```{r regr-dist1}
 mP <- glm(y ~ Decid * ConifWet, data=x, family=poisson)
+```
+
+Let us try the Negative Binomial distribution first.
+This distribution is related to Binomial experiments
+(number of trials required to get a fixed number of successes
+given a binomial probability). It can also be derived
+as a mixture of Poisson and Gamma distributions
+(see [Wikipedia](https://en.wikipedia.org/wiki/Negative_binomial_distribution#Gamma%E2%80%93Poisson_mixture)),
+which is a kind of hierarchical model.
+In this case, the Gamma distribution acts as an i.i.d.
+random effect for the intercept:
+$Y_i\sim Poisson(\lambda_i)$,
+$\lambda_i  \sim Gamma(e^{\beta_0+\beta_1 x_{1i}}, \gamma)$,
+where $\gamma$ is the Gamma variance.
+
+The Negative Binomial variance (using the parametrization common in R functions)
+is a function of the mean and the scale: $V(\mu) = \mu + \mu^2/\theta$.
+
+```{r regr-dist2}
 mNB <- glm.nb(y ~ Decid * ConifWet, data=x)
-mZIP <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="poisson")
-mZINB <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="negbin")
-
-AIC(mP, mNB, mZIP, mZINB)
 summary(mZINB)
+```
 
-plogis(coef(mZINB, "zero")) # P of 0
-mZINB$theta # V(mu) = mu + mu^2/theta, ~inverse of variance
+Next, we look at zero-inflated models.
+In this case, the mixture distribution is a Bernoulli distribution
+and a count distribution (Poisson or Negative Binomial, for example).
+The 0's can come from both the zero and the count distributions,
+whereas the >0 values can only come from the count distribution:
+$A_i \sim Bernoulli(\varphi)$, $Y_i \sim Poisson(A_i \lambda_i)$.
 
-# Variance function, 1:1 is Poisson
+The zero part of the zero-inflated models are often parametrized
+as probability of zero ($1-\varphi$), as in the `pscl::zeroinfl` function:
+
+```{r regr-dist3}
+## Zero-inflated Poisson
+mZIP <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="poisson")
+summary(mZIP)
+
+## Zero-inflated Negative Binomial
+mZINB <- zeroinfl(y ~ Decid * ConifWet | 1, x, dist="negbin")
+summary(mZINB)
+```
+
+Now we compare the four different parametric models:
+
+```{r regr-dist4}
+AIC(mP, mNB, mZIP, mZINB)
+```
+
+Our best model is the Zero-inflated Negative Binomial.
+The probability of observing a zero as part of the zero
+distribution is back transformed from the zero coefficient
+using the inverse logit function:
+
+```{r regr-dist5}
+unname(plogis(coef(mZINB, "zero"))) # P of 0
+```
+
+Now we use the scale parameter to visualize the variance functions
+for the Negative Binomial models (the 1:1 line is the Poisson model):
+
+```{r regr-dist6}
+mNB$theta
+mZINB$theta
+
 mu <- seq(0, 5, 0.01)
-theta <- mZINB$theta
 plot(mu, mu + mu^2/mNB$theta, type="l", col=2,
   ylab=expression(V(mu)), xlab=expression(mu))
 lines(mu, mu + mu^2/mZINB$theta, type="l", col=4)
@@ -503,26 +581,96 @@ legend("topleft", bty="n", lty=1, col=c(2,4),
   legend=paste(c("NB", "ZINB"), round(c(mNB$theta, mZINB$theta), 2)))
 ```
 
-Poisson-Lognormal random effects, iid. and clustered:
+```{block2, type='rmdexercise'}
+**Exercise**
 
-```{r}
+How can we interpret these different kinds of overdispersion (zero-inflation and higher than Poisson variance)?
+  
+What are some of the biological mechanisms that can contribute to the 
+overdispersion?
+```
+
+It is also common practice to consider generalized linear mixed models (GLMMs)
+for count data. These mixed models are usually considered as
+Poisson-Lognormal mixtures. The simplest, so called i.i.d., case
+is similar to the Negative Binomial, but instead of Gamma, we have Lognormal
+distribution:
+$Y_i\sim Poisson(\lambda_i)$,
+$log(\lambda_i) = \beta_0+\beta_1 x_{1i}+\epsilon_i$,
+$\epsilon_i \sim Normal(0, \sigma^2)$,
+where $\sigma^2$ is the Lognormal variance on the log scale.
+
+We can use the `lme4::glmer` function: use `SiteID` as random effect
+(we have exactly $n$ random effects).
+
+```{r regr-dist7,cache=TRUE}
 mPLN1 <- glmer(y ~ Decid * ConifWet + (1 | SiteID), data=x, family=poisson)
+summary(mPLN1)
+```
+
+```{block2, type='rmdnote'}
+**Note** 
+  
+The number of unknowns we have to somehow estimate is now more than the number of observations we have. How is that possible?
+```
+
+Alternatively, we can use `SurveyArea` as a grouping variable.
+We have now $m < n$ random effects, and survey areas can be seen
+as larger landscapes within which the sites are clustered:
+$Y_ij\sim Poisson(\lambda_ij)$,
+$log(\lambda_ij) = \beta_0+\beta_1 x_{1ij}+\epsilon_i$,
+$\epsilon_i \sim Normal(0, \sigma^2)$.
+The index $i$ ($i=1,...,m$) defines the cluster (survey area),
+the $j$ ($j=1,...,n_i$) defines the sites within survey area $i$
+($n = \sum_{i=1}^m n_i$).
+
+```{r regr-dist8,cache=TRUE}
 mPLN2 <- glmer(y ~ Decid * ConifWet + (1 | SurveyArea), data=x, family=poisson)
-AIC(mP, mNB, mZIP, mZINB, mPLN1, mPLN2)
 summary(mPLN2)
 ```
 
+In the battle of distributions (keeping the linear predictor
+part the same) the clustered GLMM was best supported:
+
+```{r regr-dist9,cache=TRUE}
+tmp <- AIC(mP, mNB, mZIP, mZINB, mPLN1, mPLN2)
+tmp$delta_AIC <- tmp$AIC - min(tmp$AIC)
+tmp[order(tmp$AIC),]
+```
+
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+What are some of the biological mechanisms that can lead to the 
+clustered GLMM bi be the best model?
+```
+
+
 ## Counting time effects
 
-```{r}
-spp <- "OVEN" # which species
+Let's change gears a bit now, and steer closer to the main focus
+of this book. We want to account for methodological differences
+among samples. One aspect of mathodologies involve 
+variation in total counting duration. We'll now inspect what
+that does to our observations.
 
-ydur <- Xtab(~ SiteID + Dur + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+First, we create a list of matrices where counts are
+tabulated by surveys and time intervals for each species:
 
+```{r regr-time1}
+ydur <- Xtab(~ SiteID + Dur + SpeciesID , 
+  josm$counts[josm$counts$DetectType1 != "V",])
+```
+
+We use the same species (`spp`) as before and create a
+data frame indluring the cumulative counts during 3, 5, and 10 minutes:
+
+```{r regr-time2}
 y <- as.matrix(ydur[[spp]])
 head(y)
-colMeans(y)
-cumsum(colMeans(y))
+colMeans(y) # mean count of new individuals
+cumsum(colMeans(y)) # cumulative counts
 
 x <- data.frame(
   josm$surveys, 
@@ -533,49 +681,99 @@ x <- data.frame(
 table(x$y3)
 table(x$y5)
 table(x$y10)
+```
 
+If we fit single-predictor GLMs to these 3 responses, we get
+different fitted values, consistent with our mean counts:
+
+```{r regr-time3}
 m3 <- glm(y3 ~ Decid, data=x, family=poisson)
 m5 <- glm(y5 ~ Decid, data=x, family=poisson)
 m10 <- glm(y10 ~ Decid, data=x, family=poisson)
 mean(fitted(m3))
 mean(fitted(m5))
 mean(fitted(m10))
+```
 
+Using the multiple time interval data, we can pretend that
+we have a mix of methodologies with respect to count duration:
+
+```{r regr-time4}
 set.seed(1)
-x$meth <- sample(c("A", "B", "C"), nrow(x), replace=TRUE)
+x$meth <- as.factor(sample(c("A", "B", "C"), nrow(x), replace=TRUE))
 x$y <- x$y3
 x$y[x$meth == "B"] <- x$y5[x$meth == "B"]
 x$y[x$meth == "C"] <- x$y10[x$meth == "C"]
 boxplot(y ~ meth, x)
+sb <- sum_by(x$y, x$meth)
+points(1:3, sb[,1]/sb[,2], col=2, type="b", pch=4)
+```
 
+We can estimate the effect of the methodology:
+
+```{r regr-time5}
 mm <- glm(y ~ meth - 1, data=x, family=poisson)
 summary(mm)
 exp(coef(mm))
+```
 
+Or the effect of the continuous predictor and the method (discrete):
+
+```{r regr-time6}
 mm <- glm(y ~ Decid + meth, data=x, family=poisson)
 summary(mm)
 boxplot(fitted(mm) ~ meth, x)
 exp(coef(mm))
+```
 
+The fixed effects adjusts the means well:
+
+```{r regr-time7}
 cumsum(colMeans(y))
 mean(y[,1]) * c(1, exp(coef(mm))[3:4])
 ```
 
-It is all relative, depends on reference methodology/protocol.
+But it is all relative, depends on reference methodology/protocol.
+The problem is, we can't easily extrapolate to a methodology
+with count duration of 12 minutes, or interpolate to a mathodology
+with count duration of 2 or 8 minutes.
+We need somehow to express time expediture in minutes to make that work.
+Let's try something else:
+
+```{r regr-time8}
+x$tmax <- c(3, 5, 10)[as.integer(x$meth)]
+mm <- glm(y ~ Decid + I(log(tmax)), data=x, family=poisson)
+summary(mm)
+tmax <- seq(0, 20, 0.01)
+plot(tmax, exp(log(tmax) * coef(mm)[3]), type="l",
+  ylab="Method effect", col=2)
+```
+
+Now we are getting somewhere. But still, this function keep
+increasing monotonically. 
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+What kind of function would we need and why? 
+
+What is the underlying biological mechanism?
+```
 
 ## Counting radius effects
 
-Use area subsets to demonstrate use of offsets
+Before solving the count duration issue, let us look at the 
+effect of survey area.
+We get a similar count breakdown, but now by distance band:
 
-```{r}
-spp <- "OVEN" # which species
-
-ydis <- Xtab(~ SiteID + Dis + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+```{r regr-area1}
+ydis <- Xtab(~ SiteID + Dis + SpeciesID , 
+  josm$counts[josm$counts$DetectType1 != "V",])
 
 y <- as.matrix(ydis[[spp]])
 head(y)
-colMeans(y)
-cumsum(colMeans(y))
+colMeans(y) # mean count of new individuals
+cumsum(colMeans(y)) # cumulative counts
 
 x <- data.frame(
   josm$surveys, 
@@ -584,7 +782,13 @@ x <- data.frame(
 
 table(x$y50)
 table(x$y100)
+```
 
+We don't consider the unlimited distance case, because the survey area there
+is unknown (although we will ultimately address this problem mater).
+We compare the counts within the 0-50 and 0-100 m circles:
+
+```{r regr-area2}
 m50 <- glm(y50 ~ Decid, data=x, family=poisson)
 m100 <- glm(y100 ~ Decid, data=x, family=poisson)
 mean(fitted(m50))
@@ -595,7 +799,18 @@ coef(m100)
 
 ## Offsets
 
-```{r}
+Offsets are constant terms in the linear predictor,
+e.g. $log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i$,
+where $o_i$ is an offset. In the survey area case,
+an offset might be the log of area surveyed.
+The logic for this is based on point processes:
+intensity is a linear function of area
+under a homogeneous Poisson point process.
+So we can assume that $o_i = log(A_i)$, where $A$ stands for area.
+
+Let's see if using area as offset makes our models comparable:
+
+```{r regr-area3}
 m50 <- glm(y50 ~ Decid, data=x, family=poisson, 
   offset=rep(log(0.5^2*pi), nrow(x)))
 m100 <- glm(y100 ~ Decid, data=x, family=poisson,
@@ -604,17 +819,39 @@ coef(m50)
 coef(m100)
 mean(exp(model.matrix(m50) %*% coef(m50)))
 mean(exp(model.matrix(m100) %*% coef(m100)))
+```
 
+These coefficients and mean predictions are much closer to each other,
+but something else is going on.
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Can you guess why we cannot make abundances comparable using
+log area as as offset?
+```
+
+We pretend again, that survey area varies in our data set:
+
+```{r regr-area4}
 set.seed(1)
-x$meth <- sample(c("A", "B"), nrow(x), replace=TRUE)
+x$meth <- as.factor(sample(c("A", "B"), nrow(x), replace=TRUE))
 x$y <- x$y50
 x$y[x$meth == "B"] <- x$y100[x$meth == "B"]
 boxplot(y ~ meth, x)
+```
 
+Methodology effect:
+
+```{r regr-area5}
 mm <- glm(y ~ meth - 1, data=x, family=poisson)
 summary(mm)
 exp(coef(mm))
+```
 
+Predictor and method effects:
+
+```{r regr-area6}
 mm <- glm(y ~ Decid + meth, data=x, family=poisson)
 summary(mm)
 boxplot(fitted(mm) ~ meth, x)
@@ -622,80 +859,60 @@ exp(coef(mm))
 
 cumsum(colMeans(y))[1:2]
 mean(y[,1]) * c(1, exp(coef(mm))[3])
+```
 
+Use log area as continuous predictor:
+we would expect a close to 1:1 relationship on the
+abundance scale.
 
-mm <- glm(y ~ Decid, data=x, family=poisson,
-  offset=log(ifelse(x$meth == "A", 0.5, 1)^2*pi))
+```{r regr-area7}
+x$logA <- log(ifelse(x$meth == "A", 0.5, 1)^2*pi)
+mm <- glm(y ~ Decid + logA, data=x, family=poisson)
+summary(mm)
+A <- seq(0, 2, 0.01) # in ha
+plot(A, exp(log(A) * coef(mm)[3]), type="l",
+  ylab="Method effect", col=2)
+abline(0, 1, lty=2)
+```
+
+The offset forces the relationship to be 1:1
+(it is like fixing the `logA` coefficient to be 1):
+
+```{r regr-area8}
+mm <- glm(y ~ Decid, data=x, family=poisson, offset=x$logA)
 summary(mm)
 boxplot(fitted(mm) ~ meth, x)
 
 cumsum(colMeans(y))[1:2]
 c(0.5, 1)^2*pi * mean(exp(model.matrix(mm) %*% coef(mm))) # /ha
-
-
 ```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Why did we get a `logA` coefficient that was less than 1 when theoretically we should have gotten 1?
+```
+
+Predictions using offsets in `glm` can be tricky.
+The safest way is to use the matrix product
+(`exp(model.matrix(mm) %*% coef(mm) + <offset>)`).
+We can often omit the offset, e.g. in the log area case
+we can express the prediction per unit area.
+If the unit is 1 ha, as in our case, log(1)=0, which means
+the mean abundance per unit area can be calculated by
+omitting the offsets all together.
 
 ## Definitions
 
-Discuss definitions of:
+So what is it that we are estimating and predicting as our $\lambda$?
+Here are some deifinitions for further discussion:
 
-- relative abundance,
-- abundance,
-- occupancy,
-- density.
+- **relative abundance**: $\lambda$ without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,
+- **abundance**: $N$, this refers to the number of individuals within the area surveyed, the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),
+- **occupancy**: the probability that the survey area is occupied, this is really equivalent to the indicator function $N>0$,
+- **density** $D = N/A$, abundance per unit area, same problems as above: both $N$ and $A$ are unknowns.
 
+Our objective in the next chapters is to work out the details of 
+estimateing abundance and density in some clever ways, and learning
+a lot more other stuff along the way.
 
-
-
-
-### Optimal partitioning
-
-```{r regr-oc,cache=TRUE,eval=FALSE}
-oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
-plot(oc)
-```
-
-
-
-### Optilevels
-
-When we have categorical or compositional (when e.g. proportions add up to 1, also called
-the unit sum constraint) data,
-we often want to simplify and merge classes or add up columns.
-We can do this based on the structural understanding of these land cover classes
-(call all treed classes Forest, like what we did for `FOR`, `WET` and `AHF`).
-
-Alternatively, we can let the data (the birds) tell us how to merge the classes.
-The algorithm does the following:
-
-1. fit model with all classes,
-2. order estimates for each class from smallest to largest,
-3. merge classes that are near each others, 2 at a time, moving from smallest to largest,
-4. compare $\Delta$AIC or $\Delta$BIC values for the merged models and pick the smallest,
-5. treat this best merged model as an input in step 1 and star over until $\Delta$ is negative (no improvement).
-
-Here is the code for simplifying categories using the `opticut::optilevels` function:
-
-```{r regr-optilev1,eval=FALSE}
-M <- model.matrix(~HAB-1, x)
-colnames(M) <- levels(x$HAB)
-ol1 <- optilevels(x$y, M, dist="poisson")
-sort(exp(coef(bestmodel(ol1))))
-## estimates
-exp(ol1$coef)
-## optimal classification
-ol1$rank
-data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
-```
-
-Here is the code for simplifying compositional data:
-
-```{r regr-optilev2,eval=FALSE}
-ol2 <- optilevels(x$y, x[,cn], dist="poisson")
-sort(exp(coef(bestmodel(ol2))))
-## estimates
-exp(ol2$coef)
-## optimal classification
-ol2$rank
-head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
-```

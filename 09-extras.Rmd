@@ -65,6 +65,57 @@ points(exp(model.matrix(mBc) %*% coef(mBc)) ~ fitted(mP), col=2)
 abline(0,1)
 ```
 
+### Optimal partitioning
+
+```{r regr-oc,cache=TRUE,eval=FALSE}
+oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
+plot(oc)
+```
+
+
+
+### Optilevels
+
+When we have categorical or compositional (when e.g. proportions add up to 1, also called
+the unit sum constraint) data,
+we often want to simplify and merge classes or add up columns.
+We can do this based on the structural understanding of these land cover classes
+(call all treed classes Forest, like what we did for `FOR`, `WET` and `AHF`).
+
+Alternatively, we can let the data (the birds) tell us how to merge the classes.
+The algorithm does the following:
+
+1. fit model with all classes,
+2. order estimates for each class from smallest to largest,
+3. merge classes that are near each others, 2 at a time, moving from smallest to largest,
+4. compare $\Delta$AIC or $\Delta$BIC values for the merged models and pick the smallest,
+5. treat this best merged model as an input in step 1 and star over until $\Delta$ is negative (no improvement).
+
+Here is the code for simplifying categories using the `opticut::optilevels` function:
+
+```{r regr-optilev1,eval=FALSE}
+M <- model.matrix(~HAB-1, x)
+colnames(M) <- levels(x$HAB)
+ol1 <- optilevels(x$y, M, dist="poisson")
+sort(exp(coef(bestmodel(ol1))))
+## estimates
+exp(ol1$coef)
+## optimal classification
+ol1$rank
+data.frame(combined_levels=ol1$levels[[length(ol1$levels)]])
+```
+
+Here is the code for simplifying compositional data:
+
+```{r regr-optilev2,eval=FALSE}
+ol2 <- optilevels(x$y, x[,cn], dist="poisson")
+sort(exp(coef(bestmodel(ol2))))
+## estimates
+exp(ol2$coef)
+## optimal classification
+ol2$rank
+head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
+```
 
 
 

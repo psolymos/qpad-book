@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-07">
+<meta name="date" content="2019-06-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -153,21 +153,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
 <li class="chapter" data-level="2.7" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>2.7</b> Explore predictor variables</a></li>
+<li class="chapter" data-level="2.8" data-path="pcdata.html"><a href="pcdata.html#derived-variables"><i class="fa fa-check"></i><b>2.8</b> Derived variables</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> A Primer in Regression Techniques</a><ul>
 <li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#prerequisites-1"><i class="fa fa-check"></i><b>3.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#poisson-null-model"><i class="fa fa-check"></i><b>3.3</b> Poisson null model</a></li>
 <li class="chapter" data-level="3.4" data-path="regression.html"><a href="regression.html#exploring-covariates"><i class="fa fa-check"></i><b>3.4</b> Exploring covariates</a></li>
-<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#poisson-glm-with-one-covariate"><i class="fa fa-check"></i><b>3.5</b> Poisson GLM with one covariate</a></li>
+<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#single-covariate"><i class="fa fa-check"></i><b>3.5</b> Single covariate</a></li>
 <li class="chapter" data-level="3.6" data-path="regression.html"><a href="regression.html#additive-model"><i class="fa fa-check"></i><b>3.6</b> Additive model</a></li>
-<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.7</b> Multiple main effects</a></li>
-<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.8</b> Nonlinear terms</a></li>
-<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.9</b> Categorical variables</a><ul>
-<li class="chapter" data-level="3.9.1" data-path="regression.html"><a href="regression.html#optimal-partitioning"><i class="fa fa-check"></i><b>3.9.1</b> Optimal partitioning</a></li>
-<li class="chapter" data-level="3.9.2" data-path="regression.html"><a href="regression.html#finding-optimal-combinations-of-factor-levels"><i class="fa fa-check"></i><b>3.9.2</b> Finding optimal combinations of factor levels</a></li>
-</ul></li>
-<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>3.10</b> Interactions</a></li>
+<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.7</b> Nonlinear terms</a></li>
+<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.8</b> Categorical variables</a></li>
+<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
+<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
 <li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
 <li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
@@ -181,7 +179,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
-<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a></li>
+<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.1.1</b> Optimal partitioning</a></li>
+<li class="chapter" data-level="9.1.2" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.1.2</b> Optilevels</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -229,8 +230,17 @@ rest of the book/course.</p>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">2.2</span> Prerequisites</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)                <span class="co"># data manipulation</span>
-<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span>
-<span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
+<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span></code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## 
+## Attaching package: &#39;raster&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:MASS&#39;:
+## 
+##     area, select</code></pre>
+<pre><code>## The following object is masked from &#39;package:nlme&#39;:
+## 
+##     getData</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
 <span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>)   <span class="co"># load bird data</span>
 rr &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="st">&quot;_data/josm/landcover-hfi2016.grd&quot;</span>) <span class="co"># rasters</span></code></pre>
 </div>
@@ -402,18 +412,15 @@ taxonomic, trait, etc. information as well.</p>
 <p>At the survey level, we have coordinates, date/time info,
 variables capturing survey conditions, and land cover info extracted from 1 km<span class="math inline">\(^2\)</span> resolution rasters.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(josm<span class="op">$</span>surveys)</code></pre>
-<pre><code>##  [1] &quot;SiteID&quot;        &quot;SurveyArea&quot;    &quot;Longitude&quot;    
-##  [4] &quot;Latitude&quot;      &quot;Date&quot;          &quot;StationID&quot;    
-##  [7] &quot;ObserverID&quot;    &quot;TimeStart&quot;     &quot;VisitID&quot;      
-## [10] &quot;WindStart&quot;     &quot;PrecipStart&quot;   &quot;TempStart&quot;    
-## [13] &quot;CloudStart&quot;    &quot;WindEnd&quot;       &quot;PrecipEnd&quot;    
-## [16] &quot;TempEnd&quot;       &quot;CloudEnd&quot;      &quot;TimeFin&quot;      
-## [19] &quot;Noise&quot;         &quot;OvernightRain&quot; &quot;DateTime&quot;     
-## [22] &quot;SunRiseTime&quot;   &quot;SunRiseFrac&quot;   &quot;TSSR&quot;         
-## [25] &quot;OrdinalDay&quot;    &quot;DAY&quot;           &quot;Open&quot;         
-## [28] &quot;Water&quot;         &quot;Agr&quot;           &quot;UrbInd&quot;       
-## [31] &quot;SoftLin&quot;       &quot;Roads&quot;         &quot;Decid&quot;        
-## [34] &quot;OpenWet&quot;       &quot;Conif&quot;         &quot;ConifWet&quot;</code></pre>
+<pre><code>##  [1] &quot;SiteID&quot;        &quot;SurveyArea&quot;    &quot;Longitude&quot;     &quot;Latitude&quot;     
+##  [5] &quot;Date&quot;          &quot;StationID&quot;     &quot;ObserverID&quot;    &quot;TimeStart&quot;    
+##  [9] &quot;VisitID&quot;       &quot;WindStart&quot;     &quot;PrecipStart&quot;   &quot;TempStart&quot;    
+## [13] &quot;CloudStart&quot;    &quot;WindEnd&quot;       &quot;PrecipEnd&quot;     &quot;TempEnd&quot;      
+## [17] &quot;CloudEnd&quot;      &quot;TimeFin&quot;       &quot;Noise&quot;         &quot;OvernightRain&quot;
+## [21] &quot;DateTime&quot;      &quot;SunRiseTime&quot;   &quot;SunRiseFrac&quot;   &quot;TSSR&quot;         
+## [25] &quot;OrdinalDay&quot;    &quot;DAY&quot;           &quot;Open&quot;          &quot;Water&quot;        
+## [29] &quot;Agr&quot;           &quot;UrbInd&quot;        &quot;SoftLin&quot;       &quot;Roads&quot;        
+## [33] &quot;Decid&quot;         &quot;OpenWet&quot;       &quot;Conif&quot;         &quot;ConifWet&quot;</code></pre>
 <p>The count table contains one row for each unique individual
 of a species (<code>SpeciesID</code> links to the species lookup table)
 observed during a survey (<code>StationID</code> links to the survey attribute table).
@@ -529,105 +536,90 @@ tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(ytot) <span class="co"># this is interesting</span></code></pre>
 <pre><code>## [1] 200</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(<span class="kw">apply</span>(<span class="kw">as.matrix</span>(ytot), <span class="dv">2</span>, max)) <span class="co"># it is CANG</span></code></pre>
-<pre><code>## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU WWSC CANV NOPI 
-##    0    0    0    0    0    0    0    0    0    0    0    0    0 
-## AMBI AMCO AMGO BAEA BAOR BEKI BOWA CONI CSWA EAPH GBHE GCTH GGOW 
-##    1    1    1    1    1    1    1    1    1    1    1    1    1 
-## GHOW HOWR LEOW MERL NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA 
-##    1    1    1    1    1    1    1    1    1    1    1    1    1 
-## WBNU BRBL CAGU MYWA SNBU VEER AMKE AMWI BADO BARS BBWO BHCO BLBW 
-##    1    1    1    1    1    1    2    2    2    2    2    2    2 
-## BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL LEYE NAWA NOPO OSFL OSPR 
-##    2    2    2    2    2    2    2    2    2    2    2    2    2 
-## PIWO PUFI RNDU SORA SSHA COSN AMCR AMRO ATTW BHVI BOCH BRCR BTNW 
-##    2    2    2    2    2    2    3    3    3    3    3    3    3 
-## CMWA FOSP FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR TRES 
-##    3    3    3    3    3    3    3    3    3    3    3    3    3 
-## WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA CAWA CONW COTE GRYE 
-##    3    3    3    3    3    4    4    4    4    4    4    4    4 
-## NOWA NRWS OCWA REVI RNGR RUBL RWBL WAVI WEWP WISN YBFL YWAR ALFL 
-##    4    4    4    4    4    4    4    4    4    4    4    4    5 
-## AMRE CHSP CORA EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU 
-##    5    5    5    5    5    5    5    5    5    5    6    6    6 
-## LEFL LISP MAWA OVEN RUGR SWTH BOGU MALL GRAJ PAWA WTSP YRWA COLO 
-##    6    6    6    6    6    6    7    7    8    8    8    8    9 
-## TEWA AMPI WWCR CEDW PISI RECR CANG 
-##   12   12   20   23   50   51  200</code></pre>
+<pre><code>## BUFF BWTE COGO COHA DCCO GWTE HOLA NHOW NSHO RTHU WWSC CANV NOPI AMBI AMCO 
+##    0    0    0    0    0    0    0    0    0    0    0    0    0    1    1 
+## AMGO BAEA BAOR BEKI BOWA CONI CSWA EAPH GBHE GCTH GGOW GHOW HOWR LEOW MERL 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## NESP NOGO NOHA NSWO PBGR RBGU RTHA SAVS SPSA WBNU BRBL CAGU MYWA SNBU VEER 
+##    1    1    1    1    1    1    1    1    1    1    1    1    1    1    1 
+## AMKE AMWI BADO BARS BBWO BHCO BLBW BLPW BLTE BWHA COGR DOWO EAKI HAWO KILL 
+##    2    2    2    2    2    2    2    2    2    2    2    2    2    2    2 
+## LEYE NAWA NOPO OSFL OSPR PIWO PUFI RNDU SORA SSHA COSN AMCR AMRO ATTW BHVI 
+##    2    2    2    2    2    2    2    2    2    2    2    3    3    3    3 
+## BOCH BRCR BTNW CMWA FOSP FRGU GCKI MAWR MOWA NOFL PHVI SACR SOSA SOSP SPGR 
+##    3    3    3    3    3    3    3    3    3    3    3    3    3    3    3 
+## TRES WETA WIWA WIWR YBSA FOTE BAWW BBWA BCCH BLJA CAWA CONW COTE GRYE NOWA 
+##    3    3    3    3    3    3    4    4    4    4    4    4    4    4    4 
+## NRWS OCWA REVI RNGR RUBL RWBL WAVI WEWP WISN YBFL YWAR ALFL AMRE CHSP CORA 
+##    4    4    4    4    4    4    4    4    4    4    4    5    5    5    5 
+## EVGR HETH LCSP RBGR RBNU RCKI SWSP CCSP COYE DEJU LEFL LISP MAWA OVEN RUGR 
+##    5    5    5    5    5    5    5    6    6    6    6    6    6    6    6 
+## SWTH BOGU MALL GRAJ PAWA WTSP YRWA COLO TEWA AMPI WWCR CEDW PISI RECR CANG 
+##    6    7    7    8    8    8    8    9   12   12   20   23   50   51  200</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">## lyover (FO) flock (FL) beyond 100m distance
 <span class="kw">head</span>(josm<span class="op">$</span>counts[
   josm<span class="op">$</span>counts<span class="op">$</span>SiteID <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(ytot)[<span class="kw">which</span>(ytot[,<span class="st">&quot;CANG&quot;</span>] <span class="op">==</span><span class="st"> </span><span class="dv">200</span>)] <span class="op">&amp;</span>
 <span class="st">  </span>josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> &quot;CANG&quot;</span>,])</code></pre>
-<pre><code>##                         ObservationID  SiteID StationID
-## CO10712-130603-008 CO10712-130603-008 CO10712 CO10712-1
-## CO10712-130603-009 CO10712-130603-009 CO10712 CO10712-1
-## CO10712-130603-010 CO10712-130603-010 CO10712 CO10712-1
-## CO10712-130603-011 CO10712-130603-011 CO10712 CO10712-1
-## CO10712-130603-012 CO10712-130603-012 CO10712 CO10712-1
-## CO10712-130603-013 CO10712-130603-013 CO10712 CO10712-1
-##                    TimeInterval Direction Distance DetectType1
-## CO10712-130603-008            1         2        3           C
-## CO10712-130603-009            1         2        3           C
-## CO10712-130603-010            1         2        3           C
-## CO10712-130603-011            1         2        3           C
-## CO10712-130603-012            1         2        3           C
-## CO10712-130603-013            1         2        3           C
-##                    DetectType2 DetectType3 Sex Age Activity1
-## CO10712-130603-008        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-## CO10712-130603-009        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-## CO10712-130603-010        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-## CO10712-130603-011        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-## CO10712-130603-012        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-## CO10712-130603-013        &lt;NA&gt;        &lt;NA&gt;   U   A        FO
-##                    Activity2 Activity3 ActivityNote    Dur   Dis
-## CO10712-130603-008        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-## CO10712-130603-009        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-## CO10712-130603-010        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-## CO10712-130603-011        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-## CO10712-130603-012        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-## CO10712-130603-013        FL      &lt;NA&gt;         &lt;NA&gt; 0-3min 100+m
-##                    SpeciesID
-## CO10712-130603-008      CANG
-## CO10712-130603-009      CANG
-## CO10712-130603-010      CANG
-## CO10712-130603-011      CANG
-## CO10712-130603-012      CANG
-## CO10712-130603-013      CANG</code></pre>
+<pre><code>##                         ObservationID  SiteID StationID TimeInterval
+## CO10712-130603-008 CO10712-130603-008 CO10712 CO10712-1            1
+## CO10712-130603-009 CO10712-130603-009 CO10712 CO10712-1            1
+## CO10712-130603-010 CO10712-130603-010 CO10712 CO10712-1            1
+## CO10712-130603-011 CO10712-130603-011 CO10712 CO10712-1            1
+## CO10712-130603-012 CO10712-130603-012 CO10712 CO10712-1            1
+## CO10712-130603-013 CO10712-130603-013 CO10712 CO10712-1            1
+##                    Direction Distance DetectType1 DetectType2 DetectType3
+## CO10712-130603-008         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+## CO10712-130603-009         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+## CO10712-130603-010         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+## CO10712-130603-011         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+## CO10712-130603-012         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+## CO10712-130603-013         2        3           C        &lt;NA&gt;        &lt;NA&gt;
+##                    Sex Age Activity1 Activity2 Activity3 ActivityNote
+## CO10712-130603-008   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+## CO10712-130603-009   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+## CO10712-130603-010   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+## CO10712-130603-011   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+## CO10712-130603-012   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+## CO10712-130603-013   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
+##                       Dur   Dis SpeciesID
+## CO10712-130603-008 0-3min 100+m      CANG
+## CO10712-130603-009 0-3min 100+m      CANG
+## CO10712-130603-010 0-3min 100+m      CANG
+## CO10712-130603-011 0-3min 100+m      CANG
+## CO10712-130603-012 0-3min 100+m      CANG
+## CO10712-130603-013 0-3min 100+m      CANG</code></pre>
 <p>We can check overall mean counts:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">sort</span>(<span class="kw">colMeans</span>(ytot)), <span class="dv">4</span>)</code></pre>
-<pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO 
-## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
-##   RTHU   WWSC   CANV   NOPI   GBHE   GCTH   GHOW   LEOW   NOHA 
-## 0.0000 0.0000 0.0000 0.0000 0.0002 0.0002 0.0002 0.0002 0.0002 
-##   RBGU   BRBL   CAGU   AMCO   BAEA   BARS   NESP   NOGO   NOPO 
-## 0.0002 0.0002 0.0002 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
-##   NSWO   RNDU   SNBU   VEER   BEKI   CSWA   MERL   SAVS   SSHA 
-## 0.0004 0.0004 0.0004 0.0004 0.0007 0.0007 0.0007 0.0007 0.0007 
-##   MYWA   AMKE   BAOR   OSPR   SPGR   WBNU   AMGO   AMWI   BOWA 
-## 0.0007 0.0009 0.0009 0.0009 0.0009 0.0009 0.0011 0.0011 0.0011 
-##   CONI   EAPH   HOWR   NRWS   BLTE   COGR   EAKI   GGOW   NAWA 
-## 0.0011 0.0011 0.0011 0.0011 0.0013 0.0013 0.0013 0.0013 0.0013 
-##   COSN   COTE   FRGU   MAWR   FOTE   KILL   RTHA   BADO   BLBW 
-## 0.0013 0.0015 0.0015 0.0015 0.0015 0.0018 0.0020 0.0024 0.0024 
-##   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP   RUBL   MALL 
-## 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 0.0044 0.0046 
-##   PUFI   DOWO   SORA   LEYE   ATTW   HAWO   RNGR   BBWO   BLJA 
-## 0.0048 0.0059 0.0068 0.0094 0.0096 0.0101 0.0101 0.0107 0.0134 
-##   BOGU   AMCR   EVGR   RWBL   OSFL   LCSP   TRES   FOSP   WEWP 
-## 0.0140 0.0166 0.0169 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 
-##   WIWA   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA   SACR 
-## 0.0236 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 0.0322 
-##   BTNW   NOWA   OCWA   BRCR   CCSP   COLO   PHVI   CONW   CEDW 
-## 0.0335 0.0341 0.0359 0.0381 0.0385 0.0387 0.0394 0.0429 0.0449 
-##   RUGR   MOWA   WAVI   BCCH   BOCH   NOFL   SWSP   GRYE   WWCR 
-## 0.0475 0.0477 0.0582 0.0593 0.0593 0.0622 0.0659 0.0685 0.0751 
-##   AMRO   RBNU   BBWA   CMWA   BHVI   COYE   YBFL   YBSA   AMRE 
-## 0.0757 0.0766 0.0810 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 
-##   BAWW   LEFL   WETA   WISN   CORA   WIWR   ALFL   MAWA   PISI 
-## 0.0963 0.0974 0.1086 0.1280 0.1401 0.1466 0.1582 0.1727 0.1775 
-##   RBGR   LISP   DEJU   GRAJ   CANG   PAWA   REVI   RCKI   HETH 
-## 0.1832 0.2169 0.2725 0.2898 0.3018 0.3053 0.3344 0.3898 0.4344 
-##   CHSP   SWTH   WTSP   OVEN   YRWA   TEWA 
-## 0.4460 0.7402 0.8091 0.8831 0.8934 1.2221</code></pre>
+<pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO   RTHU 
+## 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 
+##   WWSC   CANV   NOPI   GBHE   GCTH   GHOW   LEOW   NOHA   RBGU   BRBL 
+## 0.0000 0.0000 0.0000 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 0.0002 
+##   CAGU   AMCO   BAEA   BARS   NESP   NOGO   NOPO   NSWO   RNDU   SNBU 
+## 0.0002 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 0.0004 
+##   VEER   BEKI   CSWA   MERL   SAVS   SSHA   MYWA   AMKE   BAOR   OSPR 
+## 0.0004 0.0007 0.0007 0.0007 0.0007 0.0007 0.0007 0.0009 0.0009 0.0009 
+##   SPGR   WBNU   AMGO   AMWI   BOWA   CONI   EAPH   HOWR   NRWS   BLTE 
+## 0.0009 0.0009 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 0.0011 0.0013 
+##   COGR   EAKI   GGOW   NAWA   COSN   COTE   FRGU   MAWR   FOTE   KILL 
+## 0.0013 0.0013 0.0013 0.0013 0.0013 0.0015 0.0015 0.0015 0.0015 0.0018 
+##   RTHA   BADO   BLBW   AMBI   PBGR   SPSA   AMPI   BHCO   BWHA   SOSP 
+## 0.0020 0.0024 0.0024 0.0028 0.0028 0.0028 0.0028 0.0031 0.0037 0.0042 
+##   RUBL   MALL   PUFI   DOWO   SORA   LEYE   ATTW   HAWO   RNGR   BBWO 
+## 0.0044 0.0046 0.0048 0.0059 0.0068 0.0094 0.0096 0.0101 0.0101 0.0107 
+##   BLJA   BOGU   AMCR   EVGR   RWBL   OSFL   LCSP   TRES   FOSP   WEWP 
+## 0.0134 0.0140 0.0166 0.0169 0.0169 0.0186 0.0193 0.0201 0.0217 0.0232 
+##   WIWA   PIWO   RECR   SOSA   YWAR   GCKI   BLPW   CAWA   SACR   BTNW 
+## 0.0236 0.0256 0.0269 0.0269 0.0291 0.0304 0.0306 0.0315 0.0322 0.0335 
+##   NOWA   OCWA   BRCR   CCSP   COLO   PHVI   CONW   CEDW   RUGR   MOWA 
+## 0.0341 0.0359 0.0381 0.0385 0.0387 0.0394 0.0429 0.0449 0.0475 0.0477 
+##   WAVI   BCCH   BOCH   NOFL   SWSP   GRYE   WWCR   AMRO   RBNU   BBWA 
+## 0.0582 0.0593 0.0593 0.0622 0.0659 0.0685 0.0751 0.0757 0.0766 0.0810 
+##   CMWA   BHVI   COYE   YBFL   YBSA   AMRE   BAWW   LEFL   WETA   WISN 
+## 0.0812 0.0814 0.0814 0.0873 0.0878 0.0889 0.0963 0.0974 0.1086 0.1280 
+##   CORA   WIWR   ALFL   MAWA   PISI   RBGR   LISP   DEJU   GRAJ   CANG 
+## 0.1401 0.1466 0.1582 0.1727 0.1775 0.1832 0.2169 0.2725 0.2898 0.3018 
+##   PAWA   REVI   RCKI   HETH   CHSP   SWTH   WTSP   OVEN   YRWA   TEWA 
+## 0.3053 0.3344 0.3898 0.4344 0.4460 0.7402 0.8091 0.8831 0.8934 1.2221</code></pre>
 </div>
 <div id="joining-species-data-with-predictors" class="section level2">
 <h2><span class="header-section-number">2.6</span> Joining species data with predictors</h2>
@@ -658,10 +650,30 @@ col &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
-Play with the data to understand the distributions and associations.
+Explore the data to understand the distributions and associations.
 Use <code>summary</code>, <code>table</code>, <code>hist</code>, <code>plot</code> (bivariate, scatterplot matrix), etc.
 </div>
 
+</div>
+<div id="derived-variables" class="section level2">
+<h2><span class="header-section-number">2.8</span> Derived variables</h2>
+<p>Add up some of the compositional variables into meaningful units:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>FOR &lt;-<span class="st"> </span>x<span class="op">$</span>Decid <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Conif<span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="co"># forest</span>
+x<span class="op">$</span>AHF &lt;-<span class="st"> </span>x<span class="op">$</span>Agr <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>UrbInd <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Roads <span class="co"># &#39;alienating&#39; human footprint</span>
+x<span class="op">$</span>WET &lt;-<span class="st"> </span>x<span class="op">$</span>OpenWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Water <span class="co"># wet + water</span></code></pre>
+<p>Classify surveys locations based on dominant land cover type:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open&quot;</span>, <span class="st">&quot;Water&quot;</span>, <span class="st">&quot;Agr&quot;</span>, <span class="st">&quot;UrbInd&quot;</span>, <span class="st">&quot;SoftLin&quot;</span>, <span class="st">&quot;Roads&quot;</span>, <span class="st">&quot;Decid&quot;</span>, 
+  <span class="st">&quot;OpenWet&quot;</span>, <span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)
+h &lt;-<span class="st"> </span><span class="kw">find_max</span>(x[,cn])
+<span class="kw">hist</span>(h<span class="op">$</span>value)</code></pre>
+<p><img src="qpad-book_files/figure-html/data-deriv2-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(h<span class="op">$</span>index)</code></pre>
+<pre><code>## 
+##     Open    Water      Agr   UrbInd  SoftLin    Roads    Decid  OpenWet 
+##       12       10        4       14        0        2     2084      160 
+##    Conif ConifWet 
+##      745     1538</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>HAB &lt;-<span class="st"> </span><span class="kw">droplevels</span>(h<span class="op">$</span>index) <span class="co"># drop empty levels</span></code></pre>
 
 </div>
 </div>

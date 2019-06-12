@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-07">
+<meta name="date" content="2019-06-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -153,21 +153,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
 <li class="chapter" data-level="2.7" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>2.7</b> Explore predictor variables</a></li>
+<li class="chapter" data-level="2.8" data-path="pcdata.html"><a href="pcdata.html#derived-variables"><i class="fa fa-check"></i><b>2.8</b> Derived variables</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> A Primer in Regression Techniques</a><ul>
 <li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#prerequisites-1"><i class="fa fa-check"></i><b>3.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#poisson-null-model"><i class="fa fa-check"></i><b>3.3</b> Poisson null model</a></li>
 <li class="chapter" data-level="3.4" data-path="regression.html"><a href="regression.html#exploring-covariates"><i class="fa fa-check"></i><b>3.4</b> Exploring covariates</a></li>
-<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#poisson-glm-with-one-covariate"><i class="fa fa-check"></i><b>3.5</b> Poisson GLM with one covariate</a></li>
+<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#single-covariate"><i class="fa fa-check"></i><b>3.5</b> Single covariate</a></li>
 <li class="chapter" data-level="3.6" data-path="regression.html"><a href="regression.html#additive-model"><i class="fa fa-check"></i><b>3.6</b> Additive model</a></li>
-<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.7</b> Multiple main effects</a></li>
-<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.8</b> Nonlinear terms</a></li>
-<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.9</b> Categorical variables</a><ul>
-<li class="chapter" data-level="3.9.1" data-path="regression.html"><a href="regression.html#optimal-partitioning"><i class="fa fa-check"></i><b>3.9.1</b> Optimal partitioning</a></li>
-<li class="chapter" data-level="3.9.2" data-path="regression.html"><a href="regression.html#finding-optimal-combinations-of-factor-levels"><i class="fa fa-check"></i><b>3.9.2</b> Finding optimal combinations of factor levels</a></li>
-</ul></li>
-<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>3.10</b> Interactions</a></li>
+<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.7</b> Nonlinear terms</a></li>
+<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.8</b> Categorical variables</a></li>
+<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
+<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
 <li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
 <li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
@@ -181,7 +179,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
-<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a></li>
+<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.1.1</b> Optimal partitioning</a></li>
+<li class="chapter" data-level="9.1.2" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.1.2</b> Optilevels</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -217,36 +218,52 @@ We will also hone our data processing and plotting skills.</p>
 </div>
 <div id="prerequisites-1" class="section level2">
 <h2><span class="header-section-number">3.2</span> Prerequisites</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)        <span class="co"># data manipulation</span>
-<span class="kw">library</span>(mgcv)         <span class="co"># GAMs</span>
-<span class="kw">library</span>(pscl)         <span class="co"># zero-inflated models</span>
-<span class="kw">library</span>(lme4)         <span class="co"># GLMMs</span>
-<span class="kw">library</span>(MASS)         <span class="co"># Negative Binomial GLM</span>
-<span class="kw">library</span>(partykit)     <span class="co"># regression trees</span>
-<span class="kw">library</span>(intrval)      <span class="co"># interval magic</span>
-<span class="kw">library</span>(opticut)      <span class="co"># optimal partitioning</span>
-<span class="kw">library</span>(visreg)       <span class="co"># regression visualization</span>
-<span class="kw">library</span>(MuMIn)        <span class="co"># multi-model inference</span>
-<span class="kw">source</span>(<span class="st">&quot;functions.R&quot;</span>) <span class="co"># some useful stuff</span>
-<span class="kw">load</span>(<span class="st">&quot;./_data/josm/josm.rda&quot;</span>) <span class="co"># JOSM data</span></code></pre>
-</div>
-<div id="poisson-null-model" class="section level2">
-<h2><span class="header-section-number">3.3</span> Poisson null model</h2>
-<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)                <span class="co"># data manipulation</span>
+<span class="kw">library</span>(mgcv)                 <span class="co"># GAMs</span>
+<span class="kw">library</span>(pscl)                 <span class="co"># zero-inflated models</span>
+<span class="kw">library</span>(lme4)                 <span class="co"># GLMMs</span>
+<span class="kw">library</span>(MASS)                 <span class="co"># Negative Binomial GLM</span>
+<span class="kw">library</span>(partykit)             <span class="co"># regression trees</span>
+<span class="kw">library</span>(intrval)              <span class="co"># interval magic</span>
+<span class="kw">library</span>(opticut)              <span class="co"># optimal partitioning</span>
+<span class="kw">library</span>(visreg)               <span class="co"># regression visualization</span>
+<span class="kw">library</span>(ResourceSelection)    <span class="co"># marginal effects</span>
+<span class="kw">library</span>(MuMIn)                <span class="co"># multi-model inference</span>
+<span class="kw">source</span>(<span class="st">&quot;functions.R&quot;</span>)         <span class="co"># some useful stuff</span>
+<span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>) <span class="co"># JOSM data</span></code></pre>
+<p>Let’s pick a species, Ovenbird (<code>OVEN</code>), that is quite common and abundant in the data set.
+We put together a little data set to work with:</p>
+<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span>
 
 ytot &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
 ytot &lt;-<span class="st"> </span>ytot[,<span class="kw">colSums</span>(ytot <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>]
 x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
   josm<span class="op">$</span>surveys, 
-  <span class="dt">y=</span><span class="kw">as.numeric</span>(ytot[<span class="kw">rownames</span>(x), spp]))
+  <span class="dt">y=</span><span class="kw">as.numeric</span>(ytot[<span class="kw">rownames</span>(josm<span class="op">$</span>surveys), spp]))
+x<span class="op">$</span>FOR &lt;-<span class="st"> </span>x<span class="op">$</span>Decid <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Conif<span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="co"># forest</span>
+x<span class="op">$</span>AHF &lt;-<span class="st"> </span>x<span class="op">$</span>Agr <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>UrbInd <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Roads <span class="co"># &#39;alienating&#39; human footprint</span>
+x<span class="op">$</span>WET &lt;-<span class="st"> </span>x<span class="op">$</span>OpenWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Water <span class="co"># wet + water</span>
+cn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open&quot;</span>, <span class="st">&quot;Water&quot;</span>, <span class="st">&quot;Agr&quot;</span>, <span class="st">&quot;UrbInd&quot;</span>, <span class="st">&quot;SoftLin&quot;</span>, <span class="st">&quot;Roads&quot;</span>, <span class="st">&quot;Decid&quot;</span>, 
+  <span class="st">&quot;OpenWet&quot;</span>, <span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)
+x<span class="op">$</span>HAB &lt;-<span class="st"> </span><span class="kw">droplevels</span>(<span class="kw">find_max</span>(x[,cn])<span class="op">$</span>index) <span class="co"># drop empty levels</span>
+x<span class="op">$</span>DEC &lt;-<span class="st"> </span><span class="kw">ifelse</span>(x<span class="op">$</span>HAB <span class="op">==</span><span class="st"> &quot;Decid&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)
 
 <span class="kw">table</span>(x<span class="op">$</span>y)</code></pre>
 <pre><code>## 
 ##    0    1    2    3    4    5    6 
 ## 2493  883  656  363  132   29   13</code></pre>
-<p><span class="math inline">\(E[Y_i] = \lambda_i = \lambda\)</span>, <span class="math inline">\((Y_i \mid \lambda) \sim Poisson(\lambda)\)</span>,
-<span class="math inline">\(log(\lambda) = \beta_0\)</span>, <span class="math inline">\(\lambda = e^{\beta_0}\)</span></p>
-<p>Null model</p>
+</div>
+<div id="poisson-null-model" class="section level2">
+<h2><span class="header-section-number">3.3</span> Poisson null model</h2>
+<p>The null model states that the expected values of the count at all locations
+are identical: <span class="math inline">\(E[Y_i]=\lambda\)</span> (<span class="math inline">\(i=1,...,n\)</span>), where <span class="math inline">\(Y_i\)</span> is a random variable
+that follows a Poisson distribution with mean <span class="math inline">\(\lambda\)</span>:
+<span class="math inline">\((Y_i \mid \lambda) \sim Poisson(\lambda)\)</span>.
+The observation (<span class="math inline">\(y_i\)</span>) is a realization of the random variables <span class="math inline">\(Y\)</span> at site <span class="math inline">\(i\)</span>,
+these observations are independent and identically distributed (i.i.d.),
+and we have <span class="math inline">\(n\)</span> observations in total.</p>
+<p>Saying the the distribution is Poisson is an assumption in itself. For example
+we assume that the variance equals the mean (<span class="math inline">\(V(\mu)=\mu\)</span>).</p>
 <pre class="sourceCode r"><code class="sourceCode r">mP0 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">mean</span>(x<span class="op">$</span>y)</code></pre>
 <pre><code>## [1] 0.8831</code></pre>
@@ -265,8 +282,8 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 ##  -1.33   -1.33   -1.33    1.02    3.57  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value           Pr(&gt;|z|)    
-## (Intercept)  -0.1243     0.0157   -7.89 0.0000000000000029 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.1243     0.0157   -7.89  2.9e-15 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -277,22 +294,83 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 ## AIC: 12573
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
+<p>The <code>family=poisson</code> specification implicitly assumes that we use a logarithmic link functions,
+that is to say that <span class="math inline">\(log(\lambda) = \beta_0\)</span>, or equivalently: <span class="math inline">\(\lambda = e^{\beta_0}\)</span>.
+The mean of the observations equal the mean of the fitted values, as expected.</p>
+<p>The logarithmic function is called the link function, its inverse, the exponential function
+is called the inverse link function. The model family has these convenently stored for us:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mP0<span class="op">$</span>family</code></pre>
+<pre><code>## 
+## Family: poisson 
+## Link function: log</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mP0<span class="op">$</span>family<span class="op">$</span>linkfun</code></pre>
+<pre><code>## function (mu) 
+## log(mu)
+## &lt;environment: namespace:stats&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mP0<span class="op">$</span>family<span class="op">$</span>linkinv</code></pre>
+<pre><code>## function (eta) 
+## pmax(exp(eta), .Machine$double.eps)
+## &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <div id="exploring-covariates" class="section level2">
 <h2><span class="header-section-number">3.4</span> Exploring covariates</h2>
-<p>What is a useful covariate?</p>
+<p>Now, in the absence of info about species biology, we are looking at a blank page.
+How should we proceed? What kind of covariate (linear predictor) should we use?
+We can do a quick and dirty exploration to see what are the likely candidates.
+We use a regression tree (<code>ctree</code> refers to conditional trees). It is
+a nonparametric method based on binary recursive partitioning in a conditional inference framework.
+This means that binary splits are made along the predictor variables,
+and the explanatory power of the split is assessed based on how it
+maximized difference between the splits and minimized the difference inside the splits.
+It is called conditional, because every new split is conditional on the previous splits
+(difference can be measured in many different ways, think e.g. sum of squares).
+The stopping rule in this implementation is based on permutation tests (see <code>?ctree</code> or details
+and references).</p>
 <pre class="sourceCode r"><code class="sourceCode r">mCT &lt;-<span class="st"> </span><span class="kw">ctree</span>(y <span class="op">~</span><span class="st"> </span>Open <span class="op">+</span><span class="st"> </span>Water <span class="op">+</span><span class="st"> </span>Agr <span class="op">+</span><span class="st"> </span>UrbInd <span class="op">+</span><span class="st"> </span>SoftLin <span class="op">+</span><span class="st"> </span>Roads <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span>Decid <span class="op">+</span><span class="st"> </span>OpenWet <span class="op">+</span><span class="st"> </span>Conif <span class="op">+</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x)
-<span class="kw">plot</span>(mCT, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/regr-ctree-1.png" width="672" /></p>
+<span class="kw">plot</span>(mCT)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-ctree-1.png" width="1920" /></p>
+<p>The model can be seen as a piecewise constant regression, where each bucket (defined by
+the splits along the tree) yields a constant predictions based on the mean of the
+observations in the bucket. Any new data classified
+into the same bucket will get the same value. There is no notion of uncertainty
+(confidence or prediction intervals) in this nonparameric model.</p>
+<p>But we see something very useful: the proportion of deciduous forest in the landscape
+seems to be vary influential for Ovenbird abundance.</p>
 </div>
-<div id="poisson-glm-with-one-covariate" class="section level2">
-<h2><span class="header-section-number">3.5</span> Poisson GLM with one covariate</h2>
+<div id="single-covariate" class="section level2">
+<h2><span class="header-section-number">3.5</span> Single covariate</h2>
+<p>With this new found knowledge, let’s fit a parametric (Poisson) linear model
+using <code>Decid</code> as a predictor:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mP1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">mean</span>(x<span class="op">$</span>y)</code></pre>
 <pre><code>## [1] 0.8831</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">fitted</span>(mP0))</code></pre>
 <pre><code>## [1] 0.8831</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mP1)</code></pre>
+<pre><code>## (Intercept)       Decid 
+##      -1.164       2.134</code></pre>
+<p>Same as before, the mean of the observations equal the mean of the fitted values.
+But instead of only the intercapt, now we have 2 coefficients estimated.
+Our linear predictor thus looks like:
+<span class="math inline">\(log(\lambda_i) = \beta_0 + \beta_1 x_{1i}\)</span>. This means that expected abundance is
+<span class="math inline">\(e^{\beta_0}\)</span> where <code>Decid</code>=0,
+<span class="math inline">\(e^{\beta_0}e^{\beta_1}\)</span> where <code>Decid</code>=1,
+and <span class="math inline">\(e^{\beta_0+\beta_1 x_{1}}\)</span> in between.</p>
+<p>The relationship can be visualized by plotting the fitted values against the predictor,
+or using the coefficients to make predictions using our formula:</p>
+<pre class="sourceCode r"><code class="sourceCode r">dec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)
+lam &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">coef</span>(mP1)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">coef</span>(mP1)[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>dec)
+<span class="kw">plot</span>(<span class="kw">fitted</span>(mP1) <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)
+<span class="kw">lines</span>(lam <span class="op">~</span><span class="st"> </span>dec, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">rug</span>(x<span class="op">$</span>Decid)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-pois2_plot-1.png" width="672" /></p>
+<p>The model summary tells us that resudials are not quite right (we would expect
+0 median and symmertic tails), in line with residual deviance
+being much higher than residual degrees of freedom
+(these should be close if the Poisson assumption holds).
+But, the <code>Decid</code> effect is significant (meaning that the effect size is
+large compared to the standard error):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mP1)</code></pre>
 <pre><code>## 
 ## Call:
@@ -303,9 +381,9 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 ## -2.291  -0.977  -0.790   0.469   4.197  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value            Pr(&gt;|z|)    
-## (Intercept)  -1.1643     0.0352   -33.1 &lt;0.0000000000000002 ***
-## Decid         2.1338     0.0537    39.7 &lt;0.0000000000000002 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.1643     0.0352   -33.1   &lt;2e-16 ***
+## Decid         2.1338     0.0537    39.7   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -316,162 +394,295 @@ x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 ## AIC: 10887
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
+<p>We can compare this model to the null (constant, intercept-only) model:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP0, mP1)</code></pre>
 <pre><code>##     df   AIC
 ## mP0  1 12573
 ## mP1  2 10887</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">rbind</span>(<span class="dt">mP0=</span><span class="kw">R2dev</span>(mP0), <span class="dt">mP1=</span><span class="kw">R2dev</span>(mP1)), <span class="dv">4</span>)</code></pre>
-<pre><code>##         R2  R2adj Deviance Dev0 DevR  df0  dfR p_value
-## mP0 0.0000 0.0000        0 7425 7425 4568 4568       0
-## mP1 0.2273 0.2272     1688 7425 5737 4568 4567       0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">xnew &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Decid=</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))
-CI0 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP0, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)
-PI0 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP0, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)
-CI1 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP1, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)
-PI1 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP1, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">BIC</span>(mP0, mP1)</code></pre>
+<pre><code>##     df   BIC
+## mP0  1 12579
+## mP1  2 10900</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP0, mP1)</code></pre>
+<pre><code>## Model selection table 
+##     (Intrc) Decid df logLik  AICc delta weight
+## mP1 -1.1640 2.134  2  -5442 10887     0      1
+## mP0 -0.1243        1  -6285 12573  1686      0
+## Models ranked by AICc(x)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">R2dev</span>(mP0, mP1)</code></pre>
+<pre><code>##          R2   R2adj Deviance    Dev0    DevR     df0     dfR p_value    
+## mP0    0.00    0.00     0.00 7424.78 7424.78 4568.00 4568.00  &lt;2e-16 ***
+## mP1    0.23    0.23  1687.87 7424.78 5736.91 4568.00 4567.00  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>AIC uses the negative log likelihood and the number of parameters as penalty.
+Smaller value indicate a model that is closer to the (unknowable) true model
+(caveat: this statement is true only asymptotically, i.e. it holds for very large
+sample sizes). For small samples, we of ten use BIC (more penalty for complex models
+when sample size is small), or AICc (as in <code>MuMIn::model.sel</code>).</p>
+<p>The other little table returned by <code>R2dev</code> shows deviance based (quasi) <span class="math inline">\(R^2\)</span> and adjusted
+<span class="math inline">\(R^2\)</span> for some GLM classes, just for the sake of completeness. The Chi-squared based
+test indicates good fit when the <span class="math inline">\(p\)</span>-value is high (probability of being distributed
+according the Poisson).</p>
+<p>None of these two models is a particularly good fit in terms
+of the parametric distribution.
+This, however does not mean these models are not useful for making inferential statements
+about ovenbirds. How useful these statements are, that is another question.
+Let’s dive into cinfidence and prediction intervals a bit.</p>
+<pre class="sourceCode r"><code class="sourceCode r">B &lt;-<span class="st"> </span><span class="dv">2000</span>
+alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
+
+xnew &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Decid=</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))
+CI0 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP0, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+PI0 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP0, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+CI1 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP1, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+PI1 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP1, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
 
 ## nominal coverage is 95%
-<span class="kw">sum</span>(x<span class="op">$</span>y <span class="op">%[]%</span><span class="st"> </span><span class="kw">predict_sim</span>(mP0, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)[,<span class="kw">c</span>(<span class="st">&quot;lwr&quot;</span>, <span class="st">&quot;upr&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(x)</code></pre>
+<span class="kw">sum</span>(x<span class="op">$</span>y <span class="op">%[]%</span><span class="st"> </span><span class="kw">predict_sim</span>(mP0, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)[,<span class="kw">c</span>(<span class="st">&quot;lwr&quot;</span>, <span class="st">&quot;upr&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(x)</code></pre>
 <pre><code>## [1] 0.9619</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(x<span class="op">$</span>y <span class="op">%[]%</span><span class="st"> </span><span class="kw">predict_sim</span>(mP1, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>, <span class="dt">B=</span><span class="dv">999</span>)[,<span class="kw">c</span>(<span class="st">&quot;lwr&quot;</span>, <span class="st">&quot;upr&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(x)</code></pre>
-<pre><code>## [1] 0.9709</code></pre>
-</div>
-<div id="additive-model" class="section level2">
-<h2><span class="header-section-number">3.6</span> Additive model</h2>
-<pre class="sourceCode r"><code class="sourceCode r">mGAM &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(Decid), x, <span class="dt">family=</span>poisson)
-<span class="kw">plot</span>(mGAM)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">fitCT &lt;-<span class="st"> </span><span class="kw">predict</span>(mCT, x[<span class="kw">order</span>(x<span class="op">$</span>Decid),])
-fitGAM &lt;-<span class="st"> </span><span class="kw">predict</span>(mGAM, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(x<span class="op">$</span>y <span class="op">%[]%</span><span class="st"> </span><span class="kw">predict_sim</span>(mP1, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)[,<span class="kw">c</span>(<span class="st">&quot;lwr&quot;</span>, <span class="st">&quot;upr&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(x)</code></pre>
+<pre><code>## [1] 0.9711</code></pre>
+<p>A model is said to have good <em>coverage</em> when the prediction intervals
+encompass the right amount of the observations. When the nominal level is 95% (<span class="math inline">\(100 \times (1-\alpha)\)</span>,
+where <span class="math inline">\(\alpha\)</span> is Type I. error rate),
+we expect 95% of the observations fall within the 95% <em>prediction interval</em>.
+The prediction interval includes the uncertainty around the coefficients
+(confidence intervals, uncertainty in <span class="math inline">\(\hat{\lambda}\)</span>) and the stochasticity coming from the
+Poisson distribution (<span class="math inline">\(Y_i \sim Poisson(\hat{\lambda})\)</span>).</p>
+<p>The code above calculate the confidence and prediction intervals for the two models.
+We also compared the prediction intervals and the nomial levels, and those were quite
+close (ours being a bit more conservative), hinting that maybe the Poisson
+distributional assumption is not very bad after all, but we’ll come back to this later.</p>
+<p>Let’s see our confidence and prediction intervals for the two models:</p>
+<pre class="sourceCode r"><code class="sourceCode r">yj &lt;-<span class="st"> </span><span class="kw">jitter</span>(x<span class="op">$</span>y, <span class="fl">0.5</span>)
 
-op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(<span class="kw">jitter</span>(y, <span class="fl">0.5</span>) <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
   <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;P0&quot;</span>)
+
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI0<span class="op">$</span>lwr, <span class="kw">rev</span>(PI0<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI0<span class="op">$</span>lwr, <span class="kw">rev</span>(CI0<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
 <span class="kw">lines</span>(CI0<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(CI0<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(CI0<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(PI0<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(PI0<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">4</span>)
 
-<span class="kw">plot</span>(<span class="kw">jitter</span>(y, <span class="fl">0.5</span>) <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
-  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;P1&quot;</span>)
-<span class="kw">lines</span>(CI1<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(CI1<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(CI1<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(PI1<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">lines</span>(PI1<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI1<span class="op">$</span>lwr, <span class="kw">rev</span>(PI1<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#ff000044&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI1<span class="op">$</span>lwr, <span class="kw">rev</span>(CI1<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#ff000044&quot;</span>)
+<span class="kw">lines</span>(CI1<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>)
 
-<span class="kw">plot</span>(<span class="kw">jitter</span>(y, <span class="fl">0.5</span>) <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
-  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;ctree&quot;</span>)
-<span class="kw">lines</span>(fitCT <span class="op">~</span><span class="st"> </span>x<span class="op">$</span>Decid[<span class="kw">order</span>(x<span class="op">$</span>Decid)], <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
-
-<span class="kw">plot</span>(<span class="kw">jitter</span>(y, <span class="fl">0.5</span>) <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
-  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;GAM&quot;</span>)
-<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
+<span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">fill=</span><span class="kw">c</span>(<span class="st">&quot;#0000ff44&quot;</span>, <span class="st">&quot;#ff000044&quot;</span>), <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>),
+  <span class="dt">border=</span><span class="ot">NA</span>, <span class="kw">c</span>(<span class="st">&quot;Null&quot;</span>, <span class="st">&quot;Decid&quot;</span>))</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-pois_PI-1.png" width="672" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
-Play with GAM and other variables to understand responses:
+<p>What can we conclude from this plot?</p>
+<p>Coverage is comparable, so what is the difference then?</p>
+Which model should I use for prediction and why? (Hint: look at the non overlapping regions.)
+</div>
+
+</div>
+<div id="additive-model" class="section level2">
+<h2><span class="header-section-number">3.6</span> Additive model</h2>
+<p>Generalized additive models (GAMs) are semiparametric, meaning that
+parametric assumptions apply, but responses are modelled more flexibly.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mGAM &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(Decid), x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mGAM)</code></pre>
+<pre><code>## 
+## Family: poisson 
+## Link function: log 
+## 
+## Formula:
+## y ~ s(Decid)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.5606     0.0283   -19.8   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##           edf Ref.df Chi.sq p-value    
+## s(Decid) 8.56   8.94   1193  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.239   Deviance explained =   29%
+## UBRE = 0.15808  Scale est. = 1         n = 4569</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(mGAM)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-gam-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">fitCT &lt;-<span class="st"> </span><span class="kw">predict</span>(mCT, x[<span class="kw">order</span>(x<span class="op">$</span>Decid),])
+fitGAM &lt;-<span class="st"> </span><span class="kw">predict</span>(mGAM, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)
+
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;P0&quot;</span>)
+<span class="kw">lines</span>(CI0<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">1</span>)
+<span class="kw">lines</span>(CI1<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">lines</span>(fitCT <span class="op">~</span><span class="st"> </span>x<span class="op">$</span>Decid[<span class="kw">order</span>(x<span class="op">$</span>Decid)], <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">3</span>)
+<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,
+  <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Null&quot;</span>, <span class="st">&quot;Decid&quot;</span>, <span class="st">&quot;ctree&quot;</span>, <span class="st">&quot;GAM&quot;</span>))</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-glm_plots-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>Play with GAM and other variables to understand response curves:</p>
 <code>plot(mgcv::gam(y ~ s(&lt;variable_name&gt;), data=x, family=poisson))</code>
 </div>
 
 </div>
-<div id="multiple-main-effects" class="section level2">
-<h2><span class="header-section-number">3.7</span> Multiple main effects</h2>
-<pre class="sourceCode r"><code class="sourceCode r">mP2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Open <span class="op">+</span><span class="st"> </span>Agr <span class="op">+</span><span class="st"> </span>UrbInd <span class="op">+</span><span class="st"> </span>SoftLin <span class="op">+</span><span class="st"> </span>Roads <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>Decid <span class="op">+</span><span class="st"> </span>OpenWet <span class="op">+</span><span class="st"> </span>Conif <span class="op">+</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>OvernightRain <span class="op">+</span><span class="st"> </span>TSSR <span class="op">+</span><span class="st"> </span>DAY <span class="op">+</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude,
-  <span class="dt">data=</span>x, <span class="dt">family=</span>poisson), <span class="dt">trace=</span><span class="dv">0</span>)
-
-<span class="kw">summary</span>(mP2)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = y ~ Open + UrbInd + Decid + OpenWet + Conif + ConifWet + 
-##     TSSR + DAY + Longitude + Latitude, family = poisson, data = x)
-## 
-## Deviance Residuals: 
-##    Min      1Q  Median      3Q     Max  
-## -2.763  -0.986  -0.674   0.451   4.624  
-## 
-## Coefficients:
-##             Estimate Std. Error z value             Pr(&gt;|z|)    
-## (Intercept) -5.88293    1.30223   -4.52      0.0000062546826 ***
-## Open        -3.47428    0.65867   -5.27      0.0000001330000 ***
-## UrbInd      -1.66883    0.54216   -3.08              0.00208 ** 
-## Decid        0.83372    0.25957    3.21              0.00132 ** 
-## OpenWet     -0.74076    0.30238   -2.45              0.01430 *  
-## Conif       -0.88558    0.26566   -3.33              0.00086 ***
-## ConifWet    -1.89423    0.27170   -6.97      0.0000000000031 ***
-## TSSR        -1.23416    0.24984   -4.94      0.0000007818641 ***
-## DAY         -2.87970    0.52686   -5.47      0.0000000460898 ***
-## Longitude    0.03831    0.00877    4.37      0.0000124210771 ***
-## Latitude     0.20930    0.02309    9.06 &lt; 0.0000000000000002 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for poisson family taken to be 1)
-## 
-##     Null deviance: 7424.8  on 4568  degrees of freedom
-## Residual deviance: 5501.1  on 4558  degrees of freedom
-## AIC: 10669
-## 
-## Number of Fisher Scoring iterations: 6</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP0, mP1, mP2)</code></pre>
-<pre><code>##     df   AIC
-## mP0  1 12573
-## mP1  2 10887
-## mP2 11 10669</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">rbind</span>(<span class="dt">mP0=</span><span class="kw">R2dev</span>(mP0), <span class="dt">mP1=</span><span class="kw">R2dev</span>(mP1), <span class="dt">mP2=</span><span class="kw">R2dev</span>(mP2)), <span class="dv">4</span>)</code></pre>
-<pre><code>##         R2  R2adj Deviance Dev0 DevR  df0  dfR p_value
-## mP0 0.0000 0.0000        0 7425 7425 4568 4568       0
-## mP1 0.2273 0.2272     1688 7425 5737 4568 4567       0
-## mP2 0.2591 0.2575     1924 7425 5501 4568 4558       0</code></pre>
-</div>
 <div id="nonlinear-terms" class="section level2">
-<h2><span class="header-section-number">3.8</span> Nonlinear terms</h2>
-<p>Polynomials</p>
+<h2><span class="header-section-number">3.7</span> Nonlinear terms</h2>
+<p>We can use polynomial terms to approximate the GAM fit:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mP12 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 mP13 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">3</span>), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 mP14 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Decid<span class="op">^</span><span class="dv">4</span>), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-<span class="kw">AIC</span>(mP1, mP12, mP13, mP14)</code></pre>
-<pre><code>##      df   AIC
-## mP1   2 10887
-## mP12  3 10544
-## mP13  4 10461
-## mP14  5 10441</code></pre>
+<span class="kw">model.sel</span>(mP1, mP12, mP13, mP14, mGAM)</code></pre>
+<pre><code>## Model selection table 
+##        (Int)    Dcd  Dcd^2  Dcd^3  Dcd^4 s(Dcd) class df logLik  AICc
+## mGAM -0.5606                                  +   gam  9  -5209 10438
+## mP14 -2.6640 16.640 -38.60 41.470 -16.31          glm  5  -5215 10441
+## mP13 -2.3910 11.400 -16.31  8.066                 glm  4  -5226 10461
+## mP12 -1.9240  6.259  -3.97                        glm  3  -5269 10544
+## mP1  -1.1640  2.134                               glm  2  -5442 10887
+##       delta weight
+## mGAM   0.00   0.84
+## mP14   3.31   0.16
+## mP13  23.42   0.00
+## mP12 106.04   0.00
+## mP1  449.60   0.00
+## Models ranked by AICc(x)</code></pre>
+<p>Not a surprise that the most complex model won. GAM was more complex than that.</p>
 <pre class="sourceCode r"><code class="sourceCode r">pr &lt;-<span class="st"> </span><span class="kw">cbind</span>(
   <span class="kw">predict</span>(mP1, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>),
   <span class="kw">predict</span>(mP12, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>),
   <span class="kw">predict</span>(mP13, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>),
   <span class="kw">predict</span>(mP14, xnew, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>),
   fitGAM)
-<span class="kw">matplot</span>(xnew<span class="op">$</span>Decid, pr, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<span class="kw">matplot</span>(xnew<span class="op">$</span>Decid, pr, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>,
+  <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>)
+<span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,
+  <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Linear&quot;</span>, <span class="st">&quot;Quadratic&quot;</span>, <span class="st">&quot;Cubic&quot;</span>, <span class="st">&quot;Quartic&quot;</span>, <span class="st">&quot;GAM&quot;</span>))</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-pois_poly_plot-1.png" width="672" /></p>
+<p>Let’s see how these affect our prediction intervals:</p>
+<pre class="sourceCode r"><code class="sourceCode r">CI12 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP12, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+PI12 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP12, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+CI13 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP13, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+PI13 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP13, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+CI14 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP14, xnew, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+PI14 &lt;-<span class="st"> </span><span class="kw">predict_sim</span>(mP14, xnew, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="dt">level=</span><span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">B=</span>B)
+
+op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Linear&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI1<span class="op">$</span>lwr, <span class="kw">rev</span>(PI1<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI1<span class="op">$</span>lwr, <span class="kw">rev</span>(CI1<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff88&quot;</span>)
+<span class="kw">lines</span>(CI1<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span>)
+
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Quadratic&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI12<span class="op">$</span>lwr, <span class="kw">rev</span>(PI12<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI12<span class="op">$</span>lwr, <span class="kw">rev</span>(CI12<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff88&quot;</span>)
+<span class="kw">lines</span>(CI12<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span>)
+
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;P0&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI13<span class="op">$</span>lwr, <span class="kw">rev</span>(PI13<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI13<span class="op">$</span>lwr, <span class="kw">rev</span>(CI13<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff88&quot;</span>)
+<span class="kw">lines</span>(CI13<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span>)
+
+<span class="kw">plot</span>(yj <span class="op">~</span><span class="st"> </span>Decid, x, <span class="dt">xlab=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;E[Y]&quot;</span>,
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(PI1<span class="op">$</span>upr)<span class="op">+</span><span class="dv">1</span>), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;#bbbbbb33&quot;</span>, <span class="dt">main=</span><span class="st">&quot;P0&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(PI14<span class="op">$</span>lwr, <span class="kw">rev</span>(PI14<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff44&quot;</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(xnew<span class="op">$</span>Decid, <span class="kw">rev</span>(xnew<span class="op">$</span>Decid)),
+  <span class="kw">c</span>(CI14<span class="op">$</span>lwr, <span class="kw">rev</span>(CI14<span class="op">$</span>upr)), <span class="dt">border=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;#0000ff88&quot;</span>)
+<span class="kw">lines</span>(CI14<span class="op">$</span>fit <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">lines</span>(fitGAM <span class="op">~</span><span class="st"> </span>xnew<span class="op">$</span>Decid, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-pois_poly_pi-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 </div>
 <div id="categorical-variables" class="section level2">
-<h2><span class="header-section-number">3.9</span> Categorical variables</h2>
-<p>Categories</p>
-<pre class="sourceCode r"><code class="sourceCode r">cn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open&quot;</span>, <span class="st">&quot;Water&quot;</span>, <span class="st">&quot;Agr&quot;</span>, <span class="st">&quot;UrbInd&quot;</span>, <span class="st">&quot;SoftLin&quot;</span>, <span class="st">&quot;Roads&quot;</span>, <span class="st">&quot;Decid&quot;</span>, 
-  <span class="st">&quot;OpenWet&quot;</span>, <span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)
-h &lt;-<span class="st"> </span><span class="kw">find_max</span>(x[,cn])
-<span class="kw">hist</span>(h<span class="op">$</span>value)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(h<span class="op">$</span>index)</code></pre>
+<h2><span class="header-section-number">3.8</span> Categorical variables</h2>
+<p>Categorical variables are expanded into a <em>model matrix</em> before estimation.
+The model matrix usually contains indicator variables for each level
+(value 1 when factor value equals a particular label, 0 otherwise)
+except for the <em>reference category</em>
+(check <code>relevel</code> if you want to change the reference category).</p>
+<p>The estimate for the reference category comes from the intercept,
+the rest of the estimates are relative to the reference category.
+In the log-linear model example this means a ratio.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">model.matrix</span>(<span class="op">~</span>DEC, x))</code></pre>
+<pre><code>##         (Intercept) DEC
+## CL10102           1   1
+## CL10106           1   0
+## CL10108           1   0
+## CL10109           1   1
+## CL10111           1   1
+## CL10112           1   1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mP2 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>DEC, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mP2)</code></pre>
 <pre><code>## 
-##     Open    Water      Agr   UrbInd  SoftLin    Roads    Decid 
-##       12       10        4       14        0        2     2084 
-##  OpenWet    Conif ConifWet 
-##      160      745     1538</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>hab &lt;-<span class="st"> </span><span class="kw">droplevels</span>(h<span class="op">$</span>index)
-
-mP3 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>hab, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-
+## Call:
+## glm(formula = y ~ DEC, family = poisson, data = x)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.691  -0.921  -0.921   0.449   4.543  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.8577     0.0308   -27.8   &lt;2e-16 ***
+## DEC           1.2156     0.0358    33.9   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 7424.8  on 4568  degrees of freedom
+## Residual deviance: 6095.5  on 4567  degrees of freedom
+## AIC: 11246
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(mP2)</code></pre>
+<pre><code>## (Intercept)         DEC 
+##     -0.8577      1.2156</code></pre>
+<p>The estimate for a non-deciduous landscape is
+<span class="math inline">\(e^{\beta_0}\)</span>, and it is <span class="math inline">\(e^{\beta_0}e^{\beta_1}\)</span> for deciduous landscapes.
+Of course such binary classification at the landscape (1 km<span class="math inline">\(^2\)</span>) level
+doesn’t really makes sense for various reasons:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Decid <span class="op">~</span><span class="st"> </span>DEC, x)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-pois_cat1-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP1, mP2)</code></pre>
+<pre><code>## Model selection table 
+##     (Intrc) Decid   DEC df logLik  AICc delta weight
+## mP1 -1.1640 2.134        2  -5442 10887   0.0      1
+## mP2 -0.8577       1.216  2  -5621 11246 358.6      0
+## Models ranked by AICc(x)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">R2dev</span>(mP1, mP2)</code></pre>
+<pre><code>##          R2   R2adj Deviance    Dev0    DevR     df0     dfR p_value    
+## mP1    0.23    0.23  1687.87 7424.78 5736.91 4568.00 4567.00  &lt;2e-16 ***
+## mP2    0.18    0.18  1329.23 7424.78 6095.55 4568.00 4567.00  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Having estimates for each land cover type improves the model,
+but the model using continuous variable is still better</p>
+<pre class="sourceCode r"><code class="sourceCode r">mP3 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>HAB, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mP3)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = y ~ hab, family = poisson, data = x)
+## glm(formula = y ~ HAB, family = poisson, data = x)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
@@ -480,14 +691,14 @@ mP3 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op"
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)   
 ## (Intercept)   -1.386      0.577   -2.40   0.0163 * 
-## habWater       1.030      0.690    1.49   0.1357   
-## habAgr         0.693      0.913    0.76   0.4477   
-## habUrbInd      0.134      0.764    0.17   0.8612   
-## habRoads     -10.916    201.285   -0.05   0.9567   
-## habDecid       1.744      0.578    3.02   0.0025 **
-## habOpenWet     0.422      0.591    0.71   0.4755   
-## habConif       0.913      0.579    1.58   0.1150   
-## habConifWet    0.288      0.579    0.50   0.6185   
+## HABWater       1.030      0.690    1.49   0.1357   
+## HABAgr         0.693      0.913    0.76   0.4477   
+## HABUrbInd      0.134      0.764    0.17   0.8612   
+## HABRoads     -10.916    201.285   -0.05   0.9567   
+## HABDecid       1.744      0.578    3.02   0.0025 **
+## HABOpenWet     0.422      0.591    0.71   0.4755   
+## HABConif       0.913      0.579    1.58   0.1150   
+## HABConifWet    0.288      0.579    0.50   0.6185   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -498,180 +709,167 @@ mP3 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op"
 ## AIC: 11161
 ## 
 ## Number of Fisher Scoring iterations: 10</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP0, mP1, mP2, mP3)</code></pre>
-<pre><code>##     df   AIC
-## mP0  1 12573
-## mP1  2 10887
-## mP2 11 10669
-## mP3  9 11161</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">rbind</span>(<span class="dt">mP0=</span><span class="kw">R2dev</span>(mP0), <span class="dt">mP1=</span><span class="kw">R2dev</span>(mP1), <span class="dt">mP2=</span><span class="kw">R2dev</span>(mP2), <span class="dt">mP3=</span><span class="kw">R2dev</span>(mP3)), <span class="dv">4</span>)</code></pre>
-<pre><code>##         R2  R2adj Deviance Dev0 DevR  df0  dfR p_value
-## mP0 0.0000 0.0000        0 7425 7425 4568 4568       0
-## mP1 0.2273 0.2272     1688 7425 5737 4568 4567       0
-## mP2 0.2591 0.2575     1924 7425 5501 4568 4558       0
-## mP3 0.1923 0.1909     1428 7425 5997 4568 4560       0</code></pre>
-<div id="optimal-partitioning" class="section level3">
-<h3><span class="header-section-number">3.9.1</span> Optimal partitioning</h3>
-<pre class="sourceCode r"><code class="sourceCode r">oc &lt;-<span class="st"> </span><span class="kw">opticut</span>(<span class="kw">as.matrix</span>(ytot) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">strata =</span> x<span class="op">$</span>hab, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
-<span class="kw">plot</span>(oc)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP1, mP2, mP3)</code></pre>
+<pre><code>## Model selection table 
+##     (Intrc) Decid   DEC HAB df logLik  AICc delta weight
+## mP1 -1.1640 2.134            2  -5442 10887   0.0      1
+## mP3 -1.3860               +  9  -5572 11162 274.4      0
+## mP2 -0.8577       1.216      2  -5621 11246 358.6      0
+## Models ranked by AICc(x)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">R2dev</span>(mP1, mP2, mP3)</code></pre>
+<pre><code>##          R2   R2adj Deviance    Dev0    DevR     df0     dfR p_value    
+## mP1    0.23    0.23  1687.87 7424.78 5736.91 4568.00 4567.00  &lt;2e-16 ***
+## mP2    0.18    0.18  1329.23 7424.78 6095.55 4568.00 4567.00  &lt;2e-16 ***
+## mP3    0.19    0.19  1427.55 7424.78 5997.23 4568.00 4560.00  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The prediction in this case would look like:
+<span class="math inline">\(log(\lambda_i)=\beta_0 + \sum_{j=1}^{k-1} \beta_j x_{ji}\)</span>, where we have <span class="math inline">\(k\)</span> factor levels
+(and <span class="math inline">\(k-1\)</span> indicator variables besides the intercept).</p>
+<p>Here is a general way of calculating fitted values or making
+predictions based on the design matrix (<code>X</code>) and the coefficients (<code>b</code>)
+(column ordering in <code>X</code> must match the elements in <code>b</code>)
+given a parametric log-linear model <code>object</code> and data frame <code>df</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">coef</span>(object)
+X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="kw">formula</span>(object), df)
+<span class="kw">exp</span>(X <span class="op">%*%</span><span class="st"> </span>b)</code></pre>
 </div>
-<div id="finding-optimal-combinations-of-factor-levels" class="section level3">
-<h3><span class="header-section-number">3.9.2</span> Finding optimal combinations of factor levels</h3>
-<p>Categorical and compositional data</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dominant hab</span>
-M &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>hab<span class="dv">-1</span>, x)
-<span class="kw">colnames</span>(M) &lt;-<span class="st"> </span><span class="kw">levels</span>(x<span class="op">$</span>hab)
-ol1 &lt;-<span class="st"> </span><span class="kw">optilevels</span>(x<span class="op">$</span>y, M, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
-<span class="kw">sort</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(<span class="kw">bestmodel</span>(ol1))))</code></pre>
-<pre><code>## `Open+UrbInd+Roads+OpenWet+ConifWet` 
-##                               0.3366 
-##                    `Water+Agr+Conif` 
-##                               0.6232 
-##                                Decid 
-##                               1.4304</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## estimates
-<span class="kw">exp</span>(ol1<span class="op">$</span>coef)</code></pre>
-<pre><code>##         Open  Water    Agr UrbInd      Roads Decid OpenWet
-##  [1,] 0.2500 0.7000 0.5000 0.2857 0.00000454  1.43  0.3813
-##  [2,] 0.2692 0.7000 0.5000 0.2692 0.00000454  1.43  0.3813
-##  [3,] 0.2692 0.6238 0.5000 0.2692 0.00000454  1.43  0.3812
-##  [4,] 0.2692 0.6232 0.6232 0.2692 0.00000454  1.43  0.3813
-##  [5,] 0.3325 0.6232 0.6232 0.3325 0.00000454  1.43  0.3813
-##  [6,] 0.3370 0.6232 0.6232 0.3370 0.00000454  1.43  0.3370
-##  [7,] 0.3366 0.6232 0.6232 0.3366 0.33661645  1.43  0.3366
-##  [8,]     NA     NA     NA     NA         NA    NA      NA
-##  [9,]     NA     NA     NA     NA         NA    NA      NA
-##        Conif ConifWet
-##  [1,] 0.6228   0.3336
-##  [2,] 0.6228   0.3336
-##  [3,] 0.6238   0.3336
-##  [4,] 0.6232   0.3336
-##  [5,] 0.6232   0.3325
-##  [6,] 0.6232   0.3370
-##  [7,] 0.6232   0.3366
-##  [8,]     NA       NA
-##  [9,]     NA       NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## optimal classification
-ol1<span class="op">$</span>rank</code></pre>
-<pre><code>##       Open Water Agr UrbInd Roads Decid OpenWet Conif ConifWet
-##  [1,]    2     8   6      3     1     9       5     7        4
-##  [2,]    2     7   5      2     1     8       4     6        3
-##  [3,]    2     6   5      2     1     7       4     6        3
-##  [4,]    2     5   5      2     1     6       4     5        3
-##  [5,]    2     4   4      2     1     5       3     4        2
-##  [6,]    2     3   3      2     1     4       2     3        2
-##  [7,]    1     2   2      1     1     3       1     2        1
-##  [8,]   NA    NA  NA     NA    NA    NA      NA    NA       NA
-##  [9,]   NA    NA  NA     NA    NA    NA      NA    NA       NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">ol1<span class="op">$</span>levels[[<span class="kw">length</span>(ol1<span class="op">$</span>levels)]]</code></pre>
-<pre><code>##                                 Open 
-## &quot;Open+UrbInd+Roads+OpenWet+ConifWet&quot; 
-##                                Water 
-##                    &quot;Water+Agr+Conif&quot; 
-##                                  Agr 
-##                    &quot;Water+Agr+Conif&quot; 
-##                               UrbInd 
-## &quot;Open+UrbInd+Roads+OpenWet+ConifWet&quot; 
-##                                Roads 
-## &quot;Open+UrbInd+Roads+OpenWet+ConifWet&quot; 
-##                                Decid 
-##                              &quot;Decid&quot; 
-##                              OpenWet 
-## &quot;Open+UrbInd+Roads+OpenWet+ConifWet&quot; 
-##                                Conif 
-##                    &quot;Water+Agr+Conif&quot; 
-##                             ConifWet 
-## &quot;Open+UrbInd+Roads+OpenWet+ConifWet&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># composition</span>
-ol2 &lt;-<span class="st"> </span><span class="kw">optilevels</span>(x<span class="op">$</span>y, x[,cn], <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
-<span class="kw">sort</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(<span class="kw">bestmodel</span>(ol2))))</code></pre>
-<pre><code>##                               Open 
-##                            0.04936 
-##                           ConifWet 
-##                            0.18363 
-## `Agr+UrbInd+SoftLin+OpenWet+Conif` 
-##                            0.50444 
-##                      `Water+Roads` 
-##                            1.15427 
-##                              Decid 
-##                            2.49578</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## estimates
-<span class="kw">exp</span>(ol2<span class="op">$</span>coef)</code></pre>
-<pre><code>##          Open Water    Agr UrbInd SoftLin Roads Decid OpenWet
-##  [1,] 0.04790 1.174 0.5579 0.4313  0.5102 1.038 2.496  0.5627
-##  [2,] 0.04791 1.174 0.5625 0.4313  0.5104 1.038 2.496  0.5625
-##  [3,] 0.04795 1.174 0.5628 0.4324  0.4944 1.046 2.497  0.5628
-##  [4,] 0.04790 1.156 0.5628 0.4291  0.4940 1.156 2.494  0.5628
-##  [5,] 0.04782 1.146 0.5632 0.4917  0.4917 1.146 2.493  0.5632
-##  [6,] 0.04936 1.154 0.5044 0.5044  0.5044 1.154 2.496  0.5044
-##  [7,]      NA    NA     NA     NA      NA    NA    NA      NA
-##  [8,]      NA    NA     NA     NA      NA    NA    NA      NA
-##  [9,]      NA    NA     NA     NA      NA    NA    NA      NA
-## [10,]      NA    NA     NA     NA      NA    NA    NA      NA
-##        Conif ConifWet
-##  [1,] 0.4941   0.1827
-##  [2,] 0.4941   0.1827
-##  [3,] 0.4944   0.1828
-##  [4,] 0.4940   0.1828
-##  [5,] 0.4917   0.1826
-##  [6,] 0.5044   0.1836
-##  [7,]     NA       NA
-##  [8,]     NA       NA
-##  [9,]     NA       NA
-## [10,]     NA       NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## optimal classification
-ol2<span class="op">$</span>rank</code></pre>
-<pre><code>##       Open Water Agr UrbInd SoftLin Roads Decid OpenWet Conif
-##  [1,]    1     9   6      3       5     8    10       7     4
-##  [2,]    1     8   6      3       5     7     9       6     4
-##  [3,]    1     7   5      3       4     6     8       5     4
-##  [4,]    1     6   5      3       4     6     7       5     4
-##  [5,]    1     5   4      3       3     5     6       4     3
-##  [6,]    1     4   3      3       3     4     5       3     3
-##  [7,]   NA    NA  NA     NA      NA    NA    NA      NA    NA
-##  [8,]   NA    NA  NA     NA      NA    NA    NA      NA    NA
-##  [9,]   NA    NA  NA     NA      NA    NA    NA      NA    NA
-## [10,]   NA    NA  NA     NA      NA    NA    NA      NA    NA
-##       ConifWet
-##  [1,]        2
-##  [2,]        2
-##  [3,]        2
-##  [4,]        2
-##  [5,]        2
-##  [6,]        2
-##  [7,]       NA
-##  [8,]       NA
-##  [9,]       NA
-## [10,]       NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mefa4<span class="op">::</span><span class="kw">groupSums</span>(<span class="kw">as.matrix</span>(x[,cn]), <span class="dv">2</span>, ol2<span class="op">$</span>levels[[<span class="kw">length</span>(ol2<span class="op">$</span>levels)]]))</code></pre>
-<pre><code>##         Open Water+Roads Agr+UrbInd+SoftLin+OpenWet+Conif
-## CL10102    0    0.073010                          0.03326
-## CL10106    0    0.008431                          0.60166
-## CL10108    0    0.008431                          0.60166
-## CL10109    0    0.036146                          0.08157
-## CL10111    0    0.050734                          0.13353
-## CL10112    0    0.050734                          0.13353
-##           Decid ConifWet
-## CL10102 0.85691 0.036819
-## CL10106 0.04429 0.345625
-## CL10108 0.04429 0.345625
-## CL10109 0.88228 0.000000
-## CL10111 0.81394 0.001797
-## CL10112 0.81394 0.001797</code></pre>
-</div>
-</div>
-<div id="interactions" class="section level2">
-<h2><span class="header-section-number">3.10</span> Interactions</h2>
+<div id="multiple-main-effects" class="section level2">
+<h2><span class="header-section-number">3.9</span> Multiple main effects</h2>
+<p>We can keep adding variables to the model in a forwards-selection fashion.
+<code>add1</code> adds variables one at a time, selecting from the scope defined by the formula:</p>
+<pre class="sourceCode r"><code class="sourceCode r">scope &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(<span class="st">&quot;~ FOR + WET + AHF +&quot;</span>,<span class="kw">paste</span>(cn, <span class="dt">collapse=</span><span class="st">&quot;+&quot;</span>)))
+tmp &lt;-<span class="st"> </span><span class="kw">add1</span>(mP1, scope)
+tmp<span class="op">$</span>AIC_drop &lt;-<span class="st"> </span>tmp<span class="op">$</span>AIC<span class="op">-</span>tmp<span class="op">$</span>AIC[<span class="dv">1</span>] <span class="co"># current model</span>
+tmp[<span class="kw">order</span>(tmp<span class="op">$</span>AIC),]</code></pre>
+<pre><code>## Single term additions
+## 
+## Model:
+## y ~ Decid
+##          Df Deviance   AIC AIC_drop
+## ConifWet  1     5638 10791    -96.5
+## Conif     1     5685 10838    -49.4
+## WET       1     5687 10839    -48.1
+## Water     1     5721 10873    -13.7
+## FOR       1     5724 10876    -11.0
+## OpenWet   1     5728 10880     -6.9
+## Open      1     5730 10882     -4.7
+## Roads     1     5733 10885     -1.9
+## AHF       1     5734 10886     -0.7
+## &lt;none&gt;          5737 10887      0.0
+## Agr       1     5736 10888      1.2
+## UrbInd    1     5736 10889      1.5
+## SoftLin   1     5737 10889      1.6</code></pre>
+<p>It looks like <code>ConifWet</code> is the best covariate to add next because it leads to the biggest drop in AIC,
+and both effects are significant.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mP4 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-mP5 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-<span class="kw">AIC</span>(mP0, mP1, mP4, mP5)</code></pre>
-<pre><code>##     df   AIC
-## mP0  1 12573
-## mP1  2 10887
-## mP4  3 10791
-## mP5  4 10549</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mP5)</code></pre>
+<span class="kw">summary</span>(mP4)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ Decid + ConifWet, family = poisson, data = x)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.237  -0.996  -0.679   0.447   4.439  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -0.7014     0.0556  -12.61   &lt;2e-16 ***
+## Decid         1.6224     0.0719   22.57   &lt;2e-16 ***
+## ConifWet     -0.9785     0.0993   -9.86   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 7424.8  on 4568  degrees of freedom
+## Residual deviance: 5638.4  on 4566  degrees of freedom
+## AIC: 10791
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<p><code>drop1</code> is the function opposite of <code>add1</code>, it assesses which term should
+be dropped from a more saturated model:</p>
+<pre class="sourceCode r"><code class="sourceCode r">formula_all &lt;-<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>Open <span class="op">+</span><span class="st"> </span>Agr <span class="op">+</span><span class="st"> </span>UrbInd <span class="op">+</span><span class="st"> </span>SoftLin <span class="op">+</span><span class="st"> </span>Roads <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>Decid <span class="op">+</span><span class="st"> </span>OpenWet <span class="op">+</span><span class="st"> </span>Conif <span class="op">+</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>OvernightRain <span class="op">+</span><span class="st"> </span>TSSR <span class="op">+</span><span class="st"> </span>DAY <span class="op">+</span><span class="st"> </span>Longitude <span class="op">+</span><span class="st"> </span>Latitude
+
+tmp &lt;-<span class="st"> </span><span class="kw">drop1</span>(<span class="kw">glm</span>(formula_all, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson))
+tmp<span class="op">$</span>AIC_drop &lt;-<span class="st"> </span>tmp<span class="op">$</span>AIC<span class="op">-</span>tmp<span class="op">$</span>AIC[<span class="dv">1</span>] <span class="co"># current model</span>
+tmp[<span class="kw">order</span>(tmp<span class="op">$</span>AIC),]</code></pre>
+<pre><code>## Single term deletions
+## 
+## Model:
+## y ~ Open + Agr + UrbInd + SoftLin + Roads + Decid + OpenWet + 
+##     Conif + ConifWet + OvernightRain + TSSR + DAY + Longitude + 
+##     Latitude
+##               Df Deviance   AIC AIC_drop
+## OvernightRain  1     5500 10674     -2.0
+## Roads          1     5500 10674     -1.9
+## SoftLin        1     5500 10675     -1.6
+## Agr            1     5501 10675     -1.4
+## &lt;none&gt;               5500 10676      0.0
+## Decid          1     5505 10679      3.0
+## OpenWet        1     5505 10679      3.1
+## Conif          1     5508 10682      6.0
+## UrbInd         1     5511 10685      8.7
+## Longitude      1     5519 10693     16.5
+## TSSR           1     5524 10698     21.8
+## ConifWet       1     5528 10703     26.4
+## DAY            1     5529 10703     26.7
+## Open           1     5531 10705     28.7
+## Latitude       1     5580 10754     78.2</code></pre>
+<p>The <code>step</code> function can be used to automatically select the best model
+based on adding/dropping terms:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mPstep &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">glm</span>(formula_all, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson), 
+  <span class="dt">trace=</span><span class="dv">0</span>) <span class="co"># use trace=1 to see all the steps</span>
+<span class="kw">summary</span>(mPstep)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ Open + UrbInd + Decid + OpenWet + Conif + ConifWet + 
+##     TSSR + DAY + Longitude + Latitude, family = poisson, data = x)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.763  -0.986  -0.674   0.451   4.624  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -5.88293    1.30223   -4.52  6.3e-06 ***
+## Open        -3.47428    0.65867   -5.27  1.3e-07 ***
+## UrbInd      -1.66883    0.54216   -3.08  0.00208 ** 
+## Decid        0.83372    0.25957    3.21  0.00132 ** 
+## OpenWet     -0.74076    0.30238   -2.45  0.01430 *  
+## Conif       -0.88558    0.26566   -3.33  0.00086 ***
+## ConifWet    -1.89423    0.27170   -6.97  3.1e-12 ***
+## TSSR        -1.23416    0.24984   -4.94  7.8e-07 ***
+## DAY         -2.87970    0.52686   -5.47  4.6e-08 ***
+## Longitude    0.03831    0.00877    4.37  1.2e-05 ***
+## Latitude     0.20930    0.02309    9.06  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 7424.8  on 4568  degrees of freedom
+## Residual deviance: 5501.1  on 4558  degrees of freedom
+## AIC: 10669
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+<div id="interaction" class="section level2">
+<h2><span class="header-section-number">3.10</span> Interaction</h2>
+<p>When we consider interactions between two variables (say <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>),
+we really referring to adding another variable to the model matrix
+that is a product of the two variables (<span class="math inline">\(x_{12}=x_1 x_2\)</span>):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">model.matrix</span>(<span class="op">~</span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="kw">data.frame</span>(<span class="dt">x1=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">x2=</span><span class="dv">10</span><span class="op">:</span><span class="dv">7</span>)))</code></pre>
+<pre><code>##   (Intercept) x1 x2 x1:x2
+## 1           1  1 10    10
+## 2           1  2  9    18
+## 3           1  3  8    24
+## 4           1  4  7    28</code></pre>
+<p>Let’s consider interaction between our two predictors from before:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mP5 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mP5)</code></pre>
 <pre><code>## 
 ## Call:
 ## glm(formula = y ~ Decid * ConifWet, family = poisson, data = x)
@@ -681,16 +879,11 @@ mP5 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op"
 ## -2.081  -1.022  -0.484   0.374   4.321  
 ## 
 ## Coefficients:
-##                Estimate Std. Error z value            Pr(&gt;|z|)
-## (Intercept)     -0.5604     0.0566    -9.9 &lt;0.0000000000000002
-## Decid            1.2125     0.0782    15.5 &lt;0.0000000000000002
-## ConifWet        -2.3124     0.1490   -15.5 &lt;0.0000000000000002
-## Decid:ConifWet   5.3461     0.3566    15.0 &lt;0.0000000000000002
-##                   
-## (Intercept)    ***
-## Decid          ***
-## ConifWet       ***
-## Decid:ConifWet ***
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.5604     0.0566    -9.9   &lt;2e-16 ***
+## Decid            1.2125     0.0782    15.5   &lt;2e-16 ***
+## ConifWet        -2.3124     0.1490   -15.5   &lt;2e-16 ***
+## Decid:ConifWet   5.3461     0.3566    15.0   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -701,62 +894,95 @@ mP5 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op"
 ## AIC: 10549
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visreg</span>(mGAM, <span class="dt">scale=</span><span class="st">&quot;response&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visreg</span>(mP1, <span class="dt">scale=</span><span class="st">&quot;response&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-33-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visreg</span>(mP4, <span class="dt">scale=</span><span class="st">&quot;response&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-33-3.png" width="672" /><img src="qpad-book_files/figure-html/unnamed-chunk-33-4.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visreg</span>(mP5, <span class="dt">scale=</span><span class="st">&quot;response&quot;</span>, <span class="dt">xvar=</span><span class="st">&quot;Decid&quot;</span>, <span class="dt">by=</span><span class="st">&quot;ConifWet&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-33-5.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">rbind</span>(<span class="dt">mP0=</span><span class="kw">R2dev</span>(mP0), <span class="dt">mP1=</span><span class="kw">R2dev</span>(mP1), <span class="dt">mP2=</span><span class="kw">R2dev</span>(mP2), <span class="dt">mP3=</span><span class="kw">R2dev</span>(mP3),
-  <span class="dt">mP4=</span><span class="kw">R2dev</span>(mP4), <span class="dt">mP5=</span><span class="kw">R2dev</span>(mP5)), <span class="dv">4</span>)</code></pre>
-<pre><code>##         R2  R2adj Deviance Dev0 DevR  df0  dfR p_value
-## mP0 0.0000 0.0000        0 7425 7425 4568 4568       0
-## mP1 0.2273 0.2272     1688 7425 5737 4568 4567       0
-## mP2 0.2591 0.2575     1924 7425 5501 4568 4558       0
-## mP3 0.1923 0.1909     1428 7425 5997 4568 4560       0
-## mP4 0.2406 0.2403     1786 7425 5638 4568 4566       0
-## mP5 0.2734 0.2729     2030 7425 5395 4568 4565       0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP0, mP1, mP2, mP3, mP4, mP5)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP0, mP1, mP4, mP5)</code></pre>
 <pre><code>## Model selection table 
-##       (Int)    Dcd     Cnf     CnW   DAY    Ltt     Lng    Opn
-## mP5 -0.5604 1.2130         -2.3120                            
-## mP2 -5.8830 0.8337 -0.8856 -1.8940 -2.88 0.2093 0.03831 -3.474
-## mP4 -0.7014 1.6220         -0.9785                            
-## mP1 -1.1640 2.1340                                            
-## mP3 -1.3860                                                   
-## mP0 -0.1243                                                   
-##         OpW    TSS    UrI hab CnW:Dcd df logLik  AICc  delta
-## mP5                             5.346  4  -5271 10549    0.0
-## mP2 -0.7408 -1.234 -1.669             11  -5324 10669  120.0
-## mP4                                    3  -5392 10791  241.2
-## mP1                                    2  -5442 10887  337.7
-## mP3                         +          9  -5572 11162  612.1
-## mP0                                    1  -6285 12573 2023.6
-##     weight
-## mP5      1
-## mP2      0
-## mP4      0
-## mP1      0
-## mP3      0
-## mP0      0
+##       (Int)   Dcd     CnW CnW:Dcd df logLik  AICc  delta weight
+## mP5 -0.5604 1.213 -2.3120   5.346  4  -5271 10549    0.0      1
+## mP4 -0.7014 1.622 -0.9785          3  -5392 10791  241.2      0
+## mP1 -1.1640 2.134                  2  -5442 10887  337.7      0
+## mP0 -0.1243                        1  -6285 12573 2023.6      0
 ## Models ranked by AICc(x)</code></pre>
+<p>The model with the interaction is best supported, but how do we make sense of this
+relationship? We can’t easily visualize it in a single plot. We can either</p>
+<ol style="list-style-type: decimal">
+<li>fix all variables (at their mean/meadian) and see how the response is changing along a single variable: this is called a <em>conditional</em> effect (conditional on fixing other variables), this is what <code>visreg::visreg</code> does;</li>
+<li>or plot the fitted values against the predictor variables, this is called a <em>marginal</em> effects, and this is what <code>ResourceSelection::mep</code> does.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visreg</span>(mP5, <span class="dt">scale=</span><span class="st">&quot;response&quot;</span>, <span class="dt">xvar=</span><span class="st">&quot;ConifWet&quot;</span>, <span class="dt">by=</span><span class="st">&quot;Decid&quot;</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-visreg2-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mep</span>(mP5)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-visreg3-1.png" width="33%" /><img src="qpad-book_files/figure-html/regr-visreg3-2.png" width="33%" /><img src="qpad-book_files/figure-html/regr-visreg3-3.png" width="33%" /></p>
+<p>Let’s use GAM to fit a bivariate spline:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mGAM2 &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(Decid, ConifWet), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">plot</span>(mGAM2, <span class="dt">scheme=</span><span class="dv">2</span>, <span class="dt">rug=</span><span class="ot">FALSE</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-GAM2-1.png" width="672" /></p>
+<p>Final battle of Poisson models:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM, mGAM2)</code></pre>
+<pre><code>## Model selection table 
+##         (Int)    Dcd  Dcd^2  Dcd^3  Dcd^4   DEC HAB     CnW CnW:Dcd s(Dcd)
+## mGAM2 -0.6251                                                             
+## mGAM  -0.5606                                                            +
+## mP14  -2.6640 16.640 -38.60 41.470 -16.31                                 
+## mP13  -2.3910 11.400 -16.31  8.066                                        
+## mP12  -1.9240  6.259  -3.97                                               
+## mP5   -0.5604  1.213                                -2.3120   5.346       
+## mP4   -0.7014  1.622                                -0.9785               
+## mP1   -1.1640  2.134                                                      
+## mP3   -1.3860                                     +                       
+## mP2   -0.8577                             1.216                           
+## mP0   -0.1243                                                             
+##       s(Dcd,CnW) class df logLik  AICc   delta weight
+## mGAM2          +   gam 27  -5160 10376    0.00      1
+## mGAM               gam  9  -5209 10438   61.11      0
+## mP14               glm  5  -5215 10441   64.42      0
+## mP13               glm  4  -5226 10461   84.53      0
+## mP12               glm  3  -5269 10544  167.14      0
+## mP5                glm  4  -5271 10549  172.99      0
+## mP4                glm  3  -5392 10791  414.18      0
+## mP1                glm  2  -5442 10887  510.71      0
+## mP3                glm  9  -5572 11162  785.06      0
+## mP2                glm  2  -5621 11246  869.35      0
+## mP0                glm  1  -6285 12573 2196.58      0
+## Models ranked by AICc(x)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">R2dev</span>(mP0, mP1, mP12, mP13, mP14, mP2, mP3, mP4, mP5, mGAM, mGAM2)</code></pre>
+<pre><code>##            R2   R2adj Deviance    Dev0    DevR     df0     dfR p_value    
+## mP0      0.00    0.00     0.00 7424.78 7424.78 4568.00 4568.00 &lt; 2e-16 ***
+## mP1      0.23    0.23  1687.87 7424.78 5736.91 4568.00 4567.00 &lt; 2e-16 ***
+## mP12     0.27    0.27  2033.44 7424.78 5391.34 4568.00 4566.00 &lt; 2e-16 ***
+## mP13     0.29    0.28  2118.06 7424.78 5306.72 4568.00 4565.00 7.6e-14 ***
+## mP14     0.29    0.29  2140.17 7424.78 5284.61 4568.00 4564.00 3.4e-13 ***
+## mP2      0.18    0.18  1329.23 7424.78 6095.55 4568.00 4567.00 &lt; 2e-16 ***
+## mP3      0.19    0.19  1427.55 7424.78 5997.23 4568.00 4560.00 &lt; 2e-16 ***
+## mP4      0.24    0.24  1786.40 7424.78 5638.38 4568.00 4566.00 &lt; 2e-16 ***
+## mP5      0.27    0.27  2029.60 7424.78 5395.18 4568.00 4565.00 &lt; 2e-16 ***
+## mGAM     0.29    0.29  2152.63 7424.78 5272.15 4568.00 4559.00 5.5e-13 ***
+## mGAM2    0.30    0.30  2250.35 7424.78 5174.43 4568.00 4539.00 8.4e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Of course, the most complex model wins
+but the Chi-square test is still significant (indicating lack of fit).
+Let’s try different error distribution.</p>
 </div>
 <div id="different-error-distributions" class="section level2">
 <h2><span class="header-section-number">3.11</span> Different error distributions</h2>
-<pre class="sourceCode r"><code class="sourceCode r">mP &lt;-<span class="st"> </span>mP5 <span class="co"># best Poisson</span>
-mNB &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x)
-mZIP &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
-mZINB &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">dist=</span><span class="st">&quot;negbin&quot;</span>)
-
-<span class="kw">AIC</span>(mP, mNB, mZIP, mZINB)</code></pre>
-<pre><code>##       df   AIC
-## mP     4 10549
-## mNB    5 10440
-## mZIP   5 10422
-## mZINB  6 10419</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mZINB)</code></pre>
+<p>We will use the 2-variable model with interaction:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mP &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)</code></pre>
+<p>Let us try the Negative Binomial distribution first.
+This distribution is related to Binomial experiments
+(number of trials required to get a fixed number of successes
+given a binomial probability). It can also be derived
+as a mixture of Poisson and Gamma distributions
+(see <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution#Gamma%E2%80%93Poisson_mixture">Wikipedia</a>),
+which is a kind of hierarchical model.
+In this case, the Gamma distribution acts as an i.i.d.
+random effect for the intercept:
+<span class="math inline">\(Y_i\sim Poisson(\lambda_i)\)</span>,
+<span class="math inline">\(\lambda_i \sim Gamma(e^{\beta_0+\beta_1 x_{1i}}, \gamma)\)</span>,
+where <span class="math inline">\(\gamma\)</span> is the Gamma variance.</p>
+<p>The Negative Binomial variance (using the parametrization common in R functions)
+is a function of the mean and the scale: <span class="math inline">\(V(\mu) = \mu + \mu^2/\theta\)</span>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mNB &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x)
+<span class="kw">summary</span>(mZINB)</code></pre>
 <pre><code>## 
 ## Call:
 ## zeroinfl(formula = y ~ Decid * ConifWet | 1, data = x, dist = &quot;negbin&quot;)
@@ -766,54 +992,183 @@ mZINB &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span cla
 ## -1.190 -0.689 -0.338  0.361  8.956 
 ## 
 ## Count model coefficients (negbin with log link):
-##                Estimate Std. Error z value             Pr(&gt;|z|)
-## (Intercept)     -0.3873     0.0732   -5.29           0.00000012
-## Decid            1.1195     0.0911   12.29 &lt; 0.0000000000000002
-## ConifWet        -2.4230     0.1589  -15.25 &lt; 0.0000000000000002
-## Decid:ConifWet   5.9227     0.3963   14.94 &lt; 0.0000000000000002
-## Log(theta)       2.6504     0.5305    5.00           0.00000059
-##                   
-## (Intercept)    ***
-## Decid          ***
-## ConifWet       ***
-## Decid:ConifWet ***
-## Log(theta)     ***
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.3873     0.0732   -5.29  1.2e-07 ***
+## Decid            1.1195     0.0911   12.29  &lt; 2e-16 ***
+## ConifWet        -2.4230     0.1589  -15.25  &lt; 2e-16 ***
+## Decid:ConifWet   5.9227     0.3963   14.94  &lt; 2e-16 ***
+## Log(theta)       2.6504     0.5305    5.00  5.9e-07 ***
 ## 
 ## Zero-inflation model coefficients (binomial with logit link):
-##             Estimate Std. Error z value            Pr(&gt;|z|)    
-## (Intercept)   -1.861      0.193   -9.64 &lt;0.0000000000000002 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -1.861      0.193   -9.64   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
 ## 
 ## Theta = 14.159 
 ## Number of iterations in BFGS optimization: 22 
 ## Log-likelihood: -5.2e+03 on 6 Df</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plogis</span>(<span class="kw">coef</span>(mZINB, <span class="st">&quot;zero&quot;</span>)) <span class="co"># P of 0</span></code></pre>
-<pre><code>## (Intercept) 
-##      0.1346</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mZINB<span class="op">$</span>theta <span class="co"># V(mu) = mu + mu^2/theta, ~inverse of variance</span></code></pre>
-<pre><code>## [1] 14.16</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Variance function, 1:1 is Poisson</span>
-mu &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)
-theta &lt;-<span class="st"> </span>mZINB<span class="op">$</span>theta
-<span class="kw">plot</span>(mu, mu <span class="op">+</span><span class="st"> </span>mu<span class="op">^</span><span class="dv">2</span><span class="op">/</span>mZINB<span class="op">$</span>theta, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">2</span>)
-<span class="kw">lines</span>(mu, mu <span class="op">+</span><span class="st"> </span>mu<span class="op">^</span><span class="dv">2</span><span class="op">/</span>mNB<span class="op">$</span>theta, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>)
-<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
-<p>Poisson-Lognormal random effects, iid. and clustered:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mPLN1 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SiteID), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-mPLN2 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SurveyArea), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
-<span class="kw">AIC</span>(mP, mNB, mZIP, mZINB, mPLN1, mPLN2)</code></pre>
+<p>Next, we look at zero-inflated models.
+In this case, the mixture distribution is a Bernoulli distribution
+and a count distribution (Poisson or Negative Binomial, for example).
+The 0’s can come from both the zero and the count distributions,
+whereas the &gt;0 values can only come from the count distribution:
+<span class="math inline">\(A_i \sim Bernoulli(\varphi)\)</span>, <span class="math inline">\(Y_i \sim Poisson(A_i \lambda_i)\)</span>.</p>
+<p>The zero part of the zero-inflated models are often parametrized
+as probability of zero (<span class="math inline">\(1-\varphi\)</span>), as in the <code>pscl::zeroinfl</code> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">## Zero-inflated Poisson
+mZIP &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
+<span class="kw">summary</span>(mZIP)</code></pre>
+<pre><code>## 
+## Call:
+## zeroinfl(formula = y ~ Decid * ConifWet | 1, data = x, dist = &quot;poisson&quot;)
+## 
+## Pearson residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.218 -0.700 -0.339  0.378  8.951 
+## 
+## Count model coefficients (poisson with log link):
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.3241     0.0651   -4.98  6.5e-07 ***
+## Decid            1.0700     0.0860   12.44  &lt; 2e-16 ***
+## ConifWet        -2.4407     0.1564  -15.60  &lt; 2e-16 ***
+## Decid:ConifWet   5.9373     0.3840   15.46  &lt; 2e-16 ***
+## 
+## Zero-inflation model coefficients (binomial with logit link):
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -1.613      0.103   -15.6   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Number of iterations in BFGS optimization: 12 
+## Log-likelihood: -5.21e+03 on 5 Df</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">## Zero-inflated Negative Binomial
+mZINB &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">|</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">dist=</span><span class="st">&quot;negbin&quot;</span>)
+<span class="kw">summary</span>(mZINB)</code></pre>
+<pre><code>## 
+## Call:
+## zeroinfl(formula = y ~ Decid * ConifWet | 1, data = x, dist = &quot;negbin&quot;)
+## 
+## Pearson residuals:
+##    Min     1Q Median     3Q    Max 
+## -1.190 -0.689 -0.338  0.361  8.956 
+## 
+## Count model coefficients (negbin with log link):
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.3873     0.0732   -5.29  1.2e-07 ***
+## Decid            1.1195     0.0911   12.29  &lt; 2e-16 ***
+## ConifWet        -2.4230     0.1589  -15.25  &lt; 2e-16 ***
+## Decid:ConifWet   5.9227     0.3963   14.94  &lt; 2e-16 ***
+## Log(theta)       2.6504     0.5305    5.00  5.9e-07 ***
+## 
+## Zero-inflation model coefficients (binomial with logit link):
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -1.861      0.193   -9.64   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Theta = 14.159 
+## Number of iterations in BFGS optimization: 22 
+## Log-likelihood: -5.2e+03 on 6 Df</code></pre>
+<p>Now we compare the four different parametric models:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP, mNB, mZIP, mZINB)</code></pre>
 <pre><code>##       df   AIC
 ## mP     4 10549
 ## mNB    5 10440
 ## mZIP   5 10422
-## mZINB  6 10419
-## mPLN1  5 10423
-## mPLN2  5 10021</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mPLN2)</code></pre>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood
-##   (Laplace Approximation) [glmerMod]
+## mZINB  6 10419</code></pre>
+<p>Our best model is the Zero-inflated Negative Binomial.
+The probability of observing a zero as part of the zero
+distribution is back transformed from the zero coefficient
+using the inverse logit function:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unname</span>(<span class="kw">plogis</span>(<span class="kw">coef</span>(mZINB, <span class="st">&quot;zero&quot;</span>))) <span class="co"># P of 0</span></code></pre>
+<pre><code>## [1] 0.1346</code></pre>
+<p>Now we use the scale parameter to visualize the variance functions
+for the Negative Binomial models (the 1:1 line is the Poisson model):</p>
+<pre class="sourceCode r"><code class="sourceCode r">mNB<span class="op">$</span>theta</code></pre>
+<pre><code>## [1] 3.59</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mZINB<span class="op">$</span>theta</code></pre>
+<pre><code>## [1] 14.16</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mu &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)
+<span class="kw">plot</span>(mu, mu <span class="op">+</span><span class="st"> </span>mu<span class="op">^</span><span class="dv">2</span><span class="op">/</span>mNB<span class="op">$</span>theta, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">2</span>,
+  <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">V</span>(mu)), <span class="dt">xlab=</span><span class="kw">expression</span>(mu))
+<span class="kw">lines</span>(mu, mu <span class="op">+</span><span class="st"> </span>mu<span class="op">^</span><span class="dv">2</span><span class="op">/</span>mZINB<span class="op">$</span>theta, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)
+<span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>),
+  <span class="dt">legend=</span><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;NB&quot;</span>, <span class="st">&quot;ZINB&quot;</span>), <span class="kw">round</span>(<span class="kw">c</span>(mNB<span class="op">$</span>theta, mZINB<span class="op">$</span>theta), <span class="dv">2</span>)))</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-dist6-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>How can we interpret these different kinds of overdispersion (zero-inflation and higher than Poisson variance)?</p>
+What are some of the biological mechanisms that can contribute to the
+overdispersion?
+</div>
+
+<p>It is also common practice to consider generalized linear mixed models (GLMMs)
+for count data. These mixed models are usually considered as
+Poisson-Lognormal mixtures. The simplest, so called i.i.d., case
+is similar to the Negative Binomial, but instead of Gamma, we have Lognormal
+distribution:
+<span class="math inline">\(Y_i\sim Poisson(\lambda_i)\)</span>,
+<span class="math inline">\(log(\lambda_i) = \beta_0+\beta_1 x_{1i}+\epsilon_i\)</span>,
+<span class="math inline">\(\epsilon_i \sim Normal(0, \sigma^2)\)</span>,
+where <span class="math inline">\(\sigma^2\)</span> is the Lognormal variance on the log scale.</p>
+<p>We can use the <code>lme4::glmer</code> function: use <code>SiteID</code> as random effect
+(we have exactly <span class="math inline">\(n\)</span> random effects).</p>
+<pre class="sourceCode r"><code class="sourceCode r">mPLN1 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SiteID), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mPLN1)</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: poisson  ( log )
+## Formula: y ~ Decid * ConifWet + (1 | SiteID)
+##    Data: x
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    10423    10455    -5206    10413     4564 
+## 
+## Scaled residuals: 
+##    Min     1Q Median     3Q    Max 
+## -1.150 -0.629 -0.288  0.418  5.469 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  SiteID (Intercept) 0.294    0.542   
+## Number of obs: 4569, groups:  SiteID, 4569
+## 
+## Fixed effects:
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.7518     0.0675   -11.1   &lt;2e-16 ***
+## Decid            1.2847     0.0920    14.0   &lt;2e-16 ***
+## ConifWet        -2.3380     0.1625   -14.4   &lt;2e-16 ***
+## Decid:ConifWet   5.6326     0.4118    13.7   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) Decid  ConfWt
+## Decid       -0.895              
+## ConifWet    -0.622  0.644       
+## Decid:CnfWt  0.176 -0.379 -0.700</code></pre>
+
+<div class="rmdnote">
+<p><strong>Note</strong></p>
+The number of unknowns we have to somehow estimate is now more than the number of observations we have. How is that possible?
+</div>
+
+<p>Alternatively, we can use <code>SurveyArea</code> as a grouping variable.
+We have now <span class="math inline">\(m &lt; n\)</span> random effects, and survey areas can be seen
+as larger landscapes within which the sites are clustered:
+<span class="math inline">\(Y_ij\sim Poisson(\lambda_ij)\)</span>,
+<span class="math inline">\(log(\lambda_ij) = \beta_0+\beta_1 x_{1ij}+\epsilon_i\)</span>,
+<span class="math inline">\(\epsilon_i \sim Normal(0, \sigma^2)\)</span>.
+The index <span class="math inline">\(i\)</span> (<span class="math inline">\(i=1,...,m\)</span>) defines the cluster (survey area),
+the <span class="math inline">\(j\)</span> (<span class="math inline">\(j=1,...,n_i\)</span>) defines the sites within survey area <span class="math inline">\(i\)</span>
+(<span class="math inline">\(n = \sum_{i=1}^m n_i\)</span>).</p>
+<pre class="sourceCode r"><code class="sourceCode r">mPLN2 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>SurveyArea), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mPLN2)</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
 ## Formula: y ~ Decid * ConifWet + (1 | SurveyArea)
 ##    Data: x
@@ -831,16 +1186,11 @@ mPLN2 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class=
 ## Number of obs: 4569, groups:  SurveyArea, 271
 ## 
 ## Fixed effects:
-##                Estimate Std. Error z value            Pr(&gt;|z|)
-## (Intercept)     -0.7459     0.0783   -9.53 &lt;0.0000000000000002
-## Decid            1.1967     0.0984   12.16 &lt;0.0000000000000002
-## ConifWet        -2.3213     0.1686  -13.77 &lt;0.0000000000000002
-## Decid:ConifWet   5.5346     0.3977   13.92 &lt;0.0000000000000002
-##                   
-## (Intercept)    ***
-## Decid          ***
-## ConifWet       ***
-## Decid:ConifWet ***
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)     -0.7459     0.0783   -9.53   &lt;2e-16 ***
+## Decid            1.1967     0.0984   12.16   &lt;2e-16 ***
+## ConifWet        -2.3213     0.1686  -13.77   &lt;2e-16 ***
+## Decid:ConifWet   5.5346     0.3977   13.92   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -849,14 +1199,40 @@ mPLN2 &lt;-<span class="st"> </span><span class="kw">glmer</span>(y <span class=
 ## Decid       -0.808              
 ## ConifWet    -0.610  0.628       
 ## Decid:CnfWt  0.162 -0.325 -0.670</code></pre>
+<p>In the battle of distributions (keeping the linear predictor
+part the same) the clustered GLMM was best supported:</p>
+<pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">AIC</span>(mP, mNB, mZIP, mZINB, mPLN1, mPLN2)
+tmp<span class="op">$</span>delta_AIC &lt;-<span class="st"> </span>tmp<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(tmp<span class="op">$</span>AIC)
+tmp[<span class="kw">order</span>(tmp<span class="op">$</span>AIC),]</code></pre>
+<pre><code>##       df   AIC delta_AIC
+## mPLN2  5 10021       0.0
+## mZINB  6 10419     398.4
+## mZIP   5 10422     401.0
+## mPLN1  5 10423     401.9
+## mNB    5 10440     419.5
+## mP     4 10549     528.4</code></pre>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+What are some of the biological mechanisms that can lead to the
+clustered GLMM bi be the best model?
+</div>
+
 </div>
 <div id="counting-time-effects" class="section level2">
 <h2><span class="header-section-number">3.12</span> Counting time effects</h2>
-<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
-
-ydur &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dur <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
-
-y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydur[[spp]])
+<p>Let’s change gears a bit now, and steer closer to the main focus
+of this book. We want to account for methodological differences
+among samples. One aspect of mathodologies involve
+variation in total counting duration. We’ll now inspect what
+that does to our observations.</p>
+<p>First, we create a list of matrices where counts are
+tabulated by surveys and time intervals for each species:</p>
+<pre class="sourceCode r"><code class="sourceCode r">ydur &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dur <span class="op">+</span><span class="st"> </span>SpeciesID , 
+  josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])</code></pre>
+<p>We use the same species (<code>spp</code>) as before and create a
+data frame indluring the cumulative counts during 3, 5, and 10 minutes:</p>
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydur[[spp]])
 <span class="kw">head</span>(y)</code></pre>
 <pre><code>##         0-3min 3-5min 5-10min
 ## CL10102      3      0       0
@@ -865,10 +1241,10 @@ y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydur[[spp]])
 ## CL10109      2      0       1
 ## CL10111      2      0       0
 ## CL10112      2      0       0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colMeans</span>(y)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colMeans</span>(y) <span class="co"># mean count of new individuals</span></code></pre>
 <pre><code>##  0-3min  3-5min 5-10min 
 ## 0.67367 0.09346 0.11600</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y)) <span class="co"># cumulative counts</span></code></pre>
 <pre><code>##  0-3min  3-5min 5-10min 
 ##  0.6737  0.7671  0.8831</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
@@ -889,6 +1265,8 @@ y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydur[[spp]])
 <pre><code>## 
 ##    0    1    2    3    4    5    6 
 ## 2493  883  656  363  132   29   13</code></pre>
+<p>If we fit single-predictor GLMs to these 3 responses, we get
+different fitted values, consistent with our mean counts:</p>
 <pre class="sourceCode r"><code class="sourceCode r">m3 &lt;-<span class="st"> </span><span class="kw">glm</span>(y3 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 m5 &lt;-<span class="st"> </span><span class="kw">glm</span>(y5 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 m10 &lt;-<span class="st"> </span><span class="kw">glm</span>(y10 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
@@ -898,13 +1276,18 @@ m10 &lt;-<span class="st"> </span><span class="kw">glm</span>(y10 <span class="o
 <pre><code>## [1] 0.7671</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">fitted</span>(m10))</code></pre>
 <pre><code>## [1] 0.8831</code></pre>
+<p>Using the multiple time interval data, we can pretend that
+we have a mix of methodologies with respect to count duration:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-x<span class="op">$</span>meth &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="kw">nrow</span>(x), <span class="dt">replace=</span><span class="ot">TRUE</span>)
+x<span class="op">$</span>meth &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="kw">nrow</span>(x), <span class="dt">replace=</span><span class="ot">TRUE</span>))
 x<span class="op">$</span>y &lt;-<span class="st"> </span>x<span class="op">$</span>y3
 x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;B&quot;</span>] &lt;-<span class="st"> </span>x<span class="op">$</span>y5[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;B&quot;</span>]
 x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;C&quot;</span>] &lt;-<span class="st"> </span>x<span class="op">$</span>y10[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;C&quot;</span>]
-<span class="kw">boxplot</span>(y <span class="op">~</span><span class="st"> </span>meth, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<span class="kw">boxplot</span>(y <span class="op">~</span><span class="st"> </span>meth, x)
+sb &lt;-<span class="st"> </span><span class="kw">sum_by</span>(x<span class="op">$</span>y, x<span class="op">$</span>meth)
+<span class="kw">points</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, sb[,<span class="dv">1</span>]<span class="op">/</span>sb[,<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">pch=</span><span class="dv">4</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-time4-1.png" width="672" /></p>
+<p>We can estimate the effect of the methodology:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>meth <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mm)</code></pre>
 <pre><code>## 
@@ -916,10 +1299,10 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## -1.309  -1.263  -1.162   0.369   3.616  
 ## 
 ## Coefficients:
-##       Estimate Std. Error z value             Pr(&gt;|z|)    
-## methA  -0.3929     0.0309  -12.70 &lt; 0.0000000000000002 ***
-## methB  -0.2255     0.0289   -7.79   0.0000000000000066 ***
-## methC  -0.1550     0.0277   -5.60   0.0000000211399604 ***
+##       Estimate Std. Error z value Pr(&gt;|z|)    
+## methA  -0.3929     0.0309  -12.70  &lt; 2e-16 ***
+## methB  -0.2255     0.0289   -7.79  6.6e-15 ***
+## methC  -0.1550     0.0277   -5.60  2.1e-08 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -933,6 +1316,7 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(mm))</code></pre>
 <pre><code>##  methA  methB  methC 
 ## 0.6751 0.7981 0.8564</code></pre>
+<p>Or the effect of the continuous predictor and the method (discrete):</p>
 <pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span>meth, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mm)</code></pre>
 <pre><code>## 
@@ -944,11 +1328,11 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## -2.278  -0.939  -0.736   0.457   4.201  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value             Pr(&gt;|z|)    
-## (Intercept)  -1.4416     0.0457  -31.56 &lt; 0.0000000000000002 ***
-## Decid         2.1490     0.0574   37.43 &lt; 0.0000000000000002 ***
-## methB         0.1347     0.0424    3.18               0.0015 ** 
-## methC         0.2705     0.0415    6.51       0.000000000073 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.4416     0.0457  -31.56  &lt; 2e-16 ***
+## Decid         2.1490     0.0574   37.43  &lt; 2e-16 ***
+## methB         0.1347     0.0424    3.18   0.0015 ** 
+## methC         0.2705     0.0415    6.51  7.3e-11 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -960,24 +1344,70 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(<span class="kw">fitted</span>(mm) <span class="op">~</span><span class="st"> </span>meth, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/regr-time6-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(mm))</code></pre>
 <pre><code>## (Intercept)       Decid       methB       methC 
 ##      0.2365      8.5766      1.1442      1.3106</code></pre>
+<p>The fixed effects adjusts the means well:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y))</code></pre>
 <pre><code>##  0-3min  3-5min 5-10min 
 ##  0.6737  0.7671  0.8831</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(y[,<span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">exp</span>(<span class="kw">coef</span>(mm))[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>])</code></pre>
 <pre><code>##         methB  methC 
 ## 0.6737 0.7708 0.8829</code></pre>
-<p>It is all relative, depends on reference methodology/protocol.</p>
+<p>But it is all relative, depends on reference methodology/protocol.
+The problem is, we can’t easily extrapolate to a methodology
+with count duration of 12 minutes, or interpolate to a mathodology
+with count duration of 2 or 8 minutes.
+We need somehow to express time expediture in minutes to make that work.
+Let’s try something else:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>tmax &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>)[<span class="kw">as.integer</span>(x<span class="op">$</span>meth)]
+mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(<span class="kw">log</span>(tmax)), <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
+<span class="kw">summary</span>(mm)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ Decid + I(log(tmax)), family = poisson, data = x)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.284  -0.939  -0.731   0.453   4.195  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -1.6777     0.0702  -23.91  &lt; 2e-16 ***
+## Decid          2.1504     0.0574   37.48  &lt; 2e-16 ***
+## I(log(tmax))   0.2218     0.0340    6.53  6.7e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 6976.3  on 4568  degrees of freedom
+## Residual deviance: 5443.0  on 4566  degrees of freedom
+## AIC: 10158
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tmax &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="fl">0.01</span>)
+<span class="kw">plot</span>(tmax, <span class="kw">exp</span>(<span class="kw">log</span>(tmax) <span class="op">*</span><span class="st"> </span><span class="kw">coef</span>(mm)[<span class="dv">3</span>]), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>,
+  <span class="dt">ylab=</span><span class="st">&quot;Method effect&quot;</span>, <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-time8-1.png" width="672" /></p>
+<p>Now we are getting somewhere. But still, this function keep
+increasing monotonically.</p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>What kind of function would we need and why?</p>
+What is the underlying biological mechanism?
+</div>
+
 </div>
 <div id="counting-radius-effects" class="section level2">
 <h2><span class="header-section-number">3.13</span> Counting radius effects</h2>
-<p>Use area subsets to demonstrate use of offsets</p>
-<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
-
-ydis &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dis <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
+<p>Before solving the count duration issue, let us look at the
+effect of survey area.
+We get a similar count breakdown, but now by distance band:</p>
+<pre class="sourceCode r"><code class="sourceCode r">ydis &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dis <span class="op">+</span><span class="st"> </span>SpeciesID , 
+  josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
 
 y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydis[[spp]])
 <span class="kw">head</span>(y)</code></pre>
@@ -988,10 +1418,10 @@ y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydis[[spp]])
 ## CL10109     1       2     0
 ## CL10111     1       0     1
 ## CL10112     0       2     0</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colMeans</span>(y)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colMeans</span>(y) <span class="co"># mean count of new individuals</span></code></pre>
 <pre><code>##   0-50m 50-100m   100+m 
 ## 0.29241 0.49223 0.09849</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y)) <span class="co"># cumulative counts</span></code></pre>
 <pre><code>##   0-50m 50-100m   100+m 
 ##  0.2924  0.7846  0.8831</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
@@ -1007,6 +1437,9 @@ y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(ydis[[spp]])
 <pre><code>## 
 ##    0    1    2    3    4    5    6 
 ## 2654  833  647  316   92   20    7</code></pre>
+<p>We don’t consider the unlimited distance case, because the survey area there
+is unknown (although we will ultimately address this problem mater).
+We compare the counts within the 0-50 and 0-100 m circles:</p>
 <pre class="sourceCode r"><code class="sourceCode r">m50 &lt;-<span class="st"> </span><span class="kw">glm</span>(y50 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 m100 &lt;-<span class="st"> </span><span class="kw">glm</span>(y100 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">mean</span>(<span class="kw">fitted</span>(m50))</code></pre>
@@ -1022,6 +1455,15 @@ m100 &lt;-<span class="st"> </span><span class="kw">glm</span>(y100 <span class=
 </div>
 <div id="offsets" class="section level2">
 <h2><span class="header-section-number">3.14</span> Offsets</h2>
+<p>Offsets are constant terms in the linear predictor,
+e.g. <span class="math inline">\(log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i\)</span>,
+where <span class="math inline">\(o_i\)</span> is an offset. In the survey area case,
+an offset might be the log of area surveyed.
+The logic for this is based on point processes:
+intensity is a linear function of area
+under a homogeneous Poisson point process.
+So we can assume that <span class="math inline">\(o_i = log(A_i)\)</span>, where <span class="math inline">\(A\)</span> stands for area.</p>
+<p>Let’s see if using area as offset makes our models comparable:</p>
 <pre class="sourceCode r"><code class="sourceCode r">m50 &lt;-<span class="st"> </span><span class="kw">glm</span>(y50 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson, 
   <span class="dt">offset=</span><span class="kw">rep</span>(<span class="kw">log</span>(<span class="fl">0.5</span><span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi), <span class="kw">nrow</span>(x)))
 m100 &lt;-<span class="st"> </span><span class="kw">glm</span>(y100 <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson,
@@ -1036,12 +1478,23 @@ m100 &lt;-<span class="st"> </span><span class="kw">glm</span>(y100 <span class=
 <pre><code>## [1] 0.3723</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">exp</span>(<span class="kw">model.matrix</span>(m100) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(m100)))</code></pre>
 <pre><code>## [1] 0.2498</code></pre>
+<p>These coefficients and mean predictions are much closer to each other,
+but something else is going on.</p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+Can you guess why we cannot make abundances comparable using
+log area as as offset?
+</div>
+
+<p>We pretend again, that survey area varies in our data set:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-x<span class="op">$</span>meth &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">nrow</span>(x), <span class="dt">replace=</span><span class="ot">TRUE</span>)
+x<span class="op">$</span>meth &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">nrow</span>(x), <span class="dt">replace=</span><span class="ot">TRUE</span>))
 x<span class="op">$</span>y &lt;-<span class="st"> </span>x<span class="op">$</span>y50
 x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;B&quot;</span>] &lt;-<span class="st"> </span>x<span class="op">$</span>y100[x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;B&quot;</span>]
 <span class="kw">boxplot</span>(y <span class="op">~</span><span class="st"> </span>meth, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/regr-area4-1.png" width="672" /></p>
+<p>Methodology effect:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>meth <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mm)</code></pre>
 <pre><code>## 
@@ -1053,9 +1506,9 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## -1.256  -1.256  -0.775   0.228   3.731  
 ## 
 ## Coefficients:
-##       Estimate Std. Error z value            Pr(&gt;|z|)    
-## methA  -1.2040     0.0375  -32.10 &lt;0.0000000000000002 ***
-## methB  -0.2370     0.0240   -9.87 &lt;0.0000000000000002 ***
+##       Estimate Std. Error z value Pr(&gt;|z|)    
+## methA  -1.2040     0.0375  -32.10   &lt;2e-16 ***
+## methB  -0.2370     0.0240   -9.87   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1069,6 +1522,7 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(mm))</code></pre>
 <pre><code>## methA methB 
 ## 0.300 0.789</code></pre>
+<p>Predictor and method effects:</p>
 <pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span>meth, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mm)</code></pre>
 <pre><code>## 
@@ -1080,10 +1534,10 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## -2.185  -0.847  -0.584   0.274   4.347  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value            Pr(&gt;|z|)    
-## (Intercept)  -2.2719     0.0554   -41.0 &lt;0.0000000000000002 ***
-## Decid         2.1706     0.0690    31.4 &lt;0.0000000000000002 ***
-## methB         0.9804     0.0445    22.0 &lt;0.0000000000000002 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.2719     0.0554   -41.0   &lt;2e-16 ***
+## Decid         2.1706     0.0690    31.4   &lt;2e-16 ***
+## methB         0.9804     0.0445    22.0   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1095,7 +1549,7 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(<span class="kw">fitted</span>(mm) <span class="op">~</span><span class="st"> </span>meth, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/regr-area6-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(mm))</code></pre>
 <pre><code>## (Intercept)       Decid       methB 
 ##      0.1031      8.7632      2.6654</code></pre>
@@ -1105,22 +1559,56 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(y[,<span class="dv">1</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">exp</span>(<span class="kw">coef</span>(mm))[<span class="dv">3</span>])</code></pre>
 <pre><code>##         methB 
 ## 0.2924 0.7794</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson,
-  <span class="dt">offset=</span><span class="kw">log</span>(<span class="kw">ifelse</span>(x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;A&quot;</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi))
+<p>Use log area as continuous predictor:
+we would expect a close to 1:1 relationship on the
+abundance scale.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>logA &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw">ifelse</span>(x<span class="op">$</span>meth <span class="op">==</span><span class="st"> &quot;A&quot;</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi)
+mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">+</span><span class="st"> </span>logA, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson)
 <span class="kw">summary</span>(mm)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = y ~ Decid, family = poisson, data = x, offset = log(ifelse(x$meth == 
-##     &quot;A&quot;, 0.5, 1)^2 * pi))
+## glm(formula = y ~ Decid + logA, family = poisson, data = x)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -2.185  -0.847  -0.584   0.274   4.347  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.1011     0.0513   -40.9   &lt;2e-16 ***
+## Decid         2.1706     0.0690    31.4   &lt;2e-16 ***
+## logA          0.7072     0.0321    22.0   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 6110.2  on 4568  degrees of freedom
+## Residual deviance: 4531.0  on 4566  degrees of freedom
+## AIC: 8011
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>) <span class="co"># in ha</span>
+<span class="kw">plot</span>(A, <span class="kw">exp</span>(<span class="kw">log</span>(A) <span class="op">*</span><span class="st"> </span><span class="kw">coef</span>(mm)[<span class="dv">3</span>]), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>,
+  <span class="dt">ylab=</span><span class="st">&quot;Method effect&quot;</span>, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/regr-area7-1.png" width="672" /></p>
+<p>The offset forces the relationship to be 1:1
+(it is like fixing the <code>logA</code> coefficient to be 1):</p>
+<pre class="sourceCode r"><code class="sourceCode r">mm &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>Decid, <span class="dt">data=</span>x, <span class="dt">family=</span>poisson, <span class="dt">offset=</span>x<span class="op">$</span>logA)
+<span class="kw">summary</span>(mm)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ Decid, family = poisson, data = x, offset = x$logA)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
 ## -2.302  -0.836  -0.512   0.260   4.219  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value            Pr(&gt;|z|)    
-## (Intercept)  -2.3374     0.0453   -51.6 &lt;0.0000000000000002 ***
-## Decid         2.1758     0.0690    31.5 &lt;0.0000000000000002 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.3374     0.0453   -51.6   &lt;2e-16 ***
+## Decid         2.1758     0.0690    31.5   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1132,22 +1620,40 @@ x<span class="op">$</span>y[x<span class="op">$</span>meth <span class="op">==</
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(<span class="kw">fitted</span>(mm) <span class="op">~</span><span class="st"> </span>meth, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-38-3.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/regr-area8-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cumsum</span>(<span class="kw">colMeans</span>(y))[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre>
 <pre><code>##   0-50m 50-100m 
 ##  0.2924  0.7846</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(<span class="kw">exp</span>(<span class="kw">model.matrix</span>(mm) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(mm))) <span class="co"># /ha</span></code></pre>
 <pre><code>## [1] 0.2200 0.8798</code></pre>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+Why did we get a <code>logA</code> coefficient that was less than 1 when theoretically we should have gotten 1?
+</div>
+
+<p>Predictions using offsets in <code>glm</code> can be tricky.
+The safest way is to use the matrix product
+(<code>exp(model.matrix(mm) %*% coef(mm) + &lt;offset&gt;)</code>).
+We can often omit the offset, e.g. in the log area case
+we can express the prediction per unit area.
+If the unit is 1 ha, as in our case, log(1)=0, which means
+the mean abundance per unit area can be calculated by
+omitting the offsets all together.</p>
 </div>
 <div id="definitions" class="section level2">
 <h2><span class="header-section-number">3.15</span> Definitions</h2>
-<p>Discuss definitions of:</p>
+<p>So what is it that we are estimating and predicting as our <span class="math inline">\(\lambda\)</span>?
+Here are some deifinitions for further discussion:</p>
 <ul>
-<li>relative abundance,</li>
-<li>abundance,</li>
-<li>occupancy,</li>
-<li>density.</li>
+<li><strong>relative abundance</strong>: <span class="math inline">\(\lambda\)</span> without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,</li>
+<li><strong>abundance</strong>: <span class="math inline">\(N\)</span>, this refers to the number of individuals within the area surveyed, the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),</li>
+<li><strong>occupancy</strong>: the probability that the survey area is occupied, this is really equivalent to the indicator function <span class="math inline">\(N&gt;0\)</span>,</li>
+<li><strong>density</strong> <span class="math inline">\(D = N/A\)</span>, abundance per unit area, same problems as above: both <span class="math inline">\(N\)</span> and <span class="math inline">\(A\)</span> are unknowns.</li>
 </ul>
+<p>Our objective in the next chapters is to work out the details of
+estimateing abundance and density in some clever ways, and learning
+a lot more other stuff along the way.</p>
 
 </div>
 </div>

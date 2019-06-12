@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-07">
+<meta name="date" content="2019-06-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -153,21 +153,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
 <li class="chapter" data-level="2.7" data-path="pcdata.html"><a href="pcdata.html#explore-predictor-variables"><i class="fa fa-check"></i><b>2.7</b> Explore predictor variables</a></li>
+<li class="chapter" data-level="2.8" data-path="pcdata.html"><a href="pcdata.html#derived-variables"><i class="fa fa-check"></i><b>2.8</b> Derived variables</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>3</b> A Primer in Regression Techniques</a><ul>
 <li class="chapter" data-level="3.1" data-path="regression.html"><a href="regression.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="regression.html"><a href="regression.html#prerequisites-1"><i class="fa fa-check"></i><b>3.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="3.3" data-path="regression.html"><a href="regression.html#poisson-null-model"><i class="fa fa-check"></i><b>3.3</b> Poisson null model</a></li>
 <li class="chapter" data-level="3.4" data-path="regression.html"><a href="regression.html#exploring-covariates"><i class="fa fa-check"></i><b>3.4</b> Exploring covariates</a></li>
-<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#poisson-glm-with-one-covariate"><i class="fa fa-check"></i><b>3.5</b> Poisson GLM with one covariate</a></li>
+<li class="chapter" data-level="3.5" data-path="regression.html"><a href="regression.html#single-covariate"><i class="fa fa-check"></i><b>3.5</b> Single covariate</a></li>
 <li class="chapter" data-level="3.6" data-path="regression.html"><a href="regression.html#additive-model"><i class="fa fa-check"></i><b>3.6</b> Additive model</a></li>
-<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.7</b> Multiple main effects</a></li>
-<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.8</b> Nonlinear terms</a></li>
-<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.9</b> Categorical variables</a><ul>
-<li class="chapter" data-level="3.9.1" data-path="regression.html"><a href="regression.html#optimal-partitioning"><i class="fa fa-check"></i><b>3.9.1</b> Optimal partitioning</a></li>
-<li class="chapter" data-level="3.9.2" data-path="regression.html"><a href="regression.html#finding-optimal-combinations-of-factor-levels"><i class="fa fa-check"></i><b>3.9.2</b> Finding optimal combinations of factor levels</a></li>
-</ul></li>
-<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>3.10</b> Interactions</a></li>
+<li class="chapter" data-level="3.7" data-path="regression.html"><a href="regression.html#nonlinear-terms"><i class="fa fa-check"></i><b>3.7</b> Nonlinear terms</a></li>
+<li class="chapter" data-level="3.8" data-path="regression.html"><a href="regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.8</b> Categorical variables</a></li>
+<li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
+<li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
 <li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
 <li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
@@ -181,7 +179,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
-<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a></li>
+<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.1.1</b> Optimal partitioning</a></li>
+<li class="chapter" data-level="9.1.2" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.1.2</b> Optilevels</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>

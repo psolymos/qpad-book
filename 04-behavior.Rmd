@@ -501,7 +501,7 @@ Our findings also indicate that lengthening the count duration from 3 minutes to
 
 Compare different duration and intervals
 
-Compare how does movement based detection influences estimates
+Compare how does movement based detection influences estimates (when % increases)
 
 
 36% of records in BAM is 'heard & seen' and I want to understand how likely the following 2 scenarios are:
@@ -519,5 +519,13 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 
 100*table(josm$counts$DetectType1)/sum(table(josm$counts$DetectType1))
 
-Smaller singing rate species where p(10min) << 1
+- Smaller singing rate species where p(10min) << 1
 
+## Todo
+
+- Figure out exercises
+- Apply p as offset to estimate N
+- compare ADp approach to N-mix (multi-visit)
+- make a plot of inds x events, highlighting the 1st detections (ordered), tie in with ecdf
+- explain conditioning in more depth
+- explain: removal vs visits contrast (1st detection resets)

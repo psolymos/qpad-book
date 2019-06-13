@@ -30,7 +30,7 @@ load("_data/josm/josm.rda")   # load bird data
 rr <- stack("_data/josm/landcover-hfi2016.grd") # rasters
 ```
 
-## R basics
+## R basics {#rbasics}
 
 This short document is intended to help you brush up your R skills.
 If you feel that these R basics are not very familiar,

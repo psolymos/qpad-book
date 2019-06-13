@@ -33,7 +33,7 @@ We put together a little data set to work with:
 ```{r regr-data}
 spp <- "OVEN"
 
-ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+ytot <- Xtab(~ SiteID + SpeciesID, josm$counts[josm$counts$DetectType1 != "V",])
 ytot <- ytot[,colSums(ytot > 0) > 0]
 x <- data.frame(
   josm$surveys, 

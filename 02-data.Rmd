@@ -335,7 +335,7 @@ table(josm$counts$DetectType1, useNA="always")
 We use `SiteID` for row names, because only 1 station and visit was done at each site:
 
 ```{r data-xtab_4}
-ytot <- Xtab(~ SiteID + SpeciesID , josm$counts[josm$counts$DetectType1 != "V",])
+ytot <- Xtab(~ SiteID + SpeciesID, josm$counts[josm$counts$DetectType1 != "V",])
 ```
 
 See how not storing 0's affect size compared to the long formar and an ordinary wide matrix

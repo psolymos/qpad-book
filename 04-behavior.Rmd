@@ -96,7 +96,7 @@ which corresponds to the Exponential distribution.
 The Exponential distribution also happens to describe the lengths of the 
 inter-event times in a homogeneous Poisson process (events are independent, 'memory-less' process).
 
-## Vicalization events
+## Vocalization events
 
 Event times in our bSims example follow a Poisson process with rate $\phi$ (`vocal_rate`)
 within `duration` $t=10$ minutes.
@@ -529,3 +529,4 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 - make a plot of inds x events, highlighting the 1st detections (ordered), tie in with ecdf
 - explain conditioning in more depth
 - explain: removal vs visits contrast (1st detection resets)
+- add figure to constant mixture model similar to Me0

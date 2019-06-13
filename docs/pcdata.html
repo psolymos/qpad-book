@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it</title>
-  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Organizing and Processing Point Count Data | Point count data analysis: How to violate assumptions and get away with it" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,14 @@
   <meta name="twitter:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
   <meta name="twitter:image" content="http://peter.solymos.org/qpad-book/images/cover.png" />
 
-<meta name="author" content="Peter Solymos">
+<meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-13">
+<meta name="date" content="2019-06-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="intro.html">
@@ -53,7 +52,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -66,13 +65,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -176,7 +173,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
 <li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#birds-in-the-forest"><i class="fa fa-check"></i><b>4.3</b> Birds in the forest</a></li>
+<li class="chapter" data-level="4.4" data-path="behavior.html"><a href="behavior.html#survival-model"><i class="fa fa-check"></i><b>4.4</b> Survival model</a></li>
+<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vicalization-events"><i class="fa fa-check"></i><b>4.5</b> Vicalization events</a></li>
+<li class="chapter" data-level="4.6" data-path="behavior.html"><a href="behavior.html#removal-model"><i class="fa fa-check"></i><b>4.6</b> Removal model</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="behavior.html"><a href="behavior.html#real-data"><i class="fa fa-check"></i><b>4.6.1</b> Real data</a></li>
+<li class="chapter" data-level="4.6.2" data-path="behavior.html"><a href="behavior.html#time-invariant-conventional-model"><i class="fa fa-check"></i><b>4.6.2</b> Time-invariant conventional model</a></li>
+<li class="chapter" data-level="4.6.3" data-path="behavior.html"><a href="behavior.html#time-varying-conventional-removal-model"><i class="fa fa-check"></i><b>4.6.3</b> Time-varying conventional removal model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="behavior.html"><a href="behavior.html#finite-mixtures"><i class="fa fa-check"></i><b>4.7</b> Finite mixtures</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="behavior.html"><a href="behavior.html#time-invariant-finite-mixture-removal-model"><i class="fa fa-check"></i><b>4.7.1</b> Time-invariant finite mixture removal model</a></li>
+<li class="chapter" data-level="4.7.2" data-path="behavior.html"><a href="behavior.html#time-varying-finite-mixture-removal-models"><i class="fa fa-check"></i><b>4.7.2</b> Time-varying finite mixture removal models</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
+<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -501,18 +511,18 @@ formula in <code>Xtab</code>. <code>ytot</code> will be our total count matrix f
 ##     C     S     V  &lt;NA&gt; 
 ##  9180 41808  1384     0</code></pre>
 <p>We use <code>SiteID</code> for row names, because only 1 station and visit was done at each site:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ytot &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>SpeciesID , josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">ytot &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>SpeciesID, josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])</code></pre>
 <p>See how not storing 0’s affect size compared to the long formar and an ordinary wide matrix</p>
-<pre class="sourceCode r"><code class="sourceCode r">## 2-column data frame as reference
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## 2-column data frame as reference</span>
 tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">object.size</span>(
   josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;StationID&quot;</span>, <span class="st">&quot;SpeciesID&quot;</span>)]))
-## spare matrix
+<span class="co">## spare matrix</span>
 <span class="kw">as.numeric</span>(<span class="kw">object.size</span>(ytot)) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
 <pre><code>## [1] 0.1366</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## dense matrix
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## dense matrix</span>
 <span class="kw">as.numeric</span>(<span class="kw">object.size</span>(<span class="kw">as.matrix</span>(ytot))) <span class="op">/</span><span class="st"> </span>tmp</code></pre>
 <pre><code>## [1] 1.106</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## matrix fill
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## matrix fill</span>
 <span class="kw">sum</span>(ytot <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span><span class="kw">prod</span>(<span class="kw">dim</span>(ytot))</code></pre>
 <pre><code>## [1] 0.04911</code></pre>
 <p>Check if counts are as expected:</p>
@@ -539,7 +549,7 @@ tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class
 ##    5    5    5    5    5    5    5    6    6    6    6    6    6    6    6 
 ## SWTH BOGU MALL GRAJ PAWA WTSP YRWA COLO TEWA AMPI WWCR CEDW PISI RECR CANG 
 ##    6    7    7    8    8    8    8    9   12   12   20   23   50   51  200</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">## lyover (FO) flock (FL) beyond 100m distance
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## lyover (FO) flock (FL) beyond 100m distance</span>
 <span class="kw">head</span>(josm<span class="op">$</span>counts[
   josm<span class="op">$</span>counts<span class="op">$</span>SiteID <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(ytot)[<span class="kw">which</span>(ytot[,<span class="st">&quot;CANG&quot;</span>] <span class="op">==</span><span class="st"> </span><span class="dv">200</span>)] <span class="op">&amp;</span>
 <span class="st">  </span>josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> &quot;CANG&quot;</span>,])</code></pre>
@@ -634,7 +644,7 @@ h &lt;-<span class="st"> </span><span class="kw">find_max</span>(x[,cn])
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-mahon2016">
-<p>Mahon, C. Lisa, Gillian Holloway, Péter Sólymos, Steve G. Cumming, Erin M. Bayne, Fiona K. A. Schmiegelow, and Samantha J. Song. 2016. “Community Structure and Niche Characteristics of Upland and Lowland Western Boreal Birds at Multiple Spatial Scales.” <em>Forest Ecology and Management</em> 361: 99–116. <a href="https://doi.org/10.1016/j.foreco.2015.11.007" class="uri">https://doi.org/10.1016/j.foreco.2015.11.007</a>.</p>
+<p>Mahon, C. Lisa, Gillian Holloway, Péter Sólymos, Steve G. Cumming, Erin M. Bayne, Fiona K. A. Schmiegelow, and Samantha J. Song. 2016. “Community Structure and Niche Characteristics of Upland and Lowland Western Boreal Birds at Multiple Spatial Scales.” <em>Forest Ecology and Management</em> 361: 99–116. <a href="https://doi.org/10.1016/j.foreco.2015.11.007">https://doi.org/10.1016/j.foreco.2015.11.007</a>.</p>
 </div>
 </div>
             </section>

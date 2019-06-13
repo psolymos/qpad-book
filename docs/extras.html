@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Miscellaneous Topics | Point count data analysis: How to violate assumptions and get away with it</title>
-  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Miscellaneous Topics | Point count data analysis: How to violate assumptions and get away with it" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,14 @@
   <meta name="twitter:description" content="This book provides material for the workshop ‘Analysis of point-count data in the presence of variable survey methodologies and detection error’ at the AOS 2019 conference." />
   <meta name="twitter:image" content="http://peter.solymos.org/qpad-book/images/cover.png" />
 
-<meta name="author" content="Peter Solymos">
+<meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-13">
+<meta name="date" content="2019-06-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="roadsides.html">
@@ -53,7 +52,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -66,13 +65,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -176,7 +173,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
 <li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#birds-in-the-forest"><i class="fa fa-check"></i><b>4.3</b> Birds in the forest</a></li>
+<li class="chapter" data-level="4.4" data-path="behavior.html"><a href="behavior.html#survival-model"><i class="fa fa-check"></i><b>4.4</b> Survival model</a></li>
+<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vicalization-events"><i class="fa fa-check"></i><b>4.5</b> Vicalization events</a></li>
+<li class="chapter" data-level="4.6" data-path="behavior.html"><a href="behavior.html#removal-model"><i class="fa fa-check"></i><b>4.6</b> Removal model</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="behavior.html"><a href="behavior.html#real-data"><i class="fa fa-check"></i><b>4.6.1</b> Real data</a></li>
+<li class="chapter" data-level="4.6.2" data-path="behavior.html"><a href="behavior.html#time-invariant-conventional-model"><i class="fa fa-check"></i><b>4.6.2</b> Time-invariant conventional model</a></li>
+<li class="chapter" data-level="4.6.3" data-path="behavior.html"><a href="behavior.html#time-varying-conventional-removal-model"><i class="fa fa-check"></i><b>4.6.3</b> Time-varying conventional removal model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="behavior.html"><a href="behavior.html#finite-mixtures"><i class="fa fa-check"></i><b>4.7</b> Finite mixtures</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="behavior.html"><a href="behavior.html#time-invariant-finite-mixture-removal-model"><i class="fa fa-check"></i><b>4.7.1</b> Time-invariant finite mixture removal model</a></li>
+<li class="chapter" data-level="4.7.2" data-path="behavior.html"><a href="behavior.html#time-varying-finite-mixture-removal-models"><i class="fa fa-check"></i><b>4.7.2</b> Time-varying finite mixture removal models</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
+<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -443,29 +453,29 @@ The algorithm does the following:</p>
 <span class="kw">colnames</span>(M) &lt;-<span class="st"> </span><span class="kw">levels</span>(x<span class="op">$</span>HAB)
 ol1 &lt;-<span class="st"> </span><span class="kw">optilevels</span>(x<span class="op">$</span>y, M, <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
 <span class="kw">sort</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(<span class="kw">bestmodel</span>(ol1))))
-## estimates
+<span class="co">## estimates</span>
 <span class="kw">exp</span>(ol1<span class="op">$</span>coef)
-## optimal classification
+<span class="co">## optimal classification</span>
 ol1<span class="op">$</span>rank
 <span class="kw">data.frame</span>(<span class="dt">combined_levels=</span>ol1<span class="op">$</span>levels[[<span class="kw">length</span>(ol1<span class="op">$</span>levels)]])</code></pre>
 <p>Here is the code for simplifying compositional data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">ol2 &lt;-<span class="st"> </span><span class="kw">optilevels</span>(x<span class="op">$</span>y, x[,cn], <span class="dt">dist=</span><span class="st">&quot;poisson&quot;</span>)
 <span class="kw">sort</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(<span class="kw">bestmodel</span>(ol2))))
-## estimates
+<span class="co">## estimates</span>
 <span class="kw">exp</span>(ol2<span class="op">$</span>coef)
-## optimal classification
+<span class="co">## optimal classification</span>
 ol2<span class="op">$</span>rank
 <span class="kw">head</span>(<span class="kw">groupSums</span>(<span class="kw">as.matrix</span>(x[,cn]), <span class="dv">2</span>, ol2<span class="op">$</span>levels[[<span class="kw">length</span>(ol2<span class="op">$</span>levels)]]))</code></pre>
 
 <div id="refs" class="references">
 <div>
-<p>Barker, Nicole K. S., Patricia C. Fontaine, Steve G. Cumming, Diana Stralberg, Alana Westwood, Erin M. Bayne, Péter Sólymos, Fiona K. A. Schmiegelow, Samantha J. Song, and D. J. Rugg. 2015. “Ecological Monitoring Through Harmonizing Existing Data: Lessons from the Boreal Avian Modelling Project.” <em>Wildlife Society Bulletin</em> 39: 480–87. <a href="https://doi.org/10.1650/CONDOR-14-108.1" class="uri">https://doi.org/10.1650/CONDOR-14-108.1</a>.</p>
+<p>Barker, Nicole K. S., Patricia C. Fontaine, Steve G. Cumming, Diana Stralberg, Alana Westwood, Erin M. Bayne, Péter Sólymos, Fiona K. A. Schmiegelow, Samantha J. Song, and D. J. Rugg. 2015. “Ecological Monitoring Through Harmonizing Existing Data: Lessons from the Boreal Avian Modelling Project.” <em>Wildlife Society Bulletin</em> 39: 480–87. <a href="https://doi.org/10.1650/CONDOR-14-108.1">https://doi.org/10.1650/CONDOR-14-108.1</a>.</p>
 </div>
 <div>
-<p>Mahon, C. Lisa, Gillian Holloway, Péter Sólymos, Steve G. Cumming, Erin M. Bayne, Fiona K. A. Schmiegelow, and Samantha J. Song. 2016. “Community Structure and Niche Characteristics of Upland and Lowland Western Boreal Birds at Multiple Spatial Scales.” <em>Forest Ecology and Management</em> 361: 99–116. <a href="https://doi.org/10.1016/j.foreco.2015.11.007" class="uri">https://doi.org/10.1016/j.foreco.2015.11.007</a>.</p>
+<p>Mahon, C. Lisa, Gillian Holloway, Péter Sólymos, Steve G. Cumming, Erin M. Bayne, Fiona K. A. Schmiegelow, and Samantha J. Song. 2016. “Community Structure and Niche Characteristics of Upland and Lowland Western Boreal Birds at Multiple Spatial Scales.” <em>Forest Ecology and Management</em> 361: 99–116. <a href="https://doi.org/10.1016/j.foreco.2015.11.007">https://doi.org/10.1016/j.foreco.2015.11.007</a>.</p>
 </div>
 <div>
-<p>Matsuoka, S. M., C. L. Mahon, C. M. Handel, Péter Sólymos, E. M. Bayne, P. C. Fontaine, and C. J. Ralph. 2014. “Reviving Common Standards in Point-Count Surveys for Broad Inference Across Studies.” <em>Condor</em> 116: 599–608. <a href="https://doi.org/10.1650/CONDOR-14-108.1" class="uri">https://doi.org/10.1650/CONDOR-14-108.1</a>.</p>
+<p>Matsuoka, S. M., C. L. Mahon, C. M. Handel, Péter Sólymos, E. M. Bayne, P. C. Fontaine, and C. J. Ralph. 2014. “Reviving Common Standards in Point-Count Surveys for Broad Inference Across Studies.” <em>Condor</em> 116: 599–608. <a href="https://doi.org/10.1650/CONDOR-14-108.1">https://doi.org/10.1650/CONDOR-14-108.1</a>.</p>
 </div>
 </div>
 </div>

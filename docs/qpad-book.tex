@@ -21,7 +21,6 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{unicode=true,
@@ -113,7 +112,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -190,6 +189,8 @@ overlay={
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+\listoftables
+\listoffigures
 \hypertarget{foreword}{%
 \chapter*{Preface}\label{foreword}}
 \addcontentsline{toc}{chapter}{Preface}
@@ -308,9 +309,9 @@ The \textbf{bookdown} package can be installed from CRAN or Github:
 \CommentTok{# or the development version}
 \CommentTok{# devtools::install_github("rstudio/bookdown")}
 
-\NormalTok{## clean up }
+\CommentTok{## clean up }
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{clean_book}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{## rendering the book}
+\CommentTok{## rendering the book}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::gitbook'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::pdf_book'}\NormalTok{)}
 \NormalTok{bookdown}\OperatorTok{::}\KeywordTok{render_book}\NormalTok{(}\StringTok{'index.Rmd'}\NormalTok{, }\StringTok{'bookdown::epub_book'}\NormalTok{)}
@@ -363,8 +364,8 @@ To compare apples to apples, we need to agree on a comparable
 measurement scheme, or at least figure out how does \emph{effort}
 affect the observations.
 
-Effort in our example can depend on,
-e.g.~the \emph{area} of the physical space searched,
+Effort in our example can depend on, e.g.
+the \emph{area} of the physical space searched,
 the amount of \emph{time} spent, etc.
 The outcome might further affected by
 weather, time of year, time of day, location,
@@ -1056,7 +1057,7 @@ We use \texttt{SiteID} for row names, because only 1 station and visit was done 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ytot <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID , josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
+\NormalTok{ytot <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1064,10 +1065,10 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## 2-column data frame as reference}
+\CommentTok{## 2-column data frame as reference}
 \NormalTok{tmp <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"StationID"}\NormalTok{, }\StringTok{"SpeciesID"}\NormalTok{)]))}
-\NormalTok{## spare matrix}
+\CommentTok{## spare matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(ytot)) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
@@ -1078,7 +1079,7 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## dense matrix}
+\CommentTok{## dense matrix}
 \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{object.size}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(ytot))) }\OperatorTok{/}\StringTok{ }\NormalTok{tmp}
 \end{Highlighting}
 \end{Shaded}
@@ -1089,7 +1090,7 @@ See how not storing 0's affect size compared to the long formar and an ordinary 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## matrix fill}
+\CommentTok{## matrix fill}
 \KeywordTok{sum}\NormalTok{(ytot }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{prod}\NormalTok{(}\KeywordTok{dim}\NormalTok{(ytot))}
 \end{Highlighting}
 \end{Shaded}
@@ -1141,7 +1142,7 @@ Check if counts are as expected:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## lyover (FO) flock (FL) beyond 100m distance}
+\CommentTok{## lyover (FO) flock (FL) beyond 100m distance}
 \KeywordTok{head}\NormalTok{(josm}\OperatorTok{$}\NormalTok{counts[}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SiteID }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(ytot)[}\KeywordTok{which}\NormalTok{(ytot[,}\StringTok{"CANG"}\NormalTok{] }\OperatorTok{==}\StringTok{ }\DecValTok{200}\NormalTok{)] }\OperatorTok{&}
 \StringTok{  }\NormalTok{josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{SpeciesID }\OperatorTok{==}\StringTok{ "CANG"}\NormalTok{,])}
@@ -1332,7 +1333,7 @@ We put together a little data set to work with:
 \begin{Highlighting}[]
 \NormalTok{spp <-}\StringTok{ "OVEN"}
 
-\NormalTok{ytot <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID , josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
+\NormalTok{ytot <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
 \NormalTok{ytot <-}\StringTok{ }\NormalTok{ytot[,}\KeywordTok{colSums}\NormalTok{(ytot }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{]}
 \NormalTok{x <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{surveys, }
@@ -1668,7 +1669,7 @@ Let's dive into cinfidence and prediction intervals a bit.
 \NormalTok{CI1 <-}\StringTok{ }\KeywordTok{predict_sim}\NormalTok{(mP1, xnew, }\DataTypeTok{interval=}\StringTok{"confidence"}\NormalTok{, }\DataTypeTok{level=}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha, }\DataTypeTok{B=}\NormalTok{B)}
 \NormalTok{PI1 <-}\StringTok{ }\KeywordTok{predict_sim}\NormalTok{(mP1, xnew, }\DataTypeTok{interval=}\StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level=}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha, }\DataTypeTok{B=}\NormalTok{B)}
 
-\NormalTok{## nominal coverage is 95%}
+\CommentTok{## nominal coverage is 95%}
 \KeywordTok{sum}\NormalTok{(x}\OperatorTok{$}\NormalTok{y }\OperatorTok{%[]%}\StringTok{ }\KeywordTok{predict_sim}\NormalTok{(mP0, }\DataTypeTok{interval=}\StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level=}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha, }\DataTypeTok{B=}\NormalTok{B)[,}\KeywordTok{c}\NormalTok{(}\StringTok{"lwr"}\NormalTok{, }\StringTok{"upr"}\NormalTok{)]) }\OperatorTok{/}\StringTok{ }\KeywordTok{nrow}\NormalTok{(x)}
 \end{Highlighting}
 \end{Shaded}
@@ -2400,7 +2401,7 @@ Final battle of Poisson models:
 \begin{verbatim}
 ## Model selection table 
 ##         (Int)    Dcd  Dcd^2  Dcd^3  Dcd^4   DEC HAB     CnW CnW:Dcd s(Dcd)
-## mGAM2 -0.6251                                                             
+## mGAM2 -0.6242                                                             
 ## mGAM  -0.5606                                                            +
 ## mP14  -2.6640 16.640 -38.60 41.470 -16.31                                 
 ## mP13  -2.3910 11.400 -16.31  8.066                                        
@@ -2413,16 +2414,16 @@ Final battle of Poisson models:
 ## mP0   -0.1243                                                             
 ##       s(Dcd,CnW) class df logLik  AICc   delta weight
 ## mGAM2          +   gam 27  -5160 10376    0.00      1
-## mGAM               gam  9  -5209 10438   61.11      0
-## mP14               glm  5  -5215 10441   64.42      0
-## mP13               glm  4  -5226 10461   84.53      0
-## mP12               glm  3  -5269 10544  167.14      0
-## mP5                glm  4  -5271 10549  172.99      0
-## mP4                glm  3  -5392 10791  414.18      0
-## mP1                glm  2  -5442 10887  510.71      0
-## mP3                glm  9  -5572 11162  785.06      0
-## mP2                glm  2  -5621 11246  869.35      0
-## mP0                glm  1  -6285 12573 2196.58      0
+## mGAM               gam  9  -5209 10438   61.73      0
+## mP14               glm  5  -5215 10441   65.05      0
+## mP13               glm  4  -5226 10461   85.15      0
+## mP12               glm  3  -5269 10544  167.77      0
+## mP5                glm  4  -5271 10549  173.62      0
+## mP4                glm  3  -5392 10791  414.81      0
+## mP1                glm  2  -5442 10887  511.33      0
+## mP3                glm  9  -5572 11162  785.69      0
+## mP2                glm  2  -5621 11246  869.98      0
+## mP0                glm  1  -6285 12573 2197.20      0
 ## Models ranked by AICc(x)
 \end{verbatim}
 
@@ -2444,7 +2445,7 @@ Final battle of Poisson models:
 ## mP4      0.24    0.24  1786.40 7424.78 5638.38 4568.00 4566.00 < 2e-16 ***
 ## mP5      0.27    0.27  2029.60 7424.78 5395.18 4568.00 4565.00 < 2e-16 ***
 ## mGAM     0.29    0.29  2152.63 7424.78 5272.15 4568.00 4559.00 5.5e-13 ***
-## mGAM2    0.30    0.30  2250.35 7424.78 5174.43 4568.00 4539.00 8.4e-11 ***
+## mGAM2    0.30    0.30  2250.62 7424.78 5174.16 4568.00 4539.00 8.5e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
@@ -2533,7 +2534,7 @@ as probability of zero (\(1-\varphi\)), as in the \texttt{pscl::zeroinfl} functi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## Zero-inflated Poisson}
+\CommentTok{## Zero-inflated Poisson}
 \NormalTok{mZIP <-}\StringTok{ }\KeywordTok{zeroinfl}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{Decid }\OperatorTok{*}\StringTok{ }\NormalTok{ConifWet }\OperatorTok{|}\StringTok{ }\DecValTok{1}\NormalTok{, x, }\DataTypeTok{dist=}\StringTok{"poisson"}\NormalTok{)}
 \KeywordTok{summary}\NormalTok{(mZIP)}
 \end{Highlighting}
@@ -2567,7 +2568,7 @@ as probability of zero (\(1-\varphi\)), as in the \texttt{pscl::zeroinfl} functi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## Zero-inflated Negative Binomial}
+\CommentTok{## Zero-inflated Negative Binomial}
 \NormalTok{mZINB <-}\StringTok{ }\KeywordTok{zeroinfl}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{Decid }\OperatorTok{*}\StringTok{ }\NormalTok{ConifWet }\OperatorTok{|}\StringTok{ }\DecValTok{1}\NormalTok{, x, }\DataTypeTok{dist=}\StringTok{"negbin"}\NormalTok{)}
 \KeywordTok{summary}\NormalTok{(mZINB)}
 \end{Highlighting}
@@ -2714,7 +2715,7 @@ We can use the \texttt{lme4::glmer} function: use \texttt{SiteID} as random effe
 ## (Intercept)     -0.7518     0.0675   -11.1   <2e-16 ***
 ## Decid            1.2847     0.0920    14.0   <2e-16 ***
 ## ConifWet        -2.3380     0.1625   -14.4   <2e-16 ***
-## Decid:ConifWet   5.6326     0.4118    13.7   <2e-16 ***
+## Decid:ConifWet   5.6326     0.4119    13.7   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -2771,8 +2772,8 @@ the \(j\) (\(j=1,...,n_i\)) defines the sites within survey area \(i\)
 ##                Estimate Std. Error z value Pr(>|z|)    
 ## (Intercept)     -0.7459     0.0783   -9.53   <2e-16 ***
 ## Decid            1.1967     0.0984   12.16   <2e-16 ***
-## ConifWet        -2.3213     0.1686  -13.77   <2e-16 ***
-## Decid:ConifWet   5.5346     0.3977   13.92   <2e-16 ***
+## ConifWet        -2.3213     0.1687  -13.76   <2e-16 ***
+## Decid:ConifWet   5.5346     0.3978   13.91   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -2974,21 +2975,21 @@ We can estimate the effect of the methodology:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -1.309  -1.263  -1.162   0.369   3.616  
+## -1.312  -1.273  -1.147   0.391   3.980  
 ## 
 ## Coefficients:
 ##       Estimate Std. Error z value Pr(>|z|)    
-## methA  -0.3929     0.0309  -12.70  < 2e-16 ***
-## methB  -0.2255     0.0289   -7.79  6.6e-15 ***
-## methC  -0.1550     0.0277   -5.60  2.1e-08 ***
+## methA  -0.4186     0.0314  -13.32  < 2e-16 ***
+## methB  -0.2100     0.0282   -7.44  1.0e-13 ***
+## methC  -0.1502     0.0280   -5.37  7.9e-08 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 7225.2  on 4569  degrees of freedom
-## Residual deviance: 6941.8  on 4566  degrees of freedom
-## AIC: 11657
+##     Null deviance: 7233.2  on 4569  degrees of freedom
+## Residual deviance: 6938.6  on 4566  degrees of freedom
+## AIC: 11646
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3001,7 +3002,7 @@ We can estimate the effect of the methodology:
 
 \begin{verbatim}
 ##  methA  methB  methC 
-## 0.6751 0.7981 0.8564
+## 0.6580 0.8106 0.8605
 \end{verbatim}
 
 Or the effect of the continuous predictor and the method (discrete):
@@ -3020,22 +3021,22 @@ Or the effect of the continuous predictor and the method (discrete):
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.278  -0.939  -0.736   0.457   4.201  
+## -2.279  -0.953  -0.740   0.447   4.568  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -1.4416     0.0457  -31.56  < 2e-16 ***
-## Decid         2.1490     0.0574   37.43  < 2e-16 ***
-## methB         0.1347     0.0424    3.18   0.0015 ** 
-## methC         0.2705     0.0415    6.51  7.3e-11 ***
+## (Intercept)  -1.4616     0.0460  -31.80  < 2e-16 ***
+## Decid         2.1450     0.0573   37.41  < 2e-16 ***
+## methB         0.1669     0.0423    3.95  7.9e-05 ***
+## methC         0.3027     0.0421    7.19  6.4e-13 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6976.3  on 4568  degrees of freedom
-## Residual deviance: 5442.7  on 4565  degrees of freedom
-## AIC: 10159
+##     Null deviance: 6983.3  on 4568  degrees of freedom
+## Residual deviance: 5443.8  on 4565  degrees of freedom
+## AIC: 10153
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3056,7 +3057,7 @@ Or the effect of the continuous predictor and the method (discrete):
 
 \begin{verbatim}
 ## (Intercept)       Decid       methB       methC 
-##      0.2365      8.5766      1.1442      1.3106
+##      0.2319      8.5421      1.1816      1.3535
 \end{verbatim}
 
 The fixed effects adjusts the means well:
@@ -3080,7 +3081,7 @@ The fixed effects adjusts the means well:
 
 \begin{verbatim}
 ##         methB  methC 
-## 0.6737 0.7708 0.8829
+## 0.6737 0.7960 0.9118
 \end{verbatim}
 
 But it is all relative, depends on reference methodology/protocol.
@@ -3105,21 +3106,21 @@ Let's try something else:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.284  -0.939  -0.731   0.453   4.195  
+## -2.291  -0.953  -0.731   0.448   4.548  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)   -1.6777     0.0702  -23.91  < 2e-16 ***
-## Decid          2.1504     0.0574   37.48  < 2e-16 ***
-## I(log(tmax))   0.2218     0.0340    6.53  6.7e-11 ***
+## (Intercept)   -1.7157     0.0704  -24.36  < 2e-16 ***
+## Decid          2.1473     0.0573   37.47  < 2e-16 ***
+## I(log(tmax))   0.2456     0.0343    7.16  8.2e-13 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6976.3  on 4568  degrees of freedom
-## Residual deviance: 5443.0  on 4566  degrees of freedom
-## AIC: 10158
+##     Null deviance: 6983.3  on 4568  degrees of freedom
+## Residual deviance: 5444.9  on 4566  degrees of freedom
+## AIC: 10152
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3275,7 +3276,7 @@ We compare the counts within the 0-50 and 0-100 m circles:
 \section{Offsets}\label{offsets}}
 
 Offsets are constant terms in the linear predictor,
-e.g. \(log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i\),
+e.g.~\(log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i\),
 where \(o_i\) is an offset. In the survey area case,
 an offset might be the log of area surveyed.
 The logic for this is based on point processes:
@@ -3371,20 +3372,20 @@ Methodology effect:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -1.256  -1.256  -0.775   0.228   3.731  
+## -1.261  -1.261  -0.759   0.221   3.720  
 ## 
 ## Coefficients:
 ##       Estimate Std. Error z value Pr(>|z|)    
-## methA  -1.2040     0.0375  -32.10   <2e-16 ***
-## methB  -0.2370     0.0240   -9.87   <2e-16 ***
+## methA  -1.2444     0.0392  -31.77   <2e-16 ***
+## methB  -0.2290     0.0234   -9.81   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 7299.4  on 4569  degrees of freedom
-## Residual deviance: 5587.9  on 4567  degrees of freedom
-## AIC: 9066
+##     Null deviance: 7387.0  on 4569  degrees of freedom
+## Residual deviance: 5683.8  on 4567  degrees of freedom
+## AIC: 9171
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3396,8 +3397,8 @@ Methodology effect:
 \end{Shaded}
 
 \begin{verbatim}
-## methA methB 
-## 0.300 0.789
+##  methA  methB 
+## 0.2881 0.7953
 \end{verbatim}
 
 Predictor and method effects:
@@ -3416,21 +3417,21 @@ Predictor and method effects:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.185  -0.847  -0.584   0.274   4.347  
+## -2.209  -0.855  -0.589   0.244   3.577  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.2719     0.0554   -41.0   <2e-16 ***
-## Decid         2.1706     0.0690    31.4   <2e-16 ***
-## methB         0.9804     0.0445    22.0   <2e-16 ***
+## (Intercept)  -2.3275     0.0567   -41.0   <2e-16 ***
+## Decid         2.1961     0.0689    31.9   <2e-16 ***
+## methB         1.0284     0.0456    22.6   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6110.2  on 4568  degrees of freedom
-## Residual deviance: 4531.0  on 4566  degrees of freedom
-## AIC: 8011
+##     Null deviance: 6247.1  on 4568  degrees of freedom
+## Residual deviance: 4595.6  on 4566  degrees of freedom
+## AIC: 8085
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3451,7 +3452,7 @@ Predictor and method effects:
 
 \begin{verbatim}
 ## (Intercept)       Decid       methB 
-##      0.1031      8.7632      2.6654
+##     0.09754     8.98996     2.79646
 \end{verbatim}
 
 \begin{Shaded}
@@ -3473,7 +3474,7 @@ Predictor and method effects:
 
 \begin{verbatim}
 ##         methB 
-## 0.2924 0.7794
+## 0.2924 0.8177
 \end{verbatim}
 
 Use log area as continuous predictor:
@@ -3495,21 +3496,21 @@ abundance scale.
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.185  -0.847  -0.584   0.274   4.347  
+## -2.209  -0.855  -0.589   0.244   3.577  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.1011     0.0513   -40.9   <2e-16 ***
-## Decid         2.1706     0.0690    31.4   <2e-16 ***
-## logA          0.7072     0.0321    22.0   <2e-16 ***
+## (Intercept)  -2.1483     0.0523   -41.1   <2e-16 ***
+## Decid         2.1961     0.0689    31.9   <2e-16 ***
+## logA          0.7418     0.0329    22.6   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6110.2  on 4568  degrees of freedom
-## Residual deviance: 4531.0  on 4566  degrees of freedom
-## AIC: 8011
+##     Null deviance: 6247.1  on 4568  degrees of freedom
+## Residual deviance: 4595.6  on 4566  degrees of freedom
+## AIC: 8085
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3542,20 +3543,20 @@ The offset forces the relationship to be 1:1
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.302  -0.836  -0.512   0.260   4.219  
+## -2.305  -0.842  -0.525   0.234   3.600  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.3374     0.0453   -51.6   <2e-16 ***
-## Decid         2.1758     0.0690    31.5   <2e-16 ***
+## (Intercept)  -2.3658     0.0453   -52.2   <2e-16 ***
+## Decid         2.2031     0.0690    31.9   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 5671.1  on 4568  degrees of freedom
-## Residual deviance: 4609.2  on 4567  degrees of freedom
-## AIC: 8087
+##     Null deviance: 5746.0  on 4568  degrees of freedom
+## Residual deviance: 4653.6  on 4567  degrees of freedom
+## AIC: 8141
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3586,7 +3587,7 @@ The offset forces the relationship to be 1:1
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2200 0.8798
+## [1] 0.2173 0.8691
 \end{verbatim}
 
 \BeginKnitrBlock{rmdexercise}
@@ -3640,17 +3641,17 @@ learning about the nature of the mechanisms contributing to \(C\).
 \KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
 \KeywordTok{source}\NormalTok{(}\StringTok{"functions.R"}\NormalTok{)         }\CommentTok{# some useful stuff}
 \KeywordTok{load}\NormalTok{(}\StringTok{"_data/josm/josm.rda"}\NormalTok{) }\CommentTok{# JOSM data}
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{a-world-with-birds-in-it}{%
-\section{A world with birds in it}\label{a-world-with-birds-in-it}}
+\hypertarget{birds-in-the-forest}{%
+\section{Birds in the forest}\label{birds-in-the-forest}}
 
 Build a landscape: extent is given in 100 m units
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{(l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DataTypeTok{extent=}\DecValTok{10}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -3695,8 +3696,8 @@ As a result, we have \(N\) birds in the landscape,
 
 \includegraphics{qpad-book_files/figure-latex/unnamed-chunk-38-1.pdf}
 
-The locations can be seen as nest locations. But birds don't just
-stay at one place. The move and vocalize:
+The locations can be seen as nest locations (\texttt{a\$nests} stores the locations).
+But birds don't just stay put in one place. They move and vocalize:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3722,100 +3723,830 @@ stay at one place. The move and vocalize:
 
 \includegraphics{qpad-book_files/figure-latex/unnamed-chunk-39-1.pdf}
 
+The \texttt{get\_events} function, as the name implies, extracts the events:
+movements (\texttt{\$v} is 0) and vocalizations (\texttt{\$v} is 1) alike,
+unless filtered for vocalization events only.
+Besides the coordinates, we also have the time of event (\texttt{\$t}) and
+the individual identifier (\texttt{\$i} linking to the rows of the \texttt{b\$nests} table):
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{e <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b)}
-\KeywordTok{summary}\NormalTok{(e)}
+\NormalTok{e <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(e)}
+\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{survival-model}{%
+\section{Survival model}\label{survival-model}}
+
+Survival models assess time-to-event data which is often censored
+(some event has not occurred at the time the data collection ended).
+
+Event time (\(T\)) is a continuous random variable.
+In the simplest case, its probability density function is the Exponential
+distribution: \(f(t)=\phi e^{-t\phi}\).
+The corresponding cumulative distribution function is:
+\(F(t)=\int_{0}^{t} f(t)dt=1-e^{-t\phi}\),
+giving the probability that the event has occurred by duration \(t\) and we will refer to
+this probability as \(p_t\). The parameter \(\phi\) is the rate of the Exponential distribution
+with mean \(1/\phi\) and variance \(1/\phi^2\).
+
+In survival model, the complement of \(F(t)\) is called the
+\emph{survival function} (\(S(t)=1-F(t)\), \(S(0)=1\)),
+which gives the probability that the event has not occurred by duration \(t\).
+The the \emph{hazard function} (\(\lambda(t)=f(t)/S(t)\))
+which defines the instantaneous rate of occurrence of the event
+(the density of events at \(t\) divided by the probability of surviving).
+The cumulative hazard (cumulative risk) the sum of the risks between doration 0 and \(t\)
+(\(\Lambda(t)=\int_{0}^{t} \lambda(t)dt\)).
+
+The simplest survival distribution assumes constant risk over time (\(\lambda(t)=\phi\)),
+which corresponds to the Exponential distribution.
+The Exponential distribution also happens to describe the lengths of the
+inter-event times in a homogeneous Poisson process (events are independent, `memory-less' process).
+
+\hypertarget{vicalization-events}{%
+\section{Vicalization events}\label{vicalization-events}}
+
+Event times in our bSims example follow a Poisson process with rate \(\phi\) (\texttt{vocal\_rate})
+within \texttt{duration} \(t=10\) minutes.
+
+Let's subset the vocalization events to include the time of first detections
+for each individual (\texttt{v1}). The estimated rate should match our setting,
+the plot shows the Exponential probability density function on top of
+the event times:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v1 <-}\StringTok{ }\NormalTok{v[}\OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(v}\OperatorTok{$}\NormalTok{i),]}
+\NormalTok{(phi <-}\StringTok{ }\NormalTok{b}\OperatorTok{$}\NormalTok{vocal_rate[}\DecValTok{1}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##        x                y                t               v    
-##  Min.   :-5.121   Min.   :-5.158   Min.   :0.044   Min.   :1  
-##  1st Qu.:-1.510   1st Qu.:-2.446   1st Qu.:2.450   1st Qu.:1  
-##  Median : 0.679   Median : 0.733   Median :4.913   Median :1  
-##  Mean   : 0.433   Mean   : 0.195   Mean   :4.955   Mean   :1  
-##  3rd Qu.: 2.339   3rd Qu.: 2.714   3rd Qu.:7.097   3rd Qu.:1  
-##  Max.   : 4.785   Max.   : 5.455   Max.   :9.970   Max.   :1  
-##        i       
-##  Min.   : 1.0  
-##  1st Qu.:13.0  
-##  Median :24.0  
-##  Mean   :25.5  
-##  3rd Qu.:37.0  
-##  Max.   :52.0
+## [1] 0.5
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{(phi_hat <-}\StringTok{ }\KeywordTok{fitdistr}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\StringTok{"exponential"}\NormalTok{)}\OperatorTok{$}\NormalTok{estimate)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##   rate 
+## 0.4808
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{## check vocal rates: no mixture}
-\NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
-\NormalTok{br <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
-\CommentTok{#br <- 1:10}
-\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\NormalTok{p <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DecValTok{1}\NormalTok{)}
-\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(p, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
-\NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(a, }\DataTypeTok{tau=}\OtherTok{Inf}\NormalTok{) }\CommentTok{# detect all}
-\NormalTok{d <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(o, }\DataTypeTok{first_only=}\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
-\KeywordTok{table}\NormalTok{(i)}
-\NormalTok{Y1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
-\NormalTok{D1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
-\NormalTok{(phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{cmulti.fit}\NormalTok{(Y1, D1, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef))}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(d))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(d)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{))}
-\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phihat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
-
-\NormalTok{## check vocal rates: finite mixture}
-\NormalTok{phi <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
-\NormalTok{mix <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
-\CommentTok{#br <- c(3, 5, 10)}
-\NormalTok{br <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
-\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\NormalTok{p <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DecValTok{10}\NormalTok{)}
-\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(p, }\DataTypeTok{vocal_rate=}\NormalTok{phi, }\DataTypeTok{mixture=}\NormalTok{mix)}
-\NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(a, }\DataTypeTok{tau=}\OtherTok{Inf}\NormalTok{) }\CommentTok{# detect all}
-\NormalTok{d <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(o, }\DataTypeTok{first_only=}\OtherTok{TRUE}\NormalTok{)}
-\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
-\KeywordTok{table}\NormalTok{(i)}
-\NormalTok{Y1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
-\NormalTok{D1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
-\NormalTok{cf <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(Y1, D1, }\DataTypeTok{type=}\StringTok{"mix"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef }\CommentTok{# log.phi, logit.c}
-\NormalTok{(phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(cf[}\DecValTok{1}\NormalTok{]))}
-\NormalTok{(mixhat <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(cf[}\DecValTok{2}\NormalTok{]), }\KeywordTok{plogis}\NormalTok{(cf[}\DecValTok{2}\NormalTok{])))}
-
-
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(d))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(d)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{))}
-\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{mix[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{mixhat[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phihat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
-
-\CommentTok{# play with intervals}
+\KeywordTok{hist}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\DataTypeTok{xlab=}\StringTok{"Time of first detection (min)"}\NormalTok{, }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{, }
+  \DataTypeTok{col=}\StringTok{"lightgrey"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"f(t)"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dexp}\NormalTok{(x, phi), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dexp}\NormalTok{(x, phi_hat), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{), }
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Expected"}\NormalTok{, }\StringTok{"Estimated"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-Need to explain survival models and removal model related stats
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-41-1.pdf}
 
-Here comes the real data analysis
+Now let's visualize the corresponding cumulative distribution function.
+We also bin the events into time intervals defined by interval end times
+in the vector \texttt{br} (breaks to be used with \texttt{cut}):
 
-Behaviour related stuff
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{br <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(i)}
+\end{Highlighting}
+\end{Shaded}
 
-constant p (time as covariate)
+\begin{verbatim}
+## i
+##  [0,3]  (3,5] (5,10] 
+##     38     11      3
+\end{verbatim}
 
-time varying p
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(v1))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(v1)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Time of first detection (min)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"F(t)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi_hat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\OtherTok{NA}\NormalTok{), }
+  \DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{), }\DataTypeTok{pch=}\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\OtherTok{NA}\NormalTok{,}\OtherTok{NA}\NormalTok{,}\DecValTok{21}\NormalTok{),}
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Empirical"}\NormalTok{, }\StringTok{"Expected"}\NormalTok{, }\StringTok{"Estimated"}\NormalTok{, }\StringTok{"Binned"}\NormalTok{))}
+\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{3}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-finite mix
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-42-1.pdf}
 
-time varying p/c
+\hypertarget{removal-model}{%
+\section{Removal model}\label{removal-model}}
 
-rate, count, time-to-event
+The time-removal model, originally developed for estimating wildlife and fish abundances from mark-recapture studies, was later reformulated for avian surveys with the goal of improving estimates of bird abundance by accounting for the availability bias inherent in point-count data. The removal model applied to point-count surveys estimates the probability that a bird is available for detection as a function of the average number of detectable cues that an individual bird gives per minute (singing rate, \(\phi\)), and the known count duration (\(t\)).
+
+Time-removal models are based on a removal experiment whereby animals are trapped and thereby removed from the closed population of animals being sampled. When applying a removal model to avian point-count surveys, the counts of singing birds (\(Y_{ij}, \ldots, Y_{iJ}\)) within a given point-count survey \(i\) (\(i = 1,\ldots, n\)) are tallied relative to when each bird is first detected in multiple and consecutive time intervals, with the survey start time \(t_{i0} = 0\), the end times of the time intervals \(t_{ij}\) (\(j = 1, 2,\ldots, J\)), and the total count duration of the survey \[t_{iJ}\]. We count each individual bird once, so individuals are `mentally removed' from a closed population of undetected birds by the surveyor.
+
+The continuous-time formulation of the removal model is identical to the Exponential survival model
+formulation with respect to the cumulative density function, which defines probability of
+availability for sampling given the occurrence of the species.
+The response variable in the removal model follows multinomial distribution
+with cell probabilities derived from the cumulative probability function.
+
+We will use the \texttt{detect::cmulti} function to fit multinomial models using
+conditional maximum likelihood procedure (the conditioning means that we only use
+observations where the total count is not 0, i.e.~the species was present).
+The \texttt{Y} matrix lists the number of new individuals counted in each time interval,
+the \texttt{D} matrix gives the interval end times.
+(We use the \texttt{detect::cmulti.fit} function to be able to fit the model to a single survey.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   38   11    3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(d <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    3    5   10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(phi_hat1 <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{cmulti.fit}\NormalTok{(y, d, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4683
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi }\CommentTok{# setting}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi_hat }\CommentTok{# from time-to-event data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   rate 
+## 0.4808
+\end{verbatim}
+
+\hypertarget{real-data}{%
+\subsection{Real data}\label{real-data}}
+
+Let's pick a species from the JOSM data set.
+For predictors, we will use a variable capturing date (\texttt{DAY}; standardized ordinal day of the year)
+and an other one capturing time of day (\texttt{TSSR}; time since local sunrise).
+The data frame \texttt{X} contains the predictors.
+The matrix \texttt{Y} contains the counts of newly counted individuals binned into consecutive time intervals:
+cell values are the \(Y_{ij}\)'s. The \texttt{D} object is another matrix mirroring the structure of \texttt{Y}
+but instead of counts, it contains the interval end times: cell values are
+the \(t_{ij}\)'s.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yall <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{Dur }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, }
+\NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
+
+\NormalTok{spp <-}\StringTok{ "TEWA"}
+
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(yall[[spp]])}
+\NormalTok{D <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{), }\KeywordTok{nrow}\NormalTok{(Y), }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{dimnames=}\KeywordTok{dimnames}\NormalTok{(Y))}
+\NormalTok{X <-}\StringTok{ }\NormalTok{josm}\OperatorTok{$}\NormalTok{surveys[}\KeywordTok{rownames}\NormalTok{(Y), }\KeywordTok{c}\NormalTok{(}\StringTok{"DAY"}\NormalTok{, }\StringTok{"TSSR"}\NormalTok{)]}
+\KeywordTok{head}\NormalTok{(Y[}\KeywordTok{rowSums}\NormalTok{(Y) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         0-3min 3-5min 5-10min
+## CL10106      4      0       0
+## CL10112      2      0       0
+## CL10120      1      1       0
+## CL10170      1      0       0
+## CL10172      0      0       2
+## CL10181      0      0       1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(D)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         0-3min 3-5min 5-10min
+## CL10102      3      5      10
+## CL10106      3      5      10
+## CL10108      3      5      10
+## CL10109      3      5      10
+## CL10111      3      5      10
+## CL10112      3      5      10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       DAY             TSSR        
+##  Min.   :0.392   Min.   :-0.0285  
+##  1st Qu.:0.422   1st Qu.: 0.0506  
+##  Median :0.452   Median : 0.1041  
+##  Mean   :0.450   Mean   : 0.1040  
+##  3rd Qu.:0.474   3rd Qu.: 0.1568  
+##  Max.   :0.504   Max.   : 0.2357
+\end{verbatim}
+
+\hypertarget{time-invariant-conventional-model}{%
+\subsection{Time-invariant conventional model}\label{time-invariant-conventional-model}}
+
+Time-invariant means that the rate is constant over time
+(i.e.~no difference between morning and midnight),
+while conventional refers to the assumption
+that all individuals share the same rate
+(their behaviour is identical in this regard).
+
+In the time-invariant conventional removal model (\texttt{Me0}),
+the individuals of a species at a given location and time are assumed to be homogeneous
+in their singing rates.
+The time to first detection follows the Exponential distribution,
+and the cumulative density function of times to first detection in time interval
+(0, \(t_{iJ}\)) gives us the probability that a bird sings at least once during the point count as
+\(p(t_{iJ}) = 1 - exp(-t_{iJ} \phi)\).
+
+We fit this model by specifying intercep-only in the
+right hand side of the formula, and \texttt{type="rem"}
+as part of the \texttt{cmulti} call:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Me0 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(Me0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ 1, type = "rem")
+## 
+## Removal Sampling (homogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.phi_(Intercept)  -0.8547     0.0174   -49.1   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -3.2e+03 
+## BIC = 6.42e+03
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(phi_Me0 <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(Me0)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## log.phi_(Intercept) 
+##              0.4254
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x}\OperatorTok{*}\NormalTok{phi_Me0), }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"Duration (min)"}\NormalTok{, }\DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{p}\NormalTok{(t[J])), }\DataTypeTok{main=}\NormalTok{spp)}
+\KeywordTok{points}\NormalTok{(D[}\DecValTok{1}\NormalTok{,], }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(Y))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Y), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{3}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-45-1.pdf}
+
+\hypertarget{time-varying-conventional-removal-model}{%
+\subsection{Time-varying conventional removal model}\label{time-varying-conventional-removal-model}}
+
+Singing rates of birds vary with time of day, time of year, breeding status, and stage of the nesting cycle.
+Thus, removal model estimates of availability may be improved by accounting for variation in singing rates
+using covariates for day of year and time of day.
+In this case \(p(t_{iJ}) = 1 - e^{-t_{iJ} \phi_{i}}\) and \(log(\phi_{i}) = \beta_{0} + \sum^{K}_{k=1} \beta_{k} x_{ik}\) is the linear predictor with \(K\) covariates and the corresponding unknown coefficients (\(\beta_{k}\), \(k = 0,\ldots, K\)).
+
+Let's fit a couple of time-varying models using \texttt{DAY} and \texttt{TSSR} as covariates:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Me1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{DAY, X, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\NormalTok{Me2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{TSSR, X, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now compare the three conventional models based on AIC and inspect the summary for the best supported model with the \texttt{JDAY} effect.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Me_AIC <-}\StringTok{ }\KeywordTok{AIC}\NormalTok{(Me0, Me1, Me2)}
+\NormalTok{Me_AIC}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{Me_AIC}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(Me_AIC}\OperatorTok{$}\NormalTok{AIC)}
+\NormalTok{Me_AIC[}\KeywordTok{order}\NormalTok{(Me_AIC}\OperatorTok{$}\NormalTok{AIC),]}
+
+\NormalTok{Me_Best <-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(Me_AIC)[Me_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\KeywordTok{summary}\NormalTok{(Me_Best)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ DAY, data = X, type = "rem")
+## 
+## Removal Sampling (homogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.phi_(Intercept)   0.0784     0.2615    0.30  0.76427    
+## log.phi_DAY          -2.0910     0.5866   -3.56  0.00036 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -3.2e+03 
+## BIC = 6.41e+03
+\end{verbatim}
+
+To visually capture the time-varying effects, we make some plots using base graphics,
+colors matching the time-varying predictor. This way we can not only assess how availability
+probability (given a fixed time interval) is changing with the values of the predictor,
+but also how the cumulative distribution changes with time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(Me_Best)}
+
+\NormalTok{n <-}\StringTok{ }\DecValTok{100}
+\NormalTok{DAY <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(X}\OperatorTok{$}\NormalTok{DAY), }\KeywordTok{max}\NormalTok{(X}\OperatorTok{$}\NormalTok{DAY), }\DataTypeTok{length.out=}\NormalTok{n}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{TSSR <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(X}\OperatorTok{$}\NormalTok{TSSR), }\KeywordTok{max}\NormalTok{(X}\OperatorTok{$}\NormalTok{TSSR), }\DataTypeTok{length.out=}\NormalTok{n}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{Duration <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DataTypeTok{length.out=}\NormalTok{n)}
+\NormalTok{col <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{, }\StringTok{"blue"}\NormalTok{))(n)}
+
+\NormalTok{op <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{p1 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY))}
+\KeywordTok{plot}\NormalTok{(DAY, p1, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{,}
+    \DataTypeTok{main=}\KeywordTok{paste}\NormalTok{(spp, }\KeywordTok{rownames}\NormalTok{(Me_AIC)[Me_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{]),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+    \KeywordTok{lines}\NormalTok{(DAY[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], p1[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], }\DataTypeTok{col=}\NormalTok{col[i], }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(Duration, Duration, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+\NormalTok{    p2 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{Duration}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY[i]))}
+    \KeywordTok{lines}\NormalTok{(Duration, p2, }\DataTypeTok{col=}\NormalTok{col[i])}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\DecValTok{3}\NormalTok{, }\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-47-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(op)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{finite-mixtures}{%
+\section{Finite mixtures}\label{finite-mixtures}}
+
+Let's relax the assumption that all individuals vocalize at the same rate.
+We can think about this as different groups in the population.
+The individuals within the groups have homogenerous rates,
+but the group level rates are different.
+We can introduce such heterogeneity into our bSims world by
+specifying the group level rates (\texttt{phi} vector) and the
+proportion of individuals belonging to the groups (\texttt{mix}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{mix <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+
+\NormalTok{(b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi, }\DataTypeTok{mixture=}\NormalTok{mix))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims events
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 52
+##   mixture with total duration: 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b}\OperatorTok{$}\NormalTok{vocal_rate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   G1  G2
+## H 10 0.5
+## E 10 0.5
+## R 10 0.5
+\end{verbatim}
+
+If we plot the time to first detection data, we can see how
+expected distribution (red) is different from the fitted
+Exponential distribution assuming homogeneity:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{v1 <-}\StringTok{ }\NormalTok{v[}\OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(v}\OperatorTok{$}\NormalTok{i),]}
+\NormalTok{(phi_hat <-}\StringTok{ }\KeywordTok{fitdistr}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\StringTok{"exponential"}\NormalTok{)}\OperatorTok{$}\NormalTok{estimate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   rate 
+## 0.6506
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\DataTypeTok{xlab=}\StringTok{"Time of first detection (min)"}\NormalTok{, }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{, }
+  \DataTypeTok{col=}\StringTok{"lightgrey"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"f(t)"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(mix[}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\KeywordTok{dexp}\NormalTok{(x, phi[}\DecValTok{1}\NormalTok{])}\OperatorTok{+}\NormalTok{mix[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{dexp}\NormalTok{(x, phi[}\DecValTok{2}\NormalTok{]), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dexp}\NormalTok{(x, phi_hat), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{), }
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Expected (mixture)"}\NormalTok{, }\StringTok{"Estimated (exponential)"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-49-1.pdf}
+
+Now let's visualize the corresponding cumulative distribution function.
+We also bin the events into time intervals defined by interval end times
+in the vector \texttt{br} (breaks to be used with \texttt{cut}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{br <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(i)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## i
+##  [0,1]  (1,2]  (2,3]  (3,4]  (4,5]  (5,6]  (6,7]  (7,8]  (8,9] (9,10] 
+##     30      8      2      6      2      1      3      0      0      0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(v1))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(v1)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Time of first detection (min)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"F(t)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{mix[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi_hat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\OtherTok{NA}\NormalTok{), }
+  \DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{), }\DataTypeTok{pch=}\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\OtherTok{NA}\NormalTok{,}\OtherTok{NA}\NormalTok{,}\DecValTok{21}\NormalTok{),}
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Empirical"}\NormalTok{, }\StringTok{"Expected (mixture)"}\NormalTok{, }\StringTok{"Estimated (exponential)"}\NormalTok{, }\StringTok{"Binned"}\NormalTok{))}
+\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{3}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-50-1.pdf}
+
+We use the \texttt{detect::cmulti} function to fit the finite mixture model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]   30    8    2    6    2    1    3    0    0     0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(d <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    2    3    4    5    6    7    8    9    10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cf <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(y, d, }\DataTypeTok{type=}\StringTok{"fmix"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef }\CommentTok{# log.phi, logit.c}
+
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{phi=}\NormalTok{phi[}\DecValTok{2}\NormalTok{], }\DataTypeTok{c=}\NormalTok{mix[}\DecValTok{2}\NormalTok{]) }\CommentTok{# setting}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## phi   c 
+## 0.5 0.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{phi_hat=}\KeywordTok{exp}\NormalTok{(cf[}\DecValTok{1}\NormalTok{]), }\DataTypeTok{c_hat=}\KeywordTok{plogis}\NormalTok{(cf[}\DecValTok{2}\NormalTok{])) }\CommentTok{# estimate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## phi_hat   c_hat 
+##  0.4020  0.6423
+\end{verbatim}
+
+\hypertarget{time-invariant-finite-mixture-removal-model}{%
+\subsection{Time-invariant finite mixture removal model}\label{time-invariant-finite-mixture-removal-model}}
+
+The removal model can accommodate behavioral heterogeneity in singing by subdividing the
+sampled population for a species at a given point into a finite mixture of birds with low and
+high singing rates, which requires the additional estimation of the proportion of birds in the
+sampled population with low singing rates.
+
+In the continuous-time formulation of the finite mixture (or two-point mixture) removal model,
+the cumulative density function during a point count is given by
+\(p(t_{iJ}) = (1 - c) 1 + c (1 - e^{-t_{iJ} \phi}) = 1 - c e^{-t_{iJ} \phi}\), where
+\(\phi\) is the singing rate for the group of infrequently singing birds, and \(c\) is the
+proportion of birds during the point count that are infrequent singers. The remaining
+proportions (\(1 - c\); the intercept of the cumulative density function) of the frequent
+singers are assumed to be detected instantaneously at the start of the first time interval.
+In the simplest form of the finite mixture model, the proportion and singing rate of birds
+that sing infrequently is homogeneous across all times and locations (model \texttt{Mf0}).
+We are using the \texttt{type\ =\ "fmix"} for finite mixture removal models.
+
+Here, for the read bird data set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mf0 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"fmix"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(Mf0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ 1, type = "fmix")
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.phi_(Intercept)  -1.7146     0.0970  -17.68   <2e-16 ***
+## logit.c               0.0742     0.0598    1.24     0.21    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -3.1e+03 
+## BIC = 6.22e+03
+\end{verbatim}
+
+\hypertarget{time-varying-finite-mixture-removal-models}{%
+\subsection{Time-varying finite mixture removal models}\label{time-varying-finite-mixture-removal-models}}
+
+Previously, researchers have applied covariate effects on the parameter
+\(\phi_{i}\) of the finite mixture model, similarly to how we modeled these effects in conventional models.
+This model assumes that the parameter \(c\) is constant irrespective of time and location
+(i.e.~only the infrequent singer group changes its singing behavior).
+
+We can fit finite mixture models with \texttt{DAY} and \texttt{TSSR} as covariates on \(\phi\).
+In this case \(p(t_{iJ}) = 1 - c e^{-t_{iJ} \phi_{i}}\) and
+\(log(\phi_{i}) = \beta_{0} + \sum^{K}_{k=1} \beta_{k} x_{ik}\)
+is the linear predictor with \(K\) covariates and the corresponding unknown coefficients
+(\(\beta_{k}\), \(k = 0,\ldots, K\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mf1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{DAY, X, }\DataTypeTok{type=}\StringTok{"fmix"}\NormalTok{)}
+\NormalTok{Mf2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{TSSR, X, }\DataTypeTok{type=}\StringTok{"fmix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Compare the three finite mixture models based on AIC and inspect the summary for the best supported
+model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mf_AIC <-}\StringTok{ }\KeywordTok{AIC}\NormalTok{(Mf0, Mf1, Mf2)}
+\NormalTok{Mf_AIC}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{Mf_AIC}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(Mf_AIC}\OperatorTok{$}\NormalTok{AIC)}
+
+\NormalTok{Mf_Best <-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(Mf_AIC)[Mf_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\NormalTok{Mf_AIC[}\KeywordTok{order}\NormalTok{(Mf_AIC}\OperatorTok{$}\NormalTok{AIC),]}
+
+\KeywordTok{summary}\NormalTok{(Mf_Best)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ DAY, data = X, type = "fmix")
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)   
+## log.phi_(Intercept)    0.754      0.848    0.89   0.3739   
+## log.phi_DAY           -5.412      1.938   -2.79   0.0052 **
+## logit.c                0.119      0.062    1.92   0.0548 . 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -3.1e+03 
+## BIC = 6.22e+03
+\end{verbatim}
+
+We produce a similar plot as before.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(Mf_Best)}
+
+\NormalTok{op <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{p1 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(b[}\DecValTok{3}\NormalTok{])}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY))}
+\KeywordTok{plot}\NormalTok{(DAY, p1, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{,}
+    \DataTypeTok{main=}\KeywordTok{paste}\NormalTok{(spp, }\KeywordTok{rownames}\NormalTok{(Mf_AIC)[Mf_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{]),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+    \KeywordTok{lines}\NormalTok{(DAY[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], p1[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], }\DataTypeTok{col=}\NormalTok{col[i], }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(Duration, Duration, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+\NormalTok{    p2 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(b[}\DecValTok{3}\NormalTok{])}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{Duration}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY[i]))}
+    \KeywordTok{lines}\NormalTok{(Duration, p2, }\DataTypeTok{col=}\NormalTok{col[i])}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\DecValTok{3}\NormalTok{, }\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-55-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(op)}
+\end{Highlighting}
+\end{Shaded}
+
+An alternative parametrization is that \(c_{i}\) rather than \(\phi\) be the time-varying parameter,
+allowing the individuals to switch between the frequent and infrequent group depending on covariates.
+We can fit this class of finite mixture model with \texttt{DAY} and \texttt{TSSR} as covariates on \(c\)
+using \texttt{type\ =\ "mix"} (instead of \texttt{"fmix"}).
+In this case \(p(t_{iJ}) = 1 - c_{i} e^{-t_{iJ} \phi}\) and
+\(logit(c_{i}) = \beta_{0} + \sum^{K}_{k=1} \beta_{k} x_{ik}\) is the linear predictor with \(K\)
+covariates and the corresponding unknown coefficients (\(\beta_{k}\), \(k = 0,\ldots, K\)).
+Because \(c_{i}\) is a proportion, we model it on the logit scale.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mm1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{DAY, X, }\DataTypeTok{type=}\StringTok{"mix"}\NormalTok{)}
+\NormalTok{Mm2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{TSSR, X, }\DataTypeTok{type=}\StringTok{"mix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We did not fit a null model for this parametrization, because it is identical to the \texttt{Mf0} model,
+so that model \texttt{Mf0} is what we use to compare AIC values and inspect the summary for the best
+supported model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mm_AIC <-}\StringTok{ }\KeywordTok{AIC}\NormalTok{(Mf0, Mm1, Mm2)}
+\NormalTok{Mm_AIC}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{Mm_AIC}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(Mm_AIC}\OperatorTok{$}\NormalTok{AIC)}
+
+\NormalTok{Mm_Best <-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(Mm_AIC)[Mm_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
+\NormalTok{Mm_AIC[}\KeywordTok{order}\NormalTok{(Mm_AIC}\OperatorTok{$}\NormalTok{AIC),]}
+
+\KeywordTok{summary}\NormalTok{(Mm_Best)}
+\end{Highlighting}
+\end{Shaded}
+
+We produce a similar plot as before:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(Mm_Best)}
+
+\NormalTok{op <-}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{p1 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(b[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{3}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY)}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]))}
+\KeywordTok{plot}\NormalTok{(DAY, p1, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{,}
+    \DataTypeTok{main=}\KeywordTok{paste}\NormalTok{(spp, }\KeywordTok{rownames}\NormalTok{(Mm_AIC)[Mm_AIC}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{]),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+    \KeywordTok{lines}\NormalTok{(DAY[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], p1[}\KeywordTok{c}\NormalTok{(i,i}\OperatorTok{+}\DecValTok{1}\NormalTok{)], }\DataTypeTok{col=}\NormalTok{col[i], }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(Duration, Duration, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+    \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(n)) \{}
+\NormalTok{    p2 <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(b[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{b[}\DecValTok{3}\NormalTok{]}\OperatorTok{*}\NormalTok{DAY[i])}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{Duration}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(b[}\DecValTok{1}\NormalTok{]))}
+    \KeywordTok{lines}\NormalTok{(Duration, p2, }\DataTypeTok{col=}\NormalTok{col[i])}
+\NormalTok{\}}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\DecValTok{3}\NormalTok{, }\DataTypeTok{h=}\KeywordTok{range}\NormalTok{(p1), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-57-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(op)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{let-the-best-model-win}{%
+\section{Let the best model win}\label{let-the-best-model-win}}
+
+So which of the 3 parametrizations proved to be best for our Ovenbird example data? It was the finite mixture with time-varying proportion of infrequent singers with a thin margin. Second was the other finite mixture model, while the conventional model was lagging behind.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M_AIC <-}\StringTok{ }\KeywordTok{AIC}\NormalTok{(Me_Best, Mf_Best, Mm_Best)}
+\NormalTok{M_AIC}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{M_AIC}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(M_AIC}\OperatorTok{$}\NormalTok{AIC)}
+\NormalTok{M_AIC[}\KeywordTok{order}\NormalTok{(M_AIC}\OperatorTok{$}\NormalTok{AIC),]}
+\end{Highlighting}
+\end{Shaded}
+
+Finite mixture models provide some really nice insight into how singing behavior changes over time and, due to more parameters, they provide a better fit and thus minimize bias in population size estimates. But all this improvement comes with a price: sample size requirements (or more precisely, the number of detections required) are really high. To have all the benefits with reduced variance, one needs about 1000 non-zero observations to fit finite mixture models, 20 times more than needed to reliably fit conventional removal models. This is much higher than previously suggested minimum sample sizes.
+
+Our findings also indicate that lengthening the count duration from 3 minutes to 5--10 minutes is an important consideration when designing field surveys to increase the accuracy and precision of population estimates. Well-informed survey design combined with various forms of removal sampling are useful in accounting for availability bias in point counts, thereby improving population estimates, and allowing for better integration of disparate studies at larger spatial scales.
+
+\hypertarget{exercises}{%
+\section{Exercises}\label{exercises}}
+
+Compare different duration and intervals
+
+Compare how does movement based detection influences estimates
+
+36\% of records in BAM is `heard \& seen' and I want to understand how likely the following 2 scenarios are:
+
+\begin{itemize}
+\tightlist
+\item
+  `seen and heard' means that visual and auditory detections are independent processes, i.e.~if it often happens that you spot a bird by just visually, that would distort availability.
+\item
+  or it means that visual and auditory detections are NOT independent processes, i.e after a vocalization the observer also gets a visual.
+\end{itemize}
+
+Both happen, depending to some extent on the species, but more frequently the second scenario.
+
+If you hear an individual vocalizing, it is much easier to also get a visual. But you do sometimes just see an individual moving and not vocalizing (more often females). How likely you are to spot those individuals can depend on the species, e.g., some species forage in ways that make them more visible.
+
+Andy: My experience is that in forests it's almost entirely auditory, and if you see a bird it's almost certainly after it called. The rare exception might be birds foraging on the ground (e.g.~thrushes kicking up leaves), or woodpeckers, but again these are usually heard before being seen even though the auditory signal isn't a song or call. In grasslands, however, it's pretty common to see a bird before hearing it.
+
+JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn't uncommon to see these individuals before hearing them. Ultimately, to go back to Peter's concern, I do not think that the auditory and visual processes can be considered independent.
+
+100*table(josm\(counts\)DetectType1)/sum(table(josm\(counts\)DetectType1))
+
+Smaller singing rate species where p(10min) \textless{}\textless{} 1
 
 \hypertarget{detection}{%
 \chapter{The Detection Process}\label{detection}}
@@ -4019,9 +4750,9 @@ Here is the code for simplifying categories using the \texttt{opticut::optilevel
 \KeywordTok{colnames}\NormalTok{(M) <-}\StringTok{ }\KeywordTok{levels}\NormalTok{(x}\OperatorTok{$}\NormalTok{HAB)}
 \NormalTok{ol1 <-}\StringTok{ }\KeywordTok{optilevels}\NormalTok{(x}\OperatorTok{$}\NormalTok{y, M, }\DataTypeTok{dist=}\StringTok{"poisson"}\NormalTok{)}
 \KeywordTok{sort}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{bestmodel}\NormalTok{(ol1))))}
-\NormalTok{## estimates}
+\CommentTok{## estimates}
 \KeywordTok{exp}\NormalTok{(ol1}\OperatorTok{$}\NormalTok{coef)}
-\NormalTok{## optimal classification}
+\CommentTok{## optimal classification}
 \NormalTok{ol1}\OperatorTok{$}\NormalTok{rank}
 \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{combined_levels=}\NormalTok{ol1}\OperatorTok{$}\NormalTok{levels[[}\KeywordTok{length}\NormalTok{(ol1}\OperatorTok{$}\NormalTok{levels)]])}
 \end{Highlighting}
@@ -4033,9 +4764,9 @@ Here is the code for simplifying compositional data:
 \begin{Highlighting}[]
 \NormalTok{ol2 <-}\StringTok{ }\KeywordTok{optilevels}\NormalTok{(x}\OperatorTok{$}\NormalTok{y, x[,cn], }\DataTypeTok{dist=}\StringTok{"poisson"}\NormalTok{)}
 \KeywordTok{sort}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{bestmodel}\NormalTok{(ol2))))}
-\NormalTok{## estimates}
+\CommentTok{## estimates}
 \KeywordTok{exp}\NormalTok{(ol2}\OperatorTok{$}\NormalTok{coef)}
-\NormalTok{## optimal classification}
+\CommentTok{## optimal classification}
 \NormalTok{ol2}\OperatorTok{$}\NormalTok{rank}
 \KeywordTok{head}\NormalTok{(}\KeywordTok{groupSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(x[,cn]), }\DecValTok{2}\NormalTok{, ol2}\OperatorTok{$}\NormalTok{levels[[}\KeywordTok{length}\NormalTok{(ol2}\OperatorTok{$}\NormalTok{levels)]]))}
 \end{Highlighting}

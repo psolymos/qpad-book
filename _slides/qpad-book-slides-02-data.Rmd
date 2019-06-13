@@ -1,6 +1,6 @@
 ---
 title: "Organizing and processing point count data"
-date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 24 June 2019"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 25 June 2019"
 author: "Peter Solymos"
 fontsize: 10pt
 urlcolor: blue

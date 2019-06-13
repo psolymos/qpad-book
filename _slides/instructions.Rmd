@@ -1,6 +1,6 @@
 ---
 title: "Before the workshop"
-date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 24 June 2019"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 25 June 2019"
 author: "Peter Solymos"
 output: pdf_document
 fontsize: 11pt

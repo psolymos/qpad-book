@@ -56,9 +56,9 @@ plot(b)
 ```
 
 The `get_events` function, as the name implies, extracts the events: 
-movements (`$v` is 0) and vocalizations (`$v` is 1)alike, 
+movements (`$v` is 0) and vocalizations (`$v` is 1) alike, 
 unless filtered for vocalization events only.
-Besides the coordinates, we also have the time of event (`$t$) and
+Besides the coordinates, we also have the time of event (`$t`) and
 the individual identifier (`$i` linking to the rows of the `b$nests` table):
 
 ```{r}

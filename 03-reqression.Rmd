@@ -902,17 +902,3 @@ If the unit is 1 ha, as in our case, log(1)=0, which means
 the mean abundance per unit area can be calculated by
 omitting the offsets all together.
 
-## Definitions
-
-So what is it that we are estimating and predicting as our $\lambda$?
-Here are some deifinitions for further discussion:
-
-- **relative abundance**: $\lambda$ without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,
-- **abundance**: $N=\lambda/C$, $C$ is a correction factor and $N$ refers to the number of individuals within the area surveyed -- the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),
-- **occupancy**: the probability that the survey area is occupied, this is really equivalent to the indicator function $N>0$,
-- **density** $D = N/A = \lambda/AC$, abundance per unit area -- same problems as above: both $N$ and $A$ are unknowns.
-
-Our objective in the next chapters is to work out the details of 
-estimating abundance and density in some clever ways through
-learning about the nature of the mechanisms contributing to $C$.
-

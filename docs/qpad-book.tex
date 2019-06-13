@@ -129,7 +129,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-11}
+    \date{2019-06-13}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -254,9 +254,51 @@ for field observations.
 Peter Solymos is an ecologist (molluscs, birds), he is pretty good at stats (modeling, detectability, data cloning, multivariate), an R programmer (vegan, detect, ResourceSelection, pbapply),
 sometimes he teaches (like the contents of this book).
 
-\hypertarget{installing}{%
-\section*{Installing}\label{installing}}
-\addcontentsline{toc}{section}{Installing}
+\hypertarget{installing-r-and-rstudio}{%
+\section*{Installing R and RStudio}\label{installing-r-and-rstudio}}
+\addcontentsline{toc}{section}{Installing R and RStudio}
+
+Follow the instructions at the \href{http://cran.r-project.org}{R website} to download and install
+the most up-to-date base R version suitable for your operating system (the latest R version at the time of writing these instructions is 3.6.0).
+
+Having RStudio is not absolutely necessary, but some of our course material
+will follow a syntax that is close to RStudio's \href{http://rmarkdown.rstudio.com/}{R markdown}
+notation, so having RStudio will make our life easier. RStudio is also available for different operating systems. Pick the open source desktop edition from \href{http://www.rstudio.com/products/rstudio/download/}{here} (the latest RStudio Desktop version at the time of writing these instructions is 1.2.1335).
+
+\hypertarget{installing-required-packages}{%
+\section*{Installing required packages}\label{installing-required-packages}}
+\addcontentsline{toc}{section}{Installing required packages}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pkgs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{, }\StringTok{"detect"}\NormalTok{, }\StringTok{"devtools"}\NormalTok{, }\StringTok{"dismo"}\NormalTok{, }\StringTok{"forecast"}\NormalTok{, }
+  \StringTok{"glmnet"}\NormalTok{, }\StringTok{"gbm"}\NormalTok{, }\StringTok{"intrval"}\NormalTok{, }\StringTok{"knitr"}\NormalTok{, }\StringTok{"lme4"}\NormalTok{, }\StringTok{"maptools"}\NormalTok{, }\StringTok{"mefa4"}\NormalTok{, }
+  \StringTok{"mgcv"}\NormalTok{, }\StringTok{"MuMIn"}\NormalTok{, }\StringTok{"opticut"}\NormalTok{, }\StringTok{"partykit"}\NormalTok{, }\StringTok{"pscl"}\NormalTok{, }\StringTok{"raster"}\NormalTok{, }
+  \StringTok{"ResourceSelection"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"sp"}\NormalTok{, }\StringTok{"unmarked"}\NormalTok{, }\StringTok{"visreg"}\NormalTok{)}
+\NormalTok{to_inst <-}\StringTok{ }\KeywordTok{setdiff}\NormalTok{(pkgs, }\KeywordTok{rownames}\NormalTok{(}\KeywordTok{installed.packages}\NormalTok{()))}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(to_inst))}
+  \KeywordTok{install.packages}\NormalTok{(to_inst, }\DataTypeTok{repos=}\StringTok{"https://cloud.r-project.org/"}\NormalTok{)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"psolymos/bSims"}\NormalTok{)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"psolymos/QPAD"}\NormalTok{)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"borealbirds/paired"}\NormalTok{)}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"borealbirds/lhreg"}\NormalTok{)}
+\NormalTok{still_missing <-}\StringTok{ }\KeywordTok{setdiff}\NormalTok{(}\KeywordTok{c}\NormalTok{(pkgs, }\StringTok{"bSims"}\NormalTok{, }\StringTok{"paired"}\NormalTok{, }\StringTok{"lhreg"}\NormalTok{, }\StringTok{"QPAD"}\NormalTok{), }
+  \KeywordTok{rownames}\NormalTok{(}\KeywordTok{installed.packages}\NormalTok{()))}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(still_missing)) \{}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"The following packages could not be installed:}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,}
+    \KeywordTok{paste}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{-"}\NormalTok{, pkgs, }\DataTypeTok{collapse=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"You are all set! See you at the workshop.}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Here is a preprint version of Norman Matloff's \emph{The Art of R Programming} book: \url{http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf}.
+Check out Chapters 1--6 if you want to brush up your R skills.
+
+\hypertarget{installing-the-book}{%
+\section*{Installing the book}\label{installing-the-book}}
+\addcontentsline{toc}{section}{Installing the book}
 
 The \textbf{bookdown} package can be installed from CRAN or Github:
 
@@ -525,8 +567,8 @@ rest of the book/course.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{r-basics}{%
-\section{R basics}\label{r-basics}}
+\hypertarget{rbasics}{%
+\section{R basics}\label{rbasics}}
 
 This short document is intended to help you brush up your R skills.
 If you feel that these R basics are not very familiar,
@@ -2441,36 +2483,42 @@ is a function of the mean and the scale: \(V(\mu) = \mu + \mu^2/\theta\).
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{mNB <-}\StringTok{ }\KeywordTok{glm.nb}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{Decid }\OperatorTok{*}\StringTok{ }\NormalTok{ConifWet, }\DataTypeTok{data=}\NormalTok{x)}
-\KeywordTok{summary}\NormalTok{(mZINB)}
+\KeywordTok{summary}\NormalTok{(mNB)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## 
 ## Call:
-## zeroinfl(formula = y ~ Decid * ConifWet | 1, data = x, dist = "negbin")
+## glm.nb(formula = y ~ Decid * ConifWet, data = x, init.theta = 3.5900635, 
+##     link = log)
 ## 
-## Pearson residuals:
-##    Min     1Q Median     3Q    Max 
-## -1.190 -0.689 -0.338  0.361  8.956 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.860  -0.985  -0.451   0.317   3.803  
 ## 
-## Count model coefficients (negbin with log link):
+## Coefficients:
 ##                Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)     -0.3873     0.0732   -5.29  1.2e-07 ***
-## Decid            1.1195     0.0911   12.29  < 2e-16 ***
-## ConifWet        -2.4230     0.1589  -15.25  < 2e-16 ***
-## Decid:ConifWet   5.9227     0.3963   14.94  < 2e-16 ***
-## Log(theta)       2.6504     0.5305    5.00  5.9e-07 ***
-## 
-## Zero-inflation model coefficients (binomial with logit link):
-##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)   -1.861      0.193   -9.64   <2e-16 ***
+## (Intercept)     -0.5905     0.0630   -9.38   <2e-16 ***
+## Decid            1.2459     0.0892   13.97   <2e-16 ***
+## ConifWet        -2.3545     0.1605  -14.67   <2e-16 ***
+## Decid:ConifWet   5.6945     0.4009   14.20   <2e-16 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Theta = 14.159 
-## Number of iterations in BFGS optimization: 22 
-## Log-likelihood: -5.2e+03 on 6 Df
+## (Dispersion parameter for Negative Binomial(3.59) family taken to be 1)
+## 
+##     Null deviance: 6089.3  on 4568  degrees of freedom
+## Residual deviance: 4387.7  on 4565  degrees of freedom
+## AIC: 10440
+## 
+## Number of Fisher Scoring iterations: 1
+## 
+## 
+##               Theta:  3.590 
+##           Std. Err.:  0.425 
+## 
+##  2 x log-likelihood:  -10430.448
 \end{verbatim}
 
 Next, we look at zero-inflated models.
@@ -2753,8 +2801,8 @@ What are some of the biological mechanisms that can lead to the
 clustered GLMM bi be the best model?
 \EndKnitrBlock{rmdexercise}
 
-\hypertarget{counting-time-effects}{%
-\section{Counting time effects}\label{counting-time-effects}}
+\hypertarget{count-duration-effects}{%
+\section{Count duration effects}\label{count-duration-effects}}
 
 Let's change gears a bit now, and steer closer to the main focus
 of this book. We want to account for methodological differences
@@ -3097,8 +3145,8 @@ What kind of function would we need and why?
 What is the underlying biological mechanism?
 \EndKnitrBlock{rmdexercise}
 
-\hypertarget{counting-radius-effects}{%
-\section{Counting radius effects}\label{counting-radius-effects}}
+\hypertarget{count-radius-effects}{%
+\section{Count radius effects}\label{count-radius-effects}}
 
 Before solving the count duration issue, let us look at the
 effect of survey area.
@@ -3556,10 +3604,15 @@ If the unit is 1 ha, as in our case, log(1)=0, which means
 the mean abundance per unit area can be calculated by
 omitting the offsets all together.
 
-\hypertarget{definitions}{%
-\section{Definitions}\label{definitions}}
+\hypertarget{behavior}{%
+\chapter{Behavioral Complexities}\label{behavior}}
 
-So what is it that we are estimating and predicting as our \(\lambda\)?
+\hypertarget{introduction-2}{%
+\section{Introduction}\label{introduction-2}}
+
+We have reviewed so far how to fit \emph{naive} models to estimate
+the expected value of the observed counts, \(\lambda\).
+So what is this \(\lambda\)?
 Here are some deifinitions for further discussion:
 
 \begin{itemize}
@@ -3567,19 +3620,190 @@ Here are some deifinitions for further discussion:
 \item
   \textbf{relative abundance}: \(\lambda\) without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,
 \item
-  \textbf{abundance}: \(N\), this refers to the number of individuals within the area surveyed, the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e.~for unlimited distance counts),
+  \textbf{abundance}: \(N=\lambda/C\), \(C\) is a correction factor and \(N\) refers to the number of individuals within the area surveyed -- the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e.~for unlimited distance counts),
 \item
   \textbf{occupancy}: the probability that the survey area is occupied, this is really equivalent to the indicator function \(N>0\),
 \item
-  \textbf{density} \(D = N/A\), abundance per unit area, same problems as above: both \(N\) and \(A\) are unknowns.
+  \textbf{density} \(D = N/A = \lambda/AC\), abundance per unit area -- same problems as above: both \(N\) and \(A\) are unknowns.
 \end{itemize}
 
-Our objective in the next chapters is to work out the details of
-estimateing abundance and density in some clever ways, and learning
-a lot more other stuff along the way.
+Our objective in the following chapters is to work out the details of
+estimating abundance and density in some clever ways through
+learning about the nature of the mechanisms contributing to \(C\).
 
-\hypertarget{behavior}{%
-\chapter{Behavioral Complexities}\label{behavior}}
+\hypertarget{prerequisites-2}{%
+\section{Prerequisites}\label{prerequisites-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(bSims)                }\CommentTok{# simulations}
+\KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
+\KeywordTok{source}\NormalTok{(}\StringTok{"functions.R"}\NormalTok{)         }\CommentTok{# some useful stuff}
+\KeywordTok{load}\NormalTok{(}\StringTok{"_data/josm/josm.rda"}\NormalTok{) }\CommentTok{# JOSM data}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-world-with-birds-in-it}{%
+\section{A world with birds in it}\label{a-world-with-birds-in-it}}
+
+Build a landscape: extent is given in 100 m units
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DataTypeTok{extent=}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims landscape
+##   1 km x 1 km
+##   stratification: H
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(l)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+We have a 100 ha landscape that we populate with birds,
+1 bird / ha using a Poisson spatial point process.
+As a result, we have \(N\) birds in the landscape,
+\(N \sim Poisson(\lambda)\), \(\lambda = DA\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims population
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 52
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(a)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+The locations can be seen as nest locations. But birds don't just
+stay at one place. The move and vocalize:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }
+  \DataTypeTok{vocal_rate=}\FloatTok{0.5}\NormalTok{, }\DataTypeTok{duration=}\DecValTok{10}\NormalTok{,}
+  \DataTypeTok{move_rate=}\DecValTok{1}\NormalTok{, }\DataTypeTok{movement=}\FloatTok{0.25}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims events
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 52
+##   total duration: 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(b)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b)}
+\KeywordTok{summary}\NormalTok{(e)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        x                y                t               v    
+##  Min.   :-5.121   Min.   :-5.158   Min.   :0.044   Min.   :1  
+##  1st Qu.:-1.510   1st Qu.:-2.446   1st Qu.:2.450   1st Qu.:1  
+##  Median : 0.679   Median : 0.733   Median :4.913   Median :1  
+##  Mean   : 0.433   Mean   : 0.195   Mean   :4.955   Mean   :1  
+##  3rd Qu.: 2.339   3rd Qu.: 2.714   3rd Qu.:7.097   3rd Qu.:1  
+##  Max.   : 4.785   Max.   : 5.455   Max.   :9.970   Max.   :1  
+##        i       
+##  Min.   : 1.0  
+##  1st Qu.:13.0  
+##  Median :24.0  
+##  Mean   :25.5  
+##  3rd Qu.:37.0  
+##  Max.   :52.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## check vocal rates: no mixture}
+\NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
+\NormalTok{br <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\CommentTok{#br <- 1:10}
+\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DecValTok{1}\NormalTok{)}
+\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(p, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(a, }\DataTypeTok{tau=}\OtherTok{Inf}\NormalTok{) }\CommentTok{# detect all}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(o, }\DataTypeTok{first_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(i)}
+\NormalTok{Y1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{D1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{(phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{cmulti.fit}\NormalTok{(Y1, D1, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(d))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(d)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{))}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phihat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+
+\NormalTok{## check vocal rates: finite mixture}
+\NormalTok{phi <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{mix <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+\CommentTok{#br <- c(3, 5, 10)}
+\NormalTok{br <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DecValTok{10}\NormalTok{)}
+\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(p, }\DataTypeTok{vocal_rate=}\NormalTok{phi, }\DataTypeTok{mixture=}\NormalTok{mix)}
+\NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(a, }\DataTypeTok{tau=}\OtherTok{Inf}\NormalTok{) }\CommentTok{# detect all}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(o, }\DataTypeTok{first_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{i <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(i)}
+\NormalTok{Y1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{D1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{cf <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(Y1, D1, }\DataTypeTok{type=}\StringTok{"mix"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef }\CommentTok{# log.phi, logit.c}
+\NormalTok{(phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(cf[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{(mixhat <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{plogis}\NormalTok{(cf[}\DecValTok{2}\NormalTok{]), }\KeywordTok{plogis}\NormalTok{(cf[}\DecValTok{2}\NormalTok{])))}
+
+
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(d}\OperatorTok{$}\NormalTok{t, (}\DecValTok{0}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(d))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(d)), }\DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{))}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{mix[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phi[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(br, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(}\KeywordTok{table}\NormalTok{(i)), }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{mixhat[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{phihat}\OperatorTok{*}\NormalTok{x), }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+
+\CommentTok{# play with intervals}
+\end{Highlighting}
+\end{Shaded}
+
+Need to explain survival models and removal model related stats
+
+Here comes the real data analysis
 
 Behaviour related stuff
 

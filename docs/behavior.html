@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-11">
+<meta name="date" content="2019-06-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,7 +135,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i>About the book and the course</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i>Installing</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-required-packages"><i class="fa fa-check"></i>Installing required packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-the-book"><i class="fa fa-check"></i>Installing the book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-this-works"><i class="fa fa-check"></i>How this works</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
@@ -148,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>2</b> Organizing and Processing Point Count Data</a><ul>
 <li class="chapter" data-level="2.1" data-path="pcdata.html"><a href="pcdata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="pcdata.html"><a href="pcdata.html#prerequisites"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
+<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#rbasics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
 <li class="chapter" data-level="2.4" data-path="pcdata.html"><a href="pcdata.html#josm-data-set"><i class="fa fa-check"></i><b>2.4</b> JOSM data set</a></li>
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
@@ -167,12 +169,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
 <li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
-<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
-<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
+<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#count-duration-effects"><i class="fa fa-check"></i><b>3.12</b> Count duration effects</a></li>
+<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#count-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Count radius effects</a></li>
 <li class="chapter" data-level="3.14" data-path="regression.html"><a href="regression.html#offsets"><i class="fa fa-check"></i><b>3.14</b> Offsets</a></li>
-<li class="chapter" data-level="3.15" data-path="regression.html"><a href="regression.html#definitions"><i class="fa fa-check"></i><b>3.15</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
+<li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -206,6 +211,125 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="behavior" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Behavioral Complexities</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<p>We have reviewed so far how to fit <em>naive</em> models to estimate
+the expected value of the observed counts, <span class="math inline">\(\lambda\)</span>.
+So what is this <span class="math inline">\(\lambda\)</span>?
+Here are some deifinitions for further discussion:</p>
+<ul>
+<li><strong>relative abundance</strong>: <span class="math inline">\(\lambda\)</span> without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,</li>
+<li><strong>abundance</strong>: <span class="math inline">\(N=\lambda/C\)</span>, <span class="math inline">\(C\)</span> is a correction factor and <span class="math inline">\(N\)</span> refers to the number of individuals within the area surveyed – the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),</li>
+<li><strong>occupancy</strong>: the probability that the survey area is occupied, this is really equivalent to the indicator function <span class="math inline">\(N&gt;0\)</span>,</li>
+<li><strong>density</strong> <span class="math inline">\(D = N/A = \lambda/AC\)</span>, abundance per unit area – same problems as above: both <span class="math inline">\(N\)</span> and <span class="math inline">\(A\)</span> are unknowns.</li>
+</ul>
+<p>Our objective in the following chapters is to work out the details of
+estimating abundance and density in some clever ways through
+learning about the nature of the mechanisms contributing to <span class="math inline">\(C\)</span>.</p>
+</div>
+<div id="prerequisites-2" class="section level2">
+<h2><span class="header-section-number">4.2</span> Prerequisites</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bSims)                <span class="co"># simulations</span>
+<span class="kw">library</span>(detect)               <span class="co"># multinomial models</span>
+<span class="kw">source</span>(<span class="st">&quot;functions.R&quot;</span>)         <span class="co"># some useful stuff</span>
+<span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>) <span class="co"># JOSM data</span>
+<span class="kw">set.seed</span>(<span class="dv">1</span>)</code></pre>
+</div>
+<div id="a-world-with-birds-in-it" class="section level2">
+<h2><span class="header-section-number">4.3</span> A world with birds in it</h2>
+<p>Build a landscape: extent is given in 100 m units</p>
+<pre class="sourceCode r"><code class="sourceCode r">(l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>(<span class="dt">extent=</span><span class="dv">10</span>))</code></pre>
+<pre><code>## bSims landscape
+##   1 km x 1 km
+##   stratification: H</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(l)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>We have a 100 ha landscape that we populate with birds,
+1 bird / ha using a Poisson spatial point process.
+As a result, we have <span class="math inline">\(N\)</span> birds in the landscape,
+<span class="math inline">\(N \sim Poisson(\lambda)\)</span>, <span class="math inline">\(\lambda = DA\)</span>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">(a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span><span class="fl">0.5</span>))</code></pre>
+<pre><code>## bSims population
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 52</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(a)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>The locations can be seen as nest locations. But birds don’t just
+stay at one place. The move and vocalize:</p>
+<pre class="sourceCode r"><code class="sourceCode r">(b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, 
+  <span class="dt">vocal_rate=</span><span class="fl">0.5</span>, <span class="dt">duration=</span><span class="dv">10</span>,
+  <span class="dt">move_rate=</span><span class="dv">1</span>, <span class="dt">movement=</span><span class="fl">0.25</span>))</code></pre>
+<pre><code>## bSims events
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 52
+##   total duration: 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(b)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">e &lt;-<span class="st"> </span><span class="kw">get_events</span>(b)
+<span class="kw">summary</span>(e)</code></pre>
+<pre><code>##        x                y                t               v    
+##  Min.   :-5.121   Min.   :-5.158   Min.   :0.044   Min.   :1  
+##  1st Qu.:-1.510   1st Qu.:-2.446   1st Qu.:2.450   1st Qu.:1  
+##  Median : 0.679   Median : 0.733   Median :4.913   Median :1  
+##  Mean   : 0.433   Mean   : 0.195   Mean   :4.955   Mean   :1  
+##  3rd Qu.: 2.339   3rd Qu.: 2.714   3rd Qu.:7.097   3rd Qu.:1  
+##  Max.   : 4.785   Max.   : 5.455   Max.   :9.970   Max.   :1  
+##        i       
+##  Min.   : 1.0  
+##  1st Qu.:13.0  
+##  Median :24.0  
+##  Mean   :25.5  
+##  3rd Qu.:37.0  
+##  Max.   :52.0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">get_events</span>(b, <span class="dt">vocal_only=</span><span class="ot">TRUE</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">## check vocal rates: no mixture
+phi &lt;-<span class="st"> </span><span class="fl">0.5</span>
+br &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>)
+<span class="co">#br &lt;- 1:10</span>
+l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>(<span class="dv">10</span>)
+p &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dv">1</span>)
+a &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(p, <span class="dt">vocal_rate=</span>phi)
+o &lt;-<span class="st"> </span><span class="kw">bsims_detect</span>(a, <span class="dt">tau=</span><span class="ot">Inf</span>) <span class="co"># detect all</span>
+d &lt;-<span class="st"> </span><span class="kw">get_detections</span>(o, <span class="dt">first_only=</span><span class="ot">TRUE</span>)
+i &lt;-<span class="st"> </span><span class="kw">cut</span>(d<span class="op">$</span>t, <span class="kw">c</span>(<span class="dv">0</span>, br), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)
+<span class="kw">table</span>(i)
+Y1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(<span class="kw">table</span>(i)), <span class="dt">nrow=</span><span class="dv">1</span>)
+D1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(br, <span class="dt">nrow=</span><span class="dv">1</span>)
+(phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">cmulti.fit</span>(Y1, D1, <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)<span class="op">$</span>coef))
+<span class="kw">plot</span>(<span class="kw">stepfun</span>(d<span class="op">$</span>t, (<span class="dv">0</span><span class="op">:</span><span class="kw">nrow</span>(d))<span class="op">/</span><span class="kw">nrow</span>(d)), <span class="dt">do.points=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))
+<span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>phi<span class="op">*</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>phihat<span class="op">*</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
+
+## check vocal rates: finite mixture
+phi &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="fl">0.5</span>)
+mix &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>)
+<span class="co">#br &lt;- c(3, 5, 10)</span>
+br &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>(<span class="dv">10</span>)
+p &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dv">10</span>)
+a &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(p, <span class="dt">vocal_rate=</span>phi, <span class="dt">mixture=</span>mix)
+o &lt;-<span class="st"> </span><span class="kw">bsims_detect</span>(a, <span class="dt">tau=</span><span class="ot">Inf</span>) <span class="co"># detect all</span>
+d &lt;-<span class="st"> </span><span class="kw">get_detections</span>(o, <span class="dt">first_only=</span><span class="ot">TRUE</span>)
+i &lt;-<span class="st"> </span><span class="kw">cut</span>(d<span class="op">$</span>t, <span class="kw">c</span>(<span class="dv">0</span>, br), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)
+<span class="kw">table</span>(i)
+Y1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(<span class="kw">table</span>(i)), <span class="dt">nrow=</span><span class="dv">1</span>)
+D1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(br, <span class="dt">nrow=</span><span class="dv">1</span>)
+cf &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(Y1, D1, <span class="dt">type=</span><span class="st">&quot;mix&quot;</span>)<span class="op">$</span>coef <span class="co"># log.phi, logit.c</span>
+(phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(cf[<span class="dv">1</span>]))
+(mixhat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">plogis</span>(cf[<span class="dv">2</span>]), <span class="kw">plogis</span>(cf[<span class="dv">2</span>])))
+
+
+<span class="kw">plot</span>(<span class="kw">stepfun</span>(d<span class="op">$</span>t, (<span class="dv">0</span><span class="op">:</span><span class="kw">nrow</span>(d))<span class="op">/</span><span class="kw">nrow</span>(d)), <span class="dt">do.points=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))
+<span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span>mix[<span class="dv">2</span>]<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>phi[<span class="dv">2</span>]<span class="op">*</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span>mixhat[<span class="dv">2</span>]<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>phihat<span class="op">*</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
+
+<span class="co"># play with intervals</span></code></pre>
+<p>Need to explain survival models and removal model related stats</p>
+<p>Here comes the real data analysis</p>
 <p>Behaviour related stuff</p>
 <p>constant p (time as covariate)</p>
 <p>time varying p</p>
@@ -213,6 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>time varying p/c</p>
 <p>rate, count, time-to-event</p>
 
+</div>
 </div>
             </section>
 

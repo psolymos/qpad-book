@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-11">
+<meta name="date" content="2019-06-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,7 +135,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i>About the book and the course</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i>Installing</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-required-packages"><i class="fa fa-check"></i>Installing required packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-the-book"><i class="fa fa-check"></i>Installing the book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-this-works"><i class="fa fa-check"></i>How this works</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
@@ -148,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>2</b> Organizing and Processing Point Count Data</a><ul>
 <li class="chapter" data-level="2.1" data-path="pcdata.html"><a href="pcdata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="pcdata.html"><a href="pcdata.html#prerequisites"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
+<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#rbasics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
 <li class="chapter" data-level="2.4" data-path="pcdata.html"><a href="pcdata.html#josm-data-set"><i class="fa fa-check"></i><b>2.4</b> JOSM data set</a></li>
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
@@ -167,12 +169,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
 <li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
-<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
-<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
+<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#count-duration-effects"><i class="fa fa-check"></i><b>3.12</b> Count duration effects</a></li>
+<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#count-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Count radius effects</a></li>
 <li class="chapter" data-level="3.14" data-path="regression.html"><a href="regression.html#offsets"><i class="fa fa-check"></i><b>3.14</b> Offsets</a></li>
-<li class="chapter" data-level="3.15" data-path="regression.html"><a href="regression.html#definitions"><i class="fa fa-check"></i><b>3.15</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
+<li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -395,15 +400,9 @@ large compared to the standard error):</p>
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <p>We can compare this model to the null (constant, intercept-only) model:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP0, mP1)</code></pre>
-<pre><code>##     df   AIC
-## mP0  1 12573
-## mP1  2 10887</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">BIC</span>(mP0, mP1)</code></pre>
-<pre><code>##     df   BIC
-## mP0  1 12579
-## mP1  2 10900</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.sel</span>(mP0, mP1)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP0, mP1)
+<span class="kw">BIC</span>(mP0, mP1)
+<span class="kw">model.sel</span>(mP0, mP1)</code></pre>
 <pre><code>## Model selection table 
 ##     (Intrc) Decid df logLik  AICc delta weight
 ## mP1 -1.1640 2.134  2  -5442 10887     0      1
@@ -982,32 +981,38 @@ where <span class="math inline">\(\gamma\)</span> is the Gamma variance.</p>
 <p>The Negative Binomial variance (using the parametrization common in R functions)
 is a function of the mean and the scale: <span class="math inline">\(V(\mu) = \mu + \mu^2/\theta\)</span>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mNB &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(y <span class="op">~</span><span class="st"> </span>Decid <span class="op">*</span><span class="st"> </span>ConifWet, <span class="dt">data=</span>x)
-<span class="kw">summary</span>(mZINB)</code></pre>
+<span class="kw">summary</span>(mNB)</code></pre>
 <pre><code>## 
 ## Call:
-## zeroinfl(formula = y ~ Decid * ConifWet | 1, data = x, dist = &quot;negbin&quot;)
+## glm.nb(formula = y ~ Decid * ConifWet, data = x, init.theta = 3.5900635, 
+##     link = log)
 ## 
-## Pearson residuals:
-##    Min     1Q Median     3Q    Max 
-## -1.190 -0.689 -0.338  0.361  8.956 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.860  -0.985  -0.451   0.317   3.803  
 ## 
-## Count model coefficients (negbin with log link):
+## Coefficients:
 ##                Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)     -0.3873     0.0732   -5.29  1.2e-07 ***
-## Decid            1.1195     0.0911   12.29  &lt; 2e-16 ***
-## ConifWet        -2.4230     0.1589  -15.25  &lt; 2e-16 ***
-## Decid:ConifWet   5.9227     0.3963   14.94  &lt; 2e-16 ***
-## Log(theta)       2.6504     0.5305    5.00  5.9e-07 ***
-## 
-## Zero-inflation model coefficients (binomial with logit link):
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -1.861      0.193   -9.64   &lt;2e-16 ***
+## (Intercept)     -0.5905     0.0630   -9.38   &lt;2e-16 ***
+## Decid            1.2459     0.0892   13.97   &lt;2e-16 ***
+## ConifWet        -2.3545     0.1605  -14.67   &lt;2e-16 ***
+## Decid:ConifWet   5.6945     0.4009   14.20   &lt;2e-16 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Theta = 14.159 
-## Number of iterations in BFGS optimization: 22 
-## Log-likelihood: -5.2e+03 on 6 Df</code></pre>
+## (Dispersion parameter for Negative Binomial(3.59) family taken to be 1)
+## 
+##     Null deviance: 6089.3  on 4568  degrees of freedom
+## Residual deviance: 4387.7  on 4565  degrees of freedom
+## AIC: 10440
+## 
+## Number of Fisher Scoring iterations: 1
+## 
+## 
+##               Theta:  3.590 
+##           Std. Err.:  0.425 
+## 
+##  2 x log-likelihood:  -10430.448</code></pre>
 <p>Next, we look at zero-inflated models.
 In this case, the mixture distribution is a Bernoulli distribution
 and a count distribution (Poisson or Negative Binomial, for example).
@@ -1072,11 +1077,6 @@ mZINB &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(y <span cla
 ## Log-likelihood: -5.2e+03 on 6 Df</code></pre>
 <p>Now we compare the four different parametric models:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(mP, mNB, mZIP, mZINB)</code></pre>
-<pre><code>##       df   AIC
-## mP     4 10549
-## mNB    5 10440
-## mZIP   5 10422
-## mZINB  6 10419</code></pre>
 <p>Our best model is the Zero-inflated Negative Binomial.
 The probability of observing a zero as part of the zero
 distribution is back transformed from the zero coefficient
@@ -1219,8 +1219,8 @@ clustered GLMM bi be the best model?
 </div>
 
 </div>
-<div id="counting-time-effects" class="section level2">
-<h2><span class="header-section-number">3.12</span> Counting time effects</h2>
+<div id="count-duration-effects" class="section level2">
+<h2><span class="header-section-number">3.12</span> Count duration effects</h2>
 <p>Let’s change gears a bit now, and steer closer to the main focus
 of this book. We want to account for methodological differences
 among samples. One aspect of mathodologies involve
@@ -1401,8 +1401,8 @@ What is the underlying biological mechanism?
 </div>
 
 </div>
-<div id="counting-radius-effects" class="section level2">
-<h2><span class="header-section-number">3.13</span> Counting radius effects</h2>
+<div id="count-radius-effects" class="section level2">
+<h2><span class="header-section-number">3.13</span> Count radius effects</h2>
 <p>Before solving the count duration issue, let us look at the
 effect of survey area.
 We get a similar count breakdown, but now by distance band:</p>
@@ -1640,20 +1640,6 @@ we can express the prediction per unit area.
 If the unit is 1 ha, as in our case, log(1)=0, which means
 the mean abundance per unit area can be calculated by
 omitting the offsets all together.</p>
-</div>
-<div id="definitions" class="section level2">
-<h2><span class="header-section-number">3.15</span> Definitions</h2>
-<p>So what is it that we are estimating and predicting as our <span class="math inline">\(\lambda\)</span>?
-Here are some deifinitions for further discussion:</p>
-<ul>
-<li><strong>relative abundance</strong>: <span class="math inline">\(\lambda\)</span> without any reference to nuisance variables, but possibly standardized by design, or nuisance variables used as fixed effects,</li>
-<li><strong>abundance</strong>: <span class="math inline">\(N\)</span>, this refers to the number of individuals within the area surveyed, the problem is that we cannot measure this directly (this is a latent variable), moreover the survey area is also often unknown (i.e. for unlimited distance counts),</li>
-<li><strong>occupancy</strong>: the probability that the survey area is occupied, this is really equivalent to the indicator function <span class="math inline">\(N&gt;0\)</span>,</li>
-<li><strong>density</strong> <span class="math inline">\(D = N/A\)</span>, abundance per unit area, same problems as above: both <span class="math inline">\(N\)</span> and <span class="math inline">\(A\)</span> are unknowns.</li>
-</ul>
-<p>Our objective in the next chapters is to work out the details of
-estimateing abundance and density in some clever ways, and learning
-a lot more other stuff along the way.</p>
 
 </div>
 </div>

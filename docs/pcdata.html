@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-11">
+<meta name="date" content="2019-06-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,7 +135,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i>About the book and the course</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i>Installing</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-required-packages"><i class="fa fa-check"></i>Installing required packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-the-book"><i class="fa fa-check"></i>Installing the book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-this-works"><i class="fa fa-check"></i>How this works</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
@@ -148,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>2</b> Organizing and Processing Point Count Data</a><ul>
 <li class="chapter" data-level="2.1" data-path="pcdata.html"><a href="pcdata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="pcdata.html"><a href="pcdata.html#prerequisites"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
+<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#rbasics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
 <li class="chapter" data-level="2.4" data-path="pcdata.html"><a href="pcdata.html#josm-data-set"><i class="fa fa-check"></i><b>2.4</b> JOSM data set</a></li>
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
@@ -167,12 +169,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
 <li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
-<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
-<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
+<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#count-duration-effects"><i class="fa fa-check"></i><b>3.12</b> Count duration effects</a></li>
+<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#count-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Count radius effects</a></li>
 <li class="chapter" data-level="3.14" data-path="regression.html"><a href="regression.html#offsets"><i class="fa fa-check"></i><b>3.14</b> Offsets</a></li>
-<li class="chapter" data-level="3.15" data-path="regression.html"><a href="regression.html#definitions"><i class="fa fa-check"></i><b>3.15</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
+<li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -230,21 +235,12 @@ rest of the book/course.</p>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">2.2</span> Prerequisites</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)                <span class="co"># data manipulation</span>
-<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span></code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## 
-## Attaching package: &#39;raster&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:MASS&#39;:
-## 
-##     area, select</code></pre>
-<pre><code>## The following object is masked from &#39;package:nlme&#39;:
-## 
-##     getData</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
+<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span>
+<span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
 <span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>)   <span class="co"># load bird data</span>
 rr &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="st">&quot;_data/josm/landcover-hfi2016.grd&quot;</span>) <span class="co"># rasters</span></code></pre>
 </div>
-<div id="r-basics" class="section level2">
+<div id="rbasics" class="section level2">
 <h2><span class="header-section-number">2.3</span> R basics</h2>
 <p>This short document is intended to help you brush up your R skills.
 If you feel that these R basics are not very familiar,
@@ -402,13 +398,6 @@ Figure 2.2: Survey area boundary, habitat types and human footprint mapping <spa
 <p>Species info: species codes, common and scientific names. The table could also contain
 taxonomic, trait, etc. information as well.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(josm<span class="op">$</span>species)</code></pre>
-<pre><code>##      SpeciesID        SpeciesName        ScientificName
-## ALFL      ALFL   Alder Flycatcher     Empidonax alnorum
-## AMBI      AMBI   American Bittern Botaurus lentiginosus
-## AMCO      AMCO      American Coot      Fulica americana
-## AMCR      AMCR      American Crow Corvus brachyrhynchos
-## AMGO      AMGO American Goldfinch     Carduelis tristis
-## AMKE      AMKE   American Kestrel      Falco sparverius</code></pre>
 <p>At the survey level, we have coordinates, date/time info,
 variables capturing survey conditions, and land cover info extracted from 1 km<span class="math inline">\(^2\)</span> resolution rasters.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(josm<span class="op">$</span>surveys)</code></pre>
@@ -453,14 +442,8 @@ Check the data dictionary in <code>_data/josm</code> folder for a detailed expla
   <span class="dt">sample=</span><span class="kw">factor</span>(<span class="kw">paste0</span>(<span class="st">&quot;S&quot;</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)), <span class="kw">paste0</span>(<span class="st">&quot;S&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)),
   <span class="dt">species=</span><span class="kw">c</span>(<span class="st">&quot;BTNW&quot;</span>, <span class="st">&quot;OVEN&quot;</span>, <span class="st">&quot;CANG&quot;</span>, <span class="st">&quot;AMRO&quot;</span>, <span class="st">&quot;CANG&quot;</span>),
   <span class="dt">abundance=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>),
-  <span class="dt">behavior=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;heard&quot;</span>,<span class="st">&quot;seen&quot;</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>))))</code></pre>
-<pre><code>##   sample species abundance behavior
-## 1     S1    BTNW         1    heard
-## 2     S1    OVEN         1    heard
-## 3     S1    CANG         2    heard
-## 4     S2    AMRO         1    heard
-## 5     S2    CANG         1     seen</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(d)</code></pre>
+  <span class="dt">behavior=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;heard&quot;</span>,<span class="st">&quot;seen&quot;</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>))))
+<span class="kw">str</span>(d)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    5 obs. of  4 variables:
 ##  $ sample   : Factor w/ 3 levels &quot;S1&quot;,&quot;S2&quot;,&quot;S3&quot;: 1 1 1 2 2
 ##  $ species  : Factor w/ 4 levels &quot;AMRO&quot;,&quot;BTNW&quot;,..: 2 4 3 1 3
@@ -560,34 +543,6 @@ tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class
 <span class="kw">head</span>(josm<span class="op">$</span>counts[
   josm<span class="op">$</span>counts<span class="op">$</span>SiteID <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(ytot)[<span class="kw">which</span>(ytot[,<span class="st">&quot;CANG&quot;</span>] <span class="op">==</span><span class="st"> </span><span class="dv">200</span>)] <span class="op">&amp;</span>
 <span class="st">  </span>josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> &quot;CANG&quot;</span>,])</code></pre>
-<pre><code>##                         ObservationID  SiteID StationID TimeInterval
-## CO10712-130603-008 CO10712-130603-008 CO10712 CO10712-1            1
-## CO10712-130603-009 CO10712-130603-009 CO10712 CO10712-1            1
-## CO10712-130603-010 CO10712-130603-010 CO10712 CO10712-1            1
-## CO10712-130603-011 CO10712-130603-011 CO10712 CO10712-1            1
-## CO10712-130603-012 CO10712-130603-012 CO10712 CO10712-1            1
-## CO10712-130603-013 CO10712-130603-013 CO10712 CO10712-1            1
-##                    Direction Distance DetectType1 DetectType2 DetectType3
-## CO10712-130603-008         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-## CO10712-130603-009         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-## CO10712-130603-010         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-## CO10712-130603-011         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-## CO10712-130603-012         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-## CO10712-130603-013         2        3           C        &lt;NA&gt;        &lt;NA&gt;
-##                    Sex Age Activity1 Activity2 Activity3 ActivityNote
-## CO10712-130603-008   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-## CO10712-130603-009   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-## CO10712-130603-010   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-## CO10712-130603-011   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-## CO10712-130603-012   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-## CO10712-130603-013   U   A        FO        FL      &lt;NA&gt;         &lt;NA&gt;
-##                       Dur   Dis SpeciesID
-## CO10712-130603-008 0-3min 100+m      CANG
-## CO10712-130603-009 0-3min 100+m      CANG
-## CO10712-130603-010 0-3min 100+m      CANG
-## CO10712-130603-011 0-3min 100+m      CANG
-## CO10712-130603-012 0-3min 100+m      CANG
-## CO10712-130603-013 0-3min 100+m      CANG</code></pre>
 <p>We can check overall mean counts:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">sort</span>(<span class="kw">colMeans</span>(ytot)), <span class="dv">4</span>)</code></pre>
 <pre><code>##   BUFF   BWTE   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO   RTHU 
@@ -626,10 +581,9 @@ tmp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class
 <p>Let’s join the species counts with the survey attributes.
 This is how we can prepare the input data for regression analysis.</p>
 <pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;OVEN&quot;</span> <span class="co"># which species</span>
-josm<span class="op">$</span>species[spp,]</code></pre>
-<pre><code>##      SpeciesID SpeciesName       ScientificName
-## OVEN      OVEN    Ovenbird Seiurus aurocapillus</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare_sets</span>(<span class="kw">rownames</span>(josm<span class="op">$</span>surveys),<span class="kw">rownames</span>(ytot))</code></pre>
+josm<span class="op">$</span>species[spp,]
+
+<span class="kw">compare_sets</span>(<span class="kw">rownames</span>(josm<span class="op">$</span>surveys),<span class="kw">rownames</span>(ytot))</code></pre>
 <pre><code>##        xlength ylength intersect union xbutnoty ybutnotx
 ## labels    4569    4569      4569  4569        0        0
 ## unique    4569    4569      4569  4569        0        0</code></pre>

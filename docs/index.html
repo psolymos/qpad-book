@@ -25,7 +25,7 @@
 <meta name="author" content="Peter Solymos">
 
 
-<meta name="date" content="2019-06-11">
+<meta name="date" content="2019-06-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -135,7 +135,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-book-and-the-course"><i class="fa fa-check"></i>About the book and the course</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing"><i class="fa fa-check"></i>Installing</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-required-packages"><i class="fa fa-check"></i>Installing required packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-the-book"><i class="fa fa-check"></i>Installing the book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-this-works"><i class="fa fa-check"></i>How this works</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
@@ -148,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="pcdata.html"><a href="pcdata.html"><i class="fa fa-check"></i><b>2</b> Organizing and Processing Point Count Data</a><ul>
 <li class="chapter" data-level="2.1" data-path="pcdata.html"><a href="pcdata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="pcdata.html"><a href="pcdata.html#prerequisites"><i class="fa fa-check"></i><b>2.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#r-basics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
+<li class="chapter" data-level="2.3" data-path="pcdata.html"><a href="pcdata.html#rbasics"><i class="fa fa-check"></i><b>2.3</b> R basics</a></li>
 <li class="chapter" data-level="2.4" data-path="pcdata.html"><a href="pcdata.html#josm-data-set"><i class="fa fa-check"></i><b>2.4</b> JOSM data set</a></li>
 <li class="chapter" data-level="2.5" data-path="pcdata.html"><a href="pcdata.html#cross-tabulating-species-counts"><i class="fa fa-check"></i><b>2.5</b> Cross tabulating species counts</a></li>
 <li class="chapter" data-level="2.6" data-path="pcdata.html"><a href="pcdata.html#joining-species-data-with-predictors"><i class="fa fa-check"></i><b>2.6</b> Joining species data with predictors</a></li>
@@ -167,12 +169,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="regression.html"><a href="regression.html#multiple-main-effects"><i class="fa fa-check"></i><b>3.9</b> Multiple main effects</a></li>
 <li class="chapter" data-level="3.10" data-path="regression.html"><a href="regression.html#interaction"><i class="fa fa-check"></i><b>3.10</b> Interaction</a></li>
 <li class="chapter" data-level="3.11" data-path="regression.html"><a href="regression.html#different-error-distributions"><i class="fa fa-check"></i><b>3.11</b> Different error distributions</a></li>
-<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#counting-time-effects"><i class="fa fa-check"></i><b>3.12</b> Counting time effects</a></li>
-<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#counting-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Counting radius effects</a></li>
+<li class="chapter" data-level="3.12" data-path="regression.html"><a href="regression.html#count-duration-effects"><i class="fa fa-check"></i><b>3.12</b> Count duration effects</a></li>
+<li class="chapter" data-level="3.13" data-path="regression.html"><a href="regression.html#count-radius-effects"><i class="fa fa-check"></i><b>3.13</b> Count radius effects</a></li>
 <li class="chapter" data-level="3.14" data-path="regression.html"><a href="regression.html#offsets"><i class="fa fa-check"></i><b>3.14</b> Offsets</a></li>
-<li class="chapter" data-level="3.15" data-path="regression.html"><a href="regression.html#definitions"><i class="fa fa-check"></i><b>3.15</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a></li>
+<li class="chapter" data-level="4" data-path="behavior.html"><a href="behavior.html"><i class="fa fa-check"></i><b>4</b> Behavioral Complexities</a><ul>
+<li class="chapter" data-level="4.1" data-path="behavior.html"><a href="behavior.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#a-world-with-birds-in-it"><i class="fa fa-check"></i><b>4.3</b> A world with birds in it</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -207,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Point count data analysis: How to violate assumptions and get away with it</h1>
 <p class="author"><em>Peter Solymos</em></p>
-<p class="date"><em>2019-06-11</em></p>
+<p class="date"><em>2019-06-13</em></p>
 </div>
 <div id="foreword" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -257,8 +262,40 @@ for field observations.</p>
 <p>Peter Solymos is an ecologist (molluscs, birds), he is pretty good at stats (modeling, detectability, data cloning, multivariate), an R programmer (vegan, detect, ResourceSelection, pbapply),
 sometimes he teaches (like the contents of this book).</p>
 </div>
-<div id="installing" class="section level2 unnumbered">
-<h2>Installing</h2>
+<div id="installing-r-and-rstudio" class="section level2 unnumbered">
+<h2>Installing R and RStudio</h2>
+<p>Follow the instructions at the <a href="http://cran.r-project.org">R website</a> to download and install
+the most up-to-date base R version suitable for your operating system (the latest R version at the time of writing these instructions is 3.6.0).</p>
+<p>Having RStudio is not absolutely necessary, but some of our course material
+will follow a syntax that is close to RStudio’s <a href="http://rmarkdown.rstudio.com/">R markdown</a>
+notation, so having RStudio will make our life easier. RStudio is also available for different operating systems. Pick the open source desktop edition from <a href="http://www.rstudio.com/products/rstudio/download/">here</a> (the latest RStudio Desktop version at the time of writing these instructions is 1.2.1335).</p>
+</div>
+<div id="installing-required-packages" class="section level2 unnumbered">
+<h2>Installing required packages</h2>
+<pre class="sourceCode r"><code class="sourceCode r">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;bookdown&quot;</span>, <span class="st">&quot;detect&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dismo&quot;</span>, <span class="st">&quot;forecast&quot;</span>, 
+  <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;gbm&quot;</span>, <span class="st">&quot;intrval&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;lme4&quot;</span>, <span class="st">&quot;maptools&quot;</span>, <span class="st">&quot;mefa4&quot;</span>, 
+  <span class="st">&quot;mgcv&quot;</span>, <span class="st">&quot;MuMIn&quot;</span>, <span class="st">&quot;opticut&quot;</span>, <span class="st">&quot;partykit&quot;</span>, <span class="st">&quot;pscl&quot;</span>, <span class="st">&quot;raster&quot;</span>, 
+  <span class="st">&quot;ResourceSelection&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;unmarked&quot;</span>, <span class="st">&quot;visreg&quot;</span>)
+to_inst &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">rownames</span>(<span class="kw">installed.packages</span>()))
+<span class="cf">if</span> (<span class="kw">length</span>(to_inst))
+  <span class="kw">install.packages</span>(to_inst, <span class="dt">repos=</span><span class="st">&quot;https://cloud.r-project.org/&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;psolymos/bSims&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;psolymos/QPAD&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;borealbirds/paired&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;borealbirds/lhreg&quot;</span>)
+still_missing &lt;-<span class="st"> </span><span class="kw">setdiff</span>(<span class="kw">c</span>(pkgs, <span class="st">&quot;bSims&quot;</span>, <span class="st">&quot;paired&quot;</span>, <span class="st">&quot;lhreg&quot;</span>, <span class="st">&quot;QPAD&quot;</span>), 
+  <span class="kw">rownames</span>(<span class="kw">installed.packages</span>()))
+<span class="cf">if</span> (<span class="kw">length</span>(still_missing)) {
+  <span class="kw">cat</span>(<span class="st">&quot;The following packages could not be installed:</span><span class="ch">\n</span><span class="st">&quot;</span>,
+    <span class="kw">paste</span>(<span class="st">&quot;</span><span class="ch">\t</span><span class="st">-&quot;</span>, pkgs, <span class="dt">collapse=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">cat</span>(<span class="st">&quot;You are all set! See you at the workshop.</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}</code></pre>
+<p>Here is a preprint version of Norman Matloff’s <em>The Art of R Programming</em> book: <a href="http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf" class="uri">http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf</a>.
+Check out Chapters 1–6 if you want to brush up your R skills.</p>
+</div>
+<div id="installing-the-book" class="section level2 unnumbered">
+<h2>Installing the book</h2>
 <p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)
 <span class="co"># or the development version</span>

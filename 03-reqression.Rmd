@@ -527,7 +527,7 @@ is a function of the mean and the scale: $V(\mu) = \mu + \mu^2/\theta$.
 
 ```{r regr-dist2}
 mNB <- glm.nb(y ~ Decid * ConifWet, data=x)
-summary(mZINB)
+summary(mNB)
 ```
 
 Next, we look at zero-inflated models.

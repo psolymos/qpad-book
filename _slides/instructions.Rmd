@@ -1,0 +1,59 @@
+---
+title: "Before the workshop"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 24 June 2019"
+author: "Peter Solymos"
+output: pdf_document
+fontsize: 11pt
+classoption: letterpaper
+urlcolor: blue
+---
+
+Follow the instructions at the [R website](http://cran.r-project.org) to download and install
+the most up-to-date base R version suitable for your operating system 
+(the latest R version at the time of writing these instructions is 3.6.0).
+
+Having RStudio is not absolutely necessary, but it will make life easier. 
+RStudio is also available for different operating systems. 
+Pick the open source desktop edition from [here](http://www.rstudio.com/products/rstudio/download/) 
+(the latest RStudio Desktop version at the time of writing these instructions is 1.2.1335).
+
+This list of required packages might change, 
+but it is a good start so that we won't waste
+precious minutes installing them.
+
+```{r eval=FALSE}
+pkgs <- c("bookdown", "detect", "devtools", "dismo", "forecast", 
+  "glmnet", "gbm", "intrval", "knitr", "lme4", "maptools", "mefa4", 
+  "mgcv", "MuMIn", "opticut", "partykit", "pscl", "raster", 
+  "ResourceSelection", "shiny", "sp", "unmarked", "visreg")
+to_inst <- setdiff(pkgs, rownames(installed.packages()))
+if (length(to_inst))
+  install.packages(to_inst, repos="https://cloud.r-project.org/")
+devtools::install_github("psolymos/bSims")
+devtools::install_github("psolymos/QPAD")
+devtools::install_github("borealbirds/paired")
+devtools::install_github("borealbirds/lhreg")
+still_missing <- setdiff(c(pkgs, "bSims", "paired", "lhreg", "QPAD"), 
+  rownames(installed.packages()))
+if (length(still_missing)) {
+  cat("The following packages could not be installed:\n",
+    paste("\t-", pkgs, collapse="\n"), "\n")
+} else {
+  cat("You are all set! See you at the workshop.\n")
+}
+```
+
+Some prior exposure to R is necessary to get the most out of the workshop.
+You should be familiar with basic R object types and their manipulation, 
+such as arrays, data frames, indexing, because this will not be
+covered as part of the course (although I will do my best to help).
+This preprint version of Norman Matloff's _The Art of R Programming_ book
+gives a succinct introduction:
+http://heather.cs.ucdavis.edu/~matloff/132/NSPpart.pdf. 
+Check out Chapters 1--6 if you want to brush up your R skills.
+
+Please spend a few minutes to fill out this survey to give me an idea
+about topics you are more or less familiar with.
+This will help balancing the workshop material to best
+complement you existing skills and knowledge.
+Take the survey at: https://forms.gle/r3jrUsTzN5o2q4VH7.

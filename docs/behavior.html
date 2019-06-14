@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#birds-in-the-forest"><i class="fa fa-check"></i><b>4.3</b> Birds in the forest</a></li>
 <li class="chapter" data-level="4.4" data-path="behavior.html"><a href="behavior.html#survival-model"><i class="fa fa-check"></i><b>4.4</b> Survival model</a></li>
-<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vicalization-events"><i class="fa fa-check"></i><b>4.5</b> Vicalization events</a></li>
+<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vocalization-events"><i class="fa fa-check"></i><b>4.5</b> Vocalization events</a></li>
 <li class="chapter" data-level="4.6" data-path="behavior.html"><a href="behavior.html#removal-model"><i class="fa fa-check"></i><b>4.6</b> Removal model</a><ul>
 <li class="chapter" data-level="4.6.1" data-path="behavior.html"><a href="behavior.html#real-data"><i class="fa fa-check"></i><b>4.6.1</b> Real data</a></li>
 <li class="chapter" data-level="4.6.2" data-path="behavior.html"><a href="behavior.html#time-invariant-conventional-model"><i class="fa fa-check"></i><b>4.6.2</b> Time-invariant conventional model</a></li>
@@ -187,6 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
 <li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
+<li class="chapter" data-level="4.10" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.10</b> Estimating abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -247,24 +248,24 @@ learning about the nature of the mechanisms contributing to <span class="math in
 <div id="birds-in-the-forest" class="section level2">
 <h2><span class="header-section-number">4.3</span> Birds in the forest</h2>
 <p>Build a landscape: extent is given in 100 m units</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-(l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>(<span class="dt">extent=</span><span class="dv">10</span>))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>(<span class="dt">extent=</span><span class="dv">10</span>))</code></pre>
 <pre><code>## bSims landscape
 ##   1 km x 1 km
 ##   stratification: H</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(l)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-198-1.png" width="288" /></p>
 <p>We have a 100 ha landscape that we populate with birds,
 1 bird / ha using a Poisson spatial point process.
 As a result, we have <span class="math inline">\(N\)</span> birds in the landscape,
 <span class="math inline">\(N \sim Poisson(\lambda)\)</span>, <span class="math inline">\(\lambda = DA\)</span>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">(a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span><span class="fl">0.5</span>))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+(a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span><span class="fl">0.5</span>))</code></pre>
 <pre><code>## bSims population
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 52</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(a)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-200-1.png" width="288" /></p>
 <p>The locations can be seen as nest locations (<code>a$nests</code> stores the locations).
 But birds don’t just stay put in one place. They move and vocalize:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, 
@@ -276,7 +277,7 @@ But birds don’t just stay put in one place. They move and vocalize:</p>
 ##   total abundance: 52
 ##   total duration: 10</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(b)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-202-1.png" width="288" /></p>
 <p>The <code>get_events</code> function, as the name implies, extracts the events:
 movements (<code>$v</code> is 0) and vocalizations (<code>$v</code> is 1) alike,
 unless filtered for vocalization events only.
@@ -312,8 +313,8 @@ which corresponds to the Exponential distribution.
 The Exponential distribution also happens to describe the lengths of the
 inter-event times in a homogeneous Poisson process (events are independent, ‘memory-less’ process).</p>
 </div>
-<div id="vicalization-events" class="section level2">
-<h2><span class="header-section-number">4.5</span> Vicalization events</h2>
+<div id="vocalization-events" class="section level2">
+<h2><span class="header-section-number">4.5</span> Vocalization events</h2>
 <p>Event times in our bSims example follow a Poisson process with rate <span class="math inline">\(\phi\)</span> (<code>vocal_rate</code>)
 within <code>duration</code> <span class="math inline">\(t=10\)</span> minutes.</p>
 <p>Let’s subset the vocalization events to include the time of first detections
@@ -321,7 +322,20 @@ for each individual (<code>v1</code>). The estimated rate should match our setti
 the plot shows the Exponential probability density function on top of
 the event times:</p>
 <pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span>v[<span class="op">!</span><span class="kw">duplicated</span>(v<span class="op">$</span>i),]
-(phi &lt;-<span class="st"> </span>b<span class="op">$</span>vocal_rate[<span class="dv">1</span>])</code></pre>
+
+tmp &lt;-<span class="st"> </span>v1
+tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq_len</span>(<span class="kw">nrow</span>(v1))
+<span class="kw">plot</span>(o <span class="op">~</span><span class="st"> </span>t, tmp, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Individuals&quot;</span>,
+  <span class="dt">main=</span><span class="st">&quot;Vocalization events&quot;</span>, 
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(b<span class="op">$</span>nests)), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))
+<span class="cf">for</span> (i <span class="cf">in</span> tmp<span class="op">$</span>o) {
+  tmp2 &lt;-<span class="st"> </span>v[v<span class="op">$</span>i <span class="op">==</span><span class="st"> </span>v1<span class="op">$</span>i[i],]
+  <span class="kw">lines</span>(<span class="kw">c</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], <span class="dv">10</span>), <span class="kw">c</span>(i,i), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)
+  <span class="kw">points</span>(tmp2<span class="op">$</span>t, <span class="kw">rep</span>(i, <span class="kw">nrow</span>(tmp2)), <span class="dt">cex=</span><span class="fl">0.5</span>)
+  <span class="kw">points</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], i, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)
+}</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">(phi &lt;-<span class="st"> </span>b<span class="op">$</span>vocal_rate[<span class="dv">1</span>])</code></pre>
 <pre><code>## [1] 0.5</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(phi_hat &lt;-<span class="st"> </span><span class="kw">fitdistr</span>(v1<span class="op">$</span>t, <span class="st">&quot;exponential&quot;</span>)<span class="op">$</span>estimate)</code></pre>
 <pre><code>##   rate 
@@ -332,7 +346,7 @@ the event times:</p>
 <span class="kw">curve</span>(<span class="kw">dexp</span>(x, phi_hat), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Expected&quot;</span>, <span class="st">&quot;Estimated&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
 <p>Now let’s visualize the corresponding cumulative distribution function.
 We also bin the events into time intervals defined by interval end times
 in the vector <code>br</code> (breaks to be used with <code>cut</code>):</p>
@@ -350,7 +364,7 @@ i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$
   <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="dt">pch=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="dv">21</span>),
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span>, <span class="st">&quot;Expected&quot;</span>, <span class="st">&quot;Estimated&quot;</span>, <span class="st">&quot;Binned&quot;</span>))
 <span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
 </div>
 <div id="removal-model" class="section level2">
 <h2><span class="header-section-number">4.6</span> Removal model</h2>
@@ -439,7 +453,7 @@ and the cumulative density function of times to first detection in time interval
 (0, <span class="math inline">\(t_{iJ}\)</span>) gives us the probability that a bird sings at least once during the point count as
 <span class="math inline">\(p(t_{iJ}) = 1 - exp(-t_{iJ} \phi)\)</span>.</p>
 <p>We fit this model by specifying intercep-only in the
-right hand side of the formula, and <code>type="rem"</code>
+right hand side of the formula, and <code>type=&quot;rem&quot;</code>
 as part of the <code>cmulti</code> call:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Me0 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Y <span class="op">|</span><span class="st"> </span>D <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
 <span class="kw">summary</span>(Me0)</code></pre>
@@ -462,9 +476,10 @@ as part of the <code>cmulti</code> call:</p>
 <pre><code>## log.phi_(Intercept) 
 ##              0.4254</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">*</span>phi_Me0), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>,
-  <span class="dt">xlab=</span><span class="st">&quot;Duration (min)&quot;</span>, <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">p</span>(t[J])), <span class="dt">main=</span>spp)
+  <span class="dt">xlab=</span><span class="st">&quot;Duration (min)&quot;</span>, <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">p</span>(t[J])), 
+  <span class="dt">main=</span><span class="kw">paste</span>(spp, <span class="st">&quot;Me0&quot;</span>))
 <span class="kw">points</span>(D[<span class="dv">1</span>,], <span class="kw">cumsum</span>(<span class="kw">colSums</span>(Y))<span class="op">/</span><span class="kw">sum</span>(Y), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-209-1.png" width="672" /></p>
 </div>
 <div id="time-varying-conventional-removal-model" class="section level3">
 <h3><span class="header-section-number">4.6.3</span> Time-varying conventional removal model</h3>
@@ -527,7 +542,7 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 </div>
 </div>
@@ -541,15 +556,21 @@ We can introduce such heterogeneity into our bSims world by
 specifying the group level rates (<code>phi</code> vector) and the
 proportion of individuals belonging to the groups (<code>mix</code>).</p>
 <pre class="sourceCode r"><code class="sourceCode r">phi &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="fl">0.5</span>)
-mix &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>)
+mix &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>)
 
-(b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span class="dt">vocal_rate=</span>phi, <span class="dt">mixture=</span>mix))</code></pre>
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+(a2 &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span><span class="dv">1</span>)) <span class="co"># increase density</span></code></pre>
+<pre><code>## bSims population
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 104</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(b2 &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a2, <span class="dt">vocal_rate=</span>phi, <span class="dt">mixture=</span>mix))</code></pre>
 <pre><code>## bSims events
 ##   1 km x 1 km
 ##   stratification: H
-##   total abundance: 52
+##   total abundance: 104
 ##   mixture with total duration: 10</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">b<span class="op">$</span>vocal_rate</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">b2<span class="op">$</span>vocal_rate</code></pre>
 <pre><code>##   G1  G2
 ## H 10 0.5
 ## E 10 0.5
@@ -557,27 +578,25 @@ mix &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2
 <p>If we plot the time to first detection data, we can see how
 expected distribution (red) is different from the fitted
 Exponential distribution assuming homogeneity:</p>
-<pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">get_events</span>(b, <span class="dt">vocal_only=</span><span class="ot">TRUE</span>)
+<pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">get_events</span>(b2, <span class="dt">vocal_only=</span><span class="ot">TRUE</span>)
 v1 &lt;-<span class="st"> </span>v[<span class="op">!</span><span class="kw">duplicated</span>(v<span class="op">$</span>i),]
 (phi_hat &lt;-<span class="st"> </span><span class="kw">fitdistr</span>(v1<span class="op">$</span>t, <span class="st">&quot;exponential&quot;</span>)<span class="op">$</span>estimate)</code></pre>
 <pre><code>##   rate 
-## 0.6506</code></pre>
+## 0.6522</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(v1<span class="op">$</span>t, <span class="dt">xlab=</span><span class="st">&quot;Time of first detection (min)&quot;</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, 
   <span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;f(t)&quot;</span>)
 <span class="kw">curve</span>(mix[<span class="dv">1</span>]<span class="op">*</span><span class="kw">dexp</span>(x, phi[<span class="dv">1</span>])<span class="op">+</span>mix[<span class="dv">2</span>]<span class="op">*</span><span class="kw">dexp</span>(x, phi[<span class="dv">2</span>]), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)
 <span class="kw">curve</span>(<span class="kw">dexp</span>(x, phi_hat), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Expected (mixture)&quot;</span>, <span class="st">&quot;Estimated (exponential)&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-<p>Now let’s visualize the corresponding cumulative distribution function.
-We also bin the events into time intervals defined by interval end times
-in the vector <code>br</code> (breaks to be used with <code>cut</code>):</p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-213-1.png" width="672" /></p>
+<p>Now let’s visualize the corresponding cumulative distribution function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">br &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$</span>t, <span class="kw">c</span>(<span class="dv">0</span>, br), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)
 <span class="kw">table</span>(i)</code></pre>
 <pre><code>## i
 ##  [0,1]  (1,2]  (2,3]  (3,4]  (4,5]  (5,6]  (6,7]  (7,8]  (8,9] (9,10] 
-##     30      8      2      6      2      1      3      0      0      0</code></pre>
+##     54     23     10      6      2      6      3      0      0      0</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">stepfun</span>(v1<span class="op">$</span>t, (<span class="dv">0</span><span class="op">:</span><span class="kw">nrow</span>(v1))<span class="op">/</span><span class="kw">nrow</span>(v1)), <span class="dt">do.points=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>),
   <span class="dt">xlab=</span><span class="st">&quot;Time of first detection (min)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;F(t)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span>mix[<span class="dv">2</span>]<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>phi[<span class="dv">2</span>]<span class="op">*</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)
@@ -586,22 +605,22 @@ i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$
   <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="dt">pch=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="dv">21</span>),
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span>, <span class="st">&quot;Expected (mixture)&quot;</span>, <span class="st">&quot;Estimated (exponential)&quot;</span>, <span class="st">&quot;Binned&quot;</span>))
 <span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-214-1.png" width="672" /></p>
 <p>We use the <code>detect::cmulti</code> function to fit the finite mixture model:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(<span class="kw">table</span>(i)), <span class="dt">nrow=</span><span class="dv">1</span>))</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]   30    8    2    6    2    1    3    0    0     0</code></pre>
+## [1,]   54   23   10    6    2    6    3    0    0     0</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(d &lt;-<span class="st"> </span><span class="kw">matrix</span>(br, <span class="dt">nrow=</span><span class="dv">1</span>))</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1    2    3    4    5    6    7    8    9    10</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">cf &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(y, d, <span class="dt">type=</span><span class="st">&quot;fmix&quot;</span>)<span class="op">$</span>coef <span class="co"># log.phi, logit.c</span>
 
 <span class="kw">c</span>(<span class="dt">phi=</span>phi[<span class="dv">2</span>], <span class="dt">c=</span>mix[<span class="dv">2</span>]) <span class="co"># setting</span></code></pre>
-<pre><code>## phi   c 
-## 0.5 0.8</code></pre>
+<pre><code>##  phi    c 
+## 0.50 0.75</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">phi_hat=</span><span class="kw">exp</span>(cf[<span class="dv">1</span>]), <span class="dt">c_hat=</span><span class="kw">plogis</span>(cf[<span class="dv">2</span>])) <span class="co"># estimate</span></code></pre>
 <pre><code>## phi_hat   c_hat 
-##  0.4020  0.6423</code></pre>
+##  0.5350  0.8244</code></pre>
 <div id="time-invariant-finite-mixture-removal-model" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Time-invariant finite mixture removal model</h3>
 <p>The removal model can accommodate behavioral heterogeneity in singing by subdividing the
@@ -617,7 +636,7 @@ proportions (<span class="math inline">\(1 - c\)</span>; the intercept of the cu
 singers are assumed to be detected instantaneously at the start of the first time interval.
 In the simplest form of the finite mixture model, the proportion and singing rate of birds
 that sing infrequently is homogeneous across all times and locations (model <code>Mf0</code>).
-We are using the <code>type = "fmix"</code> for finite mixture removal models.</p>
+We are using the <code>type = &quot;fmix&quot;</code> for finite mixture removal models.</p>
 <p>Here, for the read bird data set:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Mf0 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Y <span class="op">|</span><span class="st"> </span>D <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;fmix&quot;</span>)
 <span class="kw">summary</span>(Mf0)</code></pre>
@@ -637,6 +656,13 @@ We are using the <code>type = "fmix"</code> for finite mixture removal models.</
 ## 
 ## Log-likelihood: -3.1e+03 
 ## BIC = 6.22e+03</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cf_Mf0 &lt;-<span class="st"> </span><span class="kw">coef</span>(Mf0)
+
+<span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">plogis</span>(cf_Mf0[<span class="dv">2</span>]) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">*</span><span class="kw">exp</span>(cf_Mf0[<span class="dv">1</span>])), 
+  <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">main=</span><span class="kw">paste</span>(spp, <span class="st">&quot;Mf0&quot;</span>),
+  <span class="dt">xlab=</span><span class="st">&quot;Duration (min)&quot;</span>, <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">p</span>(t[J])))
+<span class="kw">points</span>(D[<span class="dv">1</span>,], <span class="kw">cumsum</span>(<span class="kw">colSums</span>(Y))<span class="op">/</span><span class="kw">sum</span>(Y), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-216-1.png" width="672" /></p>
 </div>
 <div id="time-varying-finite-mixture-removal-models" class="section level3">
 <h3><span class="header-section-number">4.7.2</span> Time-varying finite mixture removal models</h3>
@@ -697,12 +723,12 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-219-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 <p>An alternative parametrization is that <span class="math inline">\(c_{i}\)</span> rather than <span class="math inline">\(\phi\)</span> be the time-varying parameter,
 allowing the individuals to switch between the frequent and infrequent group depending on covariates.
 We can fit this class of finite mixture model with <code>DAY</code> and <code>TSSR</code> as covariates on <span class="math inline">\(c\)</span>
-using <code>type = "mix"</code> (instead of <code>"fmix"</code>).
+using <code>type = &quot;mix&quot;</code> (instead of <code>&quot;fmix&quot;</code>).
 In this case <span class="math inline">\(p(t_{iJ}) = 1 - c_{i} e^{-t_{iJ} \phi}\)</span> and
 <span class="math inline">\(logit(c_{i}) = \beta_{0} + \sum^{K}_{k=1} \beta_{k} x_{ik}\)</span> is the linear predictor with <span class="math inline">\(K\)</span>
 covariates and the corresponding unknown coefficients (<span class="math inline">\(\beta_{k}\)</span>, <span class="math inline">\(k = 0,\ldots, K\)</span>).
@@ -719,6 +745,23 @@ Mm_Best &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="k
 Mm_AIC[<span class="kw">order</span>(Mm_AIC<span class="op">$</span>AIC),]
 
 <span class="kw">summary</span>(Mm_Best)</code></pre>
+<pre><code>## 
+## Call:
+## cmulti(formula = Y | D ~ DAY, data = X, type = &quot;mix&quot;)
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## log.phi               -1.716      0.097  -17.69   &lt;2e-16 ***
+## logit.c_(Intercept)   -2.070      0.692   -2.99   0.0028 ** 
+## logit.c_DAY            4.804      1.558    3.08   0.0020 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Log-likelihood: -3.1e+03 
+## BIC = 6.22e+03</code></pre>
 <p>We produce a similar plot as before:</p>
 <pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">coef</span>(Mm_Best)
 
@@ -739,13 +782,16 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-222-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 </div>
 </div>
 <div id="let-the-best-model-win" class="section level2">
 <h2><span class="header-section-number">4.8</span> Let the best model win</h2>
-<p>So which of the 3 parametrizations proved to be best for our Ovenbird example data? It was the finite mixture with time-varying proportion of infrequent singers with a thin margin. Second was the other finite mixture model, while the conventional model was lagging behind.</p>
+<p>So which of the 3 parametrizations proved to be best for our data?
+It was the finite mixture with time-varying proportion of infrequent singers.
+Second was the other finite mixture model, while the conventional model
+was lagging behind.</p>
 <pre class="sourceCode r"><code class="sourceCode r">M_AIC &lt;-<span class="st"> </span><span class="kw">AIC</span>(Me_Best, Mf_Best, Mm_Best)
 M_AIC<span class="op">$</span>delta_AIC &lt;-<span class="st"> </span>M_AIC<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(M_AIC<span class="op">$</span>AIC)
 M_AIC[<span class="kw">order</span>(M_AIC<span class="op">$</span>AIC),]</code></pre>
@@ -754,19 +800,178 @@ M_AIC[<span class="kw">order</span>(M_AIC<span class="op">$</span>AIC),]</code><
 </div>
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">4.9</span> Exercises</h2>
-<p>Compare different duration and intervals</p>
-<p>Compare how does movement based detection influences estimates</p>
-<p>36% of records in BAM is ‘heard &amp; seen’ and I want to understand how likely the following 2 scenarios are:</p>
 <ul>
-<li>‘seen and heard’ means that visual and auditory detections are independent processes, i.e. if it often happens that you spot a bird by just visually, that would distort availability.</li>
-<li>or it means that visual and auditory detections are NOT independent processes, i.e after a vocalization the observer also gets a visual.</li>
+<li>Compare different duration and intervals</li>
+<li>Pick other species with lower singing rates (10 min p &lt; 1)</li>
 </ul>
-<p>Both happen, depending to some extent on the species, but more frequently the second scenario.</p>
-<p>If you hear an individual vocalizing, it is much easier to also get a visual. But you do sometimes just see an individual moving and not vocalizing (more often females). How likely you are to spot those individuals can depend on the species, e.g., some species forage in ways that make them more visible.</p>
-<p>Andy: My experience is that in forests it’s almost entirely auditory, and if you see a bird it’s almost certainly after it called. The rare exception might be birds foraging on the ground (e.g. thrushes kicking up leaves), or woodpeckers, but again these are usually heard before being seen even though the auditory signal isn’t a song or call. In grasslands, however, it’s pretty common to see a bird before hearing it.</p>
-<p>JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn’t uncommon to see these individuals before hearing them. Ultimately, to go back to Peter’s concern, I do not think that the auditory and visual processes can be considered independent.</p>
-<p>100*table(josm<span class="math inline">\(counts\)</span>DetectType1)/sum(table(josm<span class="math inline">\(counts\)</span>DetectType1))</p>
-<p>Smaller singing rate species where p(10min) &lt;&lt; 1</p>
+</div>
+<div id="estimating-abundance" class="section level2">
+<h2><span class="header-section-number">4.10</span> Estimating abundance</h2>
+<p>Exponential model, bSims data</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+phi &lt;-<span class="st"> </span><span class="fl">0.5</span>
+Den &lt;-<span class="st"> </span><span class="dv">1</span>
+l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>()
+a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span>Den)
+b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span class="dt">vocal_rate=</span>phi, <span class="dt">move_rate=</span><span class="dv">0</span>)
+
+tint &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
+(tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(b, <span class="dt">tint=</span>tint))</code></pre>
+<pre><code>## bSims transcript
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 104
+##   total duration: 10
+##   detected: 104 heard
+##   1st inds. [0-1, 1-2, 2-3, 3-4, 4-5 min] [0+ m]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tr<span class="op">$</span>removal <span class="co"># binned new individuals</span></code></pre>
+<pre><code>##     0-1min 1-2min 2-3min 3-4min 4-5min
+## 0+m     35     28     16     12      6</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(Y &lt;-<span class="st"> </span><span class="kw">sum</span>(tr<span class="op">$</span>removal)) <span class="co"># detected in 0-3 min</span></code></pre>
+<pre><code>## [1] 97</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(tr<span class="op">$</span>removal, <span class="kw">matrix</span>(tint, <span class="dt">nrow=</span><span class="dv">1</span>), <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
+<span class="kw">exp</span>(fit<span class="op">$</span>coef)</code></pre>
+<pre><code>## [1] 0.4083</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="kw">max</span>(tint)<span class="op">*</span><span class="kw">exp</span>(fit<span class="op">$</span>coef)))</code></pre>
+<pre><code>## [1] 0.8702</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Y=NC, N=Y/C=Y/p3</span>
+(N &lt;-<span class="st"> </span><span class="kw">sum</span>(a<span class="op">$</span>abundance))</code></pre>
+<pre><code>## [1] 104</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(Nhat &lt;-<span class="st"> </span>Y<span class="op">/</span>p)</code></pre>
+<pre><code>## [1] 111.5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># density is N / A</span>
+<span class="kw">sum</span>(a<span class="op">$</span>abundance) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(a<span class="op">$</span>area)</code></pre>
+<pre><code>## [1] 1.04</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Nhat <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(a<span class="op">$</span>area)</code></pre>
+<pre><code>## [1] 1.115</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># area is known, q=1</span></code></pre>
+<p>Multiple-visit stuff for bSims: the counting of new individuals
+resets for each interval (also: needs equal intervals)</p>
+<pre class="sourceCode r"><code class="sourceCode r">tr<span class="op">$</span>visits</code></pre>
+<pre><code>##     0-1min 1-2min 2-3min 3-4min 4-5min
+## 0+m     35     48     44     43     45</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">get_events</span>(b, <span class="dt">vocal_only=</span><span class="ot">TRUE</span>)
+v &lt;-<span class="st"> </span>v[v<span class="op">$</span>t <span class="op">&lt;=</span><span class="st"> </span><span class="kw">max</span>(tint),]
+v1 &lt;-<span class="st"> </span>v[<span class="op">!</span><span class="kw">duplicated</span>(v<span class="op">$</span>i),]
+
+tmp &lt;-<span class="st"> </span>v1
+tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq_len</span>(<span class="kw">nrow</span>(v1))
+<span class="kw">plot</span>(o <span class="op">~</span><span class="st"> </span>t, tmp, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Individuals&quot;</span>,
+  <span class="dt">main=</span><span class="st">&quot;Vocalization events&quot;</span>, 
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(b<span class="op">$</span>nests)), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(tint)))
+<span class="cf">for</span> (i <span class="cf">in</span> tmp<span class="op">$</span>o) {
+  tmp2 &lt;-<span class="st"> </span>v[v<span class="op">$</span>i <span class="op">==</span><span class="st"> </span>v1<span class="op">$</span>i[i],]
+  <span class="kw">lines</span>(<span class="kw">c</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], <span class="kw">max</span>(tint)), <span class="kw">c</span>(i,i), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)
+  <span class="kw">points</span>(tmp2<span class="op">$</span>t, <span class="kw">rep</span>(i, <span class="kw">nrow</span>(tmp2)), <span class="dt">cex=</span><span class="fl">0.5</span>)
+  <span class="kw">points</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], i, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)
+}</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-225-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(o <span class="op">~</span><span class="st"> </span>t, tmp, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Individuals&quot;</span>,
+  <span class="dt">main=</span><span class="st">&quot;Vocalization events&quot;</span>, 
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(b<span class="op">$</span>nests)), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(tint)))
+<span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq_along</span>(tint)) {
+  ii &lt;-<span class="st"> </span><span class="cf">if</span> (j <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+    <span class="kw">c</span>(<span class="dv">0</span>, tint[j]) <span class="cf">else</span> <span class="kw">c</span>(tint[j<span class="dv">-1</span>], tint[j])
+  vv &lt;-<span class="st"> </span>v[v<span class="op">$</span>t <span class="op">&gt;</span><span class="st"> </span>ii[<span class="dv">1</span>] <span class="op">&amp;</span><span class="st"> </span>v<span class="op">$</span>t <span class="op">&lt;=</span><span class="st"> </span>ii[<span class="dv">2</span>],]
+  tmp &lt;-<span class="st"> </span>vv[<span class="op">!</span><span class="kw">duplicated</span>(vv<span class="op">$</span>i),]
+  tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq_len</span>(<span class="kw">nrow</span>(tmp))
+  <span class="cf">if</span> (<span class="kw">nrow</span>(tmp)) {
+    <span class="cf">for</span> (i <span class="cf">in</span> tmp<span class="op">$</span>o) {
+      tmp2 &lt;-<span class="st"> </span>vv[vv<span class="op">$</span>i <span class="op">==</span><span class="st"> </span>tmp<span class="op">$</span>i[i],]
+      <span class="kw">lines</span>(<span class="kw">c</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], ii[<span class="dv">2</span>]), <span class="kw">c</span>(i,i), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)
+      <span class="kw">points</span>(tmp2<span class="op">$</span>t, <span class="kw">rep</span>(i, <span class="kw">nrow</span>(tmp2)), <span class="dt">cex=</span><span class="fl">0.5</span>)
+      <span class="kw">points</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], i, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)
+    }
+  }
+}</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-225-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)
+
+f &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span>Den)
+  b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span class="dt">vocal_rate=</span>phi, <span class="dt">move_rate=</span><span class="dv">0</span>)
+  tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(b, <span class="dt">tint=</span>tint)
+  <span class="kw">drop</span>(tr<span class="op">$</span>visits)
+}
+
+Den &lt;-<span class="st"> </span><span class="fl">0.01</span>
+
+<span class="co">#ymx &lt;- tr$visits</span>
+(ymx &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">f</span>())))</code></pre>
+<pre><code>##       0-1min 1-2min 2-3min 3-4min 4-5min
+##  [1,]      0      0      0      0      0
+##  [2,]      0      1      0      0      1
+##  [3,]      0      2      2      1      0
+##  [4,]      1      1      0      1      0
+##  [5,]      0      0      0      0      0
+##  [6,]      0      0      0      0      0
+##  [7,]      2      2      0      1      0
+##  [8,]      1      1      0      0      0
+##  [9,]      0      0      0      0      0
+## [10,]      0      1      0      1      0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## highly dependent on K when Den is higher</span>
+nmix &lt;-<span class="st"> </span><span class="kw">pcount</span>(<span class="op">~</span><span class="dv">1</span> <span class="op">~</span><span class="dv">1</span>, <span class="kw">unmarkedFramePCount</span>(<span class="dt">y=</span>ymx), <span class="dt">K=</span><span class="dv">1000</span>)
+<span class="kw">coef</span>(nmix)</code></pre>
+<pre><code>## lam(Int)   p(Int) 
+## -0.02602 -0.44730</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plogis</span>(<span class="kw">coef</span>(nmix)[<span class="dv">2</span>])</code></pre>
+<pre><code>## p(Int) 
+##   0.39</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(nmix)[<span class="dv">1</span>])</code></pre>
+<pre><code>## lam(Int) 
+##   0.9743</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Den <span class="op">*</span><span class="st"> </span><span class="dv">100</span></code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Mixture with JOSM</p>
+<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;TEWA&quot;</span>
+
+Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(yall[[spp]])
+D &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="kw">nrow</span>(Y), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>,
+  <span class="dt">dimnames=</span><span class="kw">dimnames</span>(Y))
+X &lt;-<span class="st"> </span>josm<span class="op">$</span>surveys[<span class="kw">rownames</span>(Y), <span class="kw">c</span>(<span class="st">&quot;DAY&quot;</span>, <span class="st">&quot;TSSR&quot;</span>)]
+ytot &lt;-<span class="st"> </span><span class="kw">rowSums</span>(Y)
+
+Best &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="kw">rownames</span>(M_AIC)[M_AIC<span class="op">$</span>delta_AIC <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])
+<span class="kw">summary</span>(Best)</code></pre>
+<pre><code>## 
+## Call:
+## cmulti(formula = Y | D ~ DAY, data = X, type = &quot;mix&quot;)
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## log.phi               -1.716      0.097  -17.69   &lt;2e-16 ***
+## logit.c_(Intercept)   -2.070      0.692   -2.99   0.0028 ** 
+## logit.c_DAY            4.804      1.558    3.08   0.0020 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Log-likelihood: -3.1e+03 
+## BIC = 6.22e+03</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">plogis</span>(<span class="kw">model.matrix</span>(Best) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(Best)[<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span>
+<span class="st">  </span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="kw">coef</span>(Best)[<span class="dv">1</span>]))
+<span class="kw">summary</span>(p)</code></pre>
+<pre><code>##        V1       
+##  Min.   :0.903  
+##  1st Qu.:0.909  
+##  Median :0.913  
+##  Mean   :0.914  
+##  3rd Qu.:0.919  
+##  Max.   :0.925</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">glm</span>(ytot <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">family=</span>poisson, <span class="dt">offset=</span><span class="kw">log</span>(p))
+<span class="kw">mean</span>(ytot)</code></pre>
+<pre><code>## [1] 1.222</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="kw">coef</span>(m))</code></pre>
+<pre><code>## (Intercept) 
+##       1.338</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(ytot <span class="op">/</span><span class="st"> </span>p)</code></pre>
+<pre><code>## [1] 1.337</code></pre>
+<p>This result tells us mean abundance after correcting for availability
+bias, but we don’t know what area was effectively sampled,
+and detection of individuals given availability is probably less than 1.
+We shall address this problem in the next chapter.</p>
 
 </div>
 </div>

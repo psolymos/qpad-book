@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="behavior.html"><a href="behavior.html#prerequisites-2"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="4.3" data-path="behavior.html"><a href="behavior.html#birds-in-the-forest"><i class="fa fa-check"></i><b>4.3</b> Birds in the forest</a></li>
 <li class="chapter" data-level="4.4" data-path="behavior.html"><a href="behavior.html#survival-model"><i class="fa fa-check"></i><b>4.4</b> Survival model</a></li>
-<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vicalization-events"><i class="fa fa-check"></i><b>4.5</b> Vicalization events</a></li>
+<li class="chapter" data-level="4.5" data-path="behavior.html"><a href="behavior.html#vocalization-events"><i class="fa fa-check"></i><b>4.5</b> Vocalization events</a></li>
 <li class="chapter" data-level="4.6" data-path="behavior.html"><a href="behavior.html#removal-model"><i class="fa fa-check"></i><b>4.6</b> Removal model</a><ul>
 <li class="chapter" data-level="4.6.1" data-path="behavior.html"><a href="behavior.html#real-data"><i class="fa fa-check"></i><b>4.6.1</b> Real data</a></li>
 <li class="chapter" data-level="4.6.2" data-path="behavior.html"><a href="behavior.html#time-invariant-conventional-model"><i class="fa fa-check"></i><b>4.6.2</b> Time-invariant conventional model</a></li>
@@ -187,6 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
 <li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
+<li class="chapter" data-level="4.10" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.10</b> Estimating abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -245,8 +246,25 @@ rest of the book/course.</p>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">2.2</span> Prerequisites</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)                <span class="co"># data manipulation</span>
-<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span>
-<span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
+<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span></code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## 
+## Attaching package: &#39;sp&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:unmarked&#39;:
+## 
+##     coordinates</code></pre>
+<pre><code>## 
+## Attaching package: &#39;raster&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
+## 
+##     extract</code></pre>
+<pre><code>## The following objects are masked from &#39;package:unmarked&#39;:
+## 
+##     getData, projection</code></pre>
+<pre><code>## The following objects are masked from &#39;package:MASS&#39;:
+## 
+##     area, select</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
 <span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>)   <span class="co"># load bird data</span>
 rr &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="st">&quot;_data/josm/landcover-hfi2016.grd&quot;</span>) <span class="co"># rasters</span></code></pre>
 </div>

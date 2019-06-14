@@ -19,5 +19,13 @@ Andy: My experience is that in forests it's almost entirely auditory, and if you
 
 JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn't uncommon to see these individuals before hearing them. Ultimately, to go back to Peter's concern, I do not think that the auditory and visual processes can be considered independent.
 
+```{r}
+load("_data/josm/josm.rda") # JOSM data
+
 100*table(josm$counts$DetectType1)/sum(table(josm$counts$DetectType1))
 
+aa <- table(josm$counts$SpeciesID, josm$counts$DetectType1)
+bb <- aa[,"V"]/rowSums(aa)
+hist(bb)
+sort(bb[bb > 0.2])
+```

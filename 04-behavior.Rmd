@@ -21,7 +21,6 @@ learning about the nature of the mechanisms contributing to $C$.
 ```{r beh-libs,message=FALSE,warning=FALSE}
 library(bSims)                # simulations
 library(detect)               # multinomial models
-source("functions.R")         # some useful stuff
 load("_data/josm/josm.rda") # JOSM data
 ```
 
@@ -204,6 +203,7 @@ the $t_{ij}$'s.
 ```{r}
 yall <- Xtab(~ SiteID + Dur + SpeciesID, 
   josm$counts[josm$counts$DetectType1 != "V",])
+yall <- yall[sapply(yall, function(z) sum(rowSums(z) > 0)) > 100]
 
 spp <- "TEWA"
 
@@ -214,6 +214,17 @@ X <- josm$surveys[rownames(Y), c("DAY", "TSSR")]
 head(Y[rowSums(Y) > 0,])
 head(D)
 summary(X)
+```
+
+
+The `D` matrix can take different methodologies for each row.
+The leftover values in each row must be filled with `NA`s
+and the pattern of `NA`s must match between the `Y` and `D` matrices
+(i.e. you should't have observation in a non-existing time interval).
+Integrating data becomes really easy this way, for example:
+
+```{r}
+matrix(c(3, 5, 10, NA, NA, 1:5, 4, 8, NA, NA, NA), 3, byrow=TRUE)
 ```
 
 ### Time-invariant conventional model
@@ -532,111 +543,72 @@ Finite mixture models provide some really nice insight into how singing behavior
 Our findings also indicate that lengthening the count duration from 3 minutes to 5--10 minutes is an important consideration when designing field surveys to increase the accuracy and precision of population estimates. Well-informed survey design combined with various forms of removal sampling are useful in accounting for availability bias in point counts, thereby improving population estimates, and allowing for better integration of disparate studies at larger spatial scales.
 
 
-## Exercises
+```{block2, type='rmdexercise'}
+**Exercise**
 
-- Compare different duration and intervals
-- Pick other species with lower singing rates (10 min p < 1)
+Compare different durations, numbers and lengths of time intervals when estimating vocalization rates.
+
+Estimate vocalization rates for other species (e.g. rare species, specias with less frequent vocalizations). 
+
+Compare linear and polynomial `DAY` effects for migratory and resident species (e.g. BCCH, BOCH, BRCR, CORA, GRAJ, RBNU).
+```
 
 ## Estimating abundance
 
-Exponential model, bSims data
+Let us use the bSims approach to see how well we can estimate abundance
+after accounting for availability. We set `Den` as density ($D$), and because
+area is $A$ = 100 ha by default, the expected value of the abundance ($\lambda$)
+bacomes $AD$, while the actual abundance ($N$) is a realization of that
+based on Poisson distribution ($N \sim Poisson(\lambda)$):
 
 ```{r}
-set.seed(1)
 phi <- 0.5
 Den <- 1
+
+set.seed(1)
 l <- bsims_init()
 a <- bsims_populate(l, density=Den)
-b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+(b <- bsims_animate(a, vocal_rate=phi, move_rate=0))
+```
 
-tint <- 1:5
+The next function we use is `bsims_transcribe` which takes the events data
+and bins it according to time intervals, `tint` defines the end times of
+each interval:
+
+```{r}
+tint <- c(1, 2, 3, 4, 5)
 (tr <- bsims_transcribe(b, tint=tint))
 tr$removal # binned new individuals
 (Y <- sum(tr$removal)) # detected in 0-3 min
-
-fit <- cmulti.fit(tr$removal, matrix(tint, nrow=1), type="rem")
-exp(fit$coef)
-(p <- 1-exp(-max(tint)*exp(fit$coef)))
-
-# Y=NC, N=Y/C=Y/p3
-(N <- sum(a$abundance))
-(Nhat <- Y/p)
-
-# density is N / A
-sum(a$abundance) / sum(a$area)
-Nhat / sum(a$area)
-# area is known, q=1
 ```
 
-Multiple-visit stuff for bSims: the counting of new individuals
-resets for each interval (also: needs equal intervals)
-
-MOVE THIS TO EXTRAS
+After `max(tint)` duration, we detected $Y$ individuals.
+Because $E[Y] = NC$, we only have to estimate the correction factor $C$,
+that happens to be $C=p$ in this case because our bSims world
+ignored the observation process so far. $p$ is estimated based on $\phi$:
 
 ```{r}
-tr$visits
-
-v <- get_events(b, vocal_only=TRUE)
-v <- v[v$t <= max(tint),]
-v1 <- v[!duplicated(v$i),]
-
-tmp <- v1
-tmp$o <- seq_len(nrow(v1))
-plot(o ~ t, tmp, type="n", ylab="Individuals",
-  main="Vocalization events", 
-  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
-for (i in tmp$o) {
-  tmp2 <- v[v$i == v1$i[i],]
-  lines(c(tmp2$t[1], max(tint)), c(i,i), col="grey")
-  points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
-  points(tmp2$t[1], i, pch=19, cex=0.5)
-}
-
-
-plot(o ~ t, tmp, type="n", ylab="Individuals",
-  main="Vocalization events", 
-  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
-for (j in seq_along(tint)) {
-  ii <- if (j == 1)
-    c(0, tint[j]) else c(tint[j-1], tint[j])
-  vv <- v[v$t > ii[1] & v$t <= ii[2],]
-  tmp <- vv[!duplicated(vv$i),]
-  tmp$o <- seq_len(nrow(tmp))
-  if (nrow(tmp)) {
-    for (i in tmp$o) {
-      tmp2 <- vv[vv$i == tmp$i[i],]
-      lines(c(tmp2$t[1], ii[2]), c(i,i), col="grey")
-      points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
-      points(tmp2$t[1], i, pch=19, cex=0.5)
-    }
-  }
-}
-
-library(unmarked)
-
-f <- function() {
-  a <- bsims_populate(l, density=Den)
-  b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
-  tr <- bsims_transcribe(b, tint=tint)
-  drop(tr$visits)
-}
-
-Den <- 0.01
-
-#ymx <- tr$visits
-(ymx <- t(replicate(10, f())))
-
-## highly dependent on K when Den is higher
-nmix <- pcount(~1 ~1, unmarkedFramePCount(y=ymx), K=1000)
-coef(nmix)
-plogis(coef(nmix)[2])
-exp(coef(nmix)[1])
-Den * 100
-
+fit <- cmulti.fit(tr$removal, matrix(tint, nrow=1), type="rem")
+c(true=phi, estimate=exp(fit$coef))
+(p <- 1-exp(-max(tint)*exp(fit$coef)))
 ```
 
+Our estimate of $N$ becomes $Y/C=Y/p$:
 
-Mixture with JOSM
+```{r}
+N <- sum(a$abundance)
+Nhat <- Y/p
+c(true=N, estimate=Nhat)
+```
+
+In this case, area is known, so density becomes:
+
+```{r}
+A <- sum(a$area)
+c(true=N / A, estimate=Nhat / A)
+```
+
+Next we use the `Best` model from our real JOSM bird data analysis:
 
 ```{r}
 spp <- "TEWA"
@@ -645,23 +617,47 @@ Y <- as.matrix(yall[[spp]])
 D <- matrix(c(3, 5, 10), nrow(Y), 3, byrow=TRUE,
   dimnames=dimnames(Y))
 X <- josm$surveys[rownames(Y), c("DAY", "TSSR")]
-ytot <- rowSums(Y)
 
 Best <- get(rownames(M_AIC)[M_AIC$delta_AIC == 0])
 summary(Best)
+```
 
+In this case, availability varies due to `DAY`.
+Our estimate of $N_i$ becomes $Y_i/C_i=Y_i/p_i$:
+
+```{r}
 p <- 1 - plogis(model.matrix(Best) %*% coef(Best)[-1]) *
   exp(-10 * exp(coef(Best)[1]))
 summary(p)
+```
 
-m <- glm(ytot ~ 1, family=poisson, offset=log(p))
-mean(ytot)
-exp(coef(m))
+We can now calculate mean abundance, where `ytot` tallies up the counts
+across the 3 time intervals:
+
+```{r}
+ytot <- rowSums(Y)
+table(ytot)
 mean(ytot / p)
+```
+
+Alternatively, we can fit a GLM and use `log(p)` as an offset:
+
+```{r}
+mod <- glm(ytot ~ 1, family=poisson, offset=log(p))
+summary(mod)
+```
+
+The GLM based estimate comes from the intercept, because
+$E[Y_i]=N_i C_i$ is equivalent to $\lambda_i=e^{\beta_0} e^{o_i}$,
+this $\hat{N_i}=e^{\hat{\beta_0}}$:
+
+```{r}
+exp(coef(mod))
 ```
 
 This result tells us mean abundance after correcting for availability
 bias, but we don't know what area was effectively sampled,
-and detection of individuals given availability is probably less than 1.
-We shall address this problem in the next chapter.
-
+and detection of individuals given availability is probably less than 1
+because this happens to be a real data set and it is guaranteed that
+humans in the forest cannot detect birds that are very far (say > 500 m away).
+We shall address these problem in the next chapter.

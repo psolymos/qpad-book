@@ -65,7 +65,7 @@ points(exp(model.matrix(mBc) %*% coef(mBc)) ~ fitted(mP), col=2)
 abline(0,1)
 ```
 
-### Optimal partitioning
+## Optimal partitioning
 
 ```{r regr-oc,cache=TRUE,eval=FALSE}
 oc <- opticut(as.matrix(ytot) ~ 1, strata = x$HAB, dist="poisson")
@@ -74,7 +74,7 @@ plot(oc)
 
 
 
-### Optilevels
+## Optilevels
 
 When we have categorical or compositional (when e.g. proportions add up to 1, also called
 the unit sum constraint) data,
@@ -118,5 +118,88 @@ head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
 ```
 
 
+## N-mixture models
+
+## Estimating abundance
+
+Exponential model, bSims data
+
+```{r}
+set.seed(1)
+phi <- 0.5
+Den <- 1
+l <- bsims_init()
+a <- bsims_populate(l, density=Den)
+b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+
+tint <- 1:5
+(tr <- bsims_transcribe(b, tint=tint))
+```
+
+Multiple-visit stuff for bSims: the counting of new individuals
+resets for each interval (also: needs equal intervals)
+
+
+```{r}
+tr$visits
+
+v <- get_events(b, vocal_only=TRUE)
+v <- v[v$t <= max(tint),]
+v1 <- v[!duplicated(v$i),]
+
+tmp <- v1
+tmp$o <- seq_len(nrow(v1))
+plot(o ~ t, tmp, type="n", ylab="Individuals",
+  main="Vocalization events", 
+  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
+for (i in tmp$o) {
+  tmp2 <- v[v$i == v1$i[i],]
+  lines(c(tmp2$t[1], max(tint)), c(i,i), col="grey")
+  points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
+  points(tmp2$t[1], i, pch=19, cex=0.5)
+}
+
+
+plot(o ~ t, tmp, type="n", ylab="Individuals",
+  main="Vocalization events", 
+  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
+for (j in seq_along(tint)) {
+  ii <- if (j == 1)
+    c(0, tint[j]) else c(tint[j-1], tint[j])
+  vv <- v[v$t > ii[1] & v$t <= ii[2],]
+  tmp <- vv[!duplicated(vv$i),]
+  tmp$o <- seq_len(nrow(tmp))
+  if (nrow(tmp)) {
+    for (i in tmp$o) {
+      tmp2 <- vv[vv$i == tmp$i[i],]
+      lines(c(tmp2$t[1], ii[2]), c(i,i), col="grey")
+      points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
+      points(tmp2$t[1], i, pch=19, cex=0.5)
+    }
+  }
+}
+
+library(unmarked)
+
+f <- function() {
+  a <- bsims_populate(l, density=Den)
+  b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+  tr <- bsims_transcribe(b, tint=tint)
+  drop(tr$visits)
+}
+
+Den <- 0.01
+
+#ymx <- tr$visits
+(ymx <- t(replicate(10, f())))
+
+## highly dependent on K when Den is higher
+nmix <- pcount(~1 ~1, unmarkedFramePCount(y=ymx), K=1000)
+coef(nmix)
+plogis(coef(nmix)[2])
+exp(coef(nmix)[1])
+Den * 100
+
+```
 
 

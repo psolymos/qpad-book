@@ -30,8 +30,10 @@ load("_data/josm/josm.rda") # JOSM data
 Build a landscape: extent is given in 100 m units
 
 ```{r}
-set.seed(1)
 (l <- bsims_init(extent=10))
+```
+
+```{r fig.width=3,fig.height=3}
 plot(l)
 ```
 
@@ -41,7 +43,11 @@ As a result, we have $N$ birds in the landscape,
 $N \sim Poisson(\lambda)$, $\lambda = DA$:
 
 ```{r}
+set.seed(1)
 (a <- bsims_populate(l, density=0.5))
+```
+
+```{r fig.width=3,fig.height=3}
 plot(a)
 ```
 
@@ -52,6 +58,9 @@ But birds don't just stay put in one place. They move and vocalize:
 (b <- bsims_animate(a, 
   vocal_rate=0.5, duration=10,
   move_rate=1, movement=0.25))
+```
+
+```{r fig.width=3,fig.height=3}
 plot(b)
 ```
 
@@ -67,6 +76,7 @@ head(e)
 v <- get_events(b, vocal_only=TRUE)
 head(v)
 ```
+
 
 ## Survival model
 
@@ -108,6 +118,21 @@ the event times:
 
 ```{r}
 v1 <- v[!duplicated(v$i),]
+
+tmp <- v1
+tmp$o <- seq_len(nrow(v1))
+plot(o ~ t, tmp, type="n", ylab="Individuals",
+  main="Vocalization events", 
+  ylim=c(1, nrow(b$nests)), xlim=c(0,10))
+for (i in tmp$o) {
+  tmp2 <- v[v$i == v1$i[i],]
+  lines(c(tmp2$t[1], 10), c(i,i), col="grey")
+  points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
+  points(tmp2$t[1], i, pch=19, cex=0.5)
+}
+```
+
+```{r}
 (phi <- b$vocal_rate[1])
 (phi_hat <- fitdistr(v1$t, "exponential")$estimate)
 
@@ -217,7 +242,8 @@ summary(Me0)
 (phi_Me0 <- exp(coef(Me0)))
 
 curve(1-exp(-x*phi_Me0), xlim=c(0, 10), ylim=c(0, 1), col=4,
-  xlab="Duration (min)", ylab=expression(p(t[J])), main=spp)
+  xlab="Duration (min)", ylab=expression(p(t[J])), 
+  main=paste(spp, "Me0"))
 points(D[1,], cumsum(colSums(Y))/sum(Y), cex=2, col=3, pch=21)
 ```
 
@@ -292,10 +318,12 @@ proportion of individuals belonging to the groups (`mix`).
 
 ```{r}
 phi <- c(10, 0.5)
-mix <- c(0.2, 0.8)
+mix <- c(0.25, 0.75)
 
-(b <- bsims_animate(a, vocal_rate=phi, mixture=mix))
-b$vocal_rate
+set.seed(1)
+(a2 <- bsims_populate(l, density=1)) # increase density
+(b2 <- bsims_animate(a2, vocal_rate=phi, mixture=mix))
+b2$vocal_rate
 ```
 
 If we plot the time to first detection data, we can see how
@@ -303,7 +331,7 @@ expected distribution (red) is different from the fitted
 Exponential distribution assuming homogeneity:
 
 ```{r}
-v <- get_events(b, vocal_only=TRUE)
+v <- get_events(b2, vocal_only=TRUE)
 v1 <- v[!duplicated(v$i),]
 (phi_hat <- fitdistr(v1$t, "exponential")$estimate)
 
@@ -315,9 +343,7 @@ legend("topright", bty="n", lty=1, col=c(2,4),
   legend=c("Expected (mixture)", "Estimated (exponential)"))
 ```
 
-Now let's visualize the corresponding cumulative distribution function.
-We also bin the events into time intervals defined by interval end times
-in the vector `br` (breaks to be used with `cut`):
+Now let's visualize the corresponding cumulative distribution function:
 
 ```{r}
 br <- 1:10
@@ -368,6 +394,12 @@ Here, for the read bird data set:
 ```{r}
 Mf0 <- cmulti(Y | D ~ 1, type="fmix")
 summary(Mf0)
+cf_Mf0 <- coef(Mf0)
+
+curve(1-plogis(cf_Mf0[2]) * exp(-x*exp(cf_Mf0[1])), 
+  xlim=c(0, 10), ylim=c(0, 1), col=4, main=paste(spp, "Mf0"),
+  xlab="Duration (min)", ylab=expression(p(t[J])))
+points(D[1,], cumsum(colSums(Y))/sum(Y), cex=2, col=3, pch=21)
 ```
 
 ### Time-varying finite mixture removal models
@@ -445,7 +477,7 @@ We did not fit a null model for this parametrization, because it is identical to
 so that model `Mf0` is what we use to compare AIC values and inspect the summary for the best 
 supported model:
 
-``` r
+```{r}
 Mm_AIC <- AIC(Mf0, Mm1, Mm2)
 Mm_AIC$delta_AIC <- Mm_AIC$AIC - min(Mm_AIC$AIC)
 
@@ -483,7 +515,10 @@ par(op)
 
 ## Let the best model win
 
-So which of the 3 parametrizations proved to be best for our Ovenbird example data? It was the finite mixture with time-varying proportion of infrequent singers with a thin margin. Second was the other finite mixture model, while the conventional model was lagging behind.
+So which of the 3 parametrizations proved to be best for our data? 
+It was the finite mixture with time-varying proportion of infrequent singers.
+Second was the other finite mixture model, while the conventional model 
+was lagging behind.
 
 ```{r}
 M_AIC <- AIC(Me_Best, Mf_Best, Mm_Best)
@@ -494,39 +529,137 @@ M_AIC[order(M_AIC$AIC),]
 
 Finite mixture models provide some really nice insight into how singing behavior changes over time and, due to more parameters, they provide a better fit and thus minimize bias in population size estimates. But all this improvement comes with a price: sample size requirements (or more precisely, the number of detections required) are really high. To have all the benefits with reduced variance, one needs about 1000 non-zero observations to fit finite mixture models, 20 times more than needed to reliably fit conventional removal models. This is much higher than previously suggested minimum sample sizes.
 
-Our findings also indicate that lengthening the count duration from 3 minutes to 5&ndash;10 minutes is an important consideration when designing field surveys to increase the accuracy and precision of population estimates. Well-informed survey design combined with various forms of removal sampling are useful in accounting for availability bias in point counts, thereby improving population estimates, and allowing for better integration of disparate studies at larger spatial scales.
+Our findings also indicate that lengthening the count duration from 3 minutes to 5--10 minutes is an important consideration when designing field surveys to increase the accuracy and precision of population estimates. Well-informed survey design combined with various forms of removal sampling are useful in accounting for availability bias in point counts, thereby improving population estimates, and allowing for better integration of disparate studies at larger spatial scales.
 
 
 ## Exercises
 
-Compare different duration and intervals
+- Compare different duration and intervals
+- Pick other species with lower singing rates (10 min p < 1)
 
-Compare how does movement based detection influences estimates (when % increases)
+## Estimating abundance
+
+Exponential model, bSims data
+
+```{r}
+set.seed(1)
+phi <- 0.5
+Den <- 1
+l <- bsims_init()
+a <- bsims_populate(l, density=Den)
+b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+
+tint <- 1:5
+(tr <- bsims_transcribe(b, tint=tint))
+tr$removal # binned new individuals
+(Y <- sum(tr$removal)) # detected in 0-3 min
+
+fit <- cmulti.fit(tr$removal, matrix(tint, nrow=1), type="rem")
+exp(fit$coef)
+(p <- 1-exp(-max(tint)*exp(fit$coef)))
+
+# Y=NC, N=Y/C=Y/p3
+(N <- sum(a$abundance))
+(Nhat <- Y/p)
+
+# density is N / A
+sum(a$abundance) / sum(a$area)
+Nhat / sum(a$area)
+# area is known, q=1
+```
+
+Multiple-visit stuff for bSims: the counting of new individuals
+resets for each interval (also: needs equal intervals)
+
+```{r}
+tr$visits
+
+v <- get_events(b, vocal_only=TRUE)
+v <- v[v$t <= max(tint),]
+v1 <- v[!duplicated(v$i),]
+
+tmp <- v1
+tmp$o <- seq_len(nrow(v1))
+plot(o ~ t, tmp, type="n", ylab="Individuals",
+  main="Vocalization events", 
+  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
+for (i in tmp$o) {
+  tmp2 <- v[v$i == v1$i[i],]
+  lines(c(tmp2$t[1], max(tint)), c(i,i), col="grey")
+  points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
+  points(tmp2$t[1], i, pch=19, cex=0.5)
+}
 
 
-36% of records in BAM is 'heard & seen' and I want to understand how likely the following 2 scenarios are:
+plot(o ~ t, tmp, type="n", ylab="Individuals",
+  main="Vocalization events", 
+  ylim=c(1, nrow(b$nests)), xlim=c(0,max(tint)))
+for (j in seq_along(tint)) {
+  ii <- if (j == 1)
+    c(0, tint[j]) else c(tint[j-1], tint[j])
+  vv <- v[v$t > ii[1] & v$t <= ii[2],]
+  tmp <- vv[!duplicated(vv$i),]
+  tmp$o <- seq_len(nrow(tmp))
+  if (nrow(tmp)) {
+    for (i in tmp$o) {
+      tmp2 <- vv[vv$i == tmp$i[i],]
+      lines(c(tmp2$t[1], ii[2]), c(i,i), col="grey")
+      points(tmp2$t, rep(i, nrow(tmp2)), cex=0.5)
+      points(tmp2$t[1], i, pch=19, cex=0.5)
+    }
+  }
+}
 
-- 'seen and heard' means that visual and auditory detections are independent processes, i.e. if it often happens that you spot a bird by just visually, that would distort availability.
-- or it means that visual and auditory detections are NOT independent processes, i.e after a vocalization the observer also gets a visual.
+library(unmarked)
 
-Both happen, depending to some extent on the species, but more frequently the second scenario.
+f <- function() {
+  a <- bsims_populate(l, density=Den)
+  b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+  tr <- bsims_transcribe(b, tint=tint)
+  drop(tr$visits)
+}
 
-If you hear an individual vocalizing, it is much easier to also get a visual. But you do sometimes just see an individual moving and not vocalizing (more often females). How likely you are to spot those individuals can depend on the species, e.g., some species forage in ways that make them more visible.
+Den <- 0.01
 
-Andy: My experience is that in forests it's almost entirely auditory, and if you see a bird it's almost certainly after it called. The rare exception might be birds foraging on the ground (e.g. thrushes kicking up leaves), or woodpeckers, but again these are usually heard before being seen even though the auditory signal isn't a song or call. In grasslands, however, it's pretty common to see a bird before hearing it.
+#ymx <- tr$visits
+(ymx <- t(replicate(10, f())))
 
-JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn't uncommon to see these individuals before hearing them. Ultimately, to go back to Peter's concern, I do not think that the auditory and visual processes can be considered independent.
+## highly dependent on K when Den is higher
+nmix <- pcount(~1 ~1, unmarkedFramePCount(y=ymx), K=1000)
+coef(nmix)
+plogis(coef(nmix)[2])
+exp(coef(nmix)[1])
+Den * 100
 
-100*table(josm$counts$DetectType1)/sum(table(josm$counts$DetectType1))
+```
 
-- Smaller singing rate species where p(10min) << 1
 
-## Todo
+Mixture with JOSM
 
-- Figure out exercises
-- Apply p as offset to estimate N
-- compare ADp approach to N-mix (multi-visit)
-- make a plot of inds x events, highlighting the 1st detections (ordered), tie in with ecdf
-- explain conditioning in more depth
-- explain: removal vs visits contrast (1st detection resets)
-- add figure to constant mixture model similar to Me0
+```{r}
+spp <- "TEWA"
+
+Y <- as.matrix(yall[[spp]])
+D <- matrix(c(3, 5, 10), nrow(Y), 3, byrow=TRUE,
+  dimnames=dimnames(Y))
+X <- josm$surveys[rownames(Y), c("DAY", "TSSR")]
+ytot <- rowSums(Y)
+
+Best <- get(rownames(M_AIC)[M_AIC$delta_AIC == 0])
+summary(Best)
+
+p <- 1 - plogis(model.matrix(Best) %*% coef(Best)[-1]) *
+  exp(-10 * exp(coef(Best)[1]))
+summary(p)
+
+m <- glm(ytot ~ 1, family=poisson, offset=log(p))
+mean(ytot)
+exp(coef(m))
+mean(ytot / p)
+```
+
+This result tells us mean abundance after correcting for availability
+bias, but we don't know what area was effectively sampled,
+and detection of individuals given availability is probably less than 1.
+We shall address this problem in the next chapter.
+

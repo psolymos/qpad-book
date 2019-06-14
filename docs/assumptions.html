@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-13" />
+<meta name="date" content="2019-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -186,8 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7.2" data-path="behavior.html"><a href="behavior.html#time-varying-finite-mixture-removal-models"><i class="fa fa-check"></i><b>4.7.2</b> Time-varying finite mixture removal models</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
-<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
-<li class="chapter" data-level="4.10" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.10</b> Estimating abundance</a></li>
+<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.9</b> Estimating abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -195,10 +194,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
-<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.1.1</b> Optimal partitioning</a></li>
-<li class="chapter" data-level="9.1.2" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.1.2</b> Optilevels</a></li>
-</ul></li>
+<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a></li>
+<li class="chapter" data-level="9.2" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.2</b> Optimal partitioning</a></li>
+<li class="chapter" data-level="9.3" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.3</b> Optilevels</a></li>
+<li class="chapter" data-level="9.4" data-path="extras.html"><a href="extras.html#n-mixture-models"><i class="fa fa-check"></i><b>9.4</b> N-mixture models</a></li>
+<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-1"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -233,7 +233,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you hear an individual vocalizing, it is much easier to also get a visual. But you do sometimes just see an individual moving and not vocalizing (more often females). How likely you are to spot those individuals can depend on the species, e.g., some species forage in ways that make them more visible.</p>
 <p>Andy: My experience is that in forests it’s almost entirely auditory, and if you see a bird it’s almost certainly after it called. The rare exception might be birds foraging on the ground (e.g. thrushes kicking up leaves), or woodpeckers, but again these are usually heard before being seen even though the auditory signal isn’t a song or call. In grasslands, however, it’s pretty common to see a bird before hearing it.</p>
 <p>JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn’t uncommon to see these individuals before hearing them. Ultimately, to go back to Peter’s concern, I do not think that the auditory and visual processes can be considered independent.</p>
-<p>100*table(josm<span class="math inline">\(counts\)</span>DetectType1)/sum(table(josm<span class="math inline">\(counts\)</span>DetectType1))</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>) <span class="co"># JOSM data</span>
+
+<span class="dv">100</span><span class="op">*</span><span class="kw">table</span>(josm<span class="op">$</span>counts<span class="op">$</span>DetectType1)<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(josm<span class="op">$</span>counts<span class="op">$</span>DetectType1))</code></pre>
+<pre><code>## 
+##      C      S      V 
+## 17.528 79.829  2.643</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">aa &lt;-<span class="st"> </span><span class="kw">table</span>(josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID, josm<span class="op">$</span>counts<span class="op">$</span>DetectType1)
+bb &lt;-<span class="st"> </span>aa[,<span class="st">&quot;V&quot;</span>]<span class="op">/</span><span class="kw">rowSums</span>(aa)
+<span class="kw">hist</span>(bb)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(bb[bb <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.2</span>])</code></pre>
+<pre><code>##   ATTW   EAKI   TRES   BAEA   OSPR   BOGU   AMWI   MALL   MERL   RBGU 
+## 0.2414 0.2500 0.2520 0.3333 0.3333 0.3663 0.4444 0.4615 0.5000 0.5000 
+##   SPGR   SSHA   AMKE   BLBW   CAGU   RNDU   NOHA   BLTE   BUFF   BWTE 
+## 0.5000 0.5714 0.6364 0.6452 0.6667 0.8462 0.8571 0.9310 1.0000 1.0000 
+##   COGO   COHA   DCCO   GWTE   HOLA   NHOW   NSHO   RTHU   WWSC   CANV 
+## 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000 
+##   NOPI 
+## 1.0000</code></pre>
 
 </div>
             </section>

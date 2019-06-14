@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-13" />
+<meta name="date" content="2019-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -186,8 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7.2" data-path="behavior.html"><a href="behavior.html#time-varying-finite-mixture-removal-models"><i class="fa fa-check"></i><b>4.7.2</b> Time-varying finite mixture removal models</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
-<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#exercises"><i class="fa fa-check"></i><b>4.9</b> Exercises</a></li>
-<li class="chapter" data-level="4.10" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.10</b> Estimating abundance</a></li>
+<li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.9</b> Estimating abundance</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
@@ -195,10 +194,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
-<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.1.1</b> Optimal partitioning</a></li>
-<li class="chapter" data-level="9.1.2" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.1.2</b> Optilevels</a></li>
-</ul></li>
+<li class="chapter" data-level="9.1" data-path="extras.html"><a href="extras.html#binomial-model-and-censoring"><i class="fa fa-check"></i><b>9.1</b> Binomial model and censoring</a></li>
+<li class="chapter" data-level="9.2" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.2</b> Optimal partitioning</a></li>
+<li class="chapter" data-level="9.3" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.3</b> Optilevels</a></li>
+<li class="chapter" data-level="9.4" data-path="extras.html"><a href="extras.html#n-mixture-models"><i class="fa fa-check"></i><b>9.4</b> N-mixture models</a></li>
+<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-1"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -249,18 +249,7 @@ rest of the book/course.</p>
 <span class="kw">library</span>(raster)               <span class="co"># reading raster files</span></code></pre>
 <pre><code>## Loading required package: sp</code></pre>
 <pre><code>## 
-## Attaching package: &#39;sp&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:unmarked&#39;:
-## 
-##     coordinates</code></pre>
-<pre><code>## 
 ## Attaching package: &#39;raster&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
-## 
-##     extract</code></pre>
-<pre><code>## The following objects are masked from &#39;package:unmarked&#39;:
-## 
-##     getData, projection</code></pre>
 <pre><code>## The following objects are masked from &#39;package:MASS&#39;:
 ## 
 ##     area, select</code></pre>

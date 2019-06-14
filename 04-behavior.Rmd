@@ -33,7 +33,7 @@ Build a landscape: extent is given in 100 m units
 (l <- bsims_init(extent=10))
 ```
 
-```{r fig.width=3,fig.height=3}
+```{r fig.width=8,fig.height=8}
 plot(l)
 ```
 
@@ -47,7 +47,7 @@ set.seed(1)
 (a <- bsims_populate(l, density=0.5))
 ```
 
-```{r fig.width=3,fig.height=3}
+```{r fig.width=8,fig.height=8}
 plot(a)
 ```
 
@@ -60,7 +60,7 @@ But birds don't just stay put in one place. They move and vocalize:
   move_rate=1, movement=0.25))
 ```
 
-```{r fig.width=3,fig.height=3}
+```{r fig.width=8,fig.height=8}
 plot(b)
 ```
 
@@ -570,6 +570,8 @@ Nhat / sum(a$area)
 
 Multiple-visit stuff for bSims: the counting of new individuals
 resets for each interval (also: needs equal intervals)
+
+MOVE THIS TO EXTRAS
 
 ```{r}
 tr$visits

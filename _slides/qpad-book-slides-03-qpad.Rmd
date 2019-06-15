@@ -1,0 +1,64 @@
+---
+title: "QPAD"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 25 June 2019"
+author: "Peter Solymos"
+fontsize: 11pt
+urlcolor: blue
+output:
+  beamer_presentation:
+    theme: "Singapore"
+    incremental: false
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup,include=FALSE}
+options(width=53, scipen=999)
+library(knitr)
+```
+
+# Checking in
+
+1. ~~Introduction~~
+2. ~~Organizing and processing point count data~~
+3. ~~A primer in regression techniques~~
+
+Short break
+
+4. ~~Behavioral complexities~~
+5. The detection process
+
+Luch break
+
+6. Dealing with recordings
+7. A closer look at assumptions
+
+Short break
+
+8. Understanding roadside surveys
+9. Miscellaneous topics
+
+Dismissal
+
+***
+# About the course
+
+You'll learn
+
+- how to analyze your point count data when it combines different methodologies/protocols/technologies,
+- how to violate assumptions and get away with it.
+
+***
+
+# Effects can be significant
+
+\centering
+```{r echo=FALSE,out.width="200px"}
+include_graphics("../images/matsuoka-2014-fig-2.png")
+```
+
+10-min unlimited count ~300% increase over 3-min 50-m count. 
+Average across 54 species of boreal songbirds[^1].
+
+[^1]: Matsuoka et al. 2014, [Condor 116:599--608](http://dx.doi.org/10.1650/CONDOR-14-108.1).
+

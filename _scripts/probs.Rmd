@@ -1,0 +1,182 @@
+---
+title: "Probabilities with offsets"
+author: "Peter Solymos (solymos@ualberta.ca)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    toc: no
+    toc_depth: 2
+    fig_caption: no
+  html_document:
+    toc: no
+---
+
+# Motivation
+
+Our count data for species usually consists of >90\% zeros, the rest being 1s, few 2s, sometimes >2 counts. The >0 count part involves the locations where during a survey the species was detected. This implies that the true occupancy status of the species is 1. However, we cannot say what the true occupancy status is for a survey with a 0 observation. It might be due to true absence or due to nondetection of a presence.
+
+# Quantifying false negatives
+
+To quantify how likely it is that true occupancy status is 1, but we observed a 0, we need to calculate the probability of true abundance at the survey plot is >0 count given that we observed a none, $P[N>0|Y=0]$.
+
+If we know the probability of occurrence ($\varphi$) and the probability of
+detection ($\delta$), we can calculate the probability $P[N>0|Y=0]$ as:
+
+$$ P[N>0|Y=0] = \frac{P[N>0,Y=0]}{P[W=0]} = \frac{\varphi (1-\delta)}{(1-\varphi) + \varphi (1-\delta)} $$
+
+# Recap of QPAD based corrections
+
+We follow the usual notation here. One difference is that we differentiate `EDRunlim` which is the EDR in the sense of an unlimited radius count. `EDRtrunc` is the EDR when detection distance is truncated at a finite value (usually multiples of 50 m). The two quantities (when sampling area is known vs. unknown, i.e. the the distance is truncated vs. unlimited) are identical when we use the EDR-logic: for a fixed 50 m radius count, we can either use the know area ($r^2\pi$) and probability of detection ($q$), or effective area ($EDR_{trunc}^2\pi$, when $q=1$).
+
+```{r}
+D = 0.6
+p = 0.75
+EDRunlim = 0.9
+r = 0.5
+
+(q <- EDRunlim^2 * (1-exp(-r^2/EDRunlim^2))/r^2)
+(EDRtrunc <- EDRunlim * sqrt(1-exp(-r^2/EDRunlim^2)))
+
+## A known
+D * r^2*pi * p * q
+## A unknown
+D * EDRtrunc^2*pi * p * 1
+```
+
+# Conditional probability for counts
+
+We can now substitute the probabilities from QPAD: $\varphi=1-e^{-\lambda}=1-e^{DA}$ and 
+$\delta=pq$ (I am now ignoring what quantities are known or estimated).
+
+When sampling area is known, we can calculate the probability quite easily:
+
+```{r}
+phi <- 1-exp(-D*r^2*pi)
+delta <- p*q
+(P = (phi * (1-delta)) / ((1-phi) + (phi * (1-delta))))
+```
+
+The problem is that most point counts are unlimited, and often using a single $[0-\infty)$ distance interval that makes truncation impossible.
+When the distance is not truncated, we can use the EDR-logic and substitute $EDR_{trunc}$ and $q=1$. However, the different scaling for the 2 probabilities makes EDR based calculations biased when sampling area is unknown:
+
+```{r}
+phi <- 1-exp(-D*EDRtrunc^2*pi)
+delta <- p*1
+(P = (phi * (1-delta)) / ((1-phi) + (phi * (1-delta))))
+```
+
+The shape of the relationship depends on $D$ and $p$ as well as EDR. The following code can be used to get a sense of the difficulties: left plot shows the relationship between the probabilities with varying point count radius, the right plot shows the ratio of the 2 probabilities as a function of point count radius ($r$, measured in in 100 meters units).
+
+```{r}
+f1 <- function(r, D=1, p=1, EDRunlim=1) {
+
+    q <- EDRunlim^2 * (1-exp(-r^2/EDRunlim^2))/r^2
+    EDRtrunc <- EDRunlim * sqrt(1-exp(-r^2/EDRunlim^2))
+    
+
+    ## A known
+    phi <- 1-exp(-D*r^2*pi)
+    delta <- p*q
+    P1 = (phi * (1-delta)) / ((1-phi) + (phi * (1-delta)))
+    
+    ## A unknown
+    phi <- 1-exp(-D*EDRtrunc^2*pi)
+    delta <- p*1
+    P2 = (phi * (1-delta)) / ((1-phi) + (phi * (1-delta)))
+
+    c(Aknown=P1, Aunknown=P2)
+}
+
+f2 <- function(..., Max=5, By=0.01) {
+    Val <- seq(0, Max, by=By)
+    Val[1] <- 0.0001
+    x <- t(sapply(Val, f1, ...))
+    data.frame(r=Val, x)
+}
+f3 <- function(...) {
+    x <- f2(...)
+    main <- list(...)
+    op <- par(mfrow=c(1,2))
+    plot(Aknown ~ Aunknown, x, type="l",
+        main=paste(names(main), main, sep="=", collapse=", "))
+    abline(0,1,lty=2)
+    plot(Aknown/Aunknown ~ r, x, type="l")
+    par(op)
+    invisible(x)
+}
+```
+
+```{r fig.width=6,fig.height=3}
+f3(D=0.6, p=0.75, EDR=0.9)
+```
+
+```{r fig.width=6,fig.height=3}
+f3(D=1.2, p=0.9, EDR=1.2)
+```
+
+```{r fig.width=6,fig.height=3}
+f3(D=0.6, p=0.25, EDR=0.9)
+```
+
+```{r fig.width=6,fig.height=3}
+f3(D=0.3, p=0.25, EDR=0.5)
+```
+
+Effect of varying $D$:
+
+```{r fig.width=6,fig.height=3}
+Dvals <- seq(0.3, 1.2, by=0.1)
+Cols <- colorRampPalette(c("red", "blue"))(length(Dvals))
+z <- lapply(Dvals, function(i) f2(D=i, p=0.75, EDR=0.9))
+op <- par(mfrow=c(1,2))
+plot(Aknown ~ Aunknown, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown ~ Aunknown, z[[i]], col=Cols[i])
+abline(0,1,lty=2)
+legend("topleft", bty="n", lty=1, lwd=2, col=c("red", "blue"), 
+    legend=c("low D", "high D"))
+plot(Aknown/Aunknown ~ r, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown/Aunknown ~ r, z[[i]], col=Cols[i])
+par(op)
+```
+
+Effect of varying $p$:
+
+```{r fig.width=6,fig.height=3}
+pvals <- seq(0.95, 0.05, by=-0.05)
+Cols <- colorRampPalette(c("blue", "red"))(length(pvals))
+z <- lapply(pvals, function(i) f2(D=0.6, p=i, EDR=0.9))
+op <- par(mfrow=c(1,2))
+plot(Aknown ~ Aunknown, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown ~ Aunknown, z[[i]], col=Cols[i])
+abline(0,1,lty=2)
+legend("topleft", bty="n", lty=1, lwd=2, col=c("blue", "red"), 
+    legend=c("high p", "low p"))
+plot(Aknown/Aunknown ~ r, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown/Aunknown ~ r, z[[i]], col=Cols[i])
+par(op)
+```
+
+Effect of varying EDR:
+
+```{r fig.width=6,fig.height=3}
+evals <- seq(0.5, 1.5, by=0.1)
+Cols <- colorRampPalette(c("red", "blue"))(length(evals))
+z <- lapply(evals, function(i) f2(D=0.6, p=0.75, EDR=i))
+op <- par(mfrow=c(1,2))
+plot(Aknown ~ Aunknown, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown ~ Aunknown, z[[i]], col=Cols[i])
+abline(0,1,lty=2)
+legend("topleft", bty="n", lty=1, lwd=2, col=c("red", "blue"), 
+    legend=c("low EDR", "high EDR"))
+plot(Aknown/Aunknown ~ r, z[[1]], type="l", col=Cols[1])
+for (i in 2:length(z))
+    lines(Aknown/Aunknown ~ r, z[[i]], col=Cols[i])
+par(op)
+```
+
+

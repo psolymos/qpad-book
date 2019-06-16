@@ -1,0 +1,173 @@
+---
+title: "Estimating effective detection radius from playback"
+author: "Solymos, Leston, Yip, & Bayne"
+date: "August 28, 2015"
+output: pdf_document
+---
+
+## Distance function
+
+The shape of the distance function describes how detection probability
+attenuates as a function of distance from observer ($d$).
+The distance function is a strictly monotinic decreasing function with
+increasing distance. There are many different mathematical formulations
+to describe the shape. We choose the half-Normal distance function
+because of its simplicity, and because its standard deviation parameter ($\tau$)
+is directly interpretable as effective detection radius (EDR)
+for unlimited (i.e. not truncated) point counts in bird surveys.
+The distance function can be written as: $p(d) = exp(-d^2 / \tau^2)$.
+
+```{r,echo=FALSE,fig.cap='Distance function'}
+d <- 0:200
+plot(d, exp(-d^2/60^2), type="l", col=1, lwd=2,
+    xlab="Distance (m)", ylab="Detection probability, p(d)")
+lines(d, exp(-d^2/80^2), type="l", col=2, lwd=2)
+lines(d, exp(-d^2/100^2), type="l", col=4, lwd=2)
+lines(c(60,60), c(0, exp(-1)), lty=2, col=1)
+lines(c(80,80), c(0, exp(-1)), lty=2, col=2)
+lines(c(100,100), c(0, exp(-1)), lty=2, col=4)
+legend("topright", bty="n", lty=1, col=c(1,2,4), lwd=2,
+    legend=c("EDR = 60 m", "EDR = 80 m", "EDR = 100 m"))
+```
+
+EDR is an important distance, because for unlimited counts, the area of the point
+count is unknown. EDR gives the radius of the circle where the expected value
+of available individuals not detected equals the expected value of the
+detected individuals outside of that distance. Thus, the effective area
+sampled can be estimated from EDR as $\hat{A} = \hat{\tau}^2 \pi = \hat{EDR}^2 \pi$.
+
+## Playback data and model
+
+Playback based data consists of souds transmitted from various known distances.
+This then recorded and processed in the lab. Simultaneously, a human observer
+is making detections in the field.
+The results is a binary reponse variable ($Y \in (0, 1)$). 
+The distribution this random variable can be discribed by a Bernoulli 
+distribution: $(Y \mid d) \sim Bernoulli(p(d))$, where $p(d)$ follows the 
+distance function with the unknown parameter $\tau$.
+
+## Estimating EDR from playback data
+
+Bernoulli type data isu usually analyzed using logistic regression, or
+Binomial GLM (with Binomial size = 1) using a logistic link function.
+This approach, although totally acceptable, would not lead to an
+instant estimate of EDR. Estimating EDR would involve numerical integration
+using the estimated logistic based distance function to find the radius
+where the volume above the curve inside of EDR equals the volume under the curve
+outside of EDR.
+
+Instead of Binomial GLM followed by numerical integration, we choose to
+use a different link function.
+
+### Log link
+
+By taking the log of the distance function we get: 
+$log(p(d)) = -d^2 / \tau^2 = x \frac{1}{\tau^2} = 0 + x \beta$.
+This means that by (1) using a log-link, and (2) fixing the intercept at 0,
+we can estimate a function of EDR using a simple linear modelling framework.
+The linear predictor is a transformation of the known distance: $x = -d^2$.
+The estimate $\hat{\beta}$ can be used to calculate EDR as:
+$\hat{\tau}=\sqrt{1/\hat{\beta}}$.
+
+### Complementary log-log link
+
+A complementary log-log link is often used to analyze 0/1 data interpreted as
+a right-censored Poisson distribution.
+
+This result highlight that the complementary log-log link (cloglog) can 
+be used to approximate the log-link in logistic regression.
+
+Factors and covariates affecting EDR can be incorporated as interactions 
+*without* main effects in the model.
+
+## Simulation study, proof of concept
+
+First we simulat data under the known model using EDR = 80 m.
+
+```{r}
+n <- 500
+tau <- 80 # edr in meters
+d <- sample(0:400, n, replace=TRUE) # distance in meters
+x <- -d^2 # transformed distance
+p <- exp(-d^2 / tau^2) # probs for half-normal distance function
+y <- rbinom(n, 1, p)
+```
+
+The simulated data is then analyzed using the `glm` function in R as follows:
+
+```{r}
+m <- glm(y ~ x - 1, family=binomial("cloglog"))
+(edr <- sqrt(1/coef(m)))
+```
+
+We can compare the true and estimated distance function to see
+how well those agree (on the probability and on the log scale).
+
+
+```{r,echo=FALSE}
+op <- par(mfrow=c(1,2))
+plot(d[order(d)], p[order(d)], type="l", lwd=2,
+     xlab="Distance (m)", ylab="Probability")
+rug(d[y==0], side=1)
+rug(d[y==1], side=3)
+lines(d[order(d)], exp(-d[order(d)]^2 / edr^2), col=2, lwd=2)
+
+plot(d[order(d)]^2, log(p[order(d)]), type="l", lwd=2,
+    xlab="-Distance^2", ylab="log(Probability)")
+rug(d[y==0]^2, side=1)
+rug(d[y==1], side=3)
+lines(d[order(d)]^2, log(exp(-d[order(d)]^2 / edr^2)), col=2, lwd=2)
+legend("topright", bty="n", lty=1, col=c(1,2), lwd=2,
+    legend=c("Truth", "Estimate"))
+par(op)
+```
+
+## Parametric bootstrap to compare habitat specific ERDs
+
+## Simulation study, proof of concept
+
+Simulat data under the known model using EDR = 80 m in Habitat A and EDR = 100 m in Habitat B.
+
+```{r}
+n <- 500
+tauA <- 50
+tauB <- 150
+d <- sample(0:400, n, replace=TRUE) # distance in meters
+x <- -d^2 # transformed distance
+H <- as.factor(rep(c("A","B"), each=n/2))
+p <- exp(-d^2 / ifelse(H=="A", tauA, tauB)^2)
+y <- rbinom(n, 1, p)
+```
+
+The simulated data is then analyzed using the `glm` function in R as follows:
+
+```{r}
+df <- data.frame(y, H01=ifelse(H=="B", 1, 0), x)
+m <- glm(y ~ x + x:H01 - 1, data=df, family=binomial("cloglog"))
+summary(m)
+cf <- coef(m)
+cf[-1] <- cf[-1]+cf[1]
+
+(edr <- sqrt(1/cf))
+```
+
+Simulate from the fitted model:
+```{r warning=FALSE,message=FALSE}
+f <- fitted(m)
+
+bres <- list()
+for (i in 1:100) {
+    y_star <- rbinom(length(f), 1, f)
+    df_star <- data.frame(y=y_star, H01=ifelse(H=="B", 1, 0), x)
+    m_star <- glm(y ~ x + x:H01 - 1, data=df_star, family=binomial("cloglog"))
+    cf_star <- coef(m_star)
+    cf_star[-1] <- cf_star[-1]+cf_star[1]
+    
+    (edr_star <- sqrt(1/cf_star))
+    bres[[i]] <- edr_star
+}
+
+bres_mat <- do.call(rbind, bres)
+apply(bres_mat, 2, quantile, c(0.05, 0.95))
+```
+

@@ -1,11 +1,51 @@
 # The Detection Process {#detection}
 
+## Introduction
+
+As part of the detection process, a skilled observer
+counts individual birds at a count station.
+New individuals are assigned to time and distance categories,
+the type of behavior also registered.
+During this process, auditory cues travel through
+the distance between the bird and the observer.
+As the pover of the sound fades away, the
+chanches of being detected also decreases.
+If the detection process is based on visual detections,
+vegetation can block line of sight, etc.
+In this chapter, we scrutinize how this detection process
+contributes to the factor $C$.
+
+## Prerequisites
+
+```{r det-libs,message=FALSE,warning=FALSE}
+library(bSims)                # simulations
+library(detect)               # multinomial models
+load("_data/josm/josm.rda")   # JOSM data
+```
+
+bSims
+
+distance functions
+
+stats of DS, integral + plots
+
 EDR, tau constant
 
 truncated, unlimited
+
+JOSM data
 
 variable tau: habitat effect (continuous case?)
 
 discrete: land cover, observer effects
 
 contrast fixed effects with offsets -- motivation for ARU
+
+## End of section
+
+Sometimes, a recording is made at the survey location
+that is listened to and transcribed in the lab
+using headphones and possibly a computer screen.
+This presents new challenges, and also new opportunities
+for analysis of count data.
+

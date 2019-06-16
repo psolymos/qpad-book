@@ -21,7 +21,7 @@ learning about the nature of the mechanisms contributing to $C$.
 ```{r beh-libs,message=FALSE,warning=FALSE}
 library(bSims)                # simulations
 library(detect)               # multinomial models
-load("_data/josm/josm.rda") # JOSM data
+load("_data/josm/josm.rda")   # JOSM data
 ```
 
 ## Birds in the forest
@@ -591,6 +591,22 @@ ignored the observation process so far. $p$ is estimated based on $\phi$:
 fit <- cmulti.fit(tr$removal, matrix(tint, nrow=1), type="rem")
 c(true=phi, estimate=exp(fit$coef))
 (p <- 1-exp(-max(tint)*exp(fit$coef)))
+
+tt <- seq(0, 10, 0.01)
+plot(tt, 1-exp(-tt*phi), type="l", ylim=c(0, 1),
+  ylab="P(availability)", xlab="Duration", lty=2)
+lines(tt, 1-exp(-tt*exp(fit$coef)))
+for (i in seq_len(length(tint))) {
+  ii <- c(0, tint)[c(i, i+1)]
+  ss <- tt >= ii[1] & tt <= ii[2]
+  xi <- tt[ss]
+  yi <- 1-exp(-xi*exp(fit$coef))
+  polygon(c(xi, xi[length(xi)]), c(yi, yi[1]),
+    border=NA, col="#0000ff33")
+}
+legend("bottomright", bty="n", lty=c(2, 1, NA), 
+  fill=c(NA, NA, "#0000ff33"), border=NA, 
+  legend=c("True", "Estimated", "'New individuals'"))
 ```
 
 Our estimate of $N$ becomes $Y/C=Y/p$:

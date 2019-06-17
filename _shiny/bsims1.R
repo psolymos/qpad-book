@@ -134,8 +134,8 @@ server <- function(input, output) {
   })
   dfun <- reactive({
     switch(input$dfun,
-      "halfnormal"=function(d, tau) exp(-d^2/tau^2),
-      "negexp"    =function(d, tau) exp(-d/tau^2),
+      "halfnormal"=function(d, tau) exp(-(d/tau)^2),
+      "negexp"    =function(d, tau) exp(-d/tau),
       "hazrate"   =function(d, tau) 1-exp(-(d/tau)^-input$bpar)
     )
   })

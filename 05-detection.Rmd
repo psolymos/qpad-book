@@ -23,13 +23,206 @@ library(detect)               # multinomial models
 load("_data/josm/josm.rda")   # JOSM data
 ```
 
-bSims
 
-distance functions
+## Distance functions
+
+The distance function ($g(r)$ describes the probability of detecting an individual
+given the distance between the observer and the individual ($r$).
+The detection itself is often triggered by visual or auditory cues,
+and thus depend on the individuals being available for detection 
+(and of course being present in the survey area).
+
+Distance functions have some characteristics:
+
+- It is a monotonic decreasing function of distance,
+- $g(0)=1$: detection at 0 distance is perfect.
+
+Here are some common distance function and rationale for their use
+(i.e. mechanisms leading to such distance shapes):
+
+1. Negative Exponential: a one-parameter function ($g(r) = e^{-r/\tau}$), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
+2. Half-Normal: this is also a one-parameter function ($g(r) = e^{-(r/\tau)^2}$) where probability initially remain high (the _shoulder_), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly ($\tau^2$ is variance of the unfolded Normal distribution, $\tau^2/2$ is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of $g(r) = e^{-(r/\tau)^b}$ that have the parameter $b$ [$b > 0$] affecting the shoulder);
+3. Hazard rate: this is a two-parameter model ($g(r) = 1-e^{-(r/\tau)^-b}$) that have the parameter $b$ ($b > 0$) affecting the more pronounced and sharp shoulder.
+
+
+```{r fig.show='hold',out.width='33%'}
+r <- seq(0, 2, 0.01)
+plot(r, exp(-r/0.8), type="l", col=4, ylim=c(0,1),
+  xlab="Distance (100 m)", ylab="P(detection)", main="Negative Exponential")
+plot(r, exp(-(r/0.8)^2), type="l", col=4, ylim=c(0,1),
+  xlab="Distance (100 m)", ylab="P(detection)", main="Half-Normal")
+plot(r, 1-exp(-(r/0.8)^-4), type="l", col=4, ylim=c(0,1),
+  xlab="Distance (100 m)", ylab="P(detection)", main="Hazard rate")
+```
+
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Try different values of $b$ to explore the different shapes of the Hazard rate function.
+
+Write your own code (`plot(r, exp(-(r/<tau>)^<b>), type="l", ylim=c(0,1))`), or run `shiny::runApp("_shiny/distancefun.R")`.
+```
+
+We will apply this new found knowledge to our bSims world:
+the observer is in the middle of the landscape, and each vocalization
+event is aither detected or not, depending on the distance.
+Units of `tau` are given on 100 m units, so that corresponding density estimates
+will refer to ha as the unit area.
+
+```{r}
+set.seed(1)
+l <- bsims_init()
+a <- bsims_populate(l, density=5)
+b <- bsims_animate(a, vocal_rate=0.5, move_rate=0)
+(d <- bsims_detect(b, tau=2))
+```
+
+```{r fig.width=8,fig.height=8}
+plot(d)
+```
+
+The `get_detections` function returns a data frame with the
+detected events: `$d` is the distance, `$a` is the angle
+(in degrees, counter clock-wise from positive x axis):
+
+```{r}
+head(rd <- get_detections(d, first_only=TRUE))
+```
+
+
+## Distance sampling
+
+The distribution of the observed distances is a product of detectability
+(also referred to as perceptibility, to distinguish from availability)
+and the distribution of the individuals with respect to the point where
+the observer is located.
+For point counts, area increases linearly with radial distance, 
+implying a triangular distribution with respect to the point
+($h(r)=\pi 2 r /A=\pi 2 r / \pi r_{max}^2=2 r / r_{max}^2$, where 
+$A$ is a circular survey area with truncation distance $r_{max}$).
+
+Note: these functions are called closures, returning a function and also encapsulating the
+arguments (`tau`, `b`, `hazard`, `rmax`) from the parent calls:
+
+```{r}
+g <- function(tau, b=2, hazard=FALSE)
+  if (hazard)
+    function(r) 1-exp(-(r/tau)^-b) else function(r) exp(-(r/tau)^b)
+h <- function(r, rmax=1)
+  function(r) 2*r/rmax^2
+```
+
+```{r fig.show='hold',out.width='33%'}
+rmax <- 2
+r <- seq(0, rmax, 0.01)
+plot(r, g(tau=1)(r), type="l", col=4, ylim=c(0,1),
+  xlab="r", ylab="g(r)", main="Prob. of detection")
+plot(r, h(rmax)(r), type="l", col=4,
+  xlab="r", ylab="h(r)", main="PDF of distances")
+plot(r, g(tau=1)(r) * h(rmax)(r), type="l", col=4,
+  xlab="r", ylab="g(r) h(r)", main="Density of observed distances")
+```
+
+The product $g(h) h(r)$ gives the probability density function of the observed distances.
+
+
+ADD HERE how this matches with simulated distances etc
+SOMEHOW control for availability?
+
+Use distances to estimate tau (optim or Distance package)
+
+```{r warning=FALSE}
+set.seed(1)
+l <- bsims_init()
+a <- bsims_populate(l, density=10)
+b <- bsims_animate(a, initial_location=TRUE)
+d <- bsims_detect(b, tau=2, vocal_only=FALSE)
+
+dt <- get_detections(d)
+
+ra <- sqrt(rowSums(a$nests[,c("x", "y")]^2))
+
+xy <- a$nests[,c("x", "y")]
+
+
+tau <- 2
+rmax <- 5
+
+h <- function(r) 2*r/rmax^2
+g <- function(r) exp(-r^2/tau^2)
+
+n <- 10^4
+x <- a$nests$x
+y <- a$nests$y
+r <- sqrt(x^2 + y^2)
+p <- g(r)
+s <- rbinom(n, 1, p)
+
+plot(x, y, pch=c(21, 19)[s+1], asp=1)
+abline(h=0, v=0)
+
+hist(r[r < rmax], freq=FALSE)
+curve(2*x/rmax^2, add=TRUE, col=2)
+
+
+f <- function(x) g(x) * h(x)
+tot <- integrate(f, lower=0, upper=rmax)$value
+
+hist(r[r < rmax & s > 0], freq=FALSE)
+curve(g(x) * h(x) / tot, add=TRUE, col=2)
+
+
+
+
+rmax <- 4
+
+## distances
+hist(ra[ra < rmax], freq=FALSE)
+curve(2*x/rmax^2, add=TRUE, col=2)
+
+## observed distances
+f <- function(r) g(tau=d$tau)(r) * h(rmax)(r)
+(isum <- integrate(f, lower=0, upper=rmax)$value)
+
+hist(dt$d[dt$d < rmax], freq=FALSE)
+#hist(dt$d, freq=FALSE)
+curve(f(x)/isum, 0,10,add=TRUE)
+```
+
+Then show binned data and cmulti.fit results
+
+To calculate the average probability of detecting individuals
+within a circle with truncation distance $r_{max}$, we need to
+integrate over the product of $g(r)$ and $h(r)$: $q(r_{max})=\int_{0}^{r_{max}} g(r) h(r) dr$.
+
+We can use the `g` and `h` functions with `integrate`:
+
+```{r}
+fun <- function(r, tau, b=2, hazard=FALSE, rmax=1) {
+  g(tau, b, hazard)(r) * h(rmax)(r)
+}
+qfun <- function(rmax, ...) {
+  integrate(fun, lower=0, upper=rmax, rmax=rmax, ...)$value
+}
+qfun <- Vectorize(qfun, "rmax")
+
+
+plot(r, qfun(r, tau=1), type="l", col=4,
+  xlab=expression(r[max]), ylab=expression(q(r[max])), main="Average prob. of detection")
+```
+
 
 stats of DS, integral + plots
 
 EDR, tau constant
+
+For the Half-Normal detection function, the analytical solution for the average probability
+is $(\tau^2/r_{max}^2)[1-exp(-r^2/\tau^2)]$, and can be seen that $\tau$ is the
+_effective detection radius_ (EDR). EDR is the distance where
+The effective detection radius is the distance from observer 
+where the number of individuals missed within EDR equals the number of individuals
+detected outside of EDR.
 
 truncated, unlimited
 

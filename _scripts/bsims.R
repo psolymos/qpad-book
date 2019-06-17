@@ -394,3 +394,36 @@ for (i in 1:nstep) {
 im <- image_read(paste0("temp/", list.files("temp", pattern=".png")))
 an <- image_animate(im)
 image_write(an, "temp/bsims.gif")
+
+
+
+## distance sampling
+## https://cran.r-project.org/web/packages/DSsim/vignettes/Investigating_Covariates_and_Truncation.html
+
+tau <- 2
+rmax <- 5
+
+h <- function(r) 2*r/rmax^2
+g <- function(r) exp(-r^2/tau^2)
+
+n <- 10^4
+x <- runif(n, -10, 10)
+y <- runif(n, -10, 10)
+r <- sqrt(x^2 + y^2)
+p <- g(r)
+s <- rbinom(n, 1, p)
+
+plot(x, y, pch=c(21, 19)[s+1], asp=1)
+abline(h=0, v=0)
+
+hist(r[r < rmax], freq=FALSE)
+curve(2*x/rmax^2, add=TRUE, col=2)
+
+
+f <- function(x) g(x) * h(x)
+tot <- integrate(f, lower=0, upper=rmax)$value
+
+hist(r[r < rmax & s > 0], freq=FALSE)
+curve(g(x) * h(x) / tot, add=TRUE, col=2)
+
+

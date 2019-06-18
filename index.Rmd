@@ -105,7 +105,8 @@ notation, so having RStudio will make our life easier. RStudio is also available
 ## Installing required packages {-}
 
 ```{r eval=FALSE}
-pkgs <- c("bookdown", "detect", "devtools", "dismo", "forecast", 
+pkgs <- c("bookdown", "detect", "devtools", "dismo", 
+  "Distance", "forecast", 
   "glmnet", "gbm", "intrval", "knitr", "lme4", "maptools", "mefa4", 
   "mgcv", "MuMIn", "opticut", "partykit", "pscl", "raster", 
   "ResourceSelection", "shiny", "sp", "unmarked", "visreg")

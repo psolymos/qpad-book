@@ -458,9 +458,9 @@ c(true=Den, estimate=Dhat)
 Need to check that replication does give justice to the approach
 
 ```{r}
-phi <- 0.2
+phi <- 0.4
 tau <- 0.8
-Den <- 10
+Den <- 1
 
 tint <- c(1, 2, 3)
 rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
@@ -477,7 +477,7 @@ sim_fun <- function() {
   tr$rem
 }
 
-B <- 20
+B <- 200
 res <- pbapply::pbreplicate(B, sim_fun(), simplify=FALSE)
 
 ## need one excluding unlimited bin

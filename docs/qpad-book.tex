@@ -128,7 +128,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-14}
+    \date{2019-06-18}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -272,7 +272,8 @@ notation, so having RStudio will make our life easier. RStudio is also available
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pkgs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{, }\StringTok{"detect"}\NormalTok{, }\StringTok{"devtools"}\NormalTok{, }\StringTok{"dismo"}\NormalTok{, }\StringTok{"forecast"}\NormalTok{, }
+\NormalTok{pkgs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{, }\StringTok{"detect"}\NormalTok{, }\StringTok{"devtools"}\NormalTok{, }\StringTok{"dismo"}\NormalTok{, }
+  \StringTok{"Distance"}\NormalTok{, }\StringTok{"forecast"}\NormalTok{, }
   \StringTok{"glmnet"}\NormalTok{, }\StringTok{"gbm"}\NormalTok{, }\StringTok{"intrval"}\NormalTok{, }\StringTok{"knitr"}\NormalTok{, }\StringTok{"lme4"}\NormalTok{, }\StringTok{"maptools"}\NormalTok{, }\StringTok{"mefa4"}\NormalTok{, }
   \StringTok{"mgcv"}\NormalTok{, }\StringTok{"MuMIn"}\NormalTok{, }\StringTok{"opticut"}\NormalTok{, }\StringTok{"partykit"}\NormalTok{, }\StringTok{"pscl"}\NormalTok{, }\StringTok{"raster"}\NormalTok{, }
   \StringTok{"ResourceSelection"}\NormalTok{, }\StringTok{"shiny"}\NormalTok{, }\StringTok{"sp"}\NormalTok{, }\StringTok{"unmarked"}\NormalTok{, }\StringTok{"visreg"}\NormalTok{)}
@@ -364,8 +365,8 @@ To compare apples to apples, we need to agree on a comparable
 measurement scheme, or at least figure out how does \emph{effort}
 affect the observations.
 
-Effort in our example can depend on, e.g.
-the \emph{area} of the physical space searched,
+Effort in our example can depend on,
+e.g.~the \emph{area} of the physical space searched,
 the amount of \emph{time} spent, etc.
 The outcome might further affected by
 weather, time of year, time of day, location,
@@ -2401,7 +2402,7 @@ Final battle of Poisson models:
 \begin{verbatim}
 ## Model selection table 
 ##         (Int)    Dcd  Dcd^2  Dcd^3  Dcd^4   DEC HAB     CnW CnW:Dcd s(Dcd)
-## mGAM2 -0.6242                                                             
+## mGAM2 -0.6251                                                             
 ## mGAM  -0.5606                                                            +
 ## mP14  -2.6640 16.640 -38.60 41.470 -16.31                                 
 ## mP13  -2.3910 11.400 -16.31  8.066                                        
@@ -2414,16 +2415,16 @@ Final battle of Poisson models:
 ## mP0   -0.1243                                                             
 ##       s(Dcd,CnW) class df logLik  AICc   delta weight
 ## mGAM2          +   gam 27  -5160 10376    0.00      1
-## mGAM               gam  9  -5209 10438   61.73      0
-## mP14               glm  5  -5215 10441   65.05      0
-## mP13               glm  4  -5226 10461   85.15      0
-## mP12               glm  3  -5269 10544  167.77      0
-## mP5                glm  4  -5271 10549  173.62      0
-## mP4                glm  3  -5392 10791  414.81      0
-## mP1                glm  2  -5442 10887  511.33      0
-## mP3                glm  9  -5572 11162  785.69      0
-## mP2                glm  2  -5621 11246  869.98      0
-## mP0                glm  1  -6285 12573 2197.20      0
+## mGAM               gam  9  -5209 10438   61.11      0
+## mP14               glm  5  -5215 10441   64.42      0
+## mP13               glm  4  -5226 10461   84.53      0
+## mP12               glm  3  -5269 10544  167.14      0
+## mP5                glm  4  -5271 10549  172.99      0
+## mP4                glm  3  -5392 10791  414.18      0
+## mP1                glm  2  -5442 10887  510.71      0
+## mP3                glm  9  -5572 11162  785.06      0
+## mP2                glm  2  -5621 11246  869.35      0
+## mP0                glm  1  -6285 12573 2196.58      0
 ## Models ranked by AICc(x)
 \end{verbatim}
 
@@ -2445,7 +2446,7 @@ Final battle of Poisson models:
 ## mP4      0.24    0.24  1786.40 7424.78 5638.38 4568.00 4566.00 < 2e-16 ***
 ## mP5      0.27    0.27  2029.60 7424.78 5395.18 4568.00 4565.00 < 2e-16 ***
 ## mGAM     0.29    0.29  2152.63 7424.78 5272.15 4568.00 4559.00 5.5e-13 ***
-## mGAM2    0.30    0.30  2250.62 7424.78 5174.16 4568.00 4539.00 8.5e-11 ***
+## mGAM2    0.30    0.30  2250.35 7424.78 5174.43 4568.00 4539.00 8.4e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
@@ -2715,7 +2716,7 @@ We can use the \texttt{lme4::glmer} function: use \texttt{SiteID} as random effe
 ## (Intercept)     -0.7518     0.0675   -11.1   <2e-16 ***
 ## Decid            1.2847     0.0920    14.0   <2e-16 ***
 ## ConifWet        -2.3380     0.1625   -14.4   <2e-16 ***
-## Decid:ConifWet   5.6326     0.4119    13.7   <2e-16 ***
+## Decid:ConifWet   5.6326     0.4118    13.7   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -2772,8 +2773,8 @@ the \(j\) (\(j=1,...,n_i\)) defines the sites within survey area \(i\)
 ##                Estimate Std. Error z value Pr(>|z|)    
 ## (Intercept)     -0.7459     0.0783   -9.53   <2e-16 ***
 ## Decid            1.1967     0.0984   12.16   <2e-16 ***
-## ConifWet        -2.3213     0.1687  -13.76   <2e-16 ***
-## Decid:ConifWet   5.5346     0.3978   13.91   <2e-16 ***
+## ConifWet        -2.3213     0.1686  -13.77   <2e-16 ***
+## Decid:ConifWet   5.5346     0.3977   13.92   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -2975,21 +2976,21 @@ We can estimate the effect of the methodology:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -1.312  -1.273  -1.147   0.391   3.980  
+## -1.309  -1.263  -1.162   0.369   3.616  
 ## 
 ## Coefficients:
 ##       Estimate Std. Error z value Pr(>|z|)    
-## methA  -0.4186     0.0314  -13.32  < 2e-16 ***
-## methB  -0.2100     0.0282   -7.44  1.0e-13 ***
-## methC  -0.1502     0.0280   -5.37  7.9e-08 ***
+## methA  -0.3929     0.0309  -12.70  < 2e-16 ***
+## methB  -0.2255     0.0289   -7.79  6.6e-15 ***
+## methC  -0.1550     0.0277   -5.60  2.1e-08 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 7233.2  on 4569  degrees of freedom
-## Residual deviance: 6938.6  on 4566  degrees of freedom
-## AIC: 11646
+##     Null deviance: 7225.2  on 4569  degrees of freedom
+## Residual deviance: 6941.8  on 4566  degrees of freedom
+## AIC: 11657
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3002,7 +3003,7 @@ We can estimate the effect of the methodology:
 
 \begin{verbatim}
 ##  methA  methB  methC 
-## 0.6580 0.8106 0.8605
+## 0.6751 0.7981 0.8564
 \end{verbatim}
 
 Or the effect of the continuous predictor and the method (discrete):
@@ -3021,22 +3022,22 @@ Or the effect of the continuous predictor and the method (discrete):
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.279  -0.953  -0.740   0.447   4.568  
+## -2.278  -0.939  -0.736   0.457   4.201  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -1.4616     0.0460  -31.80  < 2e-16 ***
-## Decid         2.1450     0.0573   37.41  < 2e-16 ***
-## methB         0.1669     0.0423    3.95  7.9e-05 ***
-## methC         0.3027     0.0421    7.19  6.4e-13 ***
+## (Intercept)  -1.4416     0.0457  -31.56  < 2e-16 ***
+## Decid         2.1490     0.0574   37.43  < 2e-16 ***
+## methB         0.1347     0.0424    3.18   0.0015 ** 
+## methC         0.2705     0.0415    6.51  7.3e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6983.3  on 4568  degrees of freedom
-## Residual deviance: 5443.8  on 4565  degrees of freedom
-## AIC: 10153
+##     Null deviance: 6976.3  on 4568  degrees of freedom
+## Residual deviance: 5442.7  on 4565  degrees of freedom
+## AIC: 10159
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3057,7 +3058,7 @@ Or the effect of the continuous predictor and the method (discrete):
 
 \begin{verbatim}
 ## (Intercept)       Decid       methB       methC 
-##      0.2319      8.5421      1.1816      1.3535
+##      0.2365      8.5766      1.1442      1.3106
 \end{verbatim}
 
 The fixed effects adjusts the means well:
@@ -3081,7 +3082,7 @@ The fixed effects adjusts the means well:
 
 \begin{verbatim}
 ##         methB  methC 
-## 0.6737 0.7960 0.9118
+## 0.6737 0.7708 0.8829
 \end{verbatim}
 
 But it is all relative, depends on reference methodology/protocol.
@@ -3106,21 +3107,21 @@ Let's try something else:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.291  -0.953  -0.731   0.448   4.548  
+## -2.284  -0.939  -0.731   0.453   4.195  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)   -1.7157     0.0704  -24.36  < 2e-16 ***
-## Decid          2.1473     0.0573   37.47  < 2e-16 ***
-## I(log(tmax))   0.2456     0.0343    7.16  8.2e-13 ***
+## (Intercept)   -1.6777     0.0702  -23.91  < 2e-16 ***
+## Decid          2.1504     0.0574   37.48  < 2e-16 ***
+## I(log(tmax))   0.2218     0.0340    6.53  6.7e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6983.3  on 4568  degrees of freedom
-## Residual deviance: 5444.9  on 4566  degrees of freedom
-## AIC: 10152
+##     Null deviance: 6976.3  on 4568  degrees of freedom
+## Residual deviance: 5443.0  on 4566  degrees of freedom
+## AIC: 10158
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3276,7 +3277,7 @@ We compare the counts within the 0-50 and 0-100 m circles:
 \section{Offsets}\label{offsets}}
 
 Offsets are constant terms in the linear predictor,
-e.g.~\(log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i\),
+e.g. \(log(\lambda_i) = \beta_0 + \beta_1 x_{1i} + o_i\),
 where \(o_i\) is an offset. In the survey area case,
 an offset might be the log of area surveyed.
 The logic for this is based on point processes:
@@ -3372,20 +3373,20 @@ Methodology effect:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -1.261  -1.261  -0.759   0.221   3.720  
+## -1.256  -1.256  -0.775   0.228   3.731  
 ## 
 ## Coefficients:
 ##       Estimate Std. Error z value Pr(>|z|)    
-## methA  -1.2444     0.0392  -31.77   <2e-16 ***
-## methB  -0.2290     0.0234   -9.81   <2e-16 ***
+## methA  -1.2040     0.0375  -32.10   <2e-16 ***
+## methB  -0.2370     0.0240   -9.87   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 7387.0  on 4569  degrees of freedom
-## Residual deviance: 5683.8  on 4567  degrees of freedom
-## AIC: 9171
+##     Null deviance: 7299.4  on 4569  degrees of freedom
+## Residual deviance: 5587.9  on 4567  degrees of freedom
+## AIC: 9066
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3397,8 +3398,8 @@ Methodology effect:
 \end{Shaded}
 
 \begin{verbatim}
-##  methA  methB 
-## 0.2881 0.7953
+## methA methB 
+## 0.300 0.789
 \end{verbatim}
 
 Predictor and method effects:
@@ -3417,21 +3418,21 @@ Predictor and method effects:
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.209  -0.855  -0.589   0.244   3.577  
+## -2.185  -0.847  -0.584   0.274   4.347  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.3275     0.0567   -41.0   <2e-16 ***
-## Decid         2.1961     0.0689    31.9   <2e-16 ***
-## methB         1.0284     0.0456    22.6   <2e-16 ***
+## (Intercept)  -2.2719     0.0554   -41.0   <2e-16 ***
+## Decid         2.1706     0.0690    31.4   <2e-16 ***
+## methB         0.9804     0.0445    22.0   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6247.1  on 4568  degrees of freedom
-## Residual deviance: 4595.6  on 4566  degrees of freedom
-## AIC: 8085
+##     Null deviance: 6110.2  on 4568  degrees of freedom
+## Residual deviance: 4531.0  on 4566  degrees of freedom
+## AIC: 8011
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3452,7 +3453,7 @@ Predictor and method effects:
 
 \begin{verbatim}
 ## (Intercept)       Decid       methB 
-##     0.09754     8.98996     2.79646
+##      0.1031      8.7632      2.6654
 \end{verbatim}
 
 \begin{Shaded}
@@ -3474,7 +3475,7 @@ Predictor and method effects:
 
 \begin{verbatim}
 ##         methB 
-## 0.2924 0.8177
+## 0.2924 0.7794
 \end{verbatim}
 
 Use log area as continuous predictor:
@@ -3496,21 +3497,21 @@ abundance scale.
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.209  -0.855  -0.589   0.244   3.577  
+## -2.185  -0.847  -0.584   0.274   4.347  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.1483     0.0523   -41.1   <2e-16 ***
-## Decid         2.1961     0.0689    31.9   <2e-16 ***
-## logA          0.7418     0.0329    22.6   <2e-16 ***
+## (Intercept)  -2.1011     0.0513   -40.9   <2e-16 ***
+## Decid         2.1706     0.0690    31.4   <2e-16 ***
+## logA          0.7072     0.0321    22.0   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 6247.1  on 4568  degrees of freedom
-## Residual deviance: 4595.6  on 4566  degrees of freedom
-## AIC: 8085
+##     Null deviance: 6110.2  on 4568  degrees of freedom
+## Residual deviance: 4531.0  on 4566  degrees of freedom
+## AIC: 8011
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3543,20 +3544,20 @@ The offset forces the relationship to be 1:1
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.305  -0.842  -0.525   0.234   3.600  
+## -2.302  -0.836  -0.512   0.260   4.219  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -2.3658     0.0453   -52.2   <2e-16 ***
-## Decid         2.2031     0.0690    31.9   <2e-16 ***
+## (Intercept)  -2.3374     0.0453   -51.6   <2e-16 ***
+## Decid         2.1758     0.0690    31.5   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 5746.0  on 4568  degrees of freedom
-## Residual deviance: 4653.6  on 4567  degrees of freedom
-## AIC: 8141
+##     Null deviance: 5671.1  on 4568  degrees of freedom
+## Residual deviance: 4609.2  on 4567  degrees of freedom
+## AIC: 8087
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -3587,7 +3588,7 @@ The offset forces the relationship to be 1:1
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2173 0.8691
+## [1] 0.2200 0.8798
 \end{verbatim}
 
 \BeginKnitrBlock{rmdexercise}
@@ -3639,7 +3640,7 @@ learning about the nature of the mechanisms contributing to \(C\).
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(bSims)                }\CommentTok{# simulations}
 \KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
-\KeywordTok{load}\NormalTok{(}\StringTok{"_data/josm/josm.rda"}\NormalTok{) }\CommentTok{# JOSM data}
+\KeywordTok{load}\NormalTok{(}\StringTok{"_data/josm/josm.rda"}\NormalTok{)   }\CommentTok{# JOSM data}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3666,7 +3667,7 @@ Build a landscape: extent is given in 100 m units
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 We have a 100 ha landscape that we populate with birds,
 1 bird / ha using a Poisson spatial point process.
@@ -3693,7 +3694,7 @@ As a result, we have \(N\) birds in the landscape,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 The locations can be seen as nest locations (\texttt{a\$nests} stores the locations).
 But birds don't just stay put in one place. They move and vocalize:
@@ -3720,7 +3721,7 @@ But birds don't just stay put in one place. They move and vocalize:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 The \texttt{get\_events} function, as the name implies, extracts the events:
 movements (\texttt{\$v} is 0) and vocalizations (\texttt{\$v} is 1) alike,
@@ -3795,7 +3796,7 @@ the event times:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3829,7 +3830,7 @@ the event times:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 Now let's visualize the corresponding cumulative distribution function.
 We also bin the events into time intervals defined by interval end times
@@ -3862,7 +3863,7 @@ in the vector \texttt{br} (breaks to be used with \texttt{cut}):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \hypertarget{removal-model}{%
 \section{Removal model}\label{removal-model}}
@@ -4092,7 +4093,7 @@ as part of the \texttt{cmulti} call:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 \hypertarget{time-varying-conventional-removal-model}{%
 \subsection{Time-varying conventional removal model}\label{time-varying-conventional-removal-model}}
@@ -4178,7 +4179,7 @@ but also how the cumulative distribution changes with time.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4269,7 +4270,7 @@ Exponential distribution assuming homogeneity:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Now let's visualize the corresponding cumulative distribution function:
 
@@ -4300,7 +4301,7 @@ Now let's visualize the corresponding cumulative distribution function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 We use the \texttt{detect::cmulti} function to fit the finite mixture model:
 
@@ -4408,7 +4409,7 @@ Here, for the read bird data set:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-57-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-58-1.pdf}
 
 \hypertarget{time-varying-finite-mixture-removal-models}{%
 \subsection{Time-varying finite mixture removal models}\label{time-varying-finite-mixture-removal-models}}
@@ -4492,7 +4493,7 @@ We produce a similar plot as before.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-61-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4578,7 +4579,7 @@ We produce a similar plot as before:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-63-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-64-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4713,6 +4714,28 @@ ignored the observation process so far. \(p\) is estimated based on \(\phi\):
 \begin{verbatim}
 ## [1] 0.8702
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tt <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(tt, }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{tt}\OperatorTok{*}\NormalTok{phi), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{ylab=}\StringTok{"P(availability)"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Duration"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(tt, }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{tt}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(fit}\OperatorTok{$}\NormalTok{coef)))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_len}\NormalTok{(}\KeywordTok{length}\NormalTok{(tint))) \{}
+\NormalTok{  ii <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, tint)[}\KeywordTok{c}\NormalTok{(i, i}\OperatorTok{+}\DecValTok{1}\NormalTok{)]}
+\NormalTok{  ss <-}\StringTok{ }\NormalTok{tt }\OperatorTok{>=}\StringTok{ }\NormalTok{ii[}\DecValTok{1}\NormalTok{] }\OperatorTok{&}\StringTok{ }\NormalTok{tt }\OperatorTok{<=}\StringTok{ }\NormalTok{ii[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  xi <-}\StringTok{ }\NormalTok{tt[ss]}
+\NormalTok{  yi <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{xi}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(fit}\OperatorTok{$}\NormalTok{coef))}
+  \KeywordTok{polygon}\NormalTok{(}\KeywordTok{c}\NormalTok{(xi, xi[}\KeywordTok{length}\NormalTok{(xi)]), }\KeywordTok{c}\NormalTok{(yi, yi[}\DecValTok{1}\NormalTok{]),}
+    \DataTypeTok{border=}\OtherTok{NA}\NormalTok{, }\DataTypeTok{col=}\StringTok{"#0000ff33"}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NA}\NormalTok{), }
+  \DataTypeTok{fill=}\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"#0000ff33"}\NormalTok{), }\DataTypeTok{border=}\OtherTok{NA}\NormalTok{, }
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"True"}\NormalTok{, }\StringTok{"Estimated"}\NormalTok{, }\StringTok{"'New individuals'"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 Our estimate of \(N\) becomes \(Y/C=Y/p\):
 
@@ -4884,15 +4907,575 @@ We shall address these problem in the next chapter.
 \hypertarget{detection}{%
 \chapter{The Detection Process}\label{detection}}
 
+\hypertarget{introduction-3}{%
+\section{Introduction}\label{introduction-3}}
+
+As part of the detection process, a skilled observer
+counts individual birds at a count station.
+New individuals are assigned to time and distance categories,
+the type of behavior also registered.
+During this process, auditory cues travel through
+the distance between the bird and the observer.
+As the pover of the sound fades away, the
+chanches of being detected also decreases.
+If the detection process is based on visual detections,
+vegetation can block line of sight, etc.
+In this chapter, we scrutinize how this detection process
+contributes to the factor \(C\).
+
+\hypertarget{prerequisites-3}{%
+\section{Prerequisites}\label{prerequisites-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(bSims)                }\CommentTok{# simulations}
+\KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
+\KeywordTok{library}\NormalTok{(Distance)             }\CommentTok{# distance sampling}
+\KeywordTok{load}\NormalTok{(}\StringTok{"_data/josm/josm.rda"}\NormalTok{)   }\CommentTok{# JOSM data}
+\KeywordTok{source}\NormalTok{(}\StringTok{"functions.R"}\NormalTok{)         }\CommentTok{# some useful stuff}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{distance-functions}{%
+\section{Distance functions}\label{distance-functions}}
+
+The distance function (\(g(r)\) describes the probability of detecting an individual
+given the distance between the observer and the individual (\(r\)).
+The detection itself is often triggered by visual or auditory cues,
+and thus depend on the individuals being available for detection
+(and of course being present in the survey area).
+
+Distance functions have some characteristics:
+
+\begin{itemize}
+\tightlist
+\item
+  It is a monotonic decreasing function of distance,
+\item
+  \(g(0)=1\): detection at 0 distance is perfect.
+\end{itemize}
+
+Here are some common distance function and rationale for their use
+(i.e.~mechanisms leading to such distance shapes):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Negative Exponential: a one-parameter function (\(g(r) = e^{-r/\tau}\)), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
+\item
+  Half-Normal: this is also a one-parameter function (\(g(r) = e^{-(r/\tau)^2}\)) where probability initially remain high (the \emph{shoulder}), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly (\(\tau^2\) is variance of the unfolded Normal distribution, \(\tau^2/2\) is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of \(g(r) = e^{-(r/\tau)^b}\) that have the parameter \(b\) {[}\(b > 0\){]} affecting the shoulder);
+\item
+  Hazard rate: this is a two-parameter model (\(g(r) = 1-e^{-(r/\tau)^-b}\)) that have the parameter \(b\) (\(b > 0\)) affecting the more pronounced and sharp shoulder.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Negative Exponential"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Half-Normal"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^-}\DecValTok{4}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Hazard rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-3}
+
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
+
+Try different values of \(b\) to explore the different shapes of the Hazard rate function.
+
+Write your own code (\texttt{plot(r,\ exp(-(r/\textless{}tau\textgreater{})\^{}\textless{}b\textgreater{}),\ type="l",\ ylim=c(0,1))}), or run \texttt{shiny::runApp("\_shiny/distancefun.R")}.
+\EndKnitrBlock{rmdexercise}
+
+We will apply this new found knowledge to our bSims world:
+the observer is in the middle of the landscape, and each vocalization
+event is aither detected or not, depending on the distance.
+Units of \texttt{tau} are given on 100 m units, so that corresponding
+density estimates will refer to ha as the unit area.
+
+In this example, we want all individuals to be equally available,
+so we are going to override all behavioral aspects of the simulations
+by the \texttt{initial\_location} argument when calling \texttt{bsims\_animate}.
+We set \texttt{density} and \texttt{tau} high enough to detections in this example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tau <-}\StringTok{ }\DecValTok{2}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
+\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\DecValTok{10}\NormalTok{)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{initial_location=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{(d <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{vocal_only=}\OtherTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims detections
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 1013
+##   total duration: 10
+##   detected: 128 seen/heard
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-80-1.pdf}
+
+\hypertarget{distance-sampling}{%
+\section{Distance sampling}\label{distance-sampling}}
+
+The distribution of the \emph{observed distances} is a product of detectability
+and the distribution of the individuals with respect to the point where
+the observer is located.
+For point counts, area increases linearly with radial distance,
+implying a triangular distribution with respect to the point
+(\(h(r)=\pi 2 r /A=\pi 2 r / \pi r_{max}^2=2 r / r_{max}^2\), where
+\(A\) is a circular survey area with truncation distance \(r_{max}\)).
+The product \(g(r) h(r)\) gives the density function of the observed distances.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (hazard)}
+    \DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^-}\NormalTok{b) }\ControlFlowTok{else} \KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\NormalTok{b)}
+\NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, rmax)}
+  \DecValTok{2}\OperatorTok{*}\NormalTok{r}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rmax <-}\StringTok{ }\DecValTok{4}
+
+\NormalTok{r <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax, }\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{g}\NormalTok{(r, tau), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Prob. of detection"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{h}\NormalTok{(r, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"h(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"PDF of distances"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{g}\NormalTok{(r, tau) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(r, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(r) h(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Density of observed distances"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-3}
+
+The object \texttt{ra} contains the distances to all the nests
+based on our bSims object,
+we use this to display the distribution of available distances:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ra <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(a}\OperatorTok{$}\NormalTok{nests[,}\KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{)]}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+
+\KeywordTok{hist}\NormalTok{(ra[ra }\OperatorTok{<=}\StringTok{ }\NormalTok{rmax], }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax),}
+  \DataTypeTok{xlab=}\StringTok{"Available distances (r <= rmax)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{x}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-83-1.pdf}
+
+The \texttt{get\_detections} function returns a data frame with the
+detected events (in our case just the nest locations):
+\texttt{\$d} is the distance, \texttt{\$a} is the angle
+(in degrees, counter clock-wise from positive x axis).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(dt <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(d))}
+\end{Highlighting}
+\end{Shaded}
+
+The following code plots the probability density of the
+observed distances within the truncation distance \(r_{max}\),
+thus we need to standardize the \(g(r) h(r)\) function
+by the integral sum:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{rmax=}\DecValTok{1}\NormalTok{) }
+  \KeywordTok{g}\NormalTok{(r, tau, b, hazard) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(r, rmax)}
+\NormalTok{tot <-}\StringTok{ }\KeywordTok{integrate}\NormalTok{(f, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{upper=}\NormalTok{rmax, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{rmax=}\NormalTok{rmax)}\OperatorTok{$}\NormalTok{value}
+
+\KeywordTok{hist}\NormalTok{(dt}\OperatorTok{$}\NormalTok{d[dt}\OperatorTok{$}\NormalTok{d }\OperatorTok{<=}\StringTok{ }\NormalTok{rmax], }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax),}
+  \DataTypeTok{xlab=}\StringTok{"Observed distances (r <= rmax)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{f}\NormalTok{(x, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{rmax=}\NormalTok{rmax) }\OperatorTok{/}\StringTok{ }\NormalTok{tot, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-85-1.pdf}
+
+In case of the Half-Normal, we can linearize the relationship
+by taking the log of the distance function:
+\(log(g(r)) =log(e^{-(r/\tau)^2})= -(r / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta\).
+Consequently, we can use GLM to fit a model with \(x = -r^2\) as
+predictor and no intercept, and estimate \(\hat{\beta}\) and
+\(\hat{\tau}=\sqrt{1/\hat{\beta}}\).
+
+For this method to work, we need to know the observed and
+unobserved distances as well,
+which makes this approach of low utility in practice when
+location of unobserved individuals is unknown.
+But we can at least check our bSims data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{distance=}\NormalTok{ra, }
+  \DataTypeTok{x=}\OperatorTok{-}\NormalTok{ra}\OperatorTok{^}\DecValTok{2}\NormalTok{, }
+  \DataTypeTok{detected=}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(d}\OperatorTok{$}\NormalTok{nests) }\OperatorTok{%in%}\StringTok{ }\NormalTok{dt}\OperatorTok{$}\NormalTok{i, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\KeywordTok{summary}\NormalTok{(dat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     distance           x             detected    
+##  Min.   :0.226   Min.   :-49.33   Min.   :0.000  
+##  1st Qu.:2.876   1st Qu.:-23.74   1st Qu.:0.000  
+##  Median :3.965   Median :-15.72   Median :0.000  
+##  Mean   :3.827   Mean   :-16.69   Mean   :0.126  
+##  3rd Qu.:4.872   3rd Qu.: -8.27   3rd Qu.:0.000  
+##  Max.   :7.024   Max.   : -0.05   Max.   :1.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(detected }\OperatorTok{~}\StringTok{ }\NormalTok{x }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data=}\NormalTok{dat, }\DataTypeTok{family=}\KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link=}\StringTok{"log"}\NormalTok{))}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{estimate=}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\KeywordTok{coef}\NormalTok{(mod)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       true estimate.x 
+##      2.000      2.034
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\KeywordTok{coef}\NormalTok{(mod)))}\OperatorTok{^}\DecValTok{2}\NormalTok{), }
+  \DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{max}\NormalTok{(dat}\OperatorTok{$}\NormalTok{distance)), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{rug}\NormalTok{(dat}\OperatorTok{$}\NormalTok{distance[dat}\OperatorTok{$}\NormalTok{detected }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{], }\DataTypeTok{side=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{rug}\NormalTok{(dat}\OperatorTok{$}\NormalTok{distance[dat}\OperatorTok{$}\NormalTok{detected }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], }\DataTypeTok{side=}\DecValTok{3}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"True"}\NormalTok{, }\StringTok{"Estimated"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-87-1.pdf}
+
+The Distance package offers various tools to fit
+models to observed distance data.
+See \href{https://workshops.distancesampling.org/duke-spatial-2015/practicals/1-detection-functions-solutions.html}{here} for a tutorial.
+The following script fits the Half-Normal (\texttt{key\ =\ "hn"})
+without ajustments (\texttt{adjustment=NULL}) to\\
+observed distance data from truncated point transect.
+It estimates \(\sigma = \sqrt{\tau}\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dd <-}\StringTok{ }\KeywordTok{ds}\NormalTok{(dt}\OperatorTok{$}\NormalTok{d, }\DataTypeTok{truncation =}\NormalTok{ rmax, }\DataTypeTok{transect=}\StringTok{"point"}\NormalTok{, }
+  \DataTypeTok{key =} \StringTok{"hn"}\NormalTok{, }\DataTypeTok{adjustment=}\OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fitting half-normal key function
+\end{verbatim}
+
+\begin{verbatim}
+## Key only model: not constraining for monotonicity.
+\end{verbatim}
+
+\begin{verbatim}
+## AIC= 315.502
+\end{verbatim}
+
+\begin{verbatim}
+## No survey area information supplied, only estimating detection function.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{estimate=}\KeywordTok{exp}\NormalTok{(dd}\OperatorTok{$}\NormalTok{ddf}\OperatorTok{$}\NormalTok{par)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    2.000    2.176
+\end{verbatim}
+
+\hypertarget{average-detection}{%
+\section{Average detection}\label{average-detection}}
+
+To calculate the average probability of detecting individuals
+within a circle with truncation distance \(r_{max}\), we need to
+integrate over the product of \(g(r)\) and \(h(r)\):
+\(q(r_{max})=\int_{0}^{r_{max}} g(r) h(r) dr\).
+This gives the volume of pie dough cut at \(r_{max}\),
+compared to the volume of the cookie cutter (\(\pi r_{max}^2\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(r[r }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{], }\ControlFlowTok{function}\NormalTok{(z)}
+  \KeywordTok{integrate}\NormalTok{(f, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{upper=}\NormalTok{z, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{rmax=}\NormalTok{z)}\OperatorTok{$}\NormalTok{value)}
+
+\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, q), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(r[max]), }\DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{q}\NormalTok{(r[max])), }
+  \DataTypeTok{main=}\StringTok{"Average prob. of detection"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-89-1.pdf}
+
+For the Half-Normal detection function, the analytical solution for the
+average probability is
+\(\pi \tau^2 [1-exp(-r^2/\tau^2)] / (\pi r_{max}^2)\),
+where the denominator is a normalizing constant
+representing the volume of a cylinder of perfect detectability.
+
+To visualize this, here is the pie analogy for
+\(\tau=2\) and \(r_{max}=2\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tau <-}\StringTok{ }\DecValTok{2}
+\NormalTok{rmax <-}\StringTok{ }\DecValTok{2}
+\NormalTok{w <-}\StringTok{ }\FloatTok{0.1}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }\DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{yh <-}\StringTok{ }\KeywordTok{g}\NormalTok{(rmax, }\DataTypeTok{tau=}\NormalTok{tau)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{),}
+  \KeywordTok{g}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, yh, rmax, w, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, rmax, w)}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, rmax, w, }\DataTypeTok{border=}\StringTok{"grey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-90-1.pdf}
+
+\hypertarget{binned-distances}{%
+\section{Binned distances}\label{binned-distances}}
+
+The cumulative density function for the Half-Normal
+distribution (\(\pi(r) = 1-e^{-(r/\tau)^2}\)) is used to calculate
+cell probabilities for binned distance data
+(the normalizing constant is the area of the integral \(\pi \tau^2\),
+instead of \(\pi r_{max}^2\)).
+It captures the proportion of the observed distances
+relative to the whole volume of the observed distance density.
+In the pie analogy, this is the dough volume inside
+the cookie cutter, compared to the dough volume inside and outside
+of the cutter (that happens to be \(\pi \tau^2\) for the Half-Normal):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m <-}\StringTok{ }\DecValTok{2}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\NormalTok{m}\OperatorTok{*}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }
+  \DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{yh <-}\StringTok{ }\KeywordTok{g}\NormalTok{(rmax, }\DataTypeTok{tau=}\NormalTok{tau)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)),}
+  \KeywordTok{g}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau),}
+  \DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{),}
+  \KeywordTok{g}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, yh, rmax, w, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, rmax, w)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-91-1.pdf}
+
+In case of the Half-Normal distance function,
+\(\tau\) is the \emph{effective detection radius} (EDR).
+The effective detection radius is the distance from observer
+where the number of individuals missed within EDR
+(volume of `air' in the cookie cutter above the dough)
+equals the number of individuals detected outside of EDR
+(dough volume outside the cookie cutter),
+EDR is the radius \(r_e\) where \(q(r_e)=\pi(r_e)\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\NormalTok{m}\OperatorTok{*}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }
+  \DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{yh <-}\StringTok{ }\KeywordTok{g}\NormalTok{(rmax, }\DataTypeTok{tau=}\NormalTok{tau)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)),}
+  \KeywordTok{g}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau),}
+  \DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{),}
+  \KeywordTok{g}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, yh, rmax, w, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, rmax, w)}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, rmax, w, }\DataTypeTok{border=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-92-1.pdf}
+
+The function \(\pi(r)\) increases monotonically from 0 to 1:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{pi}\NormalTok{(r)), }\DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(r), }
+  \DataTypeTok{main=}\StringTok{"Cumulative density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-93-1.pdf}
+
+Here are binned distances for the bSims data, with expected
+proportions based on \(\pi()\) cell probabilities
+(differences within the distance bins).
+The nice thing about this cumulative density formulation
+is that it applies equally to truncated and unlimited
+(not truncated) distance data, and the radius end point
+for a bin (stored in \texttt{br}) can be infinite:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{br <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
+\NormalTok{dat}\OperatorTok{$}\NormalTok{bin <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(ra, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{(counts <-}\StringTok{ }\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{table}\NormalTok{(bin, detected)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          detected
+## bin         0   1
+##   [0,1]     7  27
+##   (1,2]    42  53
+##   (2,3]   111  32
+##   (3,4]   227  13
+##   (4,5]   287   2
+##   (5,Inf] 211   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi_br <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(br}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+
+\KeywordTok{barplot}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{]}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{]), }\DataTypeTok{space=}\DecValTok{0}\NormalTok{, }\DataTypeTok{col=}\OtherTok{NA}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"Distance bins (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Proportions"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(}\KeywordTok{length}\NormalTok{(br))}\OperatorTok{-}\FloatTok{0.5}\NormalTok{, }\KeywordTok{diff}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, pi_br)), }\DataTypeTok{col=}\DecValTok{3}\NormalTok{, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-94-1.pdf}
+
+We can use the \texttt{bsims\_transcribe} function for the same effect,
+and estimate \(\hat{\tau}\) based on the binned data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(d, }\DataTypeTok{rint=}\NormalTok{br))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims transcript
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 1013
+##   total duration: 10
+##   detected: 128 seen/heard
+##   1st inds. [0-10 min] [0-100, 100-200, 200-300, 300-400, 400-500, 500+ m]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tr}\OperatorTok{$}\NormalTok{removal}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          0-10min
+## 0-100m        27
+## 100-200m      53
+## 200-300m      32
+## 300-400m      13
+## 400-500m       2
+## 500+m          1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{drop}\NormalTok{(tr}\OperatorTok{$}\NormalTok{removal), }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{D <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(br, }\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{)}
+
+\NormalTok{tauhat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{cmulti.fit}\NormalTok{(Y, D, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}\OperatorTok{$}\NormalTok{coef)}
+
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{estimate=}\NormalTok{tauhat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    2.000    2.067
+\end{verbatim}
+
+Here are cumulative counts and the true end expected
+cumulative cell probabilities:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{stepfun}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{cumsum}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{])}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{]))), }
+  \DataTypeTok{do.points=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Binned CDF"}\NormalTok{,}
+  \DataTypeTok{ylab=}\StringTok{"Cumulative probability"}\NormalTok{, }
+  \DataTypeTok{xlab=}\StringTok{"Bin radius end point (100 m)"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{col=}\DecValTok{2}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\NormalTok{tauhat)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"True"}\NormalTok{, }\StringTok{"Estimated"}\NormalTok{, }\StringTok{"Empirical"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-96-1.pdf}
+
 EDR, tau constant
 
 truncated, unlimited
+
+JOSM data
 
 variable tau: habitat effect (continuous case?)
 
 discrete: land cover, observer effects
 
 contrast fixed effects with offsets -- motivation for ARU
+
+\hypertarget{end-of-section}{%
+\section{End of section}\label{end-of-section}}
+
+Sometimes, a recording is made at the survey location
+that is listened to and transcribed in the lab
+using headphones and possibly a computer screen.
+This presents new challenges, and also new opportunities
+for analysis of count data.
 
 \hypertarget{recordings}{%
 \chapter{Dealing with Recordings}\label{recordings}}
@@ -4954,7 +5537,7 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5232,7 +5815,7 @@ resets for each interval (also: needs equal intervals)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5257,7 +5840,7 @@ resets for each interval (also: needs equal intervals)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-79-2.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-100-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]

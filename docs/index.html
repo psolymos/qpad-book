@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-14" />
+<meta name="date" content="2019-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -188,7 +188,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
 <li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.9</b> Estimating abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
+<li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a><ul>
+<li class="chapter" data-level="5.1" data-path="detection.html"><a href="detection.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="detection.html"><a href="detection.html#prerequisites-3"><i class="fa fa-check"></i><b>5.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="5.3" data-path="detection.html"><a href="detection.html#distance-functions"><i class="fa fa-check"></i><b>5.3</b> Distance functions</a></li>
+<li class="chapter" data-level="5.4" data-path="detection.html"><a href="detection.html#distance-sampling"><i class="fa fa-check"></i><b>5.4</b> Distance sampling</a></li>
+<li class="chapter" data-level="5.5" data-path="detection.html"><a href="detection.html#average-detection"><i class="fa fa-check"></i><b>5.5</b> Average detection</a></li>
+<li class="chapter" data-level="5.6" data-path="detection.html"><a href="detection.html#binned-distances"><i class="fa fa-check"></i><b>5.6</b> Binned distances</a></li>
+<li class="chapter" data-level="5.7" data-path="detection.html"><a href="detection.html#end-of-section"><i class="fa fa-check"></i><b>5.7</b> End of section</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
@@ -223,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Point count data analysis: How to violate assumptions and get away with it</h1>
 <p class="author"><em>Peter Solymos</em></p>
-<p class="date"><em>2019-06-14</em></p>
+<p class="date"><em>2019-06-18</em></p>
 </div>
 <div id="foreword" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -283,7 +291,8 @@ notation, so having RStudio will make our life easier. RStudio is also available
 </div>
 <div id="installing-required-packages" class="section level2 unnumbered">
 <h2>Installing required packages</h2>
-<pre class="sourceCode r"><code class="sourceCode r">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;bookdown&quot;</span>, <span class="st">&quot;detect&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dismo&quot;</span>, <span class="st">&quot;forecast&quot;</span>, 
+<pre class="sourceCode r"><code class="sourceCode r">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;bookdown&quot;</span>, <span class="st">&quot;detect&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dismo&quot;</span>, 
+  <span class="st">&quot;Distance&quot;</span>, <span class="st">&quot;forecast&quot;</span>, 
   <span class="st">&quot;glmnet&quot;</span>, <span class="st">&quot;gbm&quot;</span>, <span class="st">&quot;intrval&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;lme4&quot;</span>, <span class="st">&quot;maptools&quot;</span>, <span class="st">&quot;mefa4&quot;</span>, 
   <span class="st">&quot;mgcv&quot;</span>, <span class="st">&quot;MuMIn&quot;</span>, <span class="st">&quot;opticut&quot;</span>, <span class="st">&quot;partykit&quot;</span>, <span class="st">&quot;pscl&quot;</span>, <span class="st">&quot;raster&quot;</span>, 
   <span class="st">&quot;ResourceSelection&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;unmarked&quot;</span>, <span class="st">&quot;visreg&quot;</span>)

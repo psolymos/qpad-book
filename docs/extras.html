@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-14" />
+<meta name="date" content="2019-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -67,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -188,7 +188,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="behavior.html"><a href="behavior.html#let-the-best-model-win"><i class="fa fa-check"></i><b>4.8</b> Let the best model win</a></li>
 <li class="chapter" data-level="4.9" data-path="behavior.html"><a href="behavior.html#estimating-abundance"><i class="fa fa-check"></i><b>4.9</b> Estimating abundance</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a></li>
+<li class="chapter" data-level="5" data-path="detection.html"><a href="detection.html"><i class="fa fa-check"></i><b>5</b> The Detection Process</a><ul>
+<li class="chapter" data-level="5.1" data-path="detection.html"><a href="detection.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="detection.html"><a href="detection.html#prerequisites-3"><i class="fa fa-check"></i><b>5.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="5.3" data-path="detection.html"><a href="detection.html#distance-functions"><i class="fa fa-check"></i><b>5.3</b> Distance functions</a></li>
+<li class="chapter" data-level="5.4" data-path="detection.html"><a href="detection.html#distance-sampling"><i class="fa fa-check"></i><b>5.4</b> Distance sampling</a></li>
+<li class="chapter" data-level="5.5" data-path="detection.html"><a href="detection.html#average-detection"><i class="fa fa-check"></i><b>5.5</b> Average detection</a></li>
+<li class="chapter" data-level="5.6" data-path="detection.html"><a href="detection.html#binned-distances"><i class="fa fa-check"></i><b>5.6</b> Binned distances</a></li>
+<li class="chapter" data-level="5.7" data-path="detection.html"><a href="detection.html#end-of-section"><i class="fa fa-check"></i><b>5.7</b> End of section</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
@@ -511,7 +519,7 @@ tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq
   <span class="kw">points</span>(tmp2<span class="op">$</span>t, <span class="kw">rep</span>(i, <span class="kw">nrow</span>(tmp2)), <span class="dt">cex=</span><span class="fl">0.5</span>)
   <span class="kw">points</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], i, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)
 }</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-329-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(o <span class="op">~</span><span class="st"> </span>t, tmp, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Individuals&quot;</span>,
   <span class="dt">main=</span><span class="st">&quot;Vocalization events&quot;</span>, 
   <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(b<span class="op">$</span>nests)), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(tint)))
@@ -530,29 +538,10 @@ tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq
     }
   }
 }</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-108-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Loading required package: Rcpp</code></pre>
-<pre><code>## Loading required package: reshape2</code></pre>
-<pre><code>## 
-## Attaching package: &#39;unmarked&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:lme4&#39;:
-## 
-##     ranef</code></pre>
-<pre><code>## The following objects are masked from &#39;package:nlme&#39;:
-## 
-##     getData, ranef</code></pre>
-<pre><code>## The following objects are masked from &#39;package:raster&#39;:
-## 
-##     getData, projection</code></pre>
-<pre><code>## The following object is masked from &#39;package:sp&#39;:
-## 
-##     coordinates</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats4&#39;:
-## 
-##     mle</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>() {
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-329-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)
+
+f &lt;-<span class="st"> </span><span class="cf">function</span>() {
   a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span>Den)
   b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span class="dt">vocal_rate=</span>phi, <span class="dt">move_rate=</span><span class="dv">0</span>)
   tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(b, <span class="dt">tint=</span>tint)

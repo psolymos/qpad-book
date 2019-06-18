@@ -239,7 +239,9 @@ $\tau=2$ and $r_{max}=2$:
 tau <- 2
 rmax <- 2
 w <- 0.1
-plot(0, type="n", xlim=c(-rmax, rmax), ylim=c(-w, 1+w), axes=FALSE, ann=FALSE)
+m <- 2
+plot(0, type="n", xlim=m*c(-rmax, rmax), ylim=c(-w, 1+w), 
+  axes=FALSE, ann=FALSE)
 yh <- g(rmax, tau=tau)
 lines(seq(-rmax, rmax, rmax/100),
   g(abs(seq(-rmax, rmax, rmax/100)), tau=tau))
@@ -247,9 +249,9 @@ draw_ellipse(0, yh, rmax, w, lty=2)
 lines(-c(rmax, rmax), c(0, yh))
 lines(c(rmax, rmax), c(0, yh))
 draw_ellipse(0, 0, rmax, w)
-draw_ellipse(0, 1, rmax, w, border="grey")
-lines(-c(rmax, rmax), c(yh, 1), col="grey")
-lines(c(rmax, rmax), c(yh, 1), col="grey")
+draw_ellipse(0, 1, rmax, w, border=4)
+lines(-c(rmax, rmax), c(yh, 1), col=4)
+lines(c(rmax, rmax), c(yh, 1), col=4)
 ```
 
 ## Binned distances
@@ -266,13 +268,12 @@ the cookie cutter, compared to the dough volume inside and outside
 of the cutter (that happens to be $\pi \tau^2$ for the Half-Normal):
 
 ```{r}
-m <- 2
 plot(0, type="n", xlim=m*c(-rmax, rmax), ylim=c(-w, 1+w), 
   axes=FALSE, ann=FALSE)
 yh <- g(rmax, tau=tau)
 lines(seq(-m*rmax, m*rmax, rmax/(m*100)),
   g(seq(-m*rmax, m*rmax, rmax/(m*100)), tau=tau),
-  col="grey")
+  col=2)
 lines(seq(-rmax, rmax, rmax/100),
   g(abs(seq(-rmax, rmax, rmax/100)), tau=tau))
 draw_ellipse(0, yh, rmax, w, lty=2)
@@ -334,7 +335,7 @@ pi_br <- 1-exp(-(br/tau)^2)
 
 barplot(counts[,"1"]/sum(counts[,"1"]), space=0, col=NA,
   xlab="Distance bins (100 m)", ylab="Proportions")
-lines(seq_len(length(br))-0.5, diff(c(0, pi_br)), col=3, type="b")
+lines(seq_len(length(br))-0.5, diff(c(0, pi_br)), col=3)
 ```
 
 We can use the `bsims_transcribe` function for the same effect,
@@ -366,25 +367,125 @@ legend("topleft", bty="n", lty=1, col=c(2, 4, 1),
   legend=c("True", "Estimated", "Empirical"))
 ```
 
+## Availability bias
+
+We have ignored availability so far when working with bSims, 
+but can't continue like that for real data.
+What this means, is that $g(0) < 1$, so detecting
+an individual 0 distance from the observer depends on
+an event (visual or auditory) that would trigger the detection.
+For example, if a perfecly camouflaged birds sits in silence,
+detection might be difficult. Movement, or a volcalization
+can, however, reveal the individual and its location.
+
+add here mor bSims with estimating p and q
+
+```{r}
+phi <- 0.5
+tau <- 1
+Den <- 5
+
+set.seed(1)
+l <- bsims_init()
+a <- bsims_populate(l, density=Den)
+b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+d <- bsims_detect(b, tau=tau, vocal_only=TRUE)
+
+tint <- c(1, 2, 3, 4, 5)
+rint <- c(0.5, 1, 1.5, 2) # truncated at 200 m
+(tr <- bsims_transcribe(d, tint=tint, rint=rint))
+(rem <- tr$removal) # binned new individuals
+colSums(rem)
+rowSums(rem)
+```
+
+```{r fig.width=8,fig.height=8}
+plot(d)
+if (any(is.infinite(rint))) {
+  polygon(0.5*d$extent*c(-1,-1,1,1), 0.5*d$extent*c(-1,1,1,-1),
+    border=NA, col="#ff000033")
+} else {
+  draw_ellipse(0, 0, max(rint), max(rint),
+    border=NA, col="#ff000033")
+}
+draw_ellipse(rep(0, length(rint)), rep(0, length(rint)), 
+  rint, rint, border=2)
+```
+
+```{r}
+fitp <- cmulti.fit(matrix(colSums(rem), 1), matrix(tint, 1), type="rem")
+phihat <- exp(fitp$coef)
+c(true=phi, estimate=exp(fitp$coef))
+(p <- 1-exp(-max(tint)*phihat))
+
+fitq <- cmulti.fit(matrix(rowSums(rem), 1), matrix(rint, 1), type="dis")
+tauhat <- exp(fitq$coef)
+c(true=tau, estimate=tauhat)
+(q <- (tauhat^2/max(rint)^2) * (1-exp(-(max(rint)/tauhat)^2)))
+
+(A <- pi * max(rint)^2)
+Dhat <- sum(rem) / (A * p * q)
+c(true=Den, estimate=Dhat)
+```
 
 
-EDR, tau constant
 
-truncated, unlimited
+Unlimited distance case
 
-JOSM data
+```{r}
+rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
+
+(tr <- bsims_transcribe(d, tint=tint, rint=rint))
+(rem <- tr$removal) # binned new individuals
+colSums(rem)
+rowSums(rem)
+
+fitp <- cmulti.fit(matrix(colSums(rem), 1), matrix(tint, 1), type="rem")
+phihat <- exp(fitp$coef)
+c(true=phi, estimate=exp(fitp$coef))
+(p <- 1-exp(-max(tint)*phihat))
+
+fitq <- cmulti.fit(matrix(rowSums(rem), 1), matrix(rint, 1), type="dis")
+tauhat <- exp(fitq$coef)
+c(true=tau, estimate=tauhat)
+q <- 1
+(Ahat <- pi * tauhat^2)
+
+Dhat <- sum(rem) / (Ahat * p * q)
+c(true=Den, estimate=Dhat)
+```
+
+Need to check that replication does give justice to the approach
+
+
+## JOSM data
+
+Process TEWA data
+
+### Constant EDR
+
+Fit constant EDR model for TEWA using cmulti
+
+### Variable EDR
 
 variable tau: habitat effect (continuous case?)
 
 discrete: land cover, observer effects
 
+do model selection and pick the best model
+
+## Estimating abundance
+
+bSims and TEWA as in previous chapter, but with q this time
+
 contrast fixed effects with offsets -- motivation for ARU
 
-## End of section
 
 Sometimes, a recording is made at the survey location
 that is listened to and transcribed in the lab
 using headphones and possibly a computer screen.
 This presents new challenges, and also new opportunities
-for analysis of count data.
+for analysis of count data -- and is the topic of the next chapter.
+
+FIXME Add exercises !!! 
 

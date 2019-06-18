@@ -427,3 +427,35 @@ hist(r[r < rmax & s > 0], freq=FALSE)
 curve(g(x) * h(x) / tot, add=TRUE, col=2)
 
 
+
+
+# using bSims
+library(bSims)
+
+tau <- 2
+rmax <- 4
+
+h <- function(r) 2*r/rmax^2
+g <- function(r) exp(-r^2/tau^2)
+f <- function(x) g(x) * h(x)
+tot <- integrate(f, lower=0, upper=rmax)$value
+
+
+set.seed(123)
+l <- bsims_init()
+a <- bsims_populate(l, density=10)
+b <- bsims_animate(a, initial_location=TRUE)
+
+d <- bsims_detect(b, tau=tau, vocal_only=FALSE)
+dt <- get_detections(d)
+ra <- sqrt(rowSums(a$nests[,c("x", "y")]^2))
+
+op <- par(mfrow=c(1,2))
+hist(ra[ra <= rmax], freq=FALSE, xlim=c(0, rmax))
+curve(2*x/rmax^2, add=TRUE, col=2)
+
+hist(dt$d[dt$d <= rmax], freq=FALSE, xlim=c(0, rmax))
+curve(g(x) * h(x) / tot, add=TRUE, col=2)
+par(op)
+
+

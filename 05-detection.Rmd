@@ -455,75 +455,77 @@ Dhat <- sum(rem) / (Ahat * p * q)
 c(true=Den, estimate=Dhat)
 ```
 
-Need to check that replication does give justice to the approach
-
-```{r}
-phi <- 0.4
-tau <- 0.8
-Den <- 1
-
-tint <- c(1, 2, 3)
-rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
-
-tint <- c(3, 5, 10)
-rint <- c(0.5, 1, Inf) # unlimited
-
-sim_fun <- function() {
-  l <- bsims_init()
-  a <- bsims_populate(l, density=Den)
-  b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
-  d <- bsims_detect(b, tau=tau, vocal_only=TRUE)
-  tr <- bsims_transcribe(d, tint=tint, rint=rint)
-  tr$rem
-}
-
-B <- 200
-res <- pbapply::pbreplicate(B, sim_fun(), simplify=FALSE)
-
-## need one excluding unlimited bin
-Ddur <- matrix(tint, B, length(tint), byrow=TRUE)
-Ydur <- t(sapply(res, function(z) colSums(z)))
-summary(Ddur)
-summary(Ydur)
-colSums(Ydur) / sum(Ydur)
-fitp <- cmulti(Ydur | Ddur ~ 1, type="rem")
-phihat <- unname(exp(coef(fitp)))
-c(true=phi, estimate=phihat)
-
-
-Ddis1 <- matrix(rint, B, length(rint), byrow=TRUE)
-Ydis1 <- t(sapply(res, function(z) rowSums(z)))
-colSums(Ydis1) / sum(Ydis1)
-fitq1 <- cmulti(Ydis1 | Ddis1 ~ 1, type="dis")
-tauhat1 <- unname(exp(fitq1$coef))
-
-Ddis2 <- matrix(rint[-length(rint)], B, length(rint)-1, byrow=TRUE)
-Ydis2 <- t(sapply(res, function(z) rowSums(z)[-length(rint)]))
-colSums(Ydis2) / sum(Ydis2)
-fitq2 <- cmulti(Ydis2 | Ddis2 ~ 1, type="dis")
-tauhat2 <- unname(exp(fitq2$coef))
-
-round(c(true=tau, unlimited=tauhat1, truncated=tauhat2), 4)
-
-
-
-(p <- 1-exp(-max(tint)*phihat))
-q1 <- 1
-(q2 <- (tauhat2^2/max(rint[-length(rint)])^2) * (1-exp(-(max(rint[-length(rint)])/tauhat2)^2)))
-(A1 <- pi * tauhat1^2)
-(A2 <- pi * max(rint[-length(rint)])^2)
-
-c(true=Den, 
-  unlimited=mean(rowSums(Ydis1)) / (A1 * p * q1),
-  truncated=mean(rowSums(Ydis2)) / (A2 * p * q2))
-
-
-```
-
 
 ## JOSM data
 
 Process TEWA data
+
+```{r}
+x <- josm$surveys
+x$FOR <- x$Decid + x$Conif+ x$ConifWet # forest
+x$AHF <- x$Agr + x$UrbInd + x$Roads # 'alienating' human footprint
+x$WET <- x$OpenWet + x$ConifWet + x$Water # wet + water
+cn <- c("Open", "Water", "Agr", "UrbInd", "SoftLin", "Roads", "Decid", 
+  "OpenWet", "Conif", "ConifWet")
+x$HAB <- droplevels(find_max(x[,cn])$index) # drop empty levels
+levels(x$HAB)[levels(x$HAB) %in% 
+  c("OpenWet", "Water", "Open", "Agr", "UrbInd", "Roads")] <- "Open"
+levels(x$HAB)[levels(x$HAB) %in% 
+  c("Conif", "ConifWet")] <- "Conif"
+x$OBS <- as.factor(x$ObserverID)
+
+yall_dur <- Xtab(~ SiteID + Dur + SpeciesID, 
+  josm$counts[josm$counts$DetectType1 != "V",])
+yall_dur <- yall_dur[sapply(yall_dur, function(z) sum(rowSums(z) > 0)) > 100]
+
+yall_dis <- Xtab(~ SiteID + Dis + SpeciesID, 
+  josm$counts[josm$counts$DetectType1 != "V",])
+yall_dis <- yall_dis[sapply(yall_dis, function(z) sum(rowSums(z) > 0)) > 100]
+
+spp <- "TEWA"
+spp <- "BTNW"
+
+Ydur <- as.matrix(yall_dur[[spp]])
+Ddur <- matrix(c(3, 5, 10), nrow(Ydur), 3, byrow=TRUE,
+  dimnames=dimnames(Ydur))
+stopifnot(all(rownames(x) == rownames(Ydur)))
+
+Ydis <- as.matrix(yall_dis[[spp]])
+Ddis <- matrix(c(0.5, 1, Inf), nrow(Ydis), 3, byrow=TRUE,
+  dimnames=dimnames(Ydis))
+stopifnot(all(rownames(x) == rownames(Ydis)))
+
+colSums(Ydur)
+colSums(Ydis)
+
+Mdur <- cmulti(Ydur | Ddur ~ DAY, x, type="rem")
+summary(Mdur)
+phi <- exp(model.matrix(Mdur) %*% coef(Mdur))
+summary(phi)
+p <- 1-exp(-10*phi)
+
+Mdis0 <- cmulti(Ydis | Ddis ~ 1, x, type="dis")
+Mdis1 <- cmulti(Ydis | Ddis ~ FOR, x, type="dis")
+Mdis2 <- cmulti(Ydis | Ddis ~ HAB, x, type="dis")
+Mdis3 <- cmulti(Ydis | Ddis ~ OBS, x, type="dis")
+
+AIC(Mdis0, Mdis1, Mdis2, Mdis3)
+Mdis <- Mdis2
+summary(Mdis)
+
+tau <- exp(model.matrix(Mdis) %*% coef(Mdis))
+boxplot(tau ~ HAB, x)
+
+Apq <- pi * tau^2 * p * 1
+off <- log(Apq)
+boxplot(I(pi * tau^2) ~ HAB, x)
+
+x$ytot <- rowSums(Ydur)
+mean(x$ytot / Apq)
+
+m <- glm(ytot ~ 1, data=x, offset=off, family=poisson)
+exp(coef(m))
+```
 
 ### Constant EDR
 
@@ -551,4 +553,7 @@ This presents new challenges, and also new opportunities
 for analysis of count data -- and is the topic of the next chapter.
 
 FIXME Add exercises !!! 
+
+Exercise: try OBS in tau model, visualize
+
 

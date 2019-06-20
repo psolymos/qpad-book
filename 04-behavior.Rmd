@@ -70,9 +70,9 @@ Besides the coordinates, we also have the time of event (`$t`) and
 the individual identifier (`$i` linking to the rows of the `b$nests` table):
 
 ```{r}
-e <- get_events(b, vocal_only=FALSE)
+e <- get_events(b, event_type="both")
 head(e)
-v <- get_events(b, vocal_only=TRUE)
+v <- get_events(b, event_type="vocal")
 head(v)
 ```
 
@@ -342,7 +342,7 @@ expected distribution (red) is different from the fitted
 Exponential distribution assuming homogeneity:
 
 ```{r}
-v <- get_events(b2, vocal_only=TRUE)
+v <- get_events(b2, event_type="vocal")
 v1 <- v[!duplicated(v$i),]
 (phi_hat <- fitdistr(v1$t, "exponential")$estimate)
 

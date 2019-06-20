@@ -8,13 +8,20 @@ DURATION <- 10
 TINT <- list(
   "0-10 min"=c(10),
   "0-3-5-10 min"=c(3, 5, 10),
-  "0-11-2-3 min"=c(1, 2, 3)
+  "0-1-2-3 min"=c(1, 2, 3),
+  "0-5-10 min"=c(5, 10),
+  "0-3 min"=c(3),
+  "0-1-2-3-4-5 min"=c(1, 2, 3, 4, 5)
 )
 RINT <- list(
   "0-Inf m"=c(Inf),
   "0-50-100-Inf m"=c(0.5, 1, Inf),
+  "0-50-100-150-Inf m"=c(0.5, 1, 1.5, Inf),
+  "0-50-100-150-200-Inf m"=c(0.5, 1, 1.5, 2, Inf),
   "0-50-100 m"=c(0.5, 1),
-  "0-50 m"=c(0.5)
+  "0-50 m"=c(0.5),
+  "0-50-100-150 m"=c(0.5, 1, 1.5),
+  "0-50-100-150-200 m"=c(0.5, 1, 1.5, 2)
 )
 
 ui <- navbarPage("bSims (H)",
@@ -54,37 +61,32 @@ ui <- navbarPage("bSims (H)",
       plotOutput(outputId = "plot_dfun")
     ),
     column(6,
-      sliderInput("tau", "Detection parameter (SD)", 0, 5, 1, 0.25),
-      sliderInput("bpar", "Hazard rate parameter (SD)", 0, 5, 1, 0.5),
+      sliderInput("tau", "Detection parameter (tau)", 0, 5, 1, 0.25),
+      sliderInput("bpar", "Hazard rate parameter (b)", 0, 5, 1, 0.5),
       radioButtons("dfun", "Distance function",
         c("Half Normal"="halfnormal",
           "Negative Exponential"="negexp",
           "Hazard rate"="hazrate")),
       sliderInput("repel", "Repel distance", 0, 2, 0, 0.1),
-      checkboxInput("onlyv", "Vocalizations only", TRUE)
+      radioButtons("event", "Event type",
+        c("Vocalization"="vocal",
+          "Movement"="move",
+          "Both"="both"))
     )
   ),
   tabPanel("Transcribe",
-    fluidRow(
-      column(6,
-        plotOutput(outputId = "plot_tra")
-      ),
-      column(6,
-        selectInput("tint", "Time intervals", names(TINT)),
-        selectInput("rint", "Distance intervals", names(RINT)),
-        sliderInput("derr", "Distance error", 0, 1, 0, 0.1),
-        checkboxInput("only1", "1st detection only", TRUE)
-      )
+    column(6,
+      plotOutput(outputId = "plot_tra"),
+      tableOutput(outputId = "table_rem")
     ),
-    fluidRow(
-      column(6,
-        h4("Removal table"),
-        tableOutput(outputId = "table_rem")
-      ),
-      column(6,
-        h4("Multiple-visits"),
-        tableOutput(outputId = "table_vis")
-      )
+    column(6,
+      selectInput("tint", "Time intervals", names(TINT)),
+      selectInput("rint", "Distance intervals", names(RINT)),
+      sliderInput("derr", "Distance error", 0, 1, 0, 0.1),
+      radioButtons("condition", "Condition",
+        c("1st event"="event1",
+          "1st detection"="det1",
+          "All detections"="alldet"))
     )
   ),
   tabPanel("Estimate",
@@ -139,45 +141,60 @@ server <- function(input, output) {
       "hazrate"   =function(d, tau) 1-exp(-(d/tau)^-input$bpar)
     )
   })
-  d <- reactive({
+  o <- reactive({
     bsims_detect(b(),
       xy = c(0, 0),
       tau = input$tau,
       dist_fun = dfun(),
       repel = input$repel,
-      vocal_only = input$onlyv)
+      event_type = input$event)
   })
   m <- reactive({
-    bsims_transcribe(d(),
+    bsims_transcribe(o(),
       tint = TINT[[input$tint]],
       rint = RINT[[input$rint]],
-      first_only = input$only1,
-      error = input$derr
+      error = input$derr,
+      condition = input$condition,
+      event_type = input$event
     )
   })
   e <- reactive({
+    MaxDur <- max(TINT[[input$tint]])
+    MaxDis <- max(RINT[[input$rint]])
     Ydur <- matrix(colSums(m()$removal), 1)
     Ddur <- matrix(TINT[[input$tint]], 1)
     Ydis <- matrix(rowSums(m()$removal), 1)
     Ddis <- matrix(RINT[[input$rint]], 1)
     if (length(TINT[[input$tint]]) > 1) {
       Mrem <- cmulti.fit(Ydur, Ddur, type="rem")
-      Mmix <- cmulti.fit(Ydur, Ddur, type="mix")
+      phi <- exp(Mrem$coef)
+      p <- 1-exp(-MaxDur*phi)
     } else {
       Mrem <- NULL
-      Mmix <- NULL
+      p <- NA
     }
     if (length(RINT[[input$rint]]) > 1) {
       Mdis <- cmulti.fit(Ydis, Ddis, type="dis")
+      tau <- exp(Mdis$coef)
+      q <- if (is.infinite(MaxDis))
+        1 else (tau^2/MaxDis^2) * (1-exp(-(MaxDis/tau)^2))
+      A <- if (is.infinite(MaxDis))
+        pi * tau^2 else pi * MaxDis^2
     } else {
       Mdis <- NULL
+      q <- NA
+      A <- NA
     }
+    D <- sum(m()$removal) / (A * p * q)
     list(
       Ydur=Ydur, Ddur=Ddur,
       Ydis=Ydis, Ddis=Ddis,
-      Mrem=Mrem, Mmix=Mmix, Mdis=Mdis)
+      Mrem=Mrem,
+      Mdis=Mdis,
+      phi=phi, tau=tau,
+      A=A, p=p, q=q,
+      D=D)
   })
-
 
 
   output$plot_ini <- renderPlot({
@@ -201,7 +218,7 @@ server <- function(input, output) {
   })
   output$plot_det <- renderPlot({
     op <- par(mar=c(0,0,0,0))
-    plot(d())
+    plot(o())
     par(op)
   })
   output$plot_dfun <- renderPlot({
@@ -210,43 +227,14 @@ server <- function(input, output) {
   })
   output$plot_tra <- renderPlot({
     op <- par(mar=c(0,0,0,0))
-    plot(m(), tlim=c(0, max(TINT[[input$tint]])))
-    rr <- RINT[[input$rint]]
-    rr <- rr[is.finite(rr)]
-    if (length(rr) > 0) {
-      if (any(is.infinite(RINT[[input$rint]]))) {
-        polygon(0.5*EXTENT*c(-1,-1,1,1), 0.5*EXTENT*c(-1,1,1,-1),
-          border=NA, col="#ff000033")
-      } else {
-        draw_ellipse(0, 0, max(rr), max(rr),
-          border=NA, col="#ff000033")
-      }
-      draw_ellipse(rep(0, length(rr)), rep(0, length(rr)), rr, rr,
-        border=2)
-    } else {
-      polygon(0.5*EXTENT*c(-1,-1,1,1), 0.5*EXTENT*c(-1,1,1,-1),
-        border=NA, col="#ff000033")
-    }
-    tt <- TINT[[input$tint]]
-    tt <- EXTENT * TINT[[input$tint]] / DURATION
-    tt <- c(0, tt) * 0.8 - (EXTENT * 0.4)
-    if (max(TINT[[input$tint]]) < DURATION)
-      polygon(EXTENT*0.4*c(-1,-1,1,1), EXTENT*c(0.4, 0.45, 0.45, 0.4),
-        border=2, col=NA, lty=2)
-    polygon(EXTENT*0.4*c(-1,-1,1,1), EXTENT*c(0.4, 0.45, 0.45, 0.4),
-      border=2, col=NA, lty=2)
-    for (i in 2:length(tt)) {
-      polygon(tt[c(i-1, i-1, i, i)],
-        EXTENT*c(0.4, 0.45, 0.45, 0.4),
-        border=2, col="#ff000033", lty=1)
-    }
+    plot(m())
     par(op)
   })
   output$table_rem <- renderTable({
-    m()$removal
-  }, rownames = TRUE, colnames = TRUE, digits = 0)
-  output$table_vis <- renderTable({
-    m()$visits
+    tab <- m()$removal
+    tab <- cbind(tab, Total=rowSums(tab))
+    tab <- rbind(tab, Total=colSums(tab))
+    tab
   }, rownames = TRUE, colnames = TRUE, digits = 0)
   output$plot_est <- renderPlot({
     op <- par(mar=c(0,0,0,0))

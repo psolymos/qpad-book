@@ -12,13 +12,13 @@ ui <- navbarPage("bSims",
 
 server <- function(input, output) {
   output$plot_dfun <- renderPlot({
-    r <- seq(0, input$rmax, input$rmax/1000)
+    d <- seq(0, input$rmax, input$rmax/1000)
     g <- if (input$hazard) {
-      function(r) 1-exp(-(r/input$tau)^-input$b)
+      function(d) 1-exp(-(d/input$tau)^-input$b)
     } else {
-      function(r) exp(-(r/input$tau)^input$b)
+      function(d) exp(-(d/input$tau)^input$b)
     }
-    plot(r, g(r), type="l", col=4, ylim=c(0,1),
+    plot(d, g(d), type="l", col=4, ylim=c(0,1),
       xlab="Distance (100 m)", ylab="P(detection)")
   })
 }

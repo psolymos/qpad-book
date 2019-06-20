@@ -28,8 +28,8 @@ source("functions.R")         # some useful stuff
 
 ## Distance functions
 
-The distance function ($g(r)$ describes the probability of detecting an individual
-given the distance between the observer and the individual ($r$).
+The distance function ($g(d)$ describes the probability of detecting an individual
+given the distance between the observer and the individual ($d$).
 The detection itself is often triggered by visual or auditory cues,
 and thus depend on the individuals being available for detection 
 (and of course being present in the survey area).
@@ -42,18 +42,18 @@ Distance functions have some characteristics:
 Here are some common distance function and rationale for their use
 (i.e. mechanisms leading to such distance shapes):
 
-1. Negative Exponential: a one-parameter function ($g(r) = e^{-r/\tau}$), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
-2. Half-Normal: this is also a one-parameter function ($g(r) = e^{-(r/\tau)^2}$) where probability initially remain high (the _shoulder_), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly ($\tau^2$ is variance of the unfolded Normal distribution, $\tau^2/2$ is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of $g(r) = e^{-(r/\tau)^b}$ that have the parameter $b$ [$b > 0$] affecting the shoulder);
-3. Hazard rate: this is a two-parameter model ($g(r) = 1-e^{-(r/\tau)^-b}$) that have the parameter $b$ ($b > 0$) affecting the more pronounced and sharp shoulder.
+1. Negative Exponential: a one-parameter function ($g(d) = e^{-d/\tau}$), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
+2. Half-Normal: this is also a one-parameter function ($g(d) = e^{-(d/\tau)^2}$) where probability initially remain high (the _shoulder_), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly ($\tau^2$ is variance of the unfolded Normal distribution, $\tau^2/2$ is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of $g(d) = e^{-(d/\tau)^b}$ that have the parameter $b$ [$b > 0$] affecting the shoulder);
+3. Hazard rate: this is a two-parameter model ($g(d) = 1-e^{-(d/\tau)^-b}$) that have the parameter $b$ ($b > 0$) affecting the more pronounced and sharp shoulder.
 
 
 ```{r fig.show='hold',out.width='33%'}
-r <- seq(0, 2, 0.01)
-plot(r, exp(-r/0.8), type="l", col=4, ylim=c(0,1),
+d <- seq(0, 2, 0.01)
+plot(d, exp(-d/0.8), type="l", col=4, ylim=c(0,1),
   xlab="Distance (100 m)", ylab="P(detection)", main="Negative Exponential")
-plot(r, exp(-(r/0.8)^2), type="l", col=4, ylim=c(0,1),
+plot(d, exp(-(d/0.8)^2), type="l", col=4, ylim=c(0,1),
   xlab="Distance (100 m)", ylab="P(detection)", main="Half-Normal")
-plot(r, 1-exp(-(r/0.8)^-4), type="l", col=4, ylim=c(0,1),
+plot(d, 1-exp(-(d/0.8)^-4), type="l", col=4, ylim=c(0,1),
   xlab="Distance (100 m)", ylab="P(detection)", main="Hazard rate")
 ```
 
@@ -63,7 +63,7 @@ plot(r, 1-exp(-(r/0.8)^-4), type="l", col=4, ylim=c(0,1),
 
 Try different values of $b$ to explore the different shapes of the Hazard rate function.
 
-Write your own code (`plot(r, exp(-(r/<tau>)^<b>), type="l", ylim=c(0,1))`), or run `shiny::runApp("_shiny/distancefun.R")`.
+Write your own code (`plot(d, exp(-(d/<tau>)^<b>), type="l", ylim=c(0,1))`), or run `shiny::runApp("_shiny/distancefun.R")`.
 ```
 
 We will apply this new found knowledge to our bSims world:
@@ -85,11 +85,11 @@ l <- bsims_init()
 a <- bsims_populate(l, density=10)
 b <- bsims_animate(a, initial_location=TRUE)
 
-(d <- bsims_detect(b, tau=tau, vocal_only=FALSE))
+(o <- bsims_detect(b, tau=tau))
 ```
 
 ```{r fig.width=8,fig.height=8}
-plot(d)
+plot(o)
 ```
 
 ## Distance sampling
@@ -99,39 +99,39 @@ and the distribution of the individuals with respect to the point where
 the observer is located.
 For point counts, area increases linearly with radial distance, 
 implying a triangular distribution with respect to the point
-($h(r)=\pi 2 r /A=\pi 2 r / \pi r_{max}^2=2 r / r_{max}^2$, where 
+($h(d)=\pi 2 d /A=\pi 2 d / \pi r_{max}^2=2 d / r_{max}^2$, where 
 $A$ is a circular survey area with truncation distance $r_{max}$).
-The product $g(r) h(r)$ gives the density function of the observed distances.
+The product $g(d) h(d)$ gives the density function of the observed distances.
 
 ```{r}
-g <- function(r, tau, b=2, hazard=FALSE)
+g <- function(d, tau, b=2, hazard=FALSE)
   if (hazard)
-    1-exp(-(r/tau)^-b) else exp(-(r/tau)^b)
-h <- function(r, rmax)
-  2*r/rmax^2
+    1-exp(-(d/tau)^-b) else exp(-(d/tau)^b)
+h <- function(d, rmax)
+  2*d/rmax^2
 ```
 
 ```{r fig.show='hold',out.width='33%'}
 rmax <- 4
 
-r <- seq(0, rmax, 0.01)
-plot(r, g(r, tau), type="l", col=4, ylim=c(0,1),
-  xlab="r", ylab="g(r)", main="Prob. of detection")
-plot(r, h(r, rmax), type="l", col=4,
-  xlab="r", ylab="h(r)", main="PDF of distances")
-plot(r, g(r, tau) * h(r, rmax), type="l", col=4,
-  xlab="r", ylab="g(r) h(r)", main="Density of observed distances")
+d <- seq(0, rmax, 0.01)
+plot(d, g(d, tau), type="l", col=4, ylim=c(0,1),
+  xlab="d", ylab="g(d)", main="Prob. of detection")
+plot(d, h(d, rmax), type="l", col=4,
+  xlab="d", ylab="h(d)", main="PDF of distances")
+plot(d, g(d, tau) * h(d, rmax), type="l", col=4,
+  xlab="d", ylab="g(d) h(d)", main="Density of observed distances")
 ```
 
-The object `ra` contains the distances to all the nests
+The object `da` contains the distances to all the nests
 based on our bSims object,
 we use this to display the distribution of available distances:
 
 ```{r}
-ra <- sqrt(rowSums(a$nests[,c("x", "y")]^2))
+da <- sqrt(rowSums(a$nests[,c("x", "y")]^2))
 
-hist(ra[ra <= rmax], freq=FALSE, xlim=c(0, rmax),
-  xlab="Available distances (r <= rmax)", main="")
+hist(da[da <= rmax], freq=FALSE, xlim=c(0, rmax),
+  xlab="Available distances (d <= r_max)", main="")
 curve(2*x/rmax^2, add=TRUE, col=2)
 ```
 
@@ -141,7 +141,7 @@ detected events (in our case just the nest locations):
 (in degrees, counter clock-wise from positive x axis).
 
 ```{r}
-head(dt <- get_detections(d))
+head(dt <- get_detections(o))
 ```
 
 The following code plots the probability density of the
@@ -150,8 +150,8 @@ thus we need to standardize the $g(r) h(r)$ function
 by the integral sum:
 
 ```{r}
-f <- function(r, tau, b=2, hazard=FALSE, rmax=1) 
-  g(r, tau, b, hazard) * h(r, rmax)
+f <- function(d, tau, b=2, hazard=FALSE, rmax=1) 
+  g(d, tau, b, hazard) * h(d, rmax)
 tot <- integrate(f, lower=0, upper=rmax, tau=tau, rmax=rmax)$value
 
 hist(dt$d[dt$d <= rmax], freq=FALSE, xlim=c(0, rmax),
@@ -161,8 +161,8 @@ curve(f(x, tau=tau, rmax=rmax) / tot, add=TRUE, col=2)
 
 In case of the Half-Normal, we can linearize the relationship
 by taking the log of the distance function: 
-$log(g(r)) =log(e^{-(r/\tau)^2})= -(r / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta$.
-Consequently, we can use GLM to fit a model with $x = -r^2$ as 
+$log(g(d)) =log(e^{-(d/\tau)^2})= -(d / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta$.
+Consequently, we can use GLM to fit a model with $x = -d^2$ as 
 predictor and no intercept, and estimate $\hat{\beta}$ and
 $\hat{\tau}=\sqrt{1/\hat{\beta}}$.
 
@@ -174,9 +174,9 @@ But we can at least check our bSims data:
 
 ```{r}
 dat <- data.frame(
-  distance=ra, 
-  x=-ra^2, 
-  detected=ifelse(rownames(d$nests) %in% dt$i, 1, 0))
+  distance=da, 
+  x=-da^2, 
+  detected=ifelse(rownames(o$nests) %in% dt$i, 1, 0))
 summary(dat)
 mod <- glm(detected ~ x - 1, data=dat, family=binomial(link="log"))
 c(true=tau, estimate=sqrt(1/coef(mod)))
@@ -213,22 +213,22 @@ c(true=tau, estimate=exp(dd$ddf$par)^2)
 To calculate the average probability of detecting individuals
 within a circle with truncation distance $r_{max}$, we need to
 integrate over the product of $g(r)$ and $h(r)$: 
-$q(r_{max})=\int_{0}^{r_{max}} g(r) h(r) dr$.
+$q(r_{max})=\int_{0}^{r_{max}} g(d) h(d) dd$.
 This gives the volume of pie dough cut at $r_{max}$,
 compared to the volume of the cookie cutter ($\pi r_{max}^2$).
 
 ```{r}
-q <- sapply(r[r > 0], function(z)
+q <- sapply(d[d > 0], function(z)
   integrate(f, lower=0, upper=z, tau=tau, rmax=z)$value)
 
-plot(r, c(1, q), type="l", col=4, ylim=c(0,1),
+plot(d, c(1, q), type="l", col=4, ylim=c(0,1),
   xlab=expression(r[max]), ylab=expression(q(r[max])), 
   main="Average prob. of detection")
 ```
 
 For the Half-Normal detection function, the analytical solution for the 
 average probability is 
-$\pi \tau^2 [1-exp(-r^2/\tau^2)] / (\pi r_{max}^2)$,
+$\pi \tau^2 [1-exp(-d^2/\tau^2)] / (\pi r_{max}^2)$,
 where the denominator is a normalizing constant
 representing the volume of a cylinder of perfect detectability.
 
@@ -314,7 +314,7 @@ The function $\pi(r)$ increases monotonically from 0 to 1:
 
 ```{r}
 curve(1-exp(-(x/tau)^2), xlim=c(0, 5), ylim=c(0,1), col=4,
-  ylab=expression(pi(r)), xlab=expression(r), 
+  ylab=expression(pi(d)), xlab=expression(d), 
   main="Cumulative density")
 ```
 
@@ -328,7 +328,7 @@ for a bin (stored in `br`) can be infinite:
 
 ```{r}
 br <- c(1, 2, 3, 4, 5, Inf)
-dat$bin <- cut(ra, c(0, br), include.lowest = TRUE)
+dat$bin <- cut(da, c(0, br), include.lowest = TRUE)
 (counts <- with(dat, table(bin, detected)))
 
 pi_br <- 1-exp(-(br/tau)^2)
@@ -342,7 +342,7 @@ We can use the `bsims_transcribe` function for the same effect,
 and estimate $\hat{\tau}$ based on the binned data:
 
 ```{r}
-(tr <- bsims_transcribe(d, rint=br))
+(tr <- bsims_transcribe(o, rint=br))
 tr$removal
 
 Y <- matrix(drop(tr$removal), nrow=1)
@@ -375,41 +375,31 @@ What this means, is that $g(0) < 1$, so detecting
 an individual 0 distance from the observer depends on
 an event (visual or auditory) that would trigger the detection.
 For example, if a perfecly camouflaged birds sits in silence,
-detection might be difficult. Movement, or a volcalization
+detection might be difficult. Movement, or a vocalization
 can, however, reveal the individual and its location.
 
-add here mor bSims with estimating p and q
 
 ```{r}
 phi <- 0.5
-tau <- 1
-Den <- 5
+tau <- 2
+Den <- 10
 
-set.seed(1)
+set.seed(2)
 l <- bsims_init()
 a <- bsims_populate(l, density=Den)
-b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
-d <- bsims_detect(b, tau=tau, vocal_only=TRUE)
+b <- bsims_animate(a, vocal_rate=phi)
+o <- bsims_detect(b, tau=tau)
 
 tint <- c(1, 2, 3, 4, 5)
 rint <- c(0.5, 1, 1.5, 2) # truncated at 200 m
-(tr <- bsims_transcribe(d, tint=tint, rint=rint))
+(tr <- bsims_transcribe(o, tint=tint, rint=rint))
 (rem <- tr$removal) # binned new individuals
 colSums(rem)
 rowSums(rem)
 ```
 
 ```{r fig.width=8,fig.height=8}
-plot(d)
-if (any(is.infinite(rint))) {
-  polygon(0.5*d$extent*c(-1,-1,1,1), 0.5*d$extent*c(-1,1,1,-1),
-    border=NA, col="#ff000033")
-} else {
-  draw_ellipse(0, 0, max(rint), max(rint),
-    border=NA, col="#ff000033")
-}
-draw_ellipse(rep(0, length(rint)), rep(0, length(rint)), 
-  rint, rint, border=2)
+plot(tr)
 ```
 
 ```{r}
@@ -428,14 +418,12 @@ Dhat <- sum(rem) / (A * p * q)
 c(true=Den, estimate=Dhat)
 ```
 
-
-
-Unlimited distance case
+Unlimited distance case:
 
 ```{r}
 rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
 
-(tr <- bsims_transcribe(d, tint=tint, rint=rint))
+(tr <- bsims_transcribe(o, tint=tint, rint=rint))
 (rem <- tr$removal) # binned new individuals
 colSums(rem)
 rowSums(rem)
@@ -455,6 +443,72 @@ Dhat <- sum(rem) / (Ahat * p * q)
 c(true=Den, estimate=Dhat)
 ```
 
+Remember, that this is a single location.
+We set the density unreasonably high to have enough counts
+for a reasonable estimate.
+We can independently replicate the simulation for multiple
+landscapes and analyze the results to give justice to bSims
+under idealized conditions:
+
+```{r eval=FALSE}
+phi <- 0.5
+tau <- 1
+Den <- 1
+
+tint <- c(3, 5, 10)
+rint <- c(0.5, 1, 1.5, Inf)
+
+sim_fun <- function() {
+  l <- bsims_init()
+  a <- bsims_populate(l, density=Den)
+  b <- bsims_animate(a, vocal_rate=phi)
+  o <- bsims_detect(b, tau=tau)
+  bsims_transcribe(o, tint=tint, rint=rint)$rem
+}
+
+B <- 200
+set.seed(123)
+res <- pbapply::pbreplicate(B, sim_fun(), simplify=FALSE)
+
+Ddur <- matrix(tint, B, length(tint), byrow=TRUE)
+Ydur1 <- t(sapply(res, function(z) colSums(z)))
+Ydur2 <- t(sapply(res, function(z) colSums(z[-nrow(z),])))
+colSums(Ydur1) / sum(Ydur1)
+colSums(Ydur2) / sum(Ydur2)
+fitp1 <- cmulti(Ydur1 | Ddur ~ 1, type="rem")
+fitp2 <- cmulti(Ydur2 | Ddur ~ 1, type="rem")
+phihat1 <- unname(exp(coef(fitp1)))
+phihat2 <- unname(exp(coef(fitp2)))
+
+Ddis1 <- matrix(rint, B, length(rint), byrow=TRUE)
+Ddis2 <- matrix(rint[-length(rint)], B, length(rint)-1, byrow=TRUE)
+Ydis1 <- t(sapply(res, function(z) rowSums(z)))
+Ydis2 <- t(sapply(res, function(z) rowSums(z)[-length(rint)]))
+colSums(Ydis1) / sum(Ydis1)
+colSums(Ydis2) / sum(Ydis2)
+fitq1 <- cmulti(Ydis1 | Ddis1 ~ 1, type="dis")
+fitq2 <- cmulti(Ydis2 | Ddis2 ~ 1, type="dis")
+tauhat1 <- unname(exp(fitq1$coef))
+tauhat2 <- unname(exp(fitq2$coef))
+
+## unlimited correction
+Apq1 <- pi * tauhat1^2 * (1-exp(-max(tint)*phihat1)) * 1
+rmax <- max(rint[is.finite(rint)])
+## truncated correction
+Apq2 <- pi * rmax^2 * 
+  (1-exp(-max(tint)*phihat2)) * 
+  (tauhat2^2/rmax^2) * (1-exp(-(rmax/tauhat2)^2))
+
+round(rbind(
+  phi=c(true=phi, unlimited=phihat1, truncated=phihat2),
+  tau=c(true=tau, unlimited=tauhat1, truncated=tauhat2),
+  D=c(Den, unlimited=mean(rowSums(Ydis1))/Apq1,
+      truncated=mean(rowSums(Ydis2))/Apq2)), 4)
+##     true unlimited truncated
+## phi  0.5    0.4835    0.4852
+## tau  1.0    1.0002    0.9681
+## D    1.0    1.0601    1.1048
+```
 
 ## JOSM data
 

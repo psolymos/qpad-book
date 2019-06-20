@@ -124,13 +124,15 @@ head(groupSums(as.matrix(x[,cn]), 2, ol2$levels[[length(ol2$levels)]]))
 
 Exponential model, bSims data
 
-```{r}
+Note: `$visits` is not yet exposed
+
+```{r eval=FALSE}
 set.seed(1)
 phi <- 0.5
 Den <- 1
 l <- bsims_init()
 a <- bsims_populate(l, density=Den)
-b <- bsims_animate(a, vocal_rate=phi, move_rate=0)
+b <- bsims_animate(a, vocal_rate=phi)
 
 tint <- 1:5
 (tr <- bsims_transcribe(b, tint=tint))
@@ -140,7 +142,7 @@ Multiple-visit stuff for bSims: the counting of new individuals
 resets for each interval (also: needs equal intervals)
 
 
-```{r}
+```{r eval=FALSE}
 tr$visits
 
 v <- get_events(b, vocal_only=TRUE)

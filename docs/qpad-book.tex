@@ -128,7 +128,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-18}
+    \date{2019-06-19}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -3712,7 +3712,7 @@ But birds don't just stay put in one place. They move and vocalize:
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 52
-##   total duration: 10
+##   duration: 10 min
 \end{verbatim}
 
 \begin{Shaded}
@@ -3731,9 +3731,9 @@ the individual identifier (\texttt{\$i} linking to the rows of the \texttt{b\$ne
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{e <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{e <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{event_type=}\StringTok{"both"}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(e)}
-\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{event_type=}\StringTok{"vocal"}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(v)}
 \end{Highlighting}
 \end{Shaded}
@@ -4226,7 +4226,7 @@ proportion of individuals belonging to the groups (\texttt{mix}).
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 104
-##   mixture with total duration: 10
+##   mixture, duration: 10 min
 \end{verbatim}
 
 \begin{Shaded}
@@ -4248,7 +4248,7 @@ Exponential distribution assuming homogeneity:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b2, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b2, }\DataTypeTok{event_type=}\StringTok{"vocal"}\NormalTok{)}
 \NormalTok{v1 <-}\StringTok{ }\NormalTok{v[}\OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(v}\OperatorTok{$}\NormalTok{i),]}
 \NormalTok{(phi_hat <-}\StringTok{ }\KeywordTok{fitdistr}\NormalTok{(v1}\OperatorTok{$}\NormalTok{t, }\StringTok{"exponential"}\NormalTok{)}\OperatorTok{$}\NormalTok{estimate)}
 \end{Highlighting}
@@ -4256,7 +4256,7 @@ Exponential distribution assuming homogeneity:
 
 \begin{verbatim}
 ##   rate 
-## 0.6522
+## 0.6068
 \end{verbatim}
 
 \begin{Shaded}
@@ -4285,7 +4285,7 @@ Now let's visualize the corresponding cumulative distribution function:
 \begin{verbatim}
 ## i
 ##  [0,1]  (1,2]  (2,3]  (3,4]  (4,5]  (5,6]  (6,7]  (7,8]  (8,9] (9,10] 
-##     54     23     10      6      2      6      3      0      0      0
+##     49     22     17      5      3      3      0      2      1      1
 \end{verbatim}
 
 \begin{Shaded}
@@ -4313,7 +4313,7 @@ We use the \texttt{detect::cmulti} function to fit the finite mixture model:
 
 \begin{verbatim}
 ##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]   54   23   10    6    2    6    3    0    0     0
+## [1,]   49   22   17    5    3    3    0    2    1     1
 \end{verbatim}
 
 \begin{Shaded}
@@ -4348,7 +4348,7 @@ We use the \texttt{detect::cmulti} function to fit the finite mixture model:
 
 \begin{verbatim}
 ## phi_hat   c_hat 
-##  0.5350  0.8244
+##  0.5176  0.8837
 \end{verbatim}
 
 \hypertarget{time-invariant-finite-mixture-removal-model}{%
@@ -4643,7 +4643,7 @@ based on Poisson distribution (\(N \sim Poisson(\lambda)\)):
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 104
-##   total duration: 10
+##   duration: 10 min
 \end{verbatim}
 
 The next function we use is \texttt{bsims\_transcribe} which takes the events data
@@ -4662,9 +4662,11 @@ each interval:
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 104
-##   total duration: 10
+##   duration: 10 min
 ##   detected: 104 heard
-##   1st inds. [0-1, 1-2, 2-3, 3-4, 4-5 min] [0+ m]
+##   1st event detected by bins:
+##     [0-1, 1-2, 2-3, 3-4, 4-5 min]
+##     [0+ m]
 \end{verbatim}
 
 \begin{Shaded}
@@ -4939,8 +4941,8 @@ contributes to the factor \(C\).
 \hypertarget{distance-functions}{%
 \section{Distance functions}\label{distance-functions}}
 
-The distance function (\(g(r)\) describes the probability of detecting an individual
-given the distance between the observer and the individual (\(r\)).
+The distance function (\(g(d)\) describes the probability of detecting an individual
+given the distance between the observer and the individual (\(d\)).
 The detection itself is often triggered by visual or auditory cues,
 and thus depend on the individuals being available for detection
 (and of course being present in the survey area).
@@ -4962,21 +4964,21 @@ Here are some common distance function and rationale for their use
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Negative Exponential: a one-parameter function (\(g(r) = e^{-r/\tau}\)), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
+  Negative Exponential: a one-parameter function (\(g(d) = e^{-d/\tau}\)), probability quickly decreases with distance, this mirrors sound attenuation under spherical spreading, so might be a suitable form for acoustic recoding devices (we will revisit this later), but not a very useful form for human based counts, as explained below;
 \item
-  Half-Normal: this is also a one-parameter function (\(g(r) = e^{-(r/\tau)^2}\)) where probability initially remain high (the \emph{shoulder}), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly (\(\tau^2\) is variance of the unfolded Normal distribution, \(\tau^2/2\) is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of \(g(r) = e^{-(r/\tau)^b}\) that have the parameter \(b\) {[}\(b > 0\){]} affecting the shoulder);
+  Half-Normal: this is also a one-parameter function (\(g(d) = e^{-(d/\tau)^2}\)) where probability initially remain high (the \emph{shoulder}), reflecting an increased chance of detecting individuals closer to the observer, this form has also sone practical advantages that we will discuss shortly (\(\tau^2\) is variance of the unfolded Normal distribution, \(\tau^2/2\) is the variance of the Half-Normal distribution -- both the Negative Exponential and the Half-Normal being special cases of \(g(d) = e^{-(d/\tau)^b}\) that have the parameter \(b\) {[}\(b > 0\){]} affecting the shoulder);
 \item
-  Hazard rate: this is a two-parameter model (\(g(r) = 1-e^{-(r/\tau)^-b}\)) that have the parameter \(b\) (\(b > 0\)) affecting the more pronounced and sharp shoulder.
+  Hazard rate: this is a two-parameter model (\(g(d) = 1-e^{-(d/\tau)^-b}\)) that have the parameter \(b\) (\(b > 0\)) affecting the more pronounced and sharp shoulder.
 \end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{d}\OperatorTok{/}\FloatTok{0.8}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
   \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Negative Exponential"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(d}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
   \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Half-Normal"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^-}\DecValTok{4}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+\KeywordTok{plot}\NormalTok{(d, }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(d}\OperatorTok{/}\FloatTok{0.8}\NormalTok{)}\OperatorTok{^-}\DecValTok{4}\NormalTok{), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
   \DataTypeTok{xlab=}\StringTok{"Distance (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"P(detection)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Hazard rate"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4988,7 +4990,7 @@ Here are some common distance function and rationale for their use
 
 Try different values of \(b\) to explore the different shapes of the Hazard rate function.
 
-Write your own code (\texttt{plot(r,\ exp(-(r/\textless{}tau\textgreater{})\^{}\textless{}b\textgreater{}),\ type="l",\ ylim=c(0,1))}), or run \texttt{shiny::runApp("\_shiny/distancefun.R")}.
+Write your own code (\texttt{plot(d,\ exp(-(d/\textless{}tau\textgreater{})\^{}\textless{}b\textgreater{}),\ type="l",\ ylim=c(0,1))}), or run \texttt{shiny::runApp("\_shiny/distancefun.R")}.
 \EndKnitrBlock{rmdexercise}
 
 We will apply this new found knowledge to our bSims world:
@@ -5011,7 +5013,7 @@ We set \texttt{density} and \texttt{tau} high enough to detections in this examp
 \NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\DecValTok{10}\NormalTok{)}
 \NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{initial_location=}\OtherTok{TRUE}\NormalTok{)}
 
-\NormalTok{(d <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{vocal_only=}\OtherTok{FALSE}\NormalTok{))}
+\NormalTok{(o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5020,13 +5022,13 @@ We set \texttt{density} and \texttt{tau} high enough to detections in this examp
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 1013
-##   total duration: 10
+##   no events, duration: 10 min
 ##   detected: 128 seen/heard
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(d)}
+\KeywordTok{plot}\NormalTok{(o)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5040,17 +5042,17 @@ and the distribution of the individuals with respect to the point where
 the observer is located.
 For point counts, area increases linearly with radial distance,
 implying a triangular distribution with respect to the point
-(\(h(r)=\pi 2 r /A=\pi 2 r / \pi r_{max}^2=2 r / r_{max}^2\), where
+(\(h(d)=\pi 2 d /A=\pi 2 d / \pi r_{max}^2=2 d / r_{max}^2\), where
 \(A\) is a circular survey area with truncation distance \(r_{max}\)).
-The product \(g(r) h(r)\) gives the density function of the observed distances.
+The product \(g(d) h(d)\) gives the density function of the observed distances.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(d, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{)}
   \ControlFlowTok{if}\NormalTok{ (hazard)}
-    \DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^-}\NormalTok{b) }\ControlFlowTok{else} \KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(r}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\NormalTok{b)}
-\NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, rmax)}
-  \DecValTok{2}\OperatorTok{*}\NormalTok{r}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}
+    \DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(d}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^-}\NormalTok{b) }\ControlFlowTok{else} \KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(d}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\NormalTok{b)}
+\NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(d, rmax)}
+  \DecValTok{2}\OperatorTok{*}\NormalTok{d}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5058,28 +5060,28 @@ The product \(g(r) h(r)\) gives the density function of the observed distances.
 \begin{Highlighting}[]
 \NormalTok{rmax <-}\StringTok{ }\DecValTok{4}
 
-\NormalTok{r <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax, }\FloatTok{0.01}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{g}\NormalTok{(r, tau), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
-  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Prob. of detection"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{h}\NormalTok{(r, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
-  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"h(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"PDF of distances"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{g}\NormalTok{(r, tau) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(r, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
-  \DataTypeTok{xlab=}\StringTok{"r"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(r) h(r)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Density of observed distances"}\NormalTok{)}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax, }\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{g}\NormalTok{(d, tau), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{xlab=}\StringTok{"d"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(d)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Prob. of detection"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{h}\NormalTok{(d, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"d"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"h(d)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"PDF of distances"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{g}\NormalTok{(d, tau) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(d, rmax), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
+  \DataTypeTok{xlab=}\StringTok{"d"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"g(d) h(d)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Density of observed distances"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-3}
 
-The object \texttt{ra} contains the distances to all the nests
+The object \texttt{da} contains the distances to all the nests
 based on our bSims object,
 we use this to display the distribution of available distances:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ra <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(a}\OperatorTok{$}\NormalTok{nests[,}\KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{)]}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\NormalTok{da <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(a}\OperatorTok{$}\NormalTok{nests[,}\KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{)]}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
 
-\KeywordTok{hist}\NormalTok{(ra[ra }\OperatorTok{<=}\StringTok{ }\NormalTok{rmax], }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax),}
-  \DataTypeTok{xlab=}\StringTok{"Available distances (r <= rmax)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(da[da }\OperatorTok{<=}\StringTok{ }\NormalTok{rmax], }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax),}
+  \DataTypeTok{xlab=}\StringTok{"Available distances (d <= r_max)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{""}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{x}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5093,7 +5095,7 @@ detected events (in our case just the nest locations):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{head}\NormalTok{(dt <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(d))}
+\KeywordTok{head}\NormalTok{(dt <-}\StringTok{ }\KeywordTok{get_detections}\NormalTok{(o))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5104,8 +5106,8 @@ by the integral sum:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{rmax=}\DecValTok{1}\NormalTok{) }
-  \KeywordTok{g}\NormalTok{(r, tau, b, hazard) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(r, rmax)}
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(d, tau, }\DataTypeTok{b=}\DecValTok{2}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{rmax=}\DecValTok{1}\NormalTok{) }
+  \KeywordTok{g}\NormalTok{(d, tau, b, hazard) }\OperatorTok{*}\StringTok{ }\KeywordTok{h}\NormalTok{(d, rmax)}
 \NormalTok{tot <-}\StringTok{ }\KeywordTok{integrate}\NormalTok{(f, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{upper=}\NormalTok{rmax, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{rmax=}\NormalTok{rmax)}\OperatorTok{$}\NormalTok{value}
 
 \KeywordTok{hist}\NormalTok{(dt}\OperatorTok{$}\NormalTok{d[dt}\OperatorTok{$}\NormalTok{d }\OperatorTok{<=}\StringTok{ }\NormalTok{rmax], }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, rmax),}
@@ -5118,8 +5120,8 @@ by the integral sum:
 
 In case of the Half-Normal, we can linearize the relationship
 by taking the log of the distance function:
-\(log(g(r)) =log(e^{-(r/\tau)^2})= -(r / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta\).
-Consequently, we can use GLM to fit a model with \(x = -r^2\) as
+\(log(g(d)) =log(e^{-(d/\tau)^2})= -(d / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta\).
+Consequently, we can use GLM to fit a model with \(x = -d^2\) as
 predictor and no intercept, and estimate \(\hat{\beta}\) and
 \(\hat{\tau}=\sqrt{1/\hat{\beta}}\).
 
@@ -5132,9 +5134,9 @@ But we can at least check our bSims data:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-  \DataTypeTok{distance=}\NormalTok{ra, }
-  \DataTypeTok{x=}\OperatorTok{-}\NormalTok{ra}\OperatorTok{^}\DecValTok{2}\NormalTok{, }
-  \DataTypeTok{detected=}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(d}\OperatorTok{$}\NormalTok{nests) }\OperatorTok{%in%}\StringTok{ }\NormalTok{dt}\OperatorTok{$}\NormalTok{i, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+  \DataTypeTok{distance=}\NormalTok{da, }
+  \DataTypeTok{x=}\OperatorTok{-}\NormalTok{da}\OperatorTok{^}\DecValTok{2}\NormalTok{, }
+  \DataTypeTok{detected=}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(o}\OperatorTok{$}\NormalTok{nests) }\OperatorTok{%in%}\StringTok{ }\NormalTok{dt}\OperatorTok{$}\NormalTok{i, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
 \KeywordTok{summary}\NormalTok{(dat)}
 \end{Highlighting}
 \end{Shaded}
@@ -5224,16 +5226,16 @@ It estimates \(\sigma = \sqrt{\tau}\):
 To calculate the average probability of detecting individuals
 within a circle with truncation distance \(r_{max}\), we need to
 integrate over the product of \(g(r)\) and \(h(r)\):
-\(q(r_{max})=\int_{0}^{r_{max}} g(r) h(r) dr\).
+\(q(r_{max})=\int_{0}^{r_{max}} g(d) h(d) dd\).
 This gives the volume of pie dough cut at \(r_{max}\),
 compared to the volume of the cookie cutter (\(\pi r_{max}^2\)).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{q <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(r[r }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{], }\ControlFlowTok{function}\NormalTok{(z)}
+\NormalTok{q <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(d[d }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{], }\ControlFlowTok{function}\NormalTok{(z)}
   \KeywordTok{integrate}\NormalTok{(f, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{upper=}\NormalTok{z, }\DataTypeTok{tau=}\NormalTok{tau, }\DataTypeTok{rmax=}\NormalTok{z)}\OperatorTok{$}\NormalTok{value)}
 
-\KeywordTok{plot}\NormalTok{(r, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, q), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+\KeywordTok{plot}\NormalTok{(d, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, q), }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
   \DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(r[max]), }\DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{q}\NormalTok{(r[max])), }
   \DataTypeTok{main=}\StringTok{"Average prob. of detection"}\NormalTok{)}
 \end{Highlighting}
@@ -5243,7 +5245,7 @@ compared to the volume of the cookie cutter (\(\pi r_{max}^2\)).
 
 For the Half-Normal detection function, the analytical solution for the
 average probability is
-\(\pi \tau^2 [1-exp(-r^2/\tau^2)] / (\pi r_{max}^2)\),
+\(\pi \tau^2 [1-exp(-d^2/\tau^2)] / (\pi r_{max}^2)\),
 where the denominator is a normalizing constant
 representing the volume of a cylinder of perfect detectability.
 
@@ -5255,7 +5257,9 @@ To visualize this, here is the pie analogy for
 \NormalTok{tau <-}\StringTok{ }\DecValTok{2}
 \NormalTok{rmax <-}\StringTok{ }\DecValTok{2}
 \NormalTok{w <-}\StringTok{ }\FloatTok{0.1}
-\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }\DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{m <-}\StringTok{ }\DecValTok{2}
+\KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\NormalTok{m}\OperatorTok{*}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }
+  \DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
 \NormalTok{yh <-}\StringTok{ }\KeywordTok{g}\NormalTok{(rmax, }\DataTypeTok{tau=}\NormalTok{tau)}
 \KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{),}
   \KeywordTok{g}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau))}
@@ -5263,9 +5267,9 @@ To visualize this, here is the pie analogy for
 \KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
 \KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, yh))}
 \KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, rmax, w)}
-\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, rmax, w, }\DataTypeTok{border=}\StringTok{"grey"}\NormalTok{)}
-\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
-\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, rmax, w, }\DataTypeTok{border=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{c}\NormalTok{(rmax, rmax), }\KeywordTok{c}\NormalTok{(yh, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5287,13 +5291,12 @@ of the cutter (that happens to be \(\pi \tau^2\) for the Half-Normal):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{m <-}\StringTok{ }\DecValTok{2}
 \KeywordTok{plot}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{xlim=}\NormalTok{m}\OperatorTok{*}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{w, }\DecValTok{1}\OperatorTok{+}\NormalTok{w), }
   \DataTypeTok{axes=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ann=}\OtherTok{FALSE}\NormalTok{)}
 \NormalTok{yh <-}\StringTok{ }\KeywordTok{g}\NormalTok{(rmax, }\DataTypeTok{tau=}\NormalTok{tau)}
 \KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)),}
   \KeywordTok{g}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{m}\OperatorTok{*}\NormalTok{rmax, m}\OperatorTok{*}\NormalTok{rmax, rmax}\OperatorTok{/}\NormalTok{(m}\OperatorTok{*}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau),}
-  \DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+  \DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
 \KeywordTok{lines}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{),}
   \KeywordTok{g}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\NormalTok{rmax, rmax, rmax}\OperatorTok{/}\DecValTok{100}\NormalTok{)), }\DataTypeTok{tau=}\NormalTok{tau))}
 \KeywordTok{draw_ellipse}\NormalTok{(}\DecValTok{0}\NormalTok{, yh, rmax, w, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
@@ -5341,7 +5344,7 @@ The function \(\pi(r)\) increases monotonically from 0 to 1:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{curve}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{/}\NormalTok{tau)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}
-  \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{pi}\NormalTok{(r)), }\DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(r), }
+  \DataTypeTok{ylab=}\KeywordTok{expression}\NormalTok{(}\KeywordTok{pi}\NormalTok{(d)), }\DataTypeTok{xlab=}\KeywordTok{expression}\NormalTok{(d), }
   \DataTypeTok{main=}\StringTok{"Cumulative density"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5359,7 +5362,7 @@ for a bin (stored in \texttt{br}) can be infinite:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{br <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
-\NormalTok{dat}\OperatorTok{$}\NormalTok{bin <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(ra, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{dat}\OperatorTok{$}\NormalTok{bin <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(da, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, br), }\DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
 \NormalTok{(counts <-}\StringTok{ }\KeywordTok{with}\NormalTok{(dat, }\KeywordTok{table}\NormalTok{(bin, detected)))}
 \end{Highlighting}
 \end{Shaded}
@@ -5381,7 +5384,7 @@ for a bin (stored in \texttt{br}) can be infinite:
 
 \KeywordTok{barplot}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{]}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(counts[,}\StringTok{"1"}\NormalTok{]), }\DataTypeTok{space=}\DecValTok{0}\NormalTok{, }\DataTypeTok{col=}\OtherTok{NA}\NormalTok{,}
   \DataTypeTok{xlab=}\StringTok{"Distance bins (100 m)"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Proportions"}\NormalTok{)}
-\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(}\KeywordTok{length}\NormalTok{(br))}\OperatorTok{-}\FloatTok{0.5}\NormalTok{, }\KeywordTok{diff}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, pi_br)), }\DataTypeTok{col=}\DecValTok{3}\NormalTok{, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(}\KeywordTok{length}\NormalTok{(br))}\OperatorTok{-}\FloatTok{0.5}\NormalTok{, }\KeywordTok{diff}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, pi_br)), }\DataTypeTok{col=}\DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5392,7 +5395,7 @@ and estimate \(\hat{\tau}\) based on the binned data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(d, }\DataTypeTok{rint=}\NormalTok{br))}
+\NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{rint=}\NormalTok{br))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5401,9 +5404,11 @@ and estimate \(\hat{\tau}\) based on the binned data:
 ##   1 km x 1 km
 ##   stratification: H
 ##   total abundance: 1013
-##   total duration: 10
+##   no events, duration: 10 min
 ##   detected: 128 seen/heard
-##   1st inds. [0-10 min] [0-100, 100-200, 200-300, 300-400, 400-500, 500+ m]
+##   1st event detected by bins:
+##     [0-10 min]
+##     [0-100, 100-200, 200-300, 300-400, 400-500, 500+ m]
 \end{verbatim}
 
 \begin{Shaded}
@@ -5456,26 +5461,556 @@ cumulative cell probabilities:
 
 \includegraphics{qpad-book_files/figure-latex/unnamed-chunk-96-1.pdf}
 
-EDR, tau constant
+\hypertarget{availability-bias}{%
+\section{Availability bias}\label{availability-bias}}
 
-truncated, unlimited
+We have ignored availability so far when working with bSims,
+but can't continue like that for real data.
+What this means, is that \(g(0) < 1\), so detecting
+an individual 0 distance from the observer depends on
+an event (visual or auditory) that would trigger the detection.
+For example, if a perfecly camouflaged birds sits in silence,
+detection might be difficult. Movement, or a vocalization
+can, however, reveal the individual and its location.
 
-JOSM data
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
+\NormalTok{tau <-}\StringTok{ }\DecValTok{2}
+\NormalTok{Den <-}\StringTok{ }\DecValTok{10}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
+\NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+
+\NormalTok{tint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{rint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{# truncated at 200 m}
+\NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims transcript
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 957
+##   duration: 10 min
+##   detected: 282 heard
+##   1st event detected by bins:
+##     [0-1, 1-2, 2-3, 3-4, 4-5 min]
+##     [0-50, 50-100, 100-150, 150-200 m]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(rem <-}\StringTok{ }\NormalTok{tr}\OperatorTok{$}\NormalTok{removal) }\CommentTok{# binned new individuals}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          0-1min 1-2min 2-3min 3-4min 4-5min
+## 0-50m         1      4      0      2      0
+## 50-100m       4      6      2      4      1
+## 100-150m     13      5      6      4      2
+## 150-200m     13      5      2      7      3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colSums}\NormalTok{(rem)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0-1min 1-2min 2-3min 3-4min 4-5min 
+##     31     20     10     17      6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rowSums}\NormalTok{(rem)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    0-50m  50-100m 100-150m 150-200m 
+##        7       17       30       30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(tr)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-98-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitp <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(tint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\NormalTok{phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(fitp}\OperatorTok{$}\NormalTok{coef)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{phi, }\DataTypeTok{estimate=}\KeywordTok{exp}\NormalTok{(fitp}\OperatorTok{$}\NormalTok{coef))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##   0.5000   0.3301
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(p <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\KeywordTok{max}\NormalTok{(tint)}\OperatorTok{*}\NormalTok{phihat))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8081
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitq <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(rint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{tauhat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(fitq}\OperatorTok{$}\NormalTok{coef)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{estimate=}\NormalTok{tauhat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    2.000    2.659
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(q <-}\StringTok{ }\NormalTok{(tauhat}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(}\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{/}\NormalTok{tauhat)}\OperatorTok{^}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(A <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.57
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Dhat <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(rem) }\OperatorTok{/}\StringTok{ }\NormalTok{(A }\OperatorTok{*}\StringTok{ }\NormalTok{p }\OperatorTok{*}\StringTok{ }\NormalTok{q)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{Den, }\DataTypeTok{estimate=}\NormalTok{Dhat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    10.00    10.83
+\end{verbatim}
+
+Unlimited distance case:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\OtherTok{Inf}\NormalTok{) }\CommentTok{# unlimited}
+
+\NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## bSims transcript
+##   1 km x 1 km
+##   stratification: H
+##   total abundance: 957
+##   duration: 10 min
+##   detected: 282 heard
+##   1st event detected by bins:
+##     [0-1, 1-2, 2-3, 3-4, 4-5 min]
+##     [0-50, 50-100, 100-150, 150-200, 200+ m]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(rem <-}\StringTok{ }\NormalTok{tr}\OperatorTok{$}\NormalTok{removal) }\CommentTok{# binned new individuals}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          0-1min 1-2min 2-3min 3-4min 4-5min
+## 0-50m         1      4      0      2      0
+## 50-100m       4      6      2      4      1
+## 100-150m     13      5      6      4      2
+## 150-200m     13      5      2      7      3
+## 200+m        23     13      7      3      2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colSums}\NormalTok{(rem)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 0-1min 1-2min 2-3min 3-4min 4-5min 
+##     54     33     17     20      8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rowSums}\NormalTok{(rem)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    0-50m  50-100m 100-150m 150-200m    200+m 
+##        7       17       30       30       48
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitp <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(tint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\NormalTok{phihat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(fitp}\OperatorTok{$}\NormalTok{coef)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{phi, }\DataTypeTok{estimate=}\NormalTok{phihat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##   0.5000   0.4285
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(p <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\KeywordTok{max}\NormalTok{(tint)}\OperatorTok{*}\NormalTok{phihat))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8826
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitq <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(rint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{tauhat <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(fitq}\OperatorTok{$}\NormalTok{coef)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{estimate=}\NormalTok{tauhat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    2.000    2.021
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q <-}\StringTok{ }\DecValTok{1}
+\NormalTok{(Ahat <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{tauhat}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.83
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Dhat <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(rem) }\OperatorTok{/}\StringTok{ }\NormalTok{(Ahat }\OperatorTok{*}\StringTok{ }\NormalTok{p }\OperatorTok{*}\StringTok{ }\NormalTok{q)}
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{Den, }\DataTypeTok{estimate=}\NormalTok{Dhat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     true estimate 
+##    10.00    11.66
+\end{verbatim}
+
+Remember, that this is a single location.
+We set the density unreasonably high to have enough counts
+for a reasonable estimate.
+We can independently replicate the simulation for multiple
+landscapes and analyze the results to give justice to bSims
+under idealized conditions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
+\NormalTok{tau <-}\StringTok{ }\DecValTok{1}
+\NormalTok{Den <-}\StringTok{ }\DecValTok{1}
+
+\NormalTok{tint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{rint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
+
+\NormalTok{sim_fun <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
+\NormalTok{  a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den)}
+\NormalTok{  b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{  o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+  \KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint)}\OperatorTok{$}\NormalTok{rem}
+\NormalTok{\}}
+
+\NormalTok{B <-}\StringTok{ }\DecValTok{200}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{res <-}\StringTok{ }\NormalTok{pbapply}\OperatorTok{::}\KeywordTok{pbreplicate}\NormalTok{(B, }\KeywordTok{sim_fun}\NormalTok{(), }\DataTypeTok{simplify=}\OtherTok{FALSE}\NormalTok{)}
+
+\NormalTok{Ddur <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(tint, B, }\KeywordTok{length}\NormalTok{(tint), }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{Ydur1 <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(res, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{colSums}\NormalTok{(z)))}
+\NormalTok{Ydur2 <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(res, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{colSums}\NormalTok{(z[}\OperatorTok{-}\KeywordTok{nrow}\NormalTok{(z),])))}
+\KeywordTok{colSums}\NormalTok{(Ydur1) }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(Ydur1)}
+\KeywordTok{colSums}\NormalTok{(Ydur2) }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(Ydur2)}
+\NormalTok{fitp1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydur1 }\OperatorTok{|}\StringTok{ }\NormalTok{Ddur }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\NormalTok{fitp2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydur2 }\OperatorTok{|}\StringTok{ }\NormalTok{Ddur }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\NormalTok{phihat1 <-}\StringTok{ }\KeywordTok{unname}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(fitp1)))}
+\NormalTok{phihat2 <-}\StringTok{ }\KeywordTok{unname}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(fitp2)))}
+
+\NormalTok{Ddis1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(rint, B, }\KeywordTok{length}\NormalTok{(rint), }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{Ddis2 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(rint[}\OperatorTok{-}\KeywordTok{length}\NormalTok{(rint)], B, }\KeywordTok{length}\NormalTok{(rint)}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{Ydis1 <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(res, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{rowSums}\NormalTok{(z)))}
+\NormalTok{Ydis2 <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(res, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{rowSums}\NormalTok{(z)[}\OperatorTok{-}\KeywordTok{length}\NormalTok{(rint)]))}
+\KeywordTok{colSums}\NormalTok{(Ydis1) }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(Ydis1)}
+\KeywordTok{colSums}\NormalTok{(Ydis2) }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(Ydis2)}
+\NormalTok{fitq1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis1 }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis1 }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{fitq2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis2 }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis2 }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{tauhat1 <-}\StringTok{ }\KeywordTok{unname}\NormalTok{(}\KeywordTok{exp}\NormalTok{(fitq1}\OperatorTok{$}\NormalTok{coef))}
+\NormalTok{tauhat2 <-}\StringTok{ }\KeywordTok{unname}\NormalTok{(}\KeywordTok{exp}\NormalTok{(fitq2}\OperatorTok{$}\NormalTok{coef))}
+
+\CommentTok{## unlimited correction}
+\NormalTok{Apq1 <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{tauhat1}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\KeywordTok{max}\NormalTok{(tint)}\OperatorTok{*}\NormalTok{phihat1)) }\OperatorTok{*}\StringTok{ }\DecValTok{1}
+\NormalTok{rmax <-}\StringTok{ }\KeywordTok{max}\NormalTok{(rint[}\KeywordTok{is.finite}\NormalTok{(rint)])}
+\CommentTok{## truncated correction}
+\NormalTok{Apq2 <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{rmax}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }
+\StringTok{  }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\KeywordTok{max}\NormalTok{(tint)}\OperatorTok{*}\NormalTok{phihat2)) }\OperatorTok{*}\StringTok{ }
+\StringTok{  }\NormalTok{(tauhat2}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(rmax}\OperatorTok{/}\NormalTok{tauhat2)}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+
+\KeywordTok{round}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}
+  \DataTypeTok{phi=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{phi, }\DataTypeTok{unlimited=}\NormalTok{phihat1, }\DataTypeTok{truncated=}\NormalTok{phihat2),}
+  \DataTypeTok{tau=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{tau, }\DataTypeTok{unlimited=}\NormalTok{tauhat1, }\DataTypeTok{truncated=}\NormalTok{tauhat2),}
+  \DataTypeTok{D=}\KeywordTok{c}\NormalTok{(Den, }\DataTypeTok{unlimited=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(Ydis1))}\OperatorTok{/}\NormalTok{Apq1,}
+      \DataTypeTok{truncated=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(Ydis2))}\OperatorTok{/}\NormalTok{Apq2)), }\DecValTok{4}\NormalTok{)}
+\CommentTok{##     true unlimited truncated}
+\CommentTok{## phi  0.5    0.4835    0.4852}
+\CommentTok{## tau  1.0    1.0002    0.9681}
+\CommentTok{## D    1.0    1.0601    1.1048}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{josm-data}{%
+\section{JOSM data}\label{josm-data}}
+
+Process TEWA data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\NormalTok{josm}\OperatorTok{$}\NormalTok{surveys}
+\NormalTok{x}\OperatorTok{$}\NormalTok{FOR <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Decid }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Conif}\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{ConifWet }\CommentTok{# forest}
+\NormalTok{x}\OperatorTok{$}\NormalTok{AHF <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Agr }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{UrbInd }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Roads }\CommentTok{# 'alienating' human footprint}
+\NormalTok{x}\OperatorTok{$}\NormalTok{WET <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{OpenWet }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{ConifWet }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Water }\CommentTok{# wet + water}
+\NormalTok{cn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Open"}\NormalTok{, }\StringTok{"Water"}\NormalTok{, }\StringTok{"Agr"}\NormalTok{, }\StringTok{"UrbInd"}\NormalTok{, }\StringTok{"SoftLin"}\NormalTok{, }\StringTok{"Roads"}\NormalTok{, }\StringTok{"Decid"}\NormalTok{, }
+  \StringTok{"OpenWet"}\NormalTok{, }\StringTok{"Conif"}\NormalTok{, }\StringTok{"ConifWet"}\NormalTok{)}
+\NormalTok{x}\OperatorTok{$}\NormalTok{HAB <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(}\KeywordTok{find_max}\NormalTok{(x[,cn])}\OperatorTok{$}\NormalTok{index) }\CommentTok{# drop empty levels}
+\KeywordTok{levels}\NormalTok{(x}\OperatorTok{$}\NormalTok{HAB)[}\KeywordTok{levels}\NormalTok{(x}\OperatorTok{$}\NormalTok{HAB) }\OperatorTok{%in%}\StringTok{ }
+\StringTok{  }\KeywordTok{c}\NormalTok{(}\StringTok{"OpenWet"}\NormalTok{, }\StringTok{"Water"}\NormalTok{, }\StringTok{"Open"}\NormalTok{, }\StringTok{"Agr"}\NormalTok{, }\StringTok{"UrbInd"}\NormalTok{, }\StringTok{"Roads"}\NormalTok{)] <-}\StringTok{ "Open"}
+\KeywordTok{levels}\NormalTok{(x}\OperatorTok{$}\NormalTok{HAB)[}\KeywordTok{levels}\NormalTok{(x}\OperatorTok{$}\NormalTok{HAB) }\OperatorTok{%in%}\StringTok{ }
+\StringTok{  }\KeywordTok{c}\NormalTok{(}\StringTok{"Conif"}\NormalTok{, }\StringTok{"ConifWet"}\NormalTok{)] <-}\StringTok{ "Conif"}
+\NormalTok{x}\OperatorTok{$}\NormalTok{OBS <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(x}\OperatorTok{$}\NormalTok{ObserverID)}
+
+\NormalTok{yall_dur <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{Dur }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, }
+\NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
+\NormalTok{yall_dur <-}\StringTok{ }\NormalTok{yall_dur[}\KeywordTok{sapply}\NormalTok{(yall_dur, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(z) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)) }\OperatorTok{>}\StringTok{ }\DecValTok{100}\NormalTok{]}
+
+\NormalTok{yall_dis <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{Dis }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, }
+\NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
+\NormalTok{yall_dis <-}\StringTok{ }\NormalTok{yall_dis[}\KeywordTok{sapply}\NormalTok{(yall_dis, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(z) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)) }\OperatorTok{>}\StringTok{ }\DecValTok{100}\NormalTok{]}
+
+\NormalTok{spp <-}\StringTok{ "TEWA"}
+\NormalTok{spp <-}\StringTok{ "BTNW"}
+
+\NormalTok{Ydur <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(yall_dur[[spp]])}
+\NormalTok{Ddur <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{), }\KeywordTok{nrow}\NormalTok{(Ydur), }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{dimnames=}\KeywordTok{dimnames}\NormalTok{(Ydur))}
+\KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(x) }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(Ydur)))}
+
+\NormalTok{Ydis <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(yall_dis[[spp]])}
+\NormalTok{Ddis <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{Inf}\NormalTok{), }\KeywordTok{nrow}\NormalTok{(Ydis), }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{dimnames=}\KeywordTok{dimnames}\NormalTok{(Ydis))}
+\KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(x) }\OperatorTok{==}\StringTok{ }\KeywordTok{rownames}\NormalTok{(Ydis)))}
+
+\KeywordTok{colSums}\NormalTok{(Ydur)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  0-3min  3-5min 5-10min 
+##      97      22      34
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colSums}\NormalTok{(Ydis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   0-50m 50-100m   100+m 
+##     108      36       9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Mdur <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydur }\OperatorTok{|}\StringTok{ }\NormalTok{Ddur }\OperatorTok{~}\StringTok{ }\NormalTok{DAY, x, }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(Mdur)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Ydur | Ddur ~ DAY, data = x, type = "rem")
+## 
+## Removal Sampling (homogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)
+## log.phi_(Intercept) -0.00813    1.89763    0.00     1.00
+## log.phi_DAY         -2.94245    4.44110   -0.66     0.51
+## 
+## Log-likelihood: -130 
+## BIC =  269
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{model.matrix}\NormalTok{(Mdur) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{coef}\NormalTok{(Mdur))}
+\KeywordTok{summary}\NormalTok{(phi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        V1       
+##  Min.   :0.225  
+##  1st Qu.:0.246  
+##  Median :0.262  
+##  Mean   :0.265  
+##  3rd Qu.:0.287  
+##  Max.   :0.313
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{10}\OperatorTok{*}\NormalTok{phi)}
+
+\NormalTok{Mdis0 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{Mdis1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{FOR, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{Mdis2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{HAB, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\NormalTok{Mdis3 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{OBS, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+
+\KeywordTok{AIC}\NormalTok{(Mdis0, Mdis1, Mdis2, Mdis3)}
+\NormalTok{Mdis <-}\StringTok{ }\NormalTok{Mdis2}
+\KeywordTok{summary}\NormalTok{(Mdis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Ydis | Ddis ~ HAB, data = x, type = "dis")
+## 
+## Distance Sampling (half-normal, circular area)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)  
+## log.tau_(Intercept)   -0.502      0.200   -2.51    0.012 *
+## log.tau_HABDecid      -0.201      0.207   -0.97    0.330  
+## log.tau_HABConif      -0.115      0.235   -0.49    0.624  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -115 
+## BIC =  244
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tau <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{model.matrix}\NormalTok{(Mdis) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{coef}\NormalTok{(Mdis))}
+\KeywordTok{boxplot}\NormalTok{(tau }\OperatorTok{~}\StringTok{ }\NormalTok{HAB, x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Apq <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{tau}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{p }\OperatorTok{*}\StringTok{ }\DecValTok{1}
+\NormalTok{off <-}\StringTok{ }\KeywordTok{log}\NormalTok{(Apq)}
+\KeywordTok{boxplot}\NormalTok{(}\KeywordTok{I}\NormalTok{(pi }\OperatorTok{*}\StringTok{ }\NormalTok{tau}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{~}\StringTok{ }\NormalTok{HAB, x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{$}\NormalTok{ytot <-}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(Ydur)}
+\KeywordTok{mean}\NormalTok{(x}\OperatorTok{$}\NormalTok{ytot }\OperatorTok{/}\StringTok{ }\NormalTok{Apq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04461
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(ytot }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data=}\NormalTok{x, }\DataTypeTok{offset=}\NormalTok{off, }\DataTypeTok{family=}\NormalTok{poisson)}
+\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(m))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##     0.04205
+\end{verbatim}
+
+\hypertarget{constant-edr}{%
+\subsection{Constant EDR}\label{constant-edr}}
+
+Fit constant EDR model for TEWA using cmulti
+
+\hypertarget{variable-edr}{%
+\subsection{Variable EDR}\label{variable-edr}}
 
 variable tau: habitat effect (continuous case?)
 
 discrete: land cover, observer effects
 
-contrast fixed effects with offsets -- motivation for ARU
+do model selection and pick the best model
 
-\hypertarget{end-of-section}{%
-\section{End of section}\label{end-of-section}}
+\hypertarget{estimating-abundance-1}{%
+\section{Estimating abundance}\label{estimating-abundance-1}}
+
+bSims and TEWA as in previous chapter, but with q this time
+
+contrast fixed effects with offsets -- motivation for ARU
 
 Sometimes, a recording is made at the survey location
 that is listened to and transcribed in the lab
 using headphones and possibly a computer screen.
 This presents new challenges, and also new opportunities
-for analysis of count data.
+for analysis of count data -- and is the topic of the next chapter.
+
+FIXME Add exercises !!!
+
+Exercise: try OBS in tau model, visualize
 
 \hypertarget{recordings}{%
 \chapter{Dealing with Recordings}\label{recordings}}
@@ -5537,7 +6072,7 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-103-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5752,10 +6287,12 @@ Here is the code for simplifying compositional data:
 \hypertarget{n-mixture-models}{%
 \section{N-mixture models}\label{n-mixture-models}}
 
-\hypertarget{estimating-abundance-1}{%
-\section{Estimating abundance}\label{estimating-abundance-1}}
+\hypertarget{estimating-abundance-2}{%
+\section{Estimating abundance}\label{estimating-abundance-2}}
 
 Exponential model, bSims data
+
+Note: \texttt{\$visits} is not yet exposed
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5764,22 +6301,12 @@ Exponential model, bSims data
 \NormalTok{Den <-}\StringTok{ }\DecValTok{1}
 \NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den)}
-\NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi, }\DataTypeTok{move_rate=}\DecValTok{0}\NormalTok{)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
 
 \NormalTok{tint <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{5}
 \NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(b, }\DataTypeTok{tint=}\NormalTok{tint))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## bSims transcript
-##   1 km x 1 km
-##   stratification: H
-##   total abundance: 104
-##   total duration: 10
-##   detected: 104 heard
-##   1st inds. [0-1, 1-2, 2-3, 3-4, 4-5 min] [0+ m]
-\end{verbatim}
 
 Multiple-visit stuff for bSims: the counting of new individuals
 resets for each interval (also: needs equal intervals)
@@ -5787,16 +6314,7 @@ resets for each interval (also: needs equal intervals)
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tr}\OperatorTok{$}\NormalTok{visits}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-##     0-1min 1-2min 2-3min 3-4min 4-5min
-## 0+m     35     48     44     43     45
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{v <-}\StringTok{ }\KeywordTok{get_events}\NormalTok{(b, }\DataTypeTok{vocal_only=}\OtherTok{TRUE}\NormalTok{)}
 \NormalTok{v <-}\StringTok{ }\NormalTok{v[v}\OperatorTok{$}\NormalTok{t }\OperatorTok{<=}\StringTok{ }\KeywordTok{max}\NormalTok{(tint),]}
 \NormalTok{v1 <-}\StringTok{ }\NormalTok{v[}\OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(v}\OperatorTok{$}\NormalTok{i),]}
@@ -5812,13 +6330,8 @@ resets for each interval (also: needs equal intervals)
   \KeywordTok{points}\NormalTok{(tmp2}\OperatorTok{$}\NormalTok{t, }\KeywordTok{rep}\NormalTok{(i, }\KeywordTok{nrow}\NormalTok{(tmp2)), }\DataTypeTok{cex=}\FloatTok{0.5}\NormalTok{)}
   \KeywordTok{points}\NormalTok{(tmp2}\OperatorTok{$}\NormalTok{t[}\DecValTok{1}\NormalTok{], i, }\DataTypeTok{pch=}\DecValTok{19}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.5}\NormalTok{)}
 \NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-100-1.pdf}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(o }\OperatorTok{~}\StringTok{ }\NormalTok{t, tmp, }\DataTypeTok{type=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Individuals"}\NormalTok{,}
   \DataTypeTok{main=}\StringTok{"Vocalization events"}\NormalTok{, }
   \DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(b}\OperatorTok{$}\NormalTok{nests)), }\DataTypeTok{xlim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{max}\NormalTok{(tint)))}
@@ -5837,13 +6350,7 @@ resets for each interval (also: needs equal intervals)
 \NormalTok{    \}}
 \NormalTok{  \}}
 \NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-100-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(unmarked)}
 
 \NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
@@ -5857,67 +6364,15 @@ resets for each interval (also: needs equal intervals)
 
 \CommentTok{#ymx <- tr$visits}
 \NormalTok{(ymx <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{replicate}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{f}\NormalTok{())))}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-##       0-1min 1-2min 2-3min 3-4min 4-5min
-##  [1,]      0      0      0      0      0
-##  [2,]      0      1      0      0      1
-##  [3,]      0      2      2      1      0
-##  [4,]      1      1      0      1      0
-##  [5,]      0      0      0      0      0
-##  [6,]      0      0      0      0      0
-##  [7,]      2      2      0      1      0
-##  [8,]      1      1      0      0      0
-##  [9,]      0      0      0      0      0
-## [10,]      0      1      0      1      0
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{## highly dependent on K when Den is higher}
 \NormalTok{nmix <-}\StringTok{ }\KeywordTok{pcount}\NormalTok{(}\OperatorTok{~}\DecValTok{1} \OperatorTok{~}\DecValTok{1}\NormalTok{, }\KeywordTok{unmarkedFramePCount}\NormalTok{(}\DataTypeTok{y=}\NormalTok{ymx), }\DataTypeTok{K=}\DecValTok{1000}\NormalTok{)}
 \KeywordTok{coef}\NormalTok{(nmix)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## lam(Int)   p(Int) 
-## -0.02602 -0.44730
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{plogis}\NormalTok{(}\KeywordTok{coef}\NormalTok{(nmix)[}\DecValTok{2}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## p(Int) 
-##   0.39
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(nmix)[}\DecValTok{1}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## lam(Int) 
-##   0.9743
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{Den }\OperatorTok{*}\StringTok{ }\DecValTok{100}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] 1
-\end{verbatim}
 
 \bibliography{book.bib,packages.bib,publications.bib}
 

@@ -22,7 +22,7 @@ rest of the book/course.
 
 ## Prerequisites
 
-```{r data-load_josm_data}
+```{r data-load_josm_data,message=TRUE,warning=FALSE}
 library(mefa4)                # data manipulation
 library(raster)               # reading raster files
 library(sp)                   # spatial data manipulation

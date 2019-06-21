@@ -18,7 +18,7 @@ learning about the nature of the mechanisms contributing to $C$.
 
 ## Prerequisites
 
-```{r beh-libs,message=FALSE,warning=FALSE}
+```{r beh-libs,message=TRUE,warning=FALSE}
 library(bSims)                # simulations
 library(detect)               # multinomial models
 load("_data/josm/josm.rda")   # JOSM data

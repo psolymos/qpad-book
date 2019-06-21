@@ -11,7 +11,7 @@ We will also hone our data processing and plotting skills.
 
 ## Prerequisites
 
-```{r regr-libs,message=FALSE,warning=FALSE}
+```{r regr-libs,message=TRUE,warning=FALSE}
 library(mefa4)                # data manipulation
 library(mgcv)                 # GAMs
 library(pscl)                 # zero-inflated models

@@ -17,7 +17,7 @@ contributes to the factor $C$.
 
 ## Prerequisites
 
-```{r det-libs,message=FALSE,warning=FALSE}
+```{r det-libs,message=TRUE,warning=FALSE}
 library(bSims)                # simulations
 library(detect)               # multinomial models
 library(Distance)             # distance sampling
@@ -191,7 +191,6 @@ rug(dat$distance[dat$detected == 0], side=1, col=4)
 rug(dat$distance[dat$detected == 1], side=3, col=2)
 legend("topright", bty="n", lty=c(2,1), 
   legend=c("True", "Estimated"))
-
 ```
 
 The Distance package offers various tools to fit
@@ -310,6 +309,37 @@ lines(c(rmax, rmax), c(yh, 1), col=4)
 
 ```
 
+```{block2, type='rmdexercise'}
+**Exercise**
+
+What would be a computational algorithm to calculate EDR
+for any distance function and truncation distance?
+
+Trye to explain how the code below is working.
+
+Why are EDRs different for different truncation distances?
+```
+
+```{r}
+find_edr <- function(dist_fun, ..., rmax=Inf) {
+  ## integral function
+  f <- function(d, ...)
+    dist_fun(d, ...) * 2*d*pi
+  ## volume under dist_fun
+  V <- integrate(f, lower=0, upper=rmax, ...)$value
+  u <- function(edr)
+    V - edr^2*pi
+  uniroot(u, c(0, 1000))$root
+}
+
+find_edr(g, tau=1)
+find_edr(g, tau=10)
+find_edr(g, tau=1, b=1)
+find_edr(g, tau=1, b=4, hazard=TRUE)
+
+find_edr(g, tau=1, rmax=1)
+```
+
 The function $\pi(r)$ increases monotonically from 0 to 1:
 
 ```{r}
@@ -378,18 +408,38 @@ For example, if a perfecly camouflaged birds sits in silence,
 detection might be difficult. Movement, or a vocalization
 can, however, reveal the individual and its location.
 
+The `phi` and `tau` values are at the high end of plausible
+values for songbirds. The `Den`sity value is exaggerated,
+but this way we will have enough counts to prove our points
+using bSims:
 
 ```{r}
 phi <- 0.5
 tau <- 2
 Den <- 10
+```
 
+Now we go through the layers of our bSims world:
+
+1. initiating the landscape,
+2. populating the landscape by individuals,
+3. breath life into the virtual birds and let them sing,
+4. put in an observer and let the observation process begin.
+
+```{r}
 set.seed(2)
 l <- bsims_init()
 a <- bsims_populate(l, density=Den)
 b <- bsims_animate(a, vocal_rate=phi)
 o <- bsims_detect(b, tau=tau)
+```
 
+Transcription is the process of turning the detections
+into a table showing new individuals detected by
+time intervals and distance bands, as defined
+by the `tint` and `rint` arguments, respectively.
+
+```{r}
 tint <- c(1, 2, 3, 4, 5)
 rint <- c(0.5, 1, 1.5, 2) # truncated at 200 m
 (tr <- bsims_transcribe(o, tint=tint, rint=rint))
@@ -398,27 +448,56 @@ colSums(rem)
 rowSums(rem)
 ```
 
+The plot method displays the detections presented as part of the `tr` object.
+
 ```{r fig.width=8,fig.height=8}
 plot(tr)
 ```
+
+The detection process and the transcription (following a prescribed
+protocol) is inseparable in the field. However, recordings
+made in the field can be processed by a number of different ways.
+Separating these processed gives the ability to make these
+conparisons on the exact same set of detections.
+
+## Estimating density with truncation
+
+We now fit the removal model to the data pooled by time intervals.
+`p` is the cumulative probability of availability for the total duration:
 
 ```{r}
 fitp <- cmulti.fit(matrix(colSums(rem), 1), matrix(tint, 1), type="rem")
 phihat <- exp(fitp$coef)
 c(true=phi, estimate=exp(fitp$coef))
 (p <- 1-exp(-max(tint)*phihat))
+```
 
+The distance sampling model uses the distance binned counts,
+and a Half-Normal detection function, `q` is the cumulative
+probability of perceptibility within the area of 
+truncation distance `rmax`:
+
+```{r}
 fitq <- cmulti.fit(matrix(rowSums(rem), 1), matrix(rint, 1), type="dis")
 tauhat <- exp(fitq$coef)
 c(true=tau, estimate=tauhat)
-(q <- (tauhat^2/max(rint)^2) * (1-exp(-(max(rint)/tauhat)^2)))
+rmax <- max(rint)
+(q <- (tauhat^2/rmax^2) * (1-exp(-(rmax/tauhat)^2)))
+```
 
-(A <- pi * max(rint)^2)
+The known `A`rea, `p`, and `q` makes up the correction factor,
+which is used to estimate density based on $\hat{D}=Y/(A \hat{p}\hat{q})$:
+
+```{r}
+(A <- pi * rmax^2)
 Dhat <- sum(rem) / (A * p * q)
 c(true=Den, estimate=Dhat)
 ```
 
-Unlimited distance case:
+## Unlimited distance
+
+We now change the distance bins to include the area outside of the
+previous `rmax` distance, making the counts unlimited distance counts:
 
 ```{r}
 rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
@@ -427,23 +506,50 @@ rint <- c(0.5, 1, 1.5, 2, Inf) # unlimited
 (rem <- tr$removal) # binned new individuals
 colSums(rem)
 rowSums(rem)
+```
 
+The removal model is basically the same, the only
+difference is that the counts can be higher due to
+detecting over larger area and thus potentially
+detecting more individuals:
+
+```{r}
 fitp <- cmulti.fit(matrix(colSums(rem), 1), matrix(tint, 1), type="rem")
 phihat <- exp(fitp$coef)
 c(true=phi, estimate=phihat)
 (p <- 1-exp(-max(tint)*phihat))
+```
 
+The diatance sampling model also takes the extended data set.
+
+```{r}
 fitq <- cmulti.fit(matrix(rowSums(rem), 1), matrix(rint, 1), type="dis")
 tauhat <- exp(fitq$coef)
 c(true=tau, estimate=tauhat)
-q <- 1
+```
+
+The problem is that our truncation distance is infinite,
+thus the area that we are sampling is also infinite.
+This does not make too much sense, and not at all hepful
+in estimating density (anything divided by infinity is 0).
+So we use EDR (`tauhat` for Half-Normal) and calculate
+the estimated effective area sampled (`Ahat`; $\hat{A}=\pi \hat{\tau}^2$).
+We also set `q` to be 1, because the logic behind EDR is that its
+volume equals the volume of the integral, in other words,
+it is an area that would give on average same count under perfect detection
+Finally, we estimate density using $\hat{D}=Y/(\hat{A} \hat{p}1)$
+
+```{r}
 (Ahat <- pi * tauhat^2)
+q <- 1
 
 Dhat <- sum(rem) / (Ahat * p * q)
 c(true=Den, estimate=Dhat)
 ```
 
-Remember, that this is a single location.
+## Replicating landscapes
+
+Remember, that we have used so far a single location.
 We set the density unreasonably high to have enough counts
 for a reasonable estimate.
 We can independently replicate the simulation for multiple
@@ -510,11 +616,18 @@ round(rbind(
 ## D    1.0    1.0601    1.1048
 ```
 
+```{block2, type='rmdexercise'}
+**Exercise**
+
+If time permits, try different settings and time/distance intervals.
+```
+
 ## JOSM data
 
-Process TEWA data
+Quickly organize the JOSM data:
 
 ```{r}
+## predictors
 x <- josm$surveys
 x$FOR <- x$Decid + x$Conif+ x$ConifWet # forest
 x$AHF <- x$Agr + x$UrbInd + x$Roads # 'alienating' human footprint
@@ -528,16 +641,21 @@ levels(x$HAB)[levels(x$HAB) %in%
   c("Conif", "ConifWet")] <- "Conif"
 x$OBS <- as.factor(x$ObserverID)
 
+## time intervals
 yall_dur <- Xtab(~ SiteID + Dur + SpeciesID, 
   josm$counts[josm$counts$DetectType1 != "V",])
 yall_dur <- yall_dur[sapply(yall_dur, function(z) sum(rowSums(z) > 0)) > 100]
 
+## distance intervals
 yall_dis <- Xtab(~ SiteID + Dis + SpeciesID, 
   josm$counts[josm$counts$DetectType1 != "V",])
 yall_dis <- yall_dis[sapply(yall_dis, function(z) sum(rowSums(z) > 0)) > 100]
+```
 
+Pick our most abundant species again, and organize the data:
+
+```{r}
 spp <- "TEWA"
-spp <- "BTNW"
 
 Ydur <- as.matrix(yall_dur[[spp]])
 Ddur <- matrix(c(3, 5, 10), nrow(Ydur), 3, byrow=TRUE,
@@ -551,63 +669,94 @@ stopifnot(all(rownames(x) == rownames(Ydis)))
 
 colSums(Ydur)
 colSums(Ydis)
+```
 
+We pick a removal models with `DAY` as covariate,
+and calculate $p(t)$:
+
+```{r}
 Mdur <- cmulti(Ydur | Ddur ~ DAY, x, type="rem")
 summary(Mdur)
 phi <- exp(model.matrix(Mdur) %*% coef(Mdur))
 summary(phi)
 p <- 1-exp(-10*phi)
+```
 
+We fit the intercept only distance sampling model next:
+
+```{r}
 Mdis0 <- cmulti(Ydis | Ddis ~ 1, x, type="dis")
+summary(Mdis0)
+```
+
+Let's try a few covariates:
+
+- continuous `FOR`est cover covariate: sound attenuation increases with forest cover;
+- discrete `HAB`itat has 3 levels: open, deciduous forest, and coniferous forest (based on dominant land cover), because broad leaves and needles affect sound attenuation;
+- finally, we use observer ID as categorical variable: observers might have different hearing abilities, training/experiance levels, good times, bad times, etc.
+
+```{r}
 Mdis1 <- cmulti(Ydis | Ddis ~ FOR, x, type="dis")
 Mdis2 <- cmulti(Ydis | Ddis ~ HAB, x, type="dis")
-Mdis3 <- cmulti(Ydis | Ddis ~ OBS, x, type="dis")
+```
 
-AIC(Mdis0, Mdis1, Mdis2, Mdis3)
-Mdis <- Mdis2
+We can look at AIC to find the best supported model:
+
+```{r}
+aic <- AIC(Mdis0, Mdis1, Mdis2)
+aic$delta_AIC <- aic$AIC - min(aic$AIC)
+aic[order(aic$AIC),]
+
+Mdis <- get(rownames(aic)[aic$delta_AIC == 0])
 summary(Mdis)
+```
 
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Use `OBS` as predictor for `tau` and look at predicted EDRs.
+
+What is the practical issue with using observer as predictor?
+```
+
+After finding the best model, we predict `tau`:
+
+```{r}
 tau <- exp(model.matrix(Mdis) %*% coef(Mdis))
 boxplot(tau ~ HAB, x)
+```
 
+Finally, we calculate the correction factor for unlimited distances,
+and predict mean density:
+
+```{r}
 Apq <- pi * tau^2 * p * 1
-off <- log(Apq)
-boxplot(I(pi * tau^2) ~ HAB, x)
-
 x$ytot <- rowSums(Ydur)
 mean(x$ytot / Apq)
+```
 
+Alternatively, we can use the log of the correction
+as an offset in log-linear models. This offset is 
+called the QPAD offset:
+
+```{r}
+off <- log(Apq)
 m <- glm(ytot ~ 1, data=x, offset=off, family=poisson)
 exp(coef(m))
 ```
 
-### Constant EDR
+```{block2, type='rmdexercise'}
+**Exercise**
 
-Fit constant EDR model for TEWA using cmulti
+Try distance sampling and density estimation for another species.
 
-### Variable EDR
-
-variable tau: habitat effect (continuous case?)
-
-discrete: land cover, observer effects
-
-do model selection and pick the best model
-
-## Estimating abundance
-
-bSims and TEWA as in previous chapter, but with q this time
-
-contrast fixed effects with offsets -- motivation for ARU
-
+Fit multiple GLMs with QPAD offsets and covariates affecting density,
+interpret the results and the visualize responses.
+```
 
 Sometimes, a recording is made at the survey location
 that is listened to and transcribed in the lab
 using headphones and possibly a computer screen.
 This presents new challenges, and also new opportunities
 for analysis of count data -- and is the topic of the next chapter.
-
-FIXME Add exercises !!! 
-
-Exercise: try OBS in tau model, visualize
-
 

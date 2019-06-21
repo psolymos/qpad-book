@@ -133,6 +133,8 @@ Check out Chapters 1--6 if you want to brush up your R skills.
 
 ## Installing the book {-}
 
+Get a copy of the GitHub repository by cloning it or downloading
+as zip file from https://github.com/psolymos/qpad-book.
 
 The **bookdown** package can be installed from CRAN or Github:
 

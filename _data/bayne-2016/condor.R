@@ -82,9 +82,11 @@ axis(2)
 axis(1,c(2,6,10),c("Seismic", "Pipeline", "Wellpad"), tick=F)
 abline(h=1, col='#8da0cb')
 for (i in c("OLD", "ALL", "SHR")) {
-    boxplot(x3x[x1$Habitat==i,cc], ylim=c(0, 3), main=i, col=c(col,NA), axes=FALSE)
+    boxplot(x3x[x1$Habitat==i,cc], ylim=c(0, 3), main=i, col=c(col,NA), axes=FALSE,
+        ylab="Relative effect")
     axis(2)
     axis(1,c(2,6,10),c("Seismic", "Pipeline", "Wellpad"), tick=F)
     abline(h=1, col='#8da0cb')
+    legend("topleft", fill=col, legend=c("50m", "100m", "Unlimited"), bty="n", title="Truncation distance")
 }
 dev.off()

@@ -1,0 +1,44 @@
+---
+title: "Automated Recordings"
+date: "Point count data analysis workshop, AOS 2019, Anchorage AK, 25 June 2019"
+author: "Peter Solymos"
+fontsize: 11pt
+urlcolor: blue
+output:
+  beamer_presentation:
+    theme: "Singapore"
+    incremental: false
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup,include=FALSE}
+options(width=53, scipen=999)
+library(knitr)
+```
+
+# Checking in
+
+1. ~~Introduction~~
+2. ~~Organizing and processing point count data~~
+3. ~~A primer in regression techniques~~
+
+Short break
+
+4. ~~Behavioral complexities~~
+5. ~~The detection process~~
+
+Lunch break
+
+6. Dealing with recordings
+7. A closer look at assumptions
+
+Short break
+
+8. Understanding roadside surveys
+9. Miscellaneous topics
+
+Dismissal
+
+***
+

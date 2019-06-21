@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-19" />
+<meta name="date" content="2019-06-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,11 +196,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="detection.html"><a href="detection.html#average-detection"><i class="fa fa-check"></i><b>5.5</b> Average detection</a></li>
 <li class="chapter" data-level="5.6" data-path="detection.html"><a href="detection.html#binned-distances"><i class="fa fa-check"></i><b>5.6</b> Binned distances</a></li>
 <li class="chapter" data-level="5.7" data-path="detection.html"><a href="detection.html#availability-bias"><i class="fa fa-check"></i><b>5.7</b> Availability bias</a></li>
-<li class="chapter" data-level="5.8" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.8</b> JOSM data</a><ul>
-<li class="chapter" data-level="5.8.1" data-path="detection.html"><a href="detection.html#constant-edr"><i class="fa fa-check"></i><b>5.8.1</b> Constant EDR</a></li>
-<li class="chapter" data-level="5.8.2" data-path="detection.html"><a href="detection.html#variable-edr"><i class="fa fa-check"></i><b>5.8.2</b> Variable EDR</a></li>
-</ul></li>
-<li class="chapter" data-level="5.9" data-path="detection.html"><a href="detection.html#estimating-abundance-1"><i class="fa fa-check"></i><b>5.9</b> Estimating abundance</a></li>
+<li class="chapter" data-level="5.8" data-path="detection.html"><a href="detection.html#estimating-density-with-truncation"><i class="fa fa-check"></i><b>5.8</b> Estimating density with truncation</a></li>
+<li class="chapter" data-level="5.9" data-path="detection.html"><a href="detection.html#unlimited-distance"><i class="fa fa-check"></i><b>5.9</b> Unlimited distance</a></li>
+<li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
+<li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -211,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.2</b> Optimal partitioning</a></li>
 <li class="chapter" data-level="9.3" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.3</b> Optilevels</a></li>
 <li class="chapter" data-level="9.4" data-path="extras.html"><a href="extras.html#n-mixture-models"><i class="fa fa-check"></i><b>9.4</b> N-mixture models</a></li>
-<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-2"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
+<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-1"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -284,7 +283,7 @@ and thus depend on the individuals being available for detection
   <span class="dt">xlab=</span><span class="st">&quot;Distance (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;P(detection)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Half-Normal&quot;</span>)
 <span class="kw">plot</span>(d, <span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(d<span class="op">/</span><span class="fl">0.8</span>)<span class="op">^-</span><span class="dv">4</span>), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),
   <span class="dt">xlab=</span><span class="st">&quot;Distance (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;P(detection)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Hazard rate&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-77-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-77-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-77-3.png" width="33%" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-139-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-139-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-139-3.png" width="33%" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
@@ -316,7 +315,7 @@ b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span c
 ##   no events, duration: 10 min
 ##   detected: 128 seen/heard</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(o)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-80-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-142-1.png" width="768" /></p>
 </div>
 <div id="distance-sampling" class="section level2">
 <h2><span class="header-section-number">5.4</span> Distance sampling</h2>
@@ -342,7 +341,7 @@ d &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</
   <span class="dt">xlab=</span><span class="st">&quot;d&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;h(d)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;PDF of distances&quot;</span>)
 <span class="kw">plot</span>(d, <span class="kw">g</span>(d, tau) <span class="op">*</span><span class="st"> </span><span class="kw">h</span>(d, rmax), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>,
   <span class="dt">xlab=</span><span class="st">&quot;d&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;g(d) h(d)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Density of observed distances&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-82-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-82-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-82-3.png" width="33%" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-144-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-144-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-144-3.png" width="33%" /></p>
 <p>The object <code>da</code> contains the distances to all the nests
 based on our bSims object,
 we use this to display the distribution of available distances:</p>
@@ -351,7 +350,7 @@ we use this to display the distribution of available distances:</p>
 <span class="kw">hist</span>(da[da <span class="op">&lt;=</span><span class="st"> </span>rmax], <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, rmax),
   <span class="dt">xlab=</span><span class="st">&quot;Available distances (d &lt;= r_max)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">curve</span>(<span class="dv">2</span><span class="op">*</span>x<span class="op">/</span>rmax<span class="op">^</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>The <code>get_detections</code> function returns a data frame with the
 detected events (in our case just the nest locations):
 <code>$d</code> is the distance, <code>$a</code> is the angle
@@ -368,7 +367,7 @@ tot &lt;-<span class="st"> </span><span class="kw">integrate</span>(f, <span cla
 <span class="kw">hist</span>(dt<span class="op">$</span>d[dt<span class="op">$</span>d <span class="op">&lt;=</span><span class="st"> </span>rmax], <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, rmax),
   <span class="dt">xlab=</span><span class="st">&quot;Observed distances (r &lt;= rmax)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">curve</span>(<span class="kw">f</span>(x, <span class="dt">tau=</span>tau, <span class="dt">rmax=</span>rmax) <span class="op">/</span><span class="st"> </span>tot, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <p>In case of the Half-Normal, we can linearize the relationship
 by taking the log of the distance function:
 <span class="math inline">\(log(g(d)) =log(e^{-(d/\tau)^2})= -(d / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta\)</span>.
@@ -404,7 +403,7 @@ But we can at least check our bSims data:</p>
 <span class="kw">rug</span>(dat<span class="op">$</span>distance[dat<span class="op">$</span>detected <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], <span class="dt">side=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">2</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True&quot;</span>, <span class="st">&quot;Estimated&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 <p>The Distance package offers various tools to fit
 models to observed distance data.
 See <a href="https://workshops.distancesampling.org/duke-spatial-2015/practicals/1-detection-functions-solutions.html">here</a> for a tutorial.
@@ -436,7 +435,7 @@ compared to the volume of the cookie cutter (<span class="math inline">\(\pi r_{
 <span class="kw">plot</span>(d, <span class="kw">c</span>(<span class="dv">1</span>, q), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),
   <span class="dt">xlab=</span><span class="kw">expression</span>(r[max]), <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">q</span>(r[max])), 
   <span class="dt">main=</span><span class="st">&quot;Average prob. of detection&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p>For the Half-Normal detection function, the analytical solution for the
 average probability is
 <span class="math inline">\(\pi \tau^2 [1-exp(-d^2/\tau^2)] / (\pi r_{max}^2)\)</span>,
@@ -460,7 +459,7 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">1</span>, rmax, w, <span class="dt">border=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 </div>
 <div id="binned-distances" class="section level2">
 <h2><span class="header-section-number">5.6</span> Binned distances</h2>
@@ -486,7 +485,7 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(<span class="dv">0</span>, yh))
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(<span class="dv">0</span>, yh))
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">0</span>, rmax, w)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <p>In case of the Half-Normal distance function,
 <span class="math inline">\(\tau\)</span> is the <em>effective detection radius</em> (EDR).
 The effective detection radius is the distance from observer
@@ -510,12 +509,42 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">1</span>, rmax, w, <span class="dt">border=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>What would be a computational algorithm to calculate EDR
+for any distance function and truncation distance?</p>
+<p>Trye to explain how the code below is working.</p>
+Why are EDRs different for different truncation distances?
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r">find_edr &lt;-<span class="st"> </span><span class="cf">function</span>(dist_fun, ..., <span class="dt">rmax=</span><span class="ot">Inf</span>) {
+  <span class="co">## integral function</span>
+  f &lt;-<span class="st"> </span><span class="cf">function</span>(d, ...)
+    <span class="kw">dist_fun</span>(d, ...) <span class="op">*</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>d<span class="op">*</span>pi
+  <span class="co">## volume under dist_fun</span>
+  V &lt;-<span class="st"> </span><span class="kw">integrate</span>(f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span>rmax, ...)<span class="op">$</span>value
+  u &lt;-<span class="st"> </span><span class="cf">function</span>(edr)
+    V <span class="op">-</span><span class="st"> </span>edr<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi
+  <span class="kw">uniroot</span>(u, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))<span class="op">$</span>root
+}
+
+<span class="kw">find_edr</span>(g, <span class="dt">tau=</span><span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_edr</span>(g, <span class="dt">tau=</span><span class="dv">10</span>)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_edr</span>(g, <span class="dt">tau=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 1.414</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_edr</span>(g, <span class="dt">tau=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">4</span>, <span class="dt">hazard=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] 1.331</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find_edr</span>(g, <span class="dt">tau=</span><span class="dv">1</span>, <span class="dt">rmax=</span><span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 0.7951</code></pre>
 <p>The function <span class="math inline">\(\pi(r)\)</span> increases monotonically from 0 to 1:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(x<span class="op">/</span>tau)<span class="op">^</span><span class="dv">2</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>,
   <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">pi</span>(d)), <span class="dt">xlab=</span><span class="kw">expression</span>(d), 
   <span class="dt">main=</span><span class="st">&quot;Cumulative density&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <p>Here are binned distances for the bSims data, with expected
 proportions based on <span class="math inline">\(\pi()\)</span> cell probabilities
 (differences within the distance bins).
@@ -539,7 +568,7 @@ dat<span class="op">$</span>bin &lt;-<span class="st"> </span><span class="kw">c
 <span class="kw">barplot</span>(counts[,<span class="st">&quot;1&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(counts[,<span class="st">&quot;1&quot;</span>]), <span class="dt">space=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="ot">NA</span>,
   <span class="dt">xlab=</span><span class="st">&quot;Distance bins (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Proportions&quot;</span>)
 <span class="kw">lines</span>(<span class="kw">seq_len</span>(<span class="kw">length</span>(br))<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, pi_br)), <span class="dt">col=</span><span class="dv">3</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
 <p>We can use the <code>bsims_transcribe</code> function for the same effect,
 and estimate <span class="math inline">\(\hat{\tau}\)</span> based on the binned data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(o, <span class="dt">rint=</span>br))</code></pre>
@@ -578,7 +607,7 @@ cumulative cell probabilities:</p>
 <span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(x<span class="op">/</span>tauhat)<span class="op">^</span><span class="dv">2</span>), <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True&quot;</span>, <span class="st">&quot;Estimated&quot;</span>, <span class="st">&quot;Empirical&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
 </div>
 <div id="availability-bias" class="section level2">
 <h2><span class="header-section-number">5.7</span> Availability bias</h2>
@@ -590,17 +619,30 @@ an event (visual or auditory) that would trigger the detection.
 For example, if a perfecly camouflaged birds sits in silence,
 detection might be difficult. Movement, or a vocalization
 can, however, reveal the individual and its location.</p>
+<p>The <code>phi</code> and <code>tau</code> values are at the high end of plausible
+values for songbirds. The <code>Den</code>sity value is exaggerated,
+but this way we will have enough counts to prove our points
+using bSims:</p>
 <pre class="sourceCode r"><code class="sourceCode r">phi &lt;-<span class="st"> </span><span class="fl">0.5</span>
 tau &lt;-<span class="st"> </span><span class="dv">2</span>
-Den &lt;-<span class="st"> </span><span class="dv">10</span>
-
-<span class="kw">set.seed</span>(<span class="dv">2</span>)
+Den &lt;-<span class="st"> </span><span class="dv">10</span></code></pre>
+<p>Now we go through the layers of our bSims world:</p>
+<ol style="list-style-type: decimal">
+<li>initiating the landscape,</li>
+<li>populating the landscape by individuals,</li>
+<li>breath life into the virtual birds and let them sing,</li>
+<li>put in an observer and let the observation process begin.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2</span>)
 l &lt;-<span class="st"> </span><span class="kw">bsims_init</span>()
 a &lt;-<span class="st"> </span><span class="kw">bsims_populate</span>(l, <span class="dt">density=</span>Den)
 b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span class="dt">vocal_rate=</span>phi)
-o &lt;-<span class="st"> </span><span class="kw">bsims_detect</span>(b, <span class="dt">tau=</span>tau)
-
-tint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
+o &lt;-<span class="st"> </span><span class="kw">bsims_detect</span>(b, <span class="dt">tau=</span>tau)</code></pre>
+<p>Transcription is the process of turning the detections
+into a table showing new individuals detected by
+time intervals and distance bands, as defined
+by the <code>tint</code> and <code>rint</code> arguments, respectively.</p>
+<pre class="sourceCode r"><code class="sourceCode r">tint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
 rint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>) <span class="co"># truncated at 200 m</span>
 (tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(o, <span class="dt">tint=</span>tint, <span class="dt">rint=</span>rint))</code></pre>
 <pre><code>## bSims transcript
@@ -624,8 +666,19 @@ rint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rowSums</span>(rem)</code></pre>
 <pre><code>##    0-50m  50-100m 100-150m 150-200m 
 ##        7       17       30       30</code></pre>
+<p>The plot method displays the detections presented as part of the <code>tr</code> object.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tr)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-98-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-164-1.png" width="768" /></p>
+<p>The detection process and the transcription (following a prescribed
+protocol) is inseparable in the field. However, recordings
+made in the field can be processed by a number of different ways.
+Separating these processed gives the ability to make these
+conparisons on the exact same set of detections.</p>
+</div>
+<div id="estimating-density-with-truncation" class="section level2">
+<h2><span class="header-section-number">5.8</span> Estimating density with truncation</h2>
+<p>We now fit the removal model to the data pooled by time intervals.
+<code>p</code> is the cumulative probability of availability for the total duration:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fitp &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(<span class="kw">matrix</span>(<span class="kw">colSums</span>(rem), <span class="dv">1</span>), <span class="kw">matrix</span>(tint, <span class="dv">1</span>), <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
 phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitp<span class="op">$</span>coef)
 <span class="kw">c</span>(<span class="dt">true=</span>phi, <span class="dt">estimate=</span><span class="kw">exp</span>(fitp<span class="op">$</span>coef))</code></pre>
@@ -633,20 +686,31 @@ phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitp<span class
 ##   0.5000   0.3301</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="kw">max</span>(tint)<span class="op">*</span>phihat))</code></pre>
 <pre><code>## [1] 0.8081</code></pre>
+<p>The distance sampling model uses the distance binned counts,
+and a Half-Normal detection function, <code>q</code> is the cumulative
+probability of perceptibility within the area of
+truncation distance <code>rmax</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fitq &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(<span class="kw">matrix</span>(<span class="kw">rowSums</span>(rem), <span class="dv">1</span>), <span class="kw">matrix</span>(rint, <span class="dv">1</span>), <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
 tauhat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitq<span class="op">$</span>coef)
 <span class="kw">c</span>(<span class="dt">true=</span>tau, <span class="dt">estimate=</span>tauhat)</code></pre>
 <pre><code>##     true estimate 
 ##    2.000    2.659</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">(q &lt;-<span class="st"> </span>(tauhat<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="kw">max</span>(rint)<span class="op">^</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(<span class="kw">max</span>(rint)<span class="op">/</span>tauhat)<span class="op">^</span><span class="dv">2</span>)))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">rmax &lt;-<span class="st"> </span><span class="kw">max</span>(rint)
+(q &lt;-<span class="st"> </span>(tauhat<span class="op">^</span><span class="dv">2</span><span class="op">/</span>rmax<span class="op">^</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(rmax<span class="op">/</span>tauhat)<span class="op">^</span><span class="dv">2</span>)))</code></pre>
 <pre><code>## [1] 0.7638</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">(A &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span><span class="kw">max</span>(rint)<span class="op">^</span><span class="dv">2</span>)</code></pre>
+<p>The known <code>A</code>rea, <code>p</code>, and <code>q</code> makes up the correction factor,
+which is used to estimate density based on <span class="math inline">\(\hat{D}=Y/(A \hat{p}\hat{q})\)</span>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">(A &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>rmax<span class="op">^</span><span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 12.57</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">Dhat &lt;-<span class="st"> </span><span class="kw">sum</span>(rem) <span class="op">/</span><span class="st"> </span>(A <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span>q)
 <span class="kw">c</span>(<span class="dt">true=</span>Den, <span class="dt">estimate=</span>Dhat)</code></pre>
 <pre><code>##     true estimate 
 ##    10.00    10.83</code></pre>
-<p>Unlimited distance case:</p>
+</div>
+<div id="unlimited-distance" class="section level2">
+<h2><span class="header-section-number">5.9</span> Unlimited distance</h2>
+<p>We now change the distance bins to include the area outside of the
+previous <code>rmax</code> distance, making the counts unlimited distance counts:</p>
 <pre class="sourceCode r"><code class="sourceCode r">rint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>, <span class="ot">Inf</span>) <span class="co"># unlimited</span>
 
 (tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(o, <span class="dt">tint=</span>tint, <span class="dt">rint=</span>rint))</code></pre>
@@ -672,6 +736,10 @@ tauhat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitq<span class
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rowSums</span>(rem)</code></pre>
 <pre><code>##    0-50m  50-100m 100-150m 150-200m    200+m 
 ##        7       17       30       30       48</code></pre>
+<p>The removal model is basically the same, the only
+difference is that the counts can be higher due to
+detecting over larger area and thus potentially
+detecting more individuals:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fitp &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(<span class="kw">matrix</span>(<span class="kw">colSums</span>(rem), <span class="dv">1</span>), <span class="kw">matrix</span>(tint, <span class="dv">1</span>), <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
 phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitp<span class="op">$</span>coef)
 <span class="kw">c</span>(<span class="dt">true=</span>phi, <span class="dt">estimate=</span>phihat)</code></pre>
@@ -679,19 +747,34 @@ phihat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitp<span class
 ##   0.5000   0.4285</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="kw">max</span>(tint)<span class="op">*</span>phihat))</code></pre>
 <pre><code>## [1] 0.8826</code></pre>
+<p>The diatance sampling model also takes the extended data set.</p>
 <pre class="sourceCode r"><code class="sourceCode r">fitq &lt;-<span class="st"> </span><span class="kw">cmulti.fit</span>(<span class="kw">matrix</span>(<span class="kw">rowSums</span>(rem), <span class="dv">1</span>), <span class="kw">matrix</span>(rint, <span class="dv">1</span>), <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
 tauhat &lt;-<span class="st"> </span><span class="kw">exp</span>(fitq<span class="op">$</span>coef)
 <span class="kw">c</span>(<span class="dt">true=</span>tau, <span class="dt">estimate=</span>tauhat)</code></pre>
 <pre><code>##     true estimate 
 ##    2.000    2.021</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="dv">1</span>
-(Ahat &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>tauhat<span class="op">^</span><span class="dv">2</span>)</code></pre>
+<p>The problem is that our truncation distance is infinite,
+thus the area that we are sampling is also infinite.
+This does not make too much sense, and not at all hepful
+in estimating density (anything divided by infinity is 0).
+So we use EDR (<code>tauhat</code> for Half-Normal) and calculate
+the estimated effective area sampled (<code>Ahat</code>; <span class="math inline">\(\hat{A}=\pi \hat{\tau}^2\)</span>).
+We also set <code>q</code> to be 1, because the logic behind EDR is that its
+volume equals the volume of the integral, in other words,
+it is an area that would give on average same count under perfect detection
+Finally, we estimate density using <span class="math inline">\(\hat{D}=Y/(\hat{A} \hat{p}1)\)</span></p>
+<pre class="sourceCode r"><code class="sourceCode r">(Ahat &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>tauhat<span class="op">^</span><span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 12.83</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Dhat &lt;-<span class="st"> </span><span class="kw">sum</span>(rem) <span class="op">/</span><span class="st"> </span>(Ahat <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span>q)
+<pre class="sourceCode r"><code class="sourceCode r">q &lt;-<span class="st"> </span><span class="dv">1</span>
+
+Dhat &lt;-<span class="st"> </span><span class="kw">sum</span>(rem) <span class="op">/</span><span class="st"> </span>(Ahat <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span>q)
 <span class="kw">c</span>(<span class="dt">true=</span>Den, <span class="dt">estimate=</span>Dhat)</code></pre>
 <pre><code>##     true estimate 
 ##    10.00    11.66</code></pre>
-<p>Remember, that this is a single location.
+</div>
+<div id="replicating-landscapes" class="section level2">
+<h2><span class="header-section-number">5.10</span> Replicating landscapes</h2>
+<p>Remember, that we have used so far a single location.
 We set the density unreasonably high to have enough counts
 for a reasonable estimate.
 We can independently replicate the simulation for multiple
@@ -754,11 +837,18 @@ Apq2 &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st">
 <span class="co">## phi  0.5    0.4835    0.4852</span>
 <span class="co">## tau  1.0    1.0002    0.9681</span>
 <span class="co">## D    1.0    1.0601    1.1048</span></code></pre>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+If time permits, try different settings and time/distance intervals.
+</div>
+
 </div>
 <div id="josm-data" class="section level2">
-<h2><span class="header-section-number">5.8</span> JOSM data</h2>
-<p>Process TEWA data</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>josm<span class="op">$</span>surveys
+<h2><span class="header-section-number">5.11</span> JOSM data</h2>
+<p>Quickly organize the JOSM data:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## predictors</span>
+x &lt;-<span class="st"> </span>josm<span class="op">$</span>surveys
 x<span class="op">$</span>FOR &lt;-<span class="st"> </span>x<span class="op">$</span>Decid <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Conif<span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="co"># forest</span>
 x<span class="op">$</span>AHF &lt;-<span class="st"> </span>x<span class="op">$</span>Agr <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>UrbInd <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Roads <span class="co"># &#39;alienating&#39; human footprint</span>
 x<span class="op">$</span>WET &lt;-<span class="st"> </span>x<span class="op">$</span>OpenWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>ConifWet <span class="op">+</span><span class="st"> </span>x<span class="op">$</span>Water <span class="co"># wet + water</span>
@@ -771,16 +861,17 @@ x<span class="op">$</span>HAB &lt;-<span class="st"> </span><span class="kw">dro
 <span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;Conif&quot;</span>, <span class="st">&quot;ConifWet&quot;</span>)] &lt;-<span class="st"> &quot;Conif&quot;</span>
 x<span class="op">$</span>OBS &lt;-<span class="st"> </span><span class="kw">as.factor</span>(x<span class="op">$</span>ObserverID)
 
+<span class="co">## time intervals</span>
 yall_dur &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dur <span class="op">+</span><span class="st"> </span>SpeciesID, 
   josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
 yall_dur &lt;-<span class="st"> </span>yall_dur[<span class="kw">sapply</span>(yall_dur, <span class="cf">function</span>(z) <span class="kw">sum</span>(<span class="kw">rowSums</span>(z) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>]
 
+<span class="co">## distance intervals</span>
 yall_dis &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>SiteID <span class="op">+</span><span class="st"> </span>Dis <span class="op">+</span><span class="st"> </span>SpeciesID, 
   josm<span class="op">$</span>counts[josm<span class="op">$</span>counts<span class="op">$</span>DetectType1 <span class="op">!=</span><span class="st"> &quot;V&quot;</span>,])
-yall_dis &lt;-<span class="st"> </span>yall_dis[<span class="kw">sapply</span>(yall_dis, <span class="cf">function</span>(z) <span class="kw">sum</span>(<span class="kw">rowSums</span>(z) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>]
-
-spp &lt;-<span class="st"> &quot;TEWA&quot;</span>
-spp &lt;-<span class="st"> &quot;BTNW&quot;</span>
+yall_dis &lt;-<span class="st"> </span>yall_dis[<span class="kw">sapply</span>(yall_dis, <span class="cf">function</span>(z) <span class="kw">sum</span>(<span class="kw">rowSums</span>(z) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>]</code></pre>
+<p>Pick our most abundant species again, and organize the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;TEWA&quot;</span>
 
 Ydur &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(yall_dur[[spp]])
 Ddur &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="kw">nrow</span>(Ydur), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>,
@@ -794,10 +885,12 @@ Ddis &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="k
 
 <span class="kw">colSums</span>(Ydur)</code></pre>
 <pre><code>##  0-3min  3-5min 5-10min 
-##      97      22      34</code></pre>
+##    4262     558     764</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colSums</span>(Ydis)</code></pre>
 <pre><code>##   0-50m 50-100m   100+m 
-##     108      36       9</code></pre>
+##    2703    2470     411</code></pre>
+<p>We pick a removal models with <code>DAY</code> as covariate,
+and calculate <span class="math inline">\(p(t)\)</span>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Mdur &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydur <span class="op">|</span><span class="st"> </span>Ddur <span class="op">~</span><span class="st"> </span>DAY, x, <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
 <span class="kw">summary</span>(Mdur)</code></pre>
 <pre><code>## 
@@ -808,30 +901,56 @@ Ddis &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="k
 ## Conditional Maximum Likelihood estimates
 ## 
 ## Coefficients:
-##                     Estimate Std. Error z value Pr(&gt;|z|)
-## log.phi_(Intercept) -0.00813    1.89763    0.00     1.00
-## log.phi_DAY         -2.94245    4.44110   -0.66     0.51
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## log.phi_(Intercept)   0.0784     0.2615    0.30  0.76427    
+## log.phi_DAY          -2.0910     0.5866   -3.56  0.00036 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
 ## 
-## Log-likelihood: -130 
-## BIC =  269</code></pre>
+## Log-likelihood: -3.2e+03 
+## BIC = 6.41e+03</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">phi &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">model.matrix</span>(Mdur) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(Mdur))
 <span class="kw">summary</span>(phi)</code></pre>
 <pre><code>##        V1       
-##  Min.   :0.225  
-##  1st Qu.:0.246  
-##  Median :0.262  
-##  Mean   :0.265  
-##  3rd Qu.:0.287  
-##  Max.   :0.313</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">10</span><span class="op">*</span>phi)
+##  Min.   :0.377  
+##  1st Qu.:0.402  
+##  Median :0.420  
+##  Mean   :0.423  
+##  3rd Qu.:0.448  
+##  Max.   :0.477</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">10</span><span class="op">*</span>phi)</code></pre>
+<p>We fit the intercept only distance sampling model next:</p>
+<pre class="sourceCode r"><code class="sourceCode r">Mdis0 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
+<span class="kw">summary</span>(Mdis0)</code></pre>
+<pre><code>## 
+## Call:
+## cmulti(formula = Ydis | Ddis ~ 1, data = x, type = &quot;dis&quot;)
+## 
+## Distance Sampling (half-normal, circular area)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## log.tau_(Intercept) -0.48272    0.00753   -64.1   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Log-likelihood: -3.82e+03 
+## BIC = 7.65e+03</code></pre>
+<p>Let’s try a few covariates:</p>
+<ul>
+<li>continuous <code>FOR</code>est cover covariate: sound attenuation increases with forest cover;</li>
+<li>discrete <code>HAB</code>itat has 3 levels: open, deciduous forest, and coniferous forest (based on dominant land cover), because broad leaves and needles affect sound attenuation;</li>
+<li>finally, we use observer ID as categorical variable: observers might have different hearing abilities, training/experiance levels, good times, bad times, etc.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">Mdis1 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span>FOR, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
+Mdis2 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span>HAB, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)</code></pre>
+<p>We can look at AIC to find the best supported model:</p>
+<pre class="sourceCode r"><code class="sourceCode r">aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(Mdis0, Mdis1, Mdis2)
+aic<span class="op">$</span>delta_AIC &lt;-<span class="st"> </span>aic<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(aic<span class="op">$</span>AIC)
+aic[<span class="kw">order</span>(aic<span class="op">$</span>AIC),]
 
-Mdis0 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
-Mdis1 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span>FOR, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
-Mdis2 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span>HAB, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
-Mdis3 &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Ydis <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span>OBS, x, <span class="dt">type=</span><span class="st">&quot;dis&quot;</span>)
-
-<span class="kw">AIC</span>(Mdis0, Mdis1, Mdis2, Mdis3)
-Mdis &lt;-<span class="st"> </span>Mdis2
+Mdis &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="kw">rownames</span>(aic)[aic<span class="op">$</span>delta_AIC <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])
 <span class="kw">summary</span>(Mdis)</code></pre>
 <pre><code>## 
 ## Call:
@@ -841,51 +960,53 @@ Mdis &lt;-<span class="st"> </span>Mdis2
 ## Conditional Maximum Likelihood estimates
 ## 
 ## Coefficients:
-##                     Estimate Std. Error z value Pr(&gt;|z|)  
-## log.tau_(Intercept)   -0.502      0.200   -2.51    0.012 *
-## log.tau_HABDecid      -0.201      0.207   -0.97    0.330  
-## log.tau_HABConif      -0.115      0.235   -0.49    0.624  
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## log.tau_(Intercept)  -0.4497     0.0321  -14.02   &lt;2e-16 ***
+## log.tau_HABDecid     -0.0583     0.0336   -1.73    0.083 .  
+## log.tau_HABConif     -0.0030     0.0343   -0.09    0.930    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
 ## 
-## Log-likelihood: -115 
-## BIC =  244</code></pre>
+## Log-likelihood: -3.82e+03 
+## BIC = 7.66e+03</code></pre>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>Use <code>OBS</code> as predictor for <code>tau</code> and look at predicted EDRs.</p>
+What is the practical issue with using observer as predictor?
+</div>
+
+<p>After finding the best model, we predict <code>tau</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">tau &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">model.matrix</span>(Mdis) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(Mdis))
 <span class="kw">boxplot</span>(tau <span class="op">~</span><span class="st"> </span>HAB, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
+<p>Finally, we calculate the correction factor for unlimited distances,
+and predict mean density:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Apq &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>tau<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="dv">1</span>
-off &lt;-<span class="st"> </span><span class="kw">log</span>(Apq)
-<span class="kw">boxplot</span>(<span class="kw">I</span>(pi <span class="op">*</span><span class="st"> </span>tau<span class="op">^</span><span class="dv">2</span>) <span class="op">~</span><span class="st"> </span>HAB, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-102-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>ytot &lt;-<span class="st"> </span><span class="kw">rowSums</span>(Ydur)
+x<span class="op">$</span>ytot &lt;-<span class="st"> </span><span class="kw">rowSums</span>(Ydur)
 <span class="kw">mean</span>(x<span class="op">$</span>ytot <span class="op">/</span><span class="st"> </span>Apq)</code></pre>
-<pre><code>## [1] 0.04461</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">glm</span>(ytot <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>x, <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+<pre><code>## [1] 1.039</code></pre>
+<p>Alternatively, we can use the log of the correction
+as an offset in log-linear models. This offset is
+called the QPAD offset:</p>
+<pre class="sourceCode r"><code class="sourceCode r">off &lt;-<span class="st"> </span><span class="kw">log</span>(Apq)
+m &lt;-<span class="st"> </span><span class="kw">glm</span>(ytot <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>x, <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
 <span class="kw">exp</span>(<span class="kw">coef</span>(m))</code></pre>
 <pre><code>## (Intercept) 
-##     0.04205</code></pre>
-<div id="constant-edr" class="section level3">
-<h3><span class="header-section-number">5.8.1</span> Constant EDR</h3>
-<p>Fit constant EDR model for TEWA using cmulti</p>
+##       1.025</code></pre>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>Try distance sampling and density estimation for another species.</p>
+Fit multiple GLMs with QPAD offsets and covariates affecting density,
+interpret the results and the visualize responses.
 </div>
-<div id="variable-edr" class="section level3">
-<h3><span class="header-section-number">5.8.2</span> Variable EDR</h3>
-<p>variable tau: habitat effect (continuous case?)</p>
-<p>discrete: land cover, observer effects</p>
-<p>do model selection and pick the best model</p>
-</div>
-</div>
-<div id="estimating-abundance-1" class="section level2">
-<h2><span class="header-section-number">5.9</span> Estimating abundance</h2>
-<p>bSims and TEWA as in previous chapter, but with q this time</p>
-<p>contrast fixed effects with offsets – motivation for ARU</p>
+
 <p>Sometimes, a recording is made at the survey location
 that is listened to and transcribed in the lab
 using headphones and possibly a computer screen.
 This presents new challenges, and also new opportunities
 for analysis of count data – and is the topic of the next chapter.</p>
-<p>FIXME Add exercises !!!</p>
-<p>Exercise: try OBS in tau model, visualize</p>
 
 </div>
 </div>

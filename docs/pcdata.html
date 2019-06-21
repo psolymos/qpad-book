@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-19" />
+<meta name="date" content="2019-06-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,11 +196,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="detection.html"><a href="detection.html#average-detection"><i class="fa fa-check"></i><b>5.5</b> Average detection</a></li>
 <li class="chapter" data-level="5.6" data-path="detection.html"><a href="detection.html#binned-distances"><i class="fa fa-check"></i><b>5.6</b> Binned distances</a></li>
 <li class="chapter" data-level="5.7" data-path="detection.html"><a href="detection.html#availability-bias"><i class="fa fa-check"></i><b>5.7</b> Availability bias</a></li>
-<li class="chapter" data-level="5.8" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.8</b> JOSM data</a><ul>
-<li class="chapter" data-level="5.8.1" data-path="detection.html"><a href="detection.html#constant-edr"><i class="fa fa-check"></i><b>5.8.1</b> Constant EDR</a></li>
-<li class="chapter" data-level="5.8.2" data-path="detection.html"><a href="detection.html#variable-edr"><i class="fa fa-check"></i><b>5.8.2</b> Variable EDR</a></li>
-</ul></li>
-<li class="chapter" data-level="5.9" data-path="detection.html"><a href="detection.html#estimating-abundance-1"><i class="fa fa-check"></i><b>5.9</b> Estimating abundance</a></li>
+<li class="chapter" data-level="5.8" data-path="detection.html"><a href="detection.html#estimating-density-with-truncation"><i class="fa fa-check"></i><b>5.8</b> Estimating density with truncation</a></li>
+<li class="chapter" data-level="5.9" data-path="detection.html"><a href="detection.html#unlimited-distance"><i class="fa fa-check"></i><b>5.9</b> Unlimited distance</a></li>
+<li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
+<li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
@@ -211,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2" data-path="extras.html"><a href="extras.html#optimal-partitioning"><i class="fa fa-check"></i><b>9.2</b> Optimal partitioning</a></li>
 <li class="chapter" data-level="9.3" data-path="extras.html"><a href="extras.html#optilevels"><i class="fa fa-check"></i><b>9.3</b> Optilevels</a></li>
 <li class="chapter" data-level="9.4" data-path="extras.html"><a href="extras.html#n-mixture-models"><i class="fa fa-check"></i><b>9.4</b> N-mixture models</a></li>
-<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-2"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
+<li class="chapter" data-level="9.5" data-path="extras.html"><a href="extras.html#estimating-abundance-1"><i class="fa fa-check"></i><b>9.5</b> Estimating abundance</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="http://peter.solymos.org/" target="blank">P&eacute;ter S&oacute;lymos</a></li>
@@ -259,8 +258,14 @@ rest of the book/course.</p>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">2.2</span> Prerequisites</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mefa4)                <span class="co"># data manipulation</span>
-<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span>
-<span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
+<span class="kw">library</span>(raster)               <span class="co"># reading raster files</span></code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## 
+## Attaching package: &#39;raster&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:MASS&#39;:
+## 
+##     area, select</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)                   <span class="co"># spatial data manipulation</span>
 <span class="kw">load</span>(<span class="st">&quot;_data/josm/josm.rda&quot;</span>)   <span class="co"># load bird data</span>
 rr &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="st">&quot;_data/josm/landcover-hfi2016.grd&quot;</span>) <span class="co"># rasters</span></code></pre>
 </div>

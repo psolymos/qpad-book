@@ -128,7 +128,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-19}
+    \date{2019-06-21}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -5339,6 +5339,78 @@ EDR is the radius \(r_e\) where \(q(r_e)=\pi(r_e)\):
 
 \includegraphics{qpad-book_files/figure-latex/unnamed-chunk-92-1.pdf}
 
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
+
+What would be a computational algorithm to calculate EDR
+for any distance function and truncation distance?
+
+Trye to explain how the code below is working.
+
+Why are EDRs different for different truncation distances?
+\EndKnitrBlock{rmdexercise}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{find_edr <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dist_fun, ..., }\DataTypeTok{rmax=}\OtherTok{Inf}\NormalTok{) \{}
+  \CommentTok{## integral function}
+\NormalTok{  f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(d, ...)}
+    \KeywordTok{dist_fun}\NormalTok{(d, ...) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\OperatorTok{*}\NormalTok{d}\OperatorTok{*}\NormalTok{pi}
+  \CommentTok{## volume under dist_fun}
+\NormalTok{  V <-}\StringTok{ }\KeywordTok{integrate}\NormalTok{(f, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{upper=}\NormalTok{rmax, ...)}\OperatorTok{$}\NormalTok{value}
+\NormalTok{  u <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(edr)}
+\NormalTok{    V }\OperatorTok{-}\StringTok{ }\NormalTok{edr}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}
+  \KeywordTok{uniroot}\NormalTok{(u, }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{))}\OperatorTok{$}\NormalTok{root}
+\NormalTok{\}}
+
+\KeywordTok{find_edr}\NormalTok{(g, }\DataTypeTok{tau=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{find_edr}\NormalTok{(g, }\DataTypeTok{tau=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{find_edr}\NormalTok{(g, }\DataTypeTok{tau=}\DecValTok{1}\NormalTok{, }\DataTypeTok{b=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.414
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{find_edr}\NormalTok{(g, }\DataTypeTok{tau=}\DecValTok{1}\NormalTok{, }\DataTypeTok{b=}\DecValTok{4}\NormalTok{, }\DataTypeTok{hazard=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.331
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{find_edr}\NormalTok{(g, }\DataTypeTok{tau=}\DecValTok{1}\NormalTok{, }\DataTypeTok{rmax=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7951
+\end{verbatim}
+
 The function \(\pi(r)\) increases monotonically from 0 to 1:
 
 \begin{Shaded}
@@ -5349,7 +5421,7 @@ The function \(\pi(r)\) increases monotonically from 0 to 1:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-93-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 Here are binned distances for the bSims data, with expected
 proportions based on \(\pi()\) cell probabilities
@@ -5388,7 +5460,7 @@ for a bin (stored in \texttt{br}) can be infinite:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-94-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 We can use the \texttt{bsims\_transcribe} function for the same effect,
 and estimate \(\hat{\tau}\) based on the binned data:
@@ -5459,7 +5531,7 @@ cumulative cell probabilities:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-96-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-98-1.pdf}
 
 \hypertarget{availability-bias}{%
 \section{Availability bias}\label{availability-bias}}
@@ -5473,18 +5545,51 @@ For example, if a perfecly camouflaged birds sits in silence,
 detection might be difficult. Movement, or a vocalization
 can, however, reveal the individual and its location.
 
+The \texttt{phi} and \texttt{tau} values are at the high end of plausible
+values for songbirds. The \texttt{Den}sity value is exaggerated,
+but this way we will have enough counts to prove our points
+using bSims:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
 \NormalTok{tau <-}\StringTok{ }\DecValTok{2}
 \NormalTok{Den <-}\StringTok{ }\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
 
+Now we go through the layers of our bSims world:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  initiating the landscape,
+\item
+  populating the landscape by individuals,
+\item
+  breath life into the virtual birds and let them sing,
+\item
+  put in an observer and let the observation process begin.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
 \NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den)}
 \NormalTok{b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
 \NormalTok{o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+\end{Highlighting}
+\end{Shaded}
 
+Transcription is the process of turning the detections
+into a table showing new individuals detected by
+time intervals and distance bands, as defined
+by the \texttt{tint} and \texttt{rint} arguments, respectively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{tint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
 \NormalTok{rint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{# truncated at 200 m}
 \NormalTok{(tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint))}
@@ -5539,13 +5644,27 @@ can, however, reveal the individual and its location.
 ##        7       17       30       30
 \end{verbatim}
 
+The plot method displays the detections presented as part of the \texttt{tr} object.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(tr)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-98-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-1.pdf}
+
+The detection process and the transcription (following a prescribed
+protocol) is inseparable in the field. However, recordings
+made in the field can be processed by a number of different ways.
+Separating these processed gives the ability to make these
+conparisons on the exact same set of detections.
+
+\hypertarget{estimating-density-with-truncation}{%
+\section{Estimating density with truncation}\label{estimating-density-with-truncation}}
+
+We now fit the removal model to the data pooled by time intervals.
+\texttt{p} is the cumulative probability of availability for the total duration:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5570,6 +5689,11 @@ can, however, reveal the individual and its location.
 ## [1] 0.8081
 \end{verbatim}
 
+The distance sampling model uses the distance binned counts,
+and a Half-Normal detection function, \texttt{q} is the cumulative
+probability of perceptibility within the area of
+truncation distance \texttt{rmax}:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fitq <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(rint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
@@ -5585,7 +5709,8 @@ can, however, reveal the individual and its location.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{(q <-}\StringTok{ }\NormalTok{(tauhat}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(}\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{/}\NormalTok{tauhat)}\OperatorTok{^}\DecValTok{2}\NormalTok{)))}
+\NormalTok{rmax <-}\StringTok{ }\KeywordTok{max}\NormalTok{(rint)}
+\NormalTok{(q <-}\StringTok{ }\NormalTok{(tauhat}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(rmax}\OperatorTok{/}\NormalTok{tauhat)}\OperatorTok{^}\DecValTok{2}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5593,9 +5718,12 @@ can, however, reveal the individual and its location.
 ## [1] 0.7638
 \end{verbatim}
 
+The known \texttt{A}rea, \texttt{p}, and \texttt{q} makes up the correction factor,
+which is used to estimate density based on \(\hat{D}=Y/(A \hat{p}\hat{q})\):
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{(A <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\KeywordTok{max}\NormalTok{(rint)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{(A <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{rmax}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5615,7 +5743,11 @@ can, however, reveal the individual and its location.
 ##    10.00    10.83
 \end{verbatim}
 
-Unlimited distance case:
+\hypertarget{unlimited-distance}{%
+\section{Unlimited distance}\label{unlimited-distance}}
+
+We now change the distance bins to include the area outside of the
+previous \texttt{rmax} distance, making the counts unlimited distance counts:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5674,6 +5806,11 @@ Unlimited distance case:
 ##        7       17       30       30       48
 \end{verbatim}
 
+The removal model is basically the same, the only
+difference is that the counts can be higher due to
+detecting over larger area and thus potentially
+detecting more individuals:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fitp <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(tint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
@@ -5697,6 +5834,8 @@ Unlimited distance case:
 ## [1] 0.8826
 \end{verbatim}
 
+The diatance sampling model also takes the extended data set.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fitq <-}\StringTok{ }\KeywordTok{cmulti.fit}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(rem), }\DecValTok{1}\NormalTok{), }\KeywordTok{matrix}\NormalTok{(rint, }\DecValTok{1}\NormalTok{), }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
@@ -5710,9 +5849,19 @@ Unlimited distance case:
 ##    2.000    2.021
 \end{verbatim}
 
+The problem is that our truncation distance is infinite,
+thus the area that we are sampling is also infinite.
+This does not make too much sense, and not at all hepful
+in estimating density (anything divided by infinity is 0).
+So we use EDR (\texttt{tauhat} for Half-Normal) and calculate
+the estimated effective area sampled (\texttt{Ahat}; \(\hat{A}=\pi \hat{\tau}^2\)).
+We also set \texttt{q} to be 1, because the logic behind EDR is that its
+volume equals the volume of the integral, in other words,
+it is an area that would give on average same count under perfect detection
+Finally, we estimate density using \(\hat{D}=Y/(\hat{A} \hat{p}1)\)
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{q <-}\StringTok{ }\DecValTok{1}
 \NormalTok{(Ahat <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{tauhat}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5723,6 +5872,8 @@ Unlimited distance case:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{q <-}\StringTok{ }\DecValTok{1}
+
 \NormalTok{Dhat <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(rem) }\OperatorTok{/}\StringTok{ }\NormalTok{(Ahat }\OperatorTok{*}\StringTok{ }\NormalTok{p }\OperatorTok{*}\StringTok{ }\NormalTok{q)}
 \KeywordTok{c}\NormalTok{(}\DataTypeTok{true=}\NormalTok{Den, }\DataTypeTok{estimate=}\NormalTok{Dhat)}
 \end{Highlighting}
@@ -5733,7 +5884,10 @@ Unlimited distance case:
 ##    10.00    11.66
 \end{verbatim}
 
-Remember, that this is a single location.
+\hypertarget{replicating-landscapes}{%
+\section{Replicating landscapes}\label{replicating-landscapes}}
+
+Remember, that we have used so far a single location.
 We set the density unreasonably high to have enough counts
 for a reasonable estimate.
 We can independently replicate the simulation for multiple
@@ -5802,13 +5956,20 @@ under idealized conditions:
 \end{Highlighting}
 \end{Shaded}
 
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
+
+If time permits, try different settings and time/distance intervals.
+\EndKnitrBlock{rmdexercise}
+
 \hypertarget{josm-data}{%
 \section{JOSM data}\label{josm-data}}
 
-Process TEWA data
+Quickly organize the JOSM data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{## predictors}
 \NormalTok{x <-}\StringTok{ }\NormalTok{josm}\OperatorTok{$}\NormalTok{surveys}
 \NormalTok{x}\OperatorTok{$}\NormalTok{FOR <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Decid }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Conif}\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{ConifWet }\CommentTok{# forest}
 \NormalTok{x}\OperatorTok{$}\NormalTok{AHF <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Agr }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{UrbInd }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{Roads }\CommentTok{# 'alienating' human footprint}
@@ -5822,16 +5983,23 @@ Process TEWA data
 \StringTok{  }\KeywordTok{c}\NormalTok{(}\StringTok{"Conif"}\NormalTok{, }\StringTok{"ConifWet"}\NormalTok{)] <-}\StringTok{ "Conif"}
 \NormalTok{x}\OperatorTok{$}\NormalTok{OBS <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(x}\OperatorTok{$}\NormalTok{ObserverID)}
 
+\CommentTok{## time intervals}
 \NormalTok{yall_dur <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{Dur }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, }
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
 \NormalTok{yall_dur <-}\StringTok{ }\NormalTok{yall_dur[}\KeywordTok{sapply}\NormalTok{(yall_dur, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(z) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)) }\OperatorTok{>}\StringTok{ }\DecValTok{100}\NormalTok{]}
 
+\CommentTok{## distance intervals}
 \NormalTok{yall_dis <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SiteID }\OperatorTok{+}\StringTok{ }\NormalTok{Dis }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID, }
 \NormalTok{  josm}\OperatorTok{$}\NormalTok{counts[josm}\OperatorTok{$}\NormalTok{counts}\OperatorTok{$}\NormalTok{DetectType1 }\OperatorTok{!=}\StringTok{ "V"}\NormalTok{,])}
 \NormalTok{yall_dis <-}\StringTok{ }\NormalTok{yall_dis[}\KeywordTok{sapply}\NormalTok{(yall_dis, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{rowSums}\NormalTok{(z) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)) }\OperatorTok{>}\StringTok{ }\DecValTok{100}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
 
+Pick our most abundant species again, and organize the data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{spp <-}\StringTok{ "TEWA"}
-\NormalTok{spp <-}\StringTok{ "BTNW"}
 
 \NormalTok{Ydur <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(yall_dur[[spp]])}
 \NormalTok{Ddur <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{), }\KeywordTok{nrow}\NormalTok{(Ydur), }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{,}
@@ -5849,7 +6017,7 @@ Process TEWA data
 
 \begin{verbatim}
 ##  0-3min  3-5min 5-10min 
-##      97      22      34
+##    4262     558     764
 \end{verbatim}
 
 \begin{Shaded}
@@ -5860,8 +6028,11 @@ Process TEWA data
 
 \begin{verbatim}
 ##   0-50m 50-100m   100+m 
-##     108      36       9
+##    2703    2470     411
 \end{verbatim}
+
+We pick a removal models with \texttt{DAY} as covariate,
+and calculate \(p(t)\):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5879,12 +6050,14 @@ Process TEWA data
 ## Conditional Maximum Likelihood estimates
 ## 
 ## Coefficients:
-##                     Estimate Std. Error z value Pr(>|z|)
-## log.phi_(Intercept) -0.00813    1.89763    0.00     1.00
-## log.phi_DAY         -2.94245    4.44110   -0.66     0.51
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.phi_(Intercept)   0.0784     0.2615    0.30  0.76427    
+## log.phi_DAY          -2.0910     0.5866   -3.56  0.00036 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
-## Log-likelihood: -130 
-## BIC =  269
+## Log-likelihood: -3.2e+03 
+## BIC = 6.41e+03
 \end{verbatim}
 
 \begin{Shaded}
@@ -5896,25 +6069,75 @@ Process TEWA data
 
 \begin{verbatim}
 ##        V1       
-##  Min.   :0.225  
-##  1st Qu.:0.246  
-##  Median :0.262  
-##  Mean   :0.265  
-##  3rd Qu.:0.287  
-##  Max.   :0.313
+##  Min.   :0.377  
+##  1st Qu.:0.402  
+##  Median :0.420  
+##  Mean   :0.423  
+##  3rd Qu.:0.448  
+##  Max.   :0.477
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{p <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{10}\OperatorTok{*}\NormalTok{phi)}
+\end{Highlighting}
+\end{Shaded}
 
+We fit the intercept only distance sampling model next:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{Mdis0 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(Mdis0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Ydis | Ddis ~ 1, data = x, type = "dis")
+## 
+## Distance Sampling (half-normal, circular area)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.tau_(Intercept) -0.48272    0.00753   -64.1   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -3.82e+03 
+## BIC = 7.65e+03
+\end{verbatim}
+
+Let's try a few covariates:
+
+\begin{itemize}
+\tightlist
+\item
+  continuous \texttt{FOR}est cover covariate: sound attenuation increases with forest cover;
+\item
+  discrete \texttt{HAB}itat has 3 levels: open, deciduous forest, and coniferous forest (based on dominant land cover), because broad leaves and needles affect sound attenuation;
+\item
+  finally, we use observer ID as categorical variable: observers might have different hearing abilities, training/experiance levels, good times, bad times, etc.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{Mdis1 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{FOR, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
 \NormalTok{Mdis2 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{HAB, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
-\NormalTok{Mdis3 <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Ydis }\OperatorTok{|}\StringTok{ }\NormalTok{Ddis }\OperatorTok{~}\StringTok{ }\NormalTok{OBS, x, }\DataTypeTok{type=}\StringTok{"dis"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\KeywordTok{AIC}\NormalTok{(Mdis0, Mdis1, Mdis2, Mdis3)}
-\NormalTok{Mdis <-}\StringTok{ }\NormalTok{Mdis2}
+We can look at AIC to find the best supported model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aic <-}\StringTok{ }\KeywordTok{AIC}\NormalTok{(Mdis0, Mdis1, Mdis2)}
+\NormalTok{aic}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{aic}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(aic}\OperatorTok{$}\NormalTok{AIC)}
+\NormalTok{aic[}\KeywordTok{order}\NormalTok{(aic}\OperatorTok{$}\NormalTok{AIC),]}
+
+\NormalTok{Mdis <-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(aic)[aic}\OperatorTok{$}\NormalTok{delta_AIC }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{])}
 \KeywordTok{summary}\NormalTok{(Mdis)}
 \end{Highlighting}
 \end{Shaded}
@@ -5928,16 +6151,26 @@ Process TEWA data
 ## Conditional Maximum Likelihood estimates
 ## 
 ## Coefficients:
-##                     Estimate Std. Error z value Pr(>|z|)  
-## log.tau_(Intercept)   -0.502      0.200   -2.51    0.012 *
-## log.tau_HABDecid      -0.201      0.207   -0.97    0.330  
-## log.tau_HABConif      -0.115      0.235   -0.49    0.624  
+##                     Estimate Std. Error z value Pr(>|z|)    
+## log.tau_(Intercept)  -0.4497     0.0321  -14.02   <2e-16 ***
+## log.tau_HABDecid     -0.0583     0.0336   -1.73    0.083 .  
+## log.tau_HABConif     -0.0030     0.0343   -0.09    0.930    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
-## Log-likelihood: -115 
-## BIC =  244
+## Log-likelihood: -3.82e+03 
+## BIC = 7.66e+03
 \end{verbatim}
+
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
+
+Use \texttt{OBS} as predictor for \texttt{tau} and look at predicted EDRs.
+
+What is the practical issue with using observer as predictor?
+\EndKnitrBlock{rmdexercise}
+
+After finding the best model, we predict \texttt{tau}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5946,31 +6179,30 @@ Process TEWA data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-119-1.pdf}
+
+Finally, we calculate the correction factor for unlimited distances,
+and predict mean density:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Apq <-}\StringTok{ }\NormalTok{pi }\OperatorTok{*}\StringTok{ }\NormalTok{tau}\OperatorTok{^}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{p }\OperatorTok{*}\StringTok{ }\DecValTok{1}
-\NormalTok{off <-}\StringTok{ }\KeywordTok{log}\NormalTok{(Apq)}
-\KeywordTok{boxplot}\NormalTok{(}\KeywordTok{I}\NormalTok{(pi }\OperatorTok{*}\StringTok{ }\NormalTok{tau}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{~}\StringTok{ }\NormalTok{HAB, x)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{x}\OperatorTok{$}\NormalTok{ytot <-}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(Ydur)}
 \KeywordTok{mean}\NormalTok{(x}\OperatorTok{$}\NormalTok{ytot }\OperatorTok{/}\StringTok{ }\NormalTok{Apq)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.04461
+## [1] 1.039
 \end{verbatim}
+
+Alternatively, we can use the log of the correction
+as an offset in log-linear models. This offset is
+called the QPAD offset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{off <-}\StringTok{ }\KeywordTok{log}\NormalTok{(Apq)}
 \NormalTok{m <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(ytot }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data=}\NormalTok{x, }\DataTypeTok{offset=}\NormalTok{off, }\DataTypeTok{family=}\NormalTok{poisson)}
 \KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(m))}
 \end{Highlighting}
@@ -5978,39 +6210,23 @@ Process TEWA data
 
 \begin{verbatim}
 ## (Intercept) 
-##     0.04205
+##       1.025
 \end{verbatim}
 
-\hypertarget{constant-edr}{%
-\subsection{Constant EDR}\label{constant-edr}}
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
 
-Fit constant EDR model for TEWA using cmulti
+Try distance sampling and density estimation for another species.
 
-\hypertarget{variable-edr}{%
-\subsection{Variable EDR}\label{variable-edr}}
-
-variable tau: habitat effect (continuous case?)
-
-discrete: land cover, observer effects
-
-do model selection and pick the best model
-
-\hypertarget{estimating-abundance-1}{%
-\section{Estimating abundance}\label{estimating-abundance-1}}
-
-bSims and TEWA as in previous chapter, but with q this time
-
-contrast fixed effects with offsets -- motivation for ARU
+Fit multiple GLMs with QPAD offsets and covariates affecting density,
+interpret the results and the visualize responses.
+\EndKnitrBlock{rmdexercise}
 
 Sometimes, a recording is made at the survey location
 that is listened to and transcribed in the lab
 using headphones and possibly a computer screen.
 This presents new challenges, and also new opportunities
 for analysis of count data -- and is the topic of the next chapter.
-
-FIXME Add exercises !!!
-
-Exercise: try OBS in tau model, visualize
 
 \hypertarget{recordings}{%
 \chapter{Dealing with Recordings}\label{recordings}}
@@ -6072,7 +6288,7 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-123-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6287,8 +6503,8 @@ Here is the code for simplifying compositional data:
 \hypertarget{n-mixture-models}{%
 \section{N-mixture models}\label{n-mixture-models}}
 
-\hypertarget{estimating-abundance-2}{%
-\section{Estimating abundance}\label{estimating-abundance-2}}
+\hypertarget{estimating-abundance-1}{%
+\section{Estimating abundance}\label{estimating-abundance-1}}
 
 Exponential model, bSims data
 

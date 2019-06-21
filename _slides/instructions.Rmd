@@ -22,7 +22,8 @@ but it is a good start so that we won't waste
 precious minutes installing them.
 
 ```{r eval=FALSE}
-pkgs <- c("bookdown", "detect", "devtools", "dismo", "forecast", 
+pkgs <- c("bookdown", "detect", "devtools", "dismo", 
+  "Distance", "forecast", 
   "glmnet", "gbm", "intrval", "knitr", "lme4", "maptools", "mefa4", 
   "mgcv", "MuMIn", "opticut", "partykit", "pscl", "raster", 
   "ResourceSelection", "shiny", "sp", "unmarked", "visreg")

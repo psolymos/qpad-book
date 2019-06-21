@@ -28,7 +28,7 @@ Short break
 4. ~~Behavioral complexities~~
 5. The detection process
 
-Luch break
+Lunch break
 
 6. Dealing with recordings
 7. A closer look at assumptions
@@ -56,7 +56,7 @@ $$P(Y>0 \mid N>0)$$
 In an occupancy framework, we can have:
 
 1. A detection ($Y>0$), $P(Y>0 \mid N>0)=\delta \varphi$,
-2. A nondetection ($Y=0$), $P(Y=0 \mid N>0)=(1-\delta) \varphi$,
+2. A non-detection ($Y=0$), $P(Y=0 \mid N>0)=(1-\delta) \varphi$,
 3. An absence ($Y=0$), $P(Y=0 \mid N=0)=1-\varphi$.
 
 $\delta$ is the _false negative rate (FNR)_.
@@ -92,7 +92,7 @@ constant detection probability $\delta$
 (e.g. single-visit occupancy and N-mixture models) as inferior.
 
 Fortunately for the rest of us: $\delta$ can only be constant
-in very narrow situations, e.g. when suveys are conducted:
+in very narrow situations, e.g. when surveys are conducted:
 
 - in the same region,
 - in similar habitat,
@@ -110,7 +110,7 @@ Often a consequence of small sample size (i.e.
 not a lot of detection for a species)[^1][^2]:
 
 \centering
-```{r echo=FALSE,out.width="200px",fig.show = 'hold',out.width='50%'}
+```{r echo=FALSE,out.width="400px",fig.show = 'hold',out.width='48%'}
 include_graphics("../images/qpad_tab1.png")
 include_graphics("../images/solymos-2018-condor-table-1.png")
 ```
@@ -120,7 +120,7 @@ include_graphics("../images/solymos-2018-condor-table-1.png")
 
 ***
 
-# Let's unwrap p
+# Let's unwrap $\delta$
 
 1. Once the species/individual is present ($N>0$),
 2. it needs to make itself heard/visible, make itself available ($p$) -- we have just discussed this,
@@ -151,7 +151,7 @@ The expected value of the observed count becomes a function of the:
 include_graphics("../images/qpad_fig2.png")
 ```
 
-$p$ is a monotonic function of _time_, while $q$ is monoting function of _area_ (space).
+$p$ is a monotonic function of _time_, while $q$ is monotonic function of _area_ (space).
 
 ***
 
@@ -173,7 +173,7 @@ include_graphics("../images/solymos-2018-condor-fig-5.png")
 
 ***
 
-# Biologyical machanisms
+# Biological mechanisms
 
 - Migration timing drives phenology for many species, e.g. ordinal day of year (`DAY`),
 - when study spans across biomes, use time since local spring (multi-year average),
@@ -200,12 +200,10 @@ Next we will discuss how to estimate $q$ based on distance sampling.
 
 ***
 
-# TODO
+# So why is this important?
 
-Summarize removal sampling from chapter
-
-Summarize distance sampling from chapter
-
+$$E[Y]=NC=(AD)(pq)=qpAD$$
+$$\hat{D}=E[Y]/(A\hat{p}\hat{q})$$
 
 ***
 
@@ -216,12 +214,39 @@ Summarize distance sampling from chapter
 include_graphics("../images/qpad_fig5.png")
 ```
 
+The corrections can be used to adjust for different methodologies
+and other factors influencing availability and detectability.
+
 ***
 
-# OVEN
+# Ovenbird
 
 \centering
 ```{r echo=FALSE,out.width="300px"}
 include_graphics("../images/qpad_fig6.png")
 ```
 
+Density estimates using different corrections in 5 types of land cover
+
+***
+
+# Integrating projects
+
+1. Normalize and join data from projects,
+2. take multiple-duration subset and fit removal models,
+3. take multiple-distance subset and fit distance sampling models,
+4. predict $p$ and $g$ for all surveys,
+5. use $log(Apq)$ offsets in log-linear models with total counts as response.
+
+Removal and distance models can deal with multiple methodologies in the same model.
+
+Each modeling step can include covariates, which can be the same.
+
+***
+
+# Advantages of this approach
+
+- Smaller parameter space,
+- less colinearity,
+- straightforward model selection,
+- quicker than joint modeling via integrated likelihood.

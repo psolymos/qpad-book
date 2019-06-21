@@ -147,7 +147,7 @@ in the Boreal Avian Modelling (BAM) data base as of 2014[^3].
 
 # Model based approaches
 
-Less labour intensive methods for unmarked populations has come to the forefront:
+Less labor intensive methods for unmarked populations has come to the forefront:
 
 - double observer ([Nichols et al. 2000](https://doi.org/10.1642/0004-8038(2000)117[0393:ADOAFE]2.0.CO;2)),
 - distance sampling ([Buckland et al. 2001](https://global.oup.com/academic/product/introduction-to-distance-sampling-9780198509271)),
@@ -215,7 +215,7 @@ Short break
 4. Behavioral complexities
 5. The detection process
 
-Luch break
+Lunch break
 
 6. Dealing with recordings
 7. A closer look at assumptions
@@ -226,4 +226,96 @@ Short break
 9. Miscellaneous topics
 
 Dismissal
+
+***
+
+\centering
+https://twitter.com/adamgruer/status/1122271095225118720
+
+***
+
+# Data ...
+
+It is often called:
+
+- processing,
+- munging,
+- wrangling,
+- cleaning.
+
+None of these expressions capture the dread associated with the actual activity.
+
+_"All data are messy, but some are missing."_
+
+***
+
+# The four horsemen
+
+Luckily, there are only 4 things that can get messed up:
+
+1. space (e.g. wrong UTM zones),
+2. time (ISO format please),
+3. taxonomy (UNK, mis-ID),
+4. something else ($\rightarrow$ check again).
+
+Check out source code if you are interested in data processing,
+we skip that for now to concentrate on the fun part.
+
+***
+
+# JOSM (Joint Oil Sands Monitoring) data
+
+\centering
+```{r echo=FALSE,out.width="220px"}
+include_graphics("../images/mahon-2016-fig-1.png")
+```
+
+Cause-Effect Monitoring Migratory Landbirds at Regional Scales[^1][^2]: 
+understand how boreal songbirds are affected by human activity in the oil sands area.
+
+[^1]: Mahon et al. 2016, [For. Ecol. Man.](http://dx.doi.org/10.1016/j.foreco.2015.11.007).
+[^2]: Mahon et al. 2019, [Ecol. Appl.](http://dx.doi.org/10.1002/eap.1895).
+
+***
+
+# Survey design
+
+\centering
+```{r echo=FALSE,out.width="250px"}
+include_graphics("../images/mahon-2016-fig-2.png")
+```
+
+Survey area boundary ($r$=2.5 km circle), habitat type and human footprint mapping, 
+and clustered point count site locations.
+
+***
+
+# Sample and replication
+
+- We want to make inferences about a population,
+- full census is out of reach,
+- thus we take a sample of the population
+- that is representative and random.
+- Ideally, sample size should be as large as possible,
+- it reduces variability and 
+- increases statistical power.
+
+***
+
+# How do we pick where to survey?
+
+- Stratification,
+- gradients,
+- random location (control for unmeasured effects),
+- take into account historical surveys (avoid, or revisit),
+- access, cost (clusters).
+
+***
+
+# Dive into the JOMS data now
+
+```{r}
+load("../_data/josm/josm.rda")
+names(josm)
+```
 

@@ -211,21 +211,42 @@ Den * 100
 
 need rmax for rdist
 
-g <- function(d, tau, b=2, hazard=FALSE)
+.g <- function(d, tau, b=2, hazard=FALSE)
   if (hazard)
     1-exp(-(d/tau)^-b) else exp(-(d/tau)^b)
-h <- function(d)
-  2*d
+.f <- function(d, tau, b=2, hazard=FALSE)
+  .g(d, tau, b, hazard) * 2*d
 
 # this is g*h / integral
-ddist <- function(x, tau, b=1, hazard=FALSE, log = FALSE){}
+ddist <- function(x, tau, b=1, hazard=FALSE, rmax=Inf, log = FALSE){
+  V <- integrate(.f, lower=0, upper=rmax, 
+                 tau=tau, b=b, hazard=hazard)$value
+  out <- .f(x, tau=tau, b=b, hazard=hazard) / V
+  out[x > rmax] <- 0
+  if (log)
+    log(out) else out
+}
 pdist <- function(q, tau, b=1, hazard=FALSE, lower.tail = TRUE, log.p = FALSE){}
 qdist <- function(p, tau, b=1, hazard=FALSE, lower.tail = TRUE, log.p = FALSE){}
 #
 # make output vector
 # loop over out and accept reject based on weights as ddist
 # can do in batches: star with n, continue with rejected n, etc
-rdist <- function(n, tau, b=1, hazard=FALSE){}
+rdist <- function(n, tau, b=1, hazard=FALSE, rmax=Inf){
+  q99 <- uniroot(function(d) ddist(d))
+}
+
+tau <- 2.3
+V <- integrate(.f, lower=0, upper=Inf, tau=tau)$value
+d <- runif(10^4, 0, 10)
+d <- d[rbinom(10^4, 1, .f(d, tau)/V) > 0]
+hist(d)
+
+nll <- function(tau) {
+  -sum(ddist(d, tau, log=TRUE))
+}
+optimize(nll, c(0, 100))
+
 
 # once done: generate distances with rdist, and fit model with ddist
 # see if AIC etc works as expected

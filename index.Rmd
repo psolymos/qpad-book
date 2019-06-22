@@ -136,6 +136,9 @@ Check out Chapters 1--6 if you want to brush up your R skills.
 Get a copy of the GitHub repository by cloning it or downloading
 as zip file from https://github.com/psolymos/qpad-book.
 
+We will be taking notes here:
+https://hackmd.io/@psolymos/aos-2019/
+
 The **bookdown** package can be installed from CRAN or Github:
 
 ```{r eval=FALSE}

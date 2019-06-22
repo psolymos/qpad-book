@@ -205,3 +205,30 @@ Den * 100
 ```
 
 
+```{r eval=FALSE}
+## distance function density
+# check http://seankross.com/notes/dpqr/
+
+need rmax for rdist
+
+g <- function(d, tau, b=2, hazard=FALSE)
+  if (hazard)
+    1-exp(-(d/tau)^-b) else exp(-(d/tau)^b)
+h <- function(d)
+  2*d
+
+# this is g*h / integral
+ddist <- function(x, tau, b=1, hazard=FALSE, log = FALSE){}
+pdist <- function(q, tau, b=1, hazard=FALSE, lower.tail = TRUE, log.p = FALSE){}
+qdist <- function(p, tau, b=1, hazard=FALSE, lower.tail = TRUE, log.p = FALSE){}
+#
+# make output vector
+# loop over out and accept reject based on weights as ddist
+# can do in batches: star with n, continue with rejected n, etc
+rdist <- function(n, tau, b=1, hazard=FALSE){}
+
+# once done: generate distances with rdist, and fit model with ddist
+# see if AIC etc works as expected
+
+```
+

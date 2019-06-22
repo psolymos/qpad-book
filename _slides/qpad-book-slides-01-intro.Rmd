@@ -35,6 +35,53 @@ You'll learn
 
 ***
 
+# Install packages
+
+```{r eval=FALSE}
+pkgs <- c("bookdown", "detect", "devtools", "dismo", 
+  "Distance", "forecast", "glmnet", "gbm", "intrval", 
+  "knitr", "lme4", "maptools", "mefa4", "mgcv", "MuMIn", 
+  "opticut", "partykit", "pscl", "raster", "sp", 
+  "ResourceSelection", "shiny", "unmarked", "visreg")
+to_inst <- setdiff(pkgs, rownames(installed.packages()))
+if (length(to_inst))
+  install.packages(to_inst, 
+    repos="https://cloud.r-project.org/")
+devtools::install_github("psolymos/bSims")
+devtools::install_github("psolymos/QPAD")
+devtools::install_github("borealbirds/paired")
+devtools::install_github("borealbirds/lhreg")
+```
+
+***
+
+# Dowload the book
+
+\centering
+```{r echo=FALSE,out.width="300px"}
+include_graphics("../images/github-download.png")
+```
+
+***
+
+# Open project
+
+\centering
+```{r echo=FALSE,out.width="200px"}
+include_graphics("../images/open-project.png")
+```
+
+***
+
+# Notes
+
+\centering
+```{r echo=FALSE,out.width="250px"}
+include_graphics("../images/hackmd-notes.png")
+```
+
+***
+
 # Apples and oranges
 
 _"A comparison of apples and oranges occurs when two items or groups of items are compared that 
@@ -270,11 +317,11 @@ we skip that for now to concentrate on the fun part.
 include_graphics("../images/mahon-2016-fig-1.png")
 ```
 
-Cause-Effect Monitoring Migratory Landbirds at Regional Scales[^1][^2]: 
+Cause-Effect Monitoring Migratory Landbirds at Regional Scales[^4][^5]: 
 understand how boreal songbirds are affected by human activity in the oil sands area.
 
-[^1]: Mahon et al. 2016, [For. Ecol. Man.](http://dx.doi.org/10.1016/j.foreco.2015.11.007).
-[^2]: Mahon et al. 2019, [Ecol. Appl.](http://dx.doi.org/10.1002/eap.1895).
+[^4]: Mahon et al. 2016, [For. Ecol. Man.](http://dx.doi.org/10.1016/j.foreco.2015.11.007).
+[^5]: Mahon et al. 2019, [Ecol. Appl.](http://dx.doi.org/10.1002/eap.1895).
 
 ***
 

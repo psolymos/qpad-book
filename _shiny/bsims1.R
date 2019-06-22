@@ -75,25 +75,27 @@ ui <- navbarPage("bSims (H)",
     )
   ),
   tabPanel("Transcribe",
-    column(6,
-      plotOutput(outputId = "plot_tra"),
-      tableOutput(outputId = "table_rem")
+    fluidRow(
+      column(6,
+        plotOutput(outputId = "plot_tra")
+      ),
+      column(6,
+        selectInput("tint", "Time intervals", names(TINT)),
+        selectInput("rint", "Distance intervals", names(RINT)),
+        sliderInput("derr", "Distance error", 0, 1, 0, 0.1),
+        radioButtons("condition", "Condition",
+          c("1st event"="event1",
+            "1st detection"="det1",
+            "All detections"="alldet"))
+      )
     ),
-    column(6,
-      selectInput("tint", "Time intervals", names(TINT)),
-      selectInput("rint", "Distance intervals", names(RINT)),
-      sliderInput("derr", "Distance error", 0, 1, 0, 0.1),
-      radioButtons("condition", "Condition",
-        c("1st event"="event1",
-          "1st detection"="det1",
-          "All detections"="alldet"))
-    )
-  ),
-  tabPanel("Estimate",
-    column(6,
-      plotOutput(outputId = "plot_est")),
-    column(6,
-      sliderInput("q", "q", 0, 10, 1, 0.1)
+    fluidRow(
+      column(6,
+        tableOutput(outputId = "table_rem")
+      ),
+      column(6,
+        plotOutput(outputId = "plot_est")
+      )
     )
   )
 )
@@ -159,11 +161,12 @@ server <- function(input, output) {
     )
   })
   e <- reactive({
+    REM <- m()$removal
     MaxDur <- max(TINT[[input$tint]])
     MaxDis <- max(RINT[[input$rint]])
-    Ydur <- matrix(colSums(m()$removal), 1)
+    Ydur <- matrix(colSums(REM), 1)
     Ddur <- matrix(TINT[[input$tint]], 1)
-    Ydis <- matrix(rowSums(m()$removal), 1)
+    Ydis <- matrix(rowSums(REM), 1)
     Ddis <- matrix(RINT[[input$rint]], 1)
     if (length(TINT[[input$tint]]) > 1) {
       Mrem <- cmulti.fit(Ydur, Ddur, type="rem")
@@ -171,6 +174,7 @@ server <- function(input, output) {
       p <- 1-exp(-MaxDur*phi)
     } else {
       Mrem <- NULL
+      phi <- NA
       p <- NA
     }
     if (length(RINT[[input$rint]]) > 1) {
@@ -182,10 +186,11 @@ server <- function(input, output) {
         pi * tau^2 else pi * MaxDis^2
     } else {
       Mdis <- NULL
+      tau <- NA
       q <- NA
       A <- NA
     }
-    D <- sum(m()$removal) / (A * p * q)
+    D <- sum(REM) / (A * p * q)
     list(
       Ydur=Ydur, Ddur=Ddur,
       Ydis=Ydis, Ddis=Ddis,
@@ -209,7 +214,7 @@ server <- function(input, output) {
   })
   output$plot_spfun <- renderPlot({
     plot(dis, xy_fun()(dis), type="l", col=4,
-      ylim=c(0,1), xlab="Distance", ylab="P(acceptence)")
+      ylim=c(0,1), xlab="Distance", ylab="P(acceptance)")
   })
   output$plot_ani <- renderPlot({
     op <- par(mar=c(0,0,0,0))
@@ -237,10 +242,16 @@ server <- function(input, output) {
     tab
   }, rownames = TRUE, colnames = TRUE, digits = 0)
   output$plot_est <- renderPlot({
-    op <- par(mar=c(0,0,0,0))
-    plot(m())
+    v <- e()
+    col <- c("#ffe042", "#e71989")
+    op <- par(mfrow=c(1,3))
+    barplot(c(True=input$phi1, Estimate=v$phi),
+      col=col, main=expression(phi))
+    barplot(c(True=input$tau, Estimate=v$tau),
+      col=col, main=expression(tau))
+    barplot(c(True=input$D, Estimate=v$D),
+      col=col, main=expression(D))
     par(op)
-    print(str(e()))
   })
 }
 

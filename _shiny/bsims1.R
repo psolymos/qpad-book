@@ -100,9 +100,6 @@ ui <- navbarPage("bSims (H)",
   )
 )
 
-
-# plotOutput(outputId = "distPlot")
-
 server <- function(input, output) {
   dis <- seq(0, 10, 0.01)
   l <- reactive({

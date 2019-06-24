@@ -1,6 +1,90 @@
 # A Closer Look at Assumptions {#assumptions}
 
-break them assumptions
+## Intro
+
+So far, bSims were used to make an idealized world.
+Real situations might be different from our assumed worlds.
+In this chapter, we will review how sensitive the various assumptions
+are, and how violating these assumptions might affect the estimates.
+
+## Prerequisites
+
+```{r det-libs,message=TRUE,warning=FALSE}
+library(bSims)                # simulations
+library(detect)               # multinomial models
+source("functions.R")         # some useful stuff
+```
+
+## bSims runs
+
+Work in pairs. Each group can select an assumption.
+Take a look at varios assumptions by following these steps:
+
+1. run `shiny::runApp("_shiny/bsims1.R")` and change a particular setting,
+2. apply the setting to the code below to vary settings and replicate the bSims landscapes,
+3. summarize/visualize how these changes affect estimates of availability, detectability and population density.
+
+```{r eval=FALSE}
+phi <- 0.5
+tau <- 1
+Den <- 2
+
+tint <- c(3, 5, 10)
+rint <- c(0.5, 1, 1.5, Inf)
+
+B <- 100
+l <- bsims_init()
+
+sim_fun0 <- function() {
+  a <- bsims_populate(l, density=Den)
+  b <- bsims_animate(a, vocal_rate=phi)
+  o <- bsims_detect(b, tau=tau)
+  tr <- bsims_transcribe(o, tint=tint, rint=rint)
+  estimate_bsims(tr$rem)
+}
+sim_fun1 <- function() {
+  a <- bsims_populate(l, density=Den,
+    xyfun=function(d) {
+      (1-exp(-d^2/1^2) + dlnorm(d, 2)/dlnorm(2,2)) / 2
+    },
+    margin=2)
+  b <- bsims_animate(a, vocal_rate=phi)
+  o <- bsims_detect(b, tau=tau)
+  tr <- bsims_transcribe(o, tint=tint, rint=rint)
+  estimate_bsims(tr$rem)
+}
+sim_fun2 <- function() {
+  a <- bsims_populate(l, density=Den,
+    xyfun=function(d) {
+      exp(-d^2/1^2) + 0.5*(1-exp(-d^2/4^2))
+    },
+    margin=2)
+  b <- bsims_animate(a, vocal_rate=phi)
+  o <- bsims_detect(b, tau=tau)
+  tr <- bsims_transcribe(o, tint=tint, rint=rint)
+  estimate_bsims(tr$rem)
+}
+
+set.seed(123)
+res0 <- pbapply::pbreplicate(B, sim_fun0(), simplify=FALSE)
+res1 <- pbapply::pbreplicate(B, sim_fun1(), simplify=FALSE)
+res2 <- pbapply::pbreplicate(B, sim_fun2(), simplify=FALSE)
+
+summary(summarize_bsims(res0))
+summary(summarize_bsims(res1))
+summary(summarize_bsims(res2))
+```
+
+
+Other options:
+
+- distance measurement error
+- distance function misspecification
+- effect of truncation distance, number of distance bins
+- effect of total duration and time intervals
+- movement
+- heard vs. heard and seen
+- 1st event vf 1st detection (duration, singing rate)
 
 
 Compare how does movement based detection influences estimates (when % increases)

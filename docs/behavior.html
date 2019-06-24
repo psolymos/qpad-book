@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
 <li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a><ul>
+<li class="chapter" data-level="6.1" data-path="recordings.html"><a href="recordings.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="recordings.html"><a href="recordings.html#prerequisites-4"><i class="fa fa-check"></i><b>6.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.3" data-path="recordings.html"><a href="recordings.html#paired-sampling"><i class="fa fa-check"></i><b>6.3</b> Paired sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="recordings.html"><a href="recordings.html#paired-data"><i class="fa fa-check"></i><b>6.4</b> Paired data</a></li>
+<li class="chapter" data-level="6.5" data-path="recordings.html"><a href="recordings.html#availability"><i class="fa fa-check"></i><b>6.5</b> Availability</a></li>
+<li class="chapter" data-level="6.6" data-path="recordings.html"><a href="recordings.html#distance-sampling-1"><i class="fa fa-check"></i><b>6.6</b> Distance sampling</a></li>
+<li class="chapter" data-level="6.7" data-path="recordings.html"><a href="recordings.html#scaling-constant"><i class="fa fa-check"></i><b>6.7</b> Scaling constant</a></li>
+<li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
+<li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
@@ -264,7 +274,7 @@ learning about the nature of the mechanisms contributing to <span class="math in
 ##   1 km x 1 km
 ##   stratification: H</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(l)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-101-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-40-1.png" width="768" /></p>
 <p>We have a 100 ha landscape that we populate with birds,
 1 bird / ha using a Poisson spatial point process.
 As a result, we have <span class="math inline">\(N\)</span> birds in the landscape,
@@ -276,7 +286,7 @@ As a result, we have <span class="math inline">\(N\)</span> birds in the landsca
 ##   stratification: H
 ##   total abundance: 52</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(a)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-103-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-42-1.png" width="768" /></p>
 <p>The locations can be seen as nest locations (<code>a$nests</code> stores the locations).
 But birds don’t just stay put in one place. They move and vocalize:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, 
@@ -288,7 +298,7 @@ But birds don’t just stay put in one place. They move and vocalize:</p>
 ##   total abundance: 52
 ##   duration: 10 min</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(b)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-105-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-44-1.png" width="768" /></p>
 <p>The <code>get_events</code> function, as the name implies, extracts the events:
 movements (<code>$v</code> is 0) and vocalizations (<code>$v</code> is 1) alike,
 unless filtered for vocalization events only.
@@ -345,7 +355,7 @@ tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq
   <span class="kw">points</span>(tmp2<span class="op">$</span>t, <span class="kw">rep</span>(i, <span class="kw">nrow</span>(tmp2)), <span class="dt">cex=</span><span class="fl">0.5</span>)
   <span class="kw">points</span>(tmp2<span class="op">$</span>t[<span class="dv">1</span>], i, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)
 }</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">(phi &lt;-<span class="st"> </span>b<span class="op">$</span>vocal_rate[<span class="dv">1</span>])</code></pre>
 <pre><code>## [1] 0.5</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">(phi_hat &lt;-<span class="st"> </span><span class="kw">fitdistr</span>(v1<span class="op">$</span>t, <span class="st">&quot;exponential&quot;</span>)<span class="op">$</span>estimate)</code></pre>
@@ -357,7 +367,7 @@ tmp<span class="op">$</span>o &lt;-<span class="st"> </span><span class="kw">seq
 <span class="kw">curve</span>(<span class="kw">dexp</span>(x, phi_hat), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Expected&quot;</span>, <span class="st">&quot;Estimated&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>Now let’s visualize the corresponding cumulative distribution function.
 We also bin the events into time intervals defined by interval end times
 in the vector <code>br</code> (breaks to be used with <code>cut</code>):</p>
@@ -375,7 +385,7 @@ i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$
   <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="dt">pch=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="dv">21</span>),
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span>, <span class="st">&quot;Expected&quot;</span>, <span class="st">&quot;Estimated&quot;</span>, <span class="st">&quot;Binned&quot;</span>))
 <span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 </div>
 <div id="removal-model" class="section level2">
 <h2><span class="header-section-number">4.6</span> Removal model</h2>
@@ -501,7 +511,7 @@ as part of the <code>cmulti</code> call:</p>
   <span class="dt">xlab=</span><span class="st">&quot;Duration (min)&quot;</span>, <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">p</span>(t[J])), 
   <span class="dt">main=</span><span class="kw">paste</span>(spp, <span class="st">&quot;Me0&quot;</span>))
 <span class="kw">points</span>(D[<span class="dv">1</span>,], <span class="kw">cumsum</span>(<span class="kw">colSums</span>(Y))<span class="op">/</span><span class="kw">sum</span>(Y), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 </div>
 <div id="time-varying-conventional-removal-model" class="section level3">
 <h3><span class="header-section-number">4.6.3</span> Time-varying conventional removal model</h3>
@@ -564,7 +574,7 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 </div>
 </div>
@@ -611,7 +621,7 @@ v1 &lt;-<span class="st"> </span>v[<span class="op">!</span><span class="kw">dup
 <span class="kw">curve</span>(<span class="kw">dexp</span>(x, phi_hat), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Expected (mixture)&quot;</span>, <span class="st">&quot;Estimated (exponential)&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>Now let’s visualize the corresponding cumulative distribution function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">br &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$</span>t, <span class="kw">c</span>(<span class="dv">0</span>, br), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span>)
@@ -627,7 +637,7 @@ i &lt;-<span class="st"> </span><span class="kw">cut</span>(v1<span class="op">$
   <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="dt">pch=</span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="ot">NA</span>,<span class="dv">21</span>),
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span>, <span class="st">&quot;Expected (mixture)&quot;</span>, <span class="st">&quot;Estimated (exponential)&quot;</span>, <span class="st">&quot;Binned&quot;</span>))
 <span class="kw">points</span>(br, <span class="kw">cumsum</span>(<span class="kw">table</span>(i))<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(i)), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 <p>We use the <code>detect::cmulti</code> function to fit the finite mixture model:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(<span class="kw">table</span>(i)), <span class="dt">nrow=</span><span class="dv">1</span>))</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
@@ -684,7 +694,7 @@ We are using the <code>type = &quot;fmix&quot;</code> for finite mixture removal
   <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">main=</span><span class="kw">paste</span>(spp, <span class="st">&quot;Mf0&quot;</span>),
   <span class="dt">xlab=</span><span class="st">&quot;Duration (min)&quot;</span>, <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">p</span>(t[J])))
 <span class="kw">points</span>(D[<span class="dv">1</span>,], <span class="kw">cumsum</span>(<span class="kw">colSums</span>(Y))<span class="op">/</span><span class="kw">sum</span>(Y), <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">pch=</span><span class="dv">21</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 <div id="time-varying-finite-mixture-removal-models" class="section level3">
 <h3><span class="header-section-number">4.7.2</span> Time-varying finite mixture removal models</h3>
@@ -745,7 +755,7 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 <p>An alternative parametrization is that <span class="math inline">\(c_{i}\)</span> rather than <span class="math inline">\(\phi\)</span> be the time-varying parameter,
 allowing the individuals to switch between the frequent and infrequent group depending on covariates.
@@ -804,7 +814,7 @@ p1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</sp
     <span class="kw">lines</span>(Duration, p2, <span class="dt">col=</span>col[i])
 }
 <span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">3</span>, <span class="dt">h=</span><span class="kw">range</span>(p1), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
 </div>
 </div>
@@ -891,7 +901,7 @@ ignored the observation process so far. <span class="math inline">\(p\)</span> i
 <span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="ot">NA</span>), 
   <span class="dt">fill=</span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;#0000ff33&quot;</span>), <span class="dt">border=</span><span class="ot">NA</span>, 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True&quot;</span>, <span class="st">&quot;Estimated&quot;</span>, <span class="st">&quot;&#39;New individuals&#39;&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>Our estimate of <span class="math inline">\(N\)</span> becomes <span class="math inline">\(Y/C=Y/p\)</span>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">N &lt;-<span class="st"> </span><span class="kw">sum</span>(a<span class="op">$</span>abundance)
 Nhat &lt;-<span class="st"> </span>Y<span class="op">/</span>p

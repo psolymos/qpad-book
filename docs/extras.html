@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
 <li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a><ul>
+<li class="chapter" data-level="6.1" data-path="recordings.html"><a href="recordings.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="recordings.html"><a href="recordings.html#prerequisites-4"><i class="fa fa-check"></i><b>6.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.3" data-path="recordings.html"><a href="recordings.html#paired-sampling"><i class="fa fa-check"></i><b>6.3</b> Paired sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="recordings.html"><a href="recordings.html#paired-data"><i class="fa fa-check"></i><b>6.4</b> Paired data</a></li>
+<li class="chapter" data-level="6.5" data-path="recordings.html"><a href="recordings.html#availability"><i class="fa fa-check"></i><b>6.5</b> Availability</a></li>
+<li class="chapter" data-level="6.6" data-path="recordings.html"><a href="recordings.html#distance-sampling-1"><i class="fa fa-check"></i><b>6.6</b> Distance sampling</a></li>
+<li class="chapter" data-level="6.7" data-path="recordings.html"><a href="recordings.html#scaling-constant"><i class="fa fa-check"></i><b>6.7</b> Scaling constant</a></li>
+<li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
+<li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
@@ -557,6 +567,50 @@ nmix &lt;-<span class="st"> </span><span class="kw">pcount</span>(<span class="o
 <span class="kw">plogis</span>(<span class="kw">coef</span>(nmix)[<span class="dv">2</span>])
 <span class="kw">exp</span>(<span class="kw">coef</span>(nmix)[<span class="dv">1</span>])
 Den <span class="op">*</span><span class="st"> </span><span class="dv">100</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## distance function density</span>
+<span class="co"># check http://seankross.com/notes/dpqr/</span>
+
+need rmax <span class="cf">for</span> rdist
+
+.g &lt;-<span class="st"> </span><span class="cf">function</span>(d, tau, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>)
+  <span class="cf">if</span> (hazard)
+    <span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(d<span class="op">/</span>tau)<span class="op">^-</span>b) <span class="cf">else</span> <span class="kw">exp</span>(<span class="op">-</span>(d<span class="op">/</span>tau)<span class="op">^</span>b)
+.f &lt;-<span class="st"> </span><span class="cf">function</span>(d, tau, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>)
+  <span class="kw">.g</span>(d, tau, b, hazard) <span class="op">*</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>d
+
+<span class="co"># this is g*h / integral</span>
+ddist &lt;-<span class="st"> </span><span class="cf">function</span>(x, tau, <span class="dt">b=</span><span class="dv">1</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>, <span class="dt">rmax=</span><span class="ot">Inf</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>){
+  V &lt;-<span class="st"> </span><span class="kw">integrate</span>(.f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span>rmax, 
+                 <span class="dt">tau=</span>tau, <span class="dt">b=</span>b, <span class="dt">hazard=</span>hazard)<span class="op">$</span>value
+  out &lt;-<span class="st"> </span><span class="kw">.f</span>(x, <span class="dt">tau=</span>tau, <span class="dt">b=</span>b, <span class="dt">hazard=</span>hazard) <span class="op">/</span><span class="st"> </span>V
+  out[x <span class="op">&gt;</span><span class="st"> </span>rmax] &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="cf">if</span> (log)
+    <span class="kw">log</span>(out) <span class="cf">else</span> out
+}
+pdist &lt;-<span class="st"> </span><span class="cf">function</span>(q, tau, <span class="dt">b=</span><span class="dv">1</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>, <span class="dt">lower.tail =</span> <span class="ot">TRUE</span>, <span class="dt">log.p =</span> <span class="ot">FALSE</span>){}
+qdist &lt;-<span class="st"> </span><span class="cf">function</span>(p, tau, <span class="dt">b=</span><span class="dv">1</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>, <span class="dt">lower.tail =</span> <span class="ot">TRUE</span>, <span class="dt">log.p =</span> <span class="ot">FALSE</span>){}
+<span class="co">#</span>
+<span class="co"># make output vector</span>
+<span class="co"># loop over out and accept reject based on weights as ddist</span>
+<span class="co"># can do in batches: star with n, continue with rejected n, etc</span>
+rdist &lt;-<span class="st"> </span><span class="cf">function</span>(n, tau, <span class="dt">b=</span><span class="dv">1</span>, <span class="dt">hazard=</span><span class="ot">FALSE</span>, <span class="dt">rmax=</span><span class="ot">Inf</span>){
+  q99 &lt;-<span class="st"> </span><span class="kw">uniroot</span>(<span class="cf">function</span>(d) <span class="kw">ddist</span>(d))
+}
+
+tau &lt;-<span class="st"> </span><span class="fl">2.3</span>
+V &lt;-<span class="st"> </span><span class="kw">integrate</span>(.f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="ot">Inf</span>, <span class="dt">tau=</span>tau)<span class="op">$</span>value
+d &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">10</span>)
+d &lt;-<span class="st"> </span>d[<span class="kw">rbinom</span>(<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="kw">.f</span>(d, tau)<span class="op">/</span>V) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>]
+<span class="kw">hist</span>(d)
+
+nll &lt;-<span class="st"> </span><span class="cf">function</span>(tau) {
+  <span class="op">-</span><span class="kw">sum</span>(<span class="kw">ddist</span>(d, tau, <span class="dt">log=</span><span class="ot">TRUE</span>))
+}
+<span class="kw">optimize</span>(nll, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))
+
+
+<span class="co"># once done: generate distances with rdist, and fit model with ddist</span>
+<span class="co"># see if AIC etc works as expected</span></code></pre>
 
 <div id="refs" class="references">
 <div>

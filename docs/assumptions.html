@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
 <li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a><ul>
+<li class="chapter" data-level="6.1" data-path="recordings.html"><a href="recordings.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="recordings.html"><a href="recordings.html#prerequisites-4"><i class="fa fa-check"></i><b>6.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.3" data-path="recordings.html"><a href="recordings.html#paired-sampling"><i class="fa fa-check"></i><b>6.3</b> Paired sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="recordings.html"><a href="recordings.html#paired-data"><i class="fa fa-check"></i><b>6.4</b> Paired data</a></li>
+<li class="chapter" data-level="6.5" data-path="recordings.html"><a href="recordings.html#availability"><i class="fa fa-check"></i><b>6.5</b> Availability</a></li>
+<li class="chapter" data-level="6.6" data-path="recordings.html"><a href="recordings.html#distance-sampling-1"><i class="fa fa-check"></i><b>6.6</b> Distance sampling</a></li>
+<li class="chapter" data-level="6.7" data-path="recordings.html"><a href="recordings.html#scaling-constant"><i class="fa fa-check"></i><b>6.7</b> Scaling constant</a></li>
+<li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
+<li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
@@ -254,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r">aa &lt;-<span class="st"> </span><span class="kw">table</span>(josm<span class="op">$</span>counts<span class="op">$</span>SpeciesID, josm<span class="op">$</span>counts<span class="op">$</span>DetectType1)
 bb &lt;-<span class="st"> </span>aa[,<span class="st">&quot;V&quot;</span>]<span class="op">/</span><span class="kw">rowSums</span>(aa)
 <span class="kw">hist</span>(bb)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(bb[bb <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.2</span>])</code></pre>
 <pre><code>##   ATTW   EAKI   TRES   BAEA   OSPR   BOGU   AMWI   MALL   MERL   RBGU 
 ## 0.2414 0.2500 0.2520 0.3333 0.3333 0.3663 0.4444 0.4615 0.5000 0.5000 

@@ -49,6 +49,8 @@ if (interactive()) {
   save(abmi, file="abmi.rda")
   setwd(od)
 }
+
+load("_data/abmi/abmi.rda")
 #' Make survey x interval tables for species based on 3-min samples:
 #' need to drop visits that are <3 min
 y3 <- Xtab(~ visit + det1 + SpeciesID,
@@ -58,7 +60,7 @@ x3 <- droplevels(nonDuplicated(abmi, visit, TRUE)[rownames(y3[[1]]),
   c("pkey", "visit", "ToY", "ToYc", "ToD", "ToDx", "ToDc")])
 
 library(detect)
-ToY <- seq(min(x1$ToY), max(x1$ToY), 1)
+ToY <- seq(min(abmi$ToY), max(abmi$ToY), 1)
 
 spp <- "Ovenbird"
 #spp <- "BorealChickadee"
@@ -73,7 +75,7 @@ D <- D[x3$ToDc == "Morning",]
 z <- cmulti(Y|D ~ ToY+I(ToY^2)+I(ToY^3),
   x3[x3$ToDc == "Morning",], type="rem")
 X <- model.matrix(~ ToY+I(ToY^2)+I(ToY^3),
-  data.frame(ToY=seq(min(x1$ToY), max(x1$ToY), 1)))
+  data.frame(ToY=ToY))
 phi <- exp(X %*% coef(z))
 p0 <- 1-exp(-1*phi)
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
 <li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a><ul>
+<li class="chapter" data-level="6.1" data-path="recordings.html"><a href="recordings.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="recordings.html"><a href="recordings.html#prerequisites-4"><i class="fa fa-check"></i><b>6.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.3" data-path="recordings.html"><a href="recordings.html#paired-sampling"><i class="fa fa-check"></i><b>6.3</b> Paired sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="recordings.html"><a href="recordings.html#paired-data"><i class="fa fa-check"></i><b>6.4</b> Paired data</a></li>
+<li class="chapter" data-level="6.5" data-path="recordings.html"><a href="recordings.html#availability"><i class="fa fa-check"></i><b>6.5</b> Availability</a></li>
+<li class="chapter" data-level="6.6" data-path="recordings.html"><a href="recordings.html#distance-sampling-1"><i class="fa fa-check"></i><b>6.6</b> Distance sampling</a></li>
+<li class="chapter" data-level="6.7" data-path="recordings.html"><a href="recordings.html#scaling-constant"><i class="fa fa-check"></i><b>6.7</b> Scaling constant</a></li>
+<li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
+<li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
@@ -234,12 +244,460 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="recordings" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Dealing with Recordings</h1>
-<p>integration challenges</p>
-<p>calibration (exponential/cloglog approximation)</p>
-<p>fixed effects</p>
-<p>paired</p>
-<p>sensor sensitivity - EDR</p>
+<div id="introduction-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>Automated recording units (ARU) are increasingly being used for auditory
+surveys. There are numerous advantages for using ARUs,
+e.g. recordings can be stored in perpetuity to be transcibed
+later, ARUs can be programmed to record at select times and datas over long
+time periods that would be prohibitive using human observers.</p>
+<p>Bird point counts have beed traditionally done by human observers. Combining
+ARU data with traditional point counts thus require an understanding of
+how the ARU based counts relate to counts made by human observer in the field.
+The best way to approach this question is by simultaneously sampling
+by two approaches: (1) human observers doing traditional point count
+by registering time and distance interval an individual bird was first detected,
+and (2) record the same session at the same location by an ARU to be
+identified/trascribed later in laboratory settings.</p>
+</div>
+<div id="prerequisites-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Prerequisites</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bSims)                <span class="co"># simulations</span>
+<span class="kw">library</span>(detect)               <span class="co"># multinomial models</span>
+<span class="kw">library</span>(mefa4)                <span class="co"># count manipulation</span>
+<span class="kw">library</span>(paired)               <span class="co"># paired sampling data</span>
+<span class="kw">library</span>(lme4)                 <span class="co"># for mixed models</span></code></pre>
+</div>
+<div id="paired-sampling" class="section level2">
+<h2><span class="header-section-number">6.3</span> Paired sampling</h2>
+<p>The expected value of the total count (single species) in a 10-minutes time interval
+using human observer (subscript <span class="math inline">\(H\)</span>) based unlimited radius point count may be written as:
+<span class="math inline">\(E[Y_{H}] = D A_{H} p_{H}\)</span> where <span class="math inline">\(Y_{H}\)</span> is the count, <span class="math inline">\(D\)</span> is population density, <span class="math inline">\(A\)</span> is
+the area sampled, <span class="math inline">\(p_{H}\)</span> is the probability that an average individual of the species
+is available for detection. The quantity <span class="math inline">\(p_{H}\)</span> can be estimated based on removal
+sampling utilizing the multiple time intervals. <span class="math inline">\(A_{H}\)</span> is often unknown, but can
+be estimated using the effective detection radius: <span class="math inline">\(A_{H}=\pi EDR_{H}^2\)</span>.
+Human observer based EDR is estimated from distance sampling.</p>
+<p>The ARU based survey (subscript <span class="math inline">\(R\)</span> for recorder)
+can distinguish individuals within distinct time intervals,
+but assigning these individuals is not yet possible using a single ARU.
+An ARU based count thus can be seen ans an unlimited radius point count
+where the effective area sampled is unknown. The expected value for an
+ARU based count for a given species may be written as:
+<span class="math inline">\(E[Y_{R}] = D A_{R} p_{R}\)</span>. <span class="math inline">\(p_{R}\)</span> can be estimated based on removal
+sampling utilizing the multiple time intervals from the ARU based survey.
+The unknown sampling are can be written as <span class="math inline">\(A_{R}=\pi EDR_{R}^2\)</span>.
+The problem is that ARU based EDR cannot directly be estimated from the data
+because of the lack of multiple distance bands or individial based distance
+information.</p>
+<p>The advantage of simultaneous sampling by human observers (H) and ARUs (A)
+is that population density (<span class="math inline">\(D=D_{H}=D_{R}\)</span>) is identical by design.
+Possible mechanisms for differences in availability of bird individuals for detection
+(<span class="math inline">\(p_{H}\)</span> vs. <span class="math inline">\(p_{R}\)</span>) can include differences in how detections
+are made in the field vs. in laboratory (e.g. possibility of double checking).</p>
+<p>Both <span class="math inline">\(p_{H}\)</span> and <span class="math inline">\(p_{R}\)</span> can be estimated from the data, and the equivalence
+<span class="math inline">\(p=p_{H}=p_{R}\)</span> can be tested. So for the sake of simplicity, we assume that
+human observer and ARU based <span class="math inline">\(p\)</span>’s are equal.
+Dividing the expected values of the counts may be written as:</p>
+<p><span class="math display">\[\frac{E[Y_{R}]}{E[Y_{H}]} = \frac{D A_{R} p}{D A_{R} p} = \frac{\pi EDR_{R}^2}{\pi EDR_{H}^2} = \frac{EDR_{R}^2}{EDR_{H}^2}\]</span></p>
+<p>By substituting <span class="math inline">\(EDR_{R}^2 = \Delta^2 EDR_{H}^2\)</span> (and thus <span class="math inline">\(EDR_{R} = \Delta EDR_{H}\)</span>) we get:</p>
+<p><span class="math display">\[\frac{E[Y_{R}]}{E[Y_{H}]} = \frac{\Delta^2 EDR_{H}^2}{EDR_{H}^2} = \Delta^2\]</span></p>
+<p>This means that dividing the mean counts from ARU and human observed counts
+would give an estimate of the squared scaling constant (<span class="math inline">\(\Delta^2\)</span>) describing the
+relationship between the estimated <span class="math inline">\(EDR_{H}\)</span> and the unknown <span class="math inline">\(EDR_{R}\)</span>.</p>
+</div>
+<div id="paired-data" class="section level2">
+<h2><span class="header-section-number">6.4</span> Paired data</h2>
+<p>Human observer surveys:</p>
+<ul>
+<li>0-50, 50-100, &gt;100 m distance bands,</li>
+<li>0-3, 3-5, 5-10 minutes time intervals.</li>
+</ul>
+<p>ARU surveys:</p>
+<ul>
+<li>unlimited distance,</li>
+<li>10 minutes survey in 1-minute time intervals.</li>
+</ul>
+<p>Select a subset of species that we’ll work with:</p>
+<pre class="sourceCode r"><code class="sourceCode r">xt &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>SPECIES, 
+  <span class="dt">data=</span>paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>,]))
 
+SPP &lt;-<span class="st"> </span><span class="kw">colnames</span>(xt)
+<span class="co">## number of &gt;0 counts</span>
+ndis &lt;-<span class="st"> </span><span class="kw">colSums</span>(xt <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+<span class="co">## max count</span>
+maxd &lt;-<span class="st"> </span><span class="kw">apply</span>(xt, <span class="dv">2</span>, max)
+nmin &lt;-<span class="st"> </span><span class="dv">15</span>
+SPP &lt;-<span class="st"> </span>SPP[ndis <span class="op">&gt;=</span><span class="st"> </span>nmin <span class="op">&amp;</span><span class="st"> </span>maxd <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>]
+SPP &lt;-<span class="st"> </span>SPP[<span class="op">!</span>(SPP <span class="op">%in%</span>
+<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;CANG&quot;</span>,<span class="st">&quot;COLO&quot;</span>,<span class="st">&quot;COGO&quot;</span>,<span class="st">&quot;COME&quot;</span>,<span class="st">&quot;FRGU&quot;</span>,<span class="st">&quot;BCFR&quot;</span>,<span class="st">&quot;UNKN&quot;</span>,<span class="st">&quot;RESQ&quot;</span>,
+  <span class="st">&quot;CORA&quot;</span>,<span class="st">&quot;AMCR&quot;</span>,<span class="st">&quot;WOSP&quot;</span>,<span class="st">&quot;WWCR&quot;</span>,<span class="st">&quot;PISI&quot;</span>,<span class="st">&quot;EVGR&quot;</span>, <span class="st">&quot;RUGR&quot;</span>, <span class="st">&quot;SACR&quot;</span>,
+  <span class="st">&quot;NOFL&quot;</span>))]
+SPP</code></pre>
+<pre><code>##  [1] &quot;ALFL&quot; &quot;AMRE&quot; &quot;AMRO&quot; &quot;BBWA&quot; &quot;BCCH&quot; &quot;BLBW&quot; &quot;BLJA&quot; &quot;BRCR&quot; &quot;CAWA&quot; &quot;CCSP&quot;
+## [11] &quot;CEDW&quot; &quot;CHSP&quot; &quot;CMWA&quot; &quot;CONW&quot; &quot;COYE&quot; &quot;CSWA&quot; &quot;DEJU&quot; &quot;FOSP&quot; &quot;GRAJ&quot; &quot;GRYE&quot;
+## [21] &quot;HAWO&quot; &quot;HETH&quot; &quot;LEFL&quot; &quot;LISP&quot; &quot;MAWA&quot; &quot;MOWA&quot; &quot;MYWA&quot; &quot;NAWA&quot; &quot;OCWA&quot; &quot;OVEN&quot;
+## [31] &quot;PAWA&quot; &quot;PHVI&quot; &quot;PIWO&quot; &quot;RBGR&quot; &quot;RBNU&quot; &quot;RCKI&quot; &quot;REVI&quot; &quot;SOSP&quot; &quot;SWTH&quot; &quot;TEWA&quot;
+## [41] &quot;WISN&quot; &quot;WIWR&quot; &quot;WTSP&quot; &quot;YBSA&quot; &quot;YRWA&quot;</code></pre>
+</div>
+<div id="availability" class="section level2">
+<h2><span class="header-section-number">6.5</span> Availability</h2>
+<p>We estimated availability for human observer and ARU based counts
+using the time interval information. ARU based intervals were
+collaped to the 0-3-5-10 minutes intervals to match the human observer based
+design.</p>
+<pre class="sourceCode r"><code class="sourceCode r">xtdurH &lt;-<span class="st"> </span><span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>Interval <span class="op">+</span><span class="st"> </span>SPECIES, 
+  paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>,])
+xtdurH &lt;-<span class="st"> </span>xtdurH[SPP]
+xtdurR &lt;-<span class="st"> </span><span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>Interval <span class="op">+</span><span class="st"> </span>SPECIES, 
+  paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;ARU&quot;</span>,])
+xtdurR &lt;-<span class="st"> </span>xtdurR[SPP]
+
+Ddur &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="kw">nrow</span>(xtdurH[[<span class="dv">1</span>]]), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+Ddur2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(Ddur, Ddur)
+
+xdur &lt;-<span class="st"> </span><span class="kw">nonDuplicated</span>(paired, PKEY, <span class="ot">TRUE</span>)
+xx &lt;-<span class="st"> </span>xdur[<span class="kw">rownames</span>(xtdurR[[<span class="dv">1</span>]]),]</code></pre>
+<p>We estimated availability for species with at least 15 detections
+in both subsets of the data (making sure that the total count for at least
+some locations exceeded 1). We analyzed the human observer and ARU based data
+in a single model using survey type as a dummy variable.
+We tested if the estimate corresponding to survey type differed significantly
+from 0 using 95% confidence intervals.</p>
+<p>The following table lists singing rates (<code>phi</code> 1/minute), probability of
+singing in a 10-minutes interval (<code>p10</code>), number of detections (<code>n</code>),
+and whether or not the confidence limits for the survey type estimate
+(<span class="math inline">\(\beta_1\)</span>) contained 0 (i.e. not significant survey effect).</p>
+<pre class="sourceCode r"><code class="sourceCode r">mdurR &lt;-<span class="st"> </span><span class="kw">list</span>()
+mdurH &lt;-<span class="st"> </span><span class="kw">list</span>()
+mdurHR &lt;-<span class="st"> </span><span class="kw">list</span>()
+mdurHR1 &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span> (spp <span class="cf">in</span> SPP) {
+    yR &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(xtdurR[[spp]])[,<span class="kw">c</span>(<span class="st">&quot;0-3 min&quot;</span>,<span class="st">&quot;3-5 min&quot;</span>,<span class="st">&quot;5-10 min&quot;</span>)]
+    yH &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(xtdurH[[spp]])[,<span class="kw">c</span>(<span class="st">&quot;0-3 min&quot;</span>,<span class="st">&quot;3-5 min&quot;</span>,<span class="st">&quot;5-10 min&quot;</span>)]
+    yHR &lt;-<span class="st"> </span><span class="kw">rbind</span>(yH, yR)
+    mdurR[[spp]] &lt;-<span class="st"> </span><span class="kw">cmulti</span>(yR <span class="op">|</span><span class="st"> </span>Ddur <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;rem&quot;</span>)
+    mdurH[[spp]] &lt;-<span class="st"> </span><span class="kw">cmulti</span>(yH <span class="op">|</span><span class="st"> </span>Ddur <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;rem&quot;</span>)
+    aru01 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">each=</span><span class="kw">nrow</span>(yH))
+    mdurHR[[spp]] &lt;-<span class="st"> </span><span class="kw">cmulti</span>(yHR <span class="op">|</span><span class="st"> </span>Ddur2 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;rem&quot;</span>)
+    mdurHR1[[spp]] &lt;-<span class="st"> </span><span class="kw">cmulti</span>(yHR <span class="op">|</span><span class="st"> </span>Ddur2 <span class="op">~</span><span class="st"> </span>aru01, <span class="dt">type =</span> <span class="st">&quot;rem&quot;</span>)
+}
+cfR &lt;-<span class="st"> </span><span class="kw">sapply</span>(mdurR, coef)
+cfH &lt;-<span class="st"> </span><span class="kw">sapply</span>(mdurH, coef)
+cfHR &lt;-<span class="st"> </span><span class="kw">sapply</span>(mdurHR, coef)
+cfHR1 &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(mdurHR1, coef))
+<span class="kw">names</span>(cfR) &lt;-<span class="st"> </span><span class="kw">names</span>(cfH) &lt;-<span class="st"> </span><span class="kw">names</span>(cfHR) &lt;-<span class="st"> </span><span class="kw">names</span>(cfHR1) &lt;-<span class="st"> </span>SPP
+
+phiR &lt;-<span class="st"> </span><span class="kw">exp</span>(cfR)
+phiH &lt;-<span class="st"> </span><span class="kw">exp</span>(cfH)
+phiHR &lt;-<span class="st"> </span><span class="kw">exp</span>(cfHR)
+
+<span class="co">## confidence interval for survey type effect</span>
+ci &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(mdurHR1, <span class="cf">function</span>(z) <span class="kw">confint</span>(z)[<span class="dv">2</span>,]))
+<span class="co">## does CI contain 0?</span>
+<span class="kw">table</span>(<span class="dv">0</span> <span class="op">%[]%</span><span class="st"> </span>ci)</code></pre>
+<pre><code>## 
+## FALSE  TRUE 
+##     4    41</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(phiR <span class="op">~</span><span class="st"> </span>phiH, 
+  <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(phiH, phiR)), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(phiH, phiR)),
+  <span class="dt">pch=</span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">19</span>)[(<span class="dv">0</span> <span class="op">%[]%</span><span class="st"> </span>ci) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>],
+  <span class="dt">xlab=</span><span class="kw">expression</span>(phi[H]), <span class="dt">ylab=</span><span class="kw">expression</span>(phi[R]),
+  <span class="dt">cex=</span><span class="fl">0.5</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>phiHR)
+<span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+Which <span class="math inline">\(\phi\)</span> estimate should we use? Can we use <code>phiHR</code>?
+Isn’t that cheating to double the sample size?
+Think about what we are conditioning on when estimating <span class="math inline">\(\phi\)</span>, and what makes samples independent.
+</div>
+
+</div>
+<div id="distance-sampling-1" class="section level2">
+<h2><span class="header-section-number">6.6</span> Distance sampling</h2>
+<p>We estimate EDR from human observer based counts:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Data for EDR estimation</span>
+xtdis &lt;-<span class="st"> </span><span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>DISTANCE <span class="op">+</span><span class="st"> </span>SPECIES, 
+  <span class="dt">data=</span>paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>,])
+xtdis &lt;-<span class="st"> </span>xtdis[SPP]
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">length</span>(xtdis)))
+    xtdis[[i]] &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(xtdis[[i]][,<span class="kw">c</span>(<span class="st">&quot;0-49 m&quot;</span>, <span class="st">&quot;50-100 m&quot;</span>, <span class="st">&quot;&gt;100 m&quot;</span>)])
+<span class="kw">head</span>(xtdis<span class="op">$</span>YRWA)</code></pre>
+<pre><code>##             0-49 m 50-100 m &gt;100 m
+## 05-041-01_1      0        0      0
+## 05-041-02_1      0        0      0
+## 05-041-05_1      0        0      0
+## 05-041-06_1      0        0      0
+## 05-041-07_1      0        1      0
+## 05-041-08_1      0        0      0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## distance radii</span>
+Ddis &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="ot">Inf</span>), <span class="kw">nrow</span>(xtdis[[<span class="dv">1</span>]]), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+<span class="kw">head</span>(Ddis)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.5    1  Inf
+## [2,]  0.5    1  Inf
+## [3,]  0.5    1  Inf
+## [4,]  0.5    1  Inf
+## [5,]  0.5    1  Inf
+## [6,]  0.5    1  Inf</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## predictors</span>
+xdis &lt;-<span class="st"> </span><span class="kw">nonDuplicated</span>(paired, PKEY, <span class="ot">TRUE</span>)
+xdis &lt;-<span class="st"> </span>xdis[<span class="kw">rownames</span>(xtdis[[<span class="dv">1</span>]]),]</code></pre>
+<p>Fitting distance sampling models for each species:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mdis &lt;-<span class="st"> </span><span class="kw">pblapply</span>(xtdis, <span class="cf">function</span>(Y) {
+  <span class="kw">cmulti</span>(Y <span class="op">|</span><span class="st"> </span>Ddis <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, xdis, <span class="dt">type =</span> <span class="st">&quot;dis&quot;</span>)
+})</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tauH &lt;-<span class="st"> </span><span class="kw">sapply</span>(mdis, <span class="cf">function</span>(z) <span class="kw">unname</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(z))))
+edrH &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>tauH
+<span class="kw">round</span>(<span class="kw">sort</span>(edrH))</code></pre>
+<pre><code>## CEDW CMWA BBWA BLBW BRCR NAWA LEFL AMRE HAWO PHVI YRWA MAWA CSWA BCCH OCWA 
+##   34   36   39   41   42   45   46   51   52   53   53   54   55   56   59 
+## CAWA COYE TEWA MOWA PAWA YBSA LISP MYWA CCSP DEJU CHSP CONW OVEN REVI GRAJ 
+##   61   62   63   64   65   67   69   69   70   70   73   74   77   81   82 
+## RBGR RCKI RBNU SWTH AMRO WTSP WIWR ALFL SOSP BLJA FOSP HETH GRYE WISN PIWO 
+##   85   86   88   91   92   99  101  102  114  129  130  138  158  164  167</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(edrH)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+</div>
+<div id="scaling-constant" class="section level2">
+<h2><span class="header-section-number">6.7</span> Scaling constant</h2>
+<p>Counts are often modelled in a log-linear Poisson GLM. We used GLM to estimate
+the unknow scaling constant from simultaneous (paired) surveys. The poisson mean
+for a count made at site <span class="math inline">\(i\)</span> by human observer is
+<span class="math inline">\(\lambda_{i,H} = D_{i} \pi EDR_H^2 p\)</span>. <span class="math inline">\(EDR_H\)</span> and <span class="math inline">\(p\)</span> are estimated using distance
+sampling and removal sampling, respectively. Those estimates are used to
+calculate a correction factor <span class="math inline">\(C = \pi EDR_H^2 p\)</span> which is used as an offset
+on the log scale as <span class="math inline">\(log(\lambda_{i,H}) = log(D_{i}) + log(C) = \beta_0 + log(C)\)</span>,
+where <span class="math inline">\(\beta_0\)</span> is the intercept in the GLM model.</p>
+<p>Following the arguments above, the poisson mean for an ARU based count
+made at site <span class="math inline">\(i\)</span> is <span class="math inline">\(\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \delta^2 C\)</span>.
+On the log scale, this becomes
+<span class="math inline">\(log(\lambda_{i,R}) = log(D_{i}) + log(\Delta^2) + log(C) = \beta_0 + \beta_1 + log(C)\)</span>,
+where <span class="math inline">\(\beta_1\)</span> is a contrast for ARU type surveys in the log-linear model.</p>
+<p>We used survey type as a binary variable (<span class="math inline">\(x_i\)</span>) with value 0 for human observers
+and value 1 for ARUs. So the Poisson model is generalized as:
+<span class="math inline">\(log(\lambda_{i}) = \beta_0 + x_i \beta_1 + log(C)\)</span>. <span class="math inline">\(\Delta\)</span> can be
+calculated from <span class="math inline">\(\beta_1\)</span> as <span class="math inline">\(\Delta = \sqrt{exp(\beta_i)}\)</span>.</p>
+<p>We used the Poisson GLM model describe before to estimate the <span class="math inline">\(\beta_1\)</span>
+coefficient corresponding to survey type as binary predictor variable,
+and an offset term incorporating human observer based effective area
+sampled and availability.</p>
+<pre class="sourceCode r"><code class="sourceCode r">phi &lt;-<span class="st"> </span>phiHR
+tau &lt;-<span class="st"> </span>tauH
+
+Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEYm <span class="op">+</span><span class="st"> </span>SPECIES, paired))
+X &lt;-<span class="st"> </span><span class="kw">nonDuplicated</span>(paired, PKEYm, <span class="ot">TRUE</span>)
+X &lt;-<span class="st"> </span>X[<span class="kw">rownames</span>(Y),]
+X<span class="op">$</span>distur &lt;-<span class="st"> </span><span class="kw">ifelse</span>(X<span class="op">$</span>Disturbance <span class="op">!=</span><span class="st"> &quot;Undisturbed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+X<span class="op">$</span>SurveyType &lt;-<span class="st"> </span><span class="kw">relevel</span>(X<span class="op">$</span>SurveyType, <span class="st">&quot;HUM&quot;</span>)
+
+<span class="kw">library</span>(lme4)
+mods &lt;-<span class="st"> </span><span class="kw">list</span>()
+aictab &lt;-<span class="st"> </span><span class="kw">list</span>()
+Delta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="kw">length</span>(SPP), <span class="dv">3</span>)
+<span class="kw">dimnames</span>(Delta) &lt;-<span class="st"> </span><span class="kw">list</span>(SPP, <span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;lcl&quot;</span>, <span class="st">&quot;ucl&quot;</span>))
+
+<span class="co">#spp &lt;- &quot;ALFL&quot;</span>
+<span class="cf">for</span> (spp <span class="cf">in</span> SPP) {
+  y &lt;-<span class="st"> </span>Y[,spp]
+  C &lt;-<span class="st"> </span>tau[spp]<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>phi[spp]))
+  off &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">log</span>(C), <span class="kw">nrow</span>(X))
+
+  mod0 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, X, <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+  mod1 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>SurveyType, X, <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+  mod2 &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>SurveyType <span class="op">+</span><span class="st"> </span>distur, X, <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+
+  aic &lt;-<span class="st"> </span><span class="kw">AIC</span>(mod0, mod1, mod2)
+  aic<span class="op">$</span>delta_AIC &lt;-<span class="st"> </span>aic<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(aic<span class="op">$</span>AIC)
+  aictab[[spp]] &lt;-<span class="st"> </span>aic
+
+  Best &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="kw">rownames</span>(aic)[aic<span class="op">$</span>delta_AIC <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])
+  <span class="co">#summary(Best)</span>
+
+  mods[[spp]] &lt;-<span class="st"> </span>Best
+  
+  <span class="co">## this is Monte Carlo based CI, no need for Delta method</span>
+  bb &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>, <span class="kw">coef</span>(mod1), <span class="kw">vcov</span>(mod1))
+  Delta[spp,] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sqrt</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(mod1)[<span class="st">&quot;SurveyTypeARU&quot;</span>])),
+    <span class="kw">quantile</span>(<span class="kw">sqrt</span>(<span class="kw">exp</span>(bb[,<span class="st">&quot;SurveyTypeARU&quot;</span>])), <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))
+}
+
+aic_support &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(aictab, <span class="cf">function</span>(z) z[,<span class="dv">3</span>]))
+<span class="kw">round</span>(aic_support)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## ALFL  247  244    0
+## AMRE   65   66    0
+## AMRO   26   21    0
+## BBWA   22   23    0
+## BCCH   28   29    0
+## BLBW   16   18    0
+## BLJA    5    7    0
+## BRCR   27   29    0
+## CAWA   18   20    0
+## CCSP   68   68    0
+## CEDW    9   11    0
+## CHSP    6    5    0
+## CMWA   23   25    0
+## CONW   20   21    0
+## COYE   14   16    0
+## CSWA   22   23    0
+## DEJU  102   99    0
+## FOSP   97   98    0
+## GRAJ    0    0    0
+## GRYE    6    8    0
+## HAWO    0    1    1
+## HETH   19   17    0
+## LEFL    0    2    4
+## LISP   50   52    0
+## MAWA    0    1    0
+## MOWA    0    2    3
+## MYWA   34   36    0
+## NAWA    0    1    1
+## OCWA  132  133    0
+## OVEN  378  375    0
+## PAWA  126  128    0
+## PHVI    0    2    3
+## PIWO    8   10    0
+## RBGR    0    2    1
+## RBNU   37   38    0
+## RCKI   13    9    0
+## REVI   23   21    0
+## SOSP   65   66    0
+## SWTH   37   39    0
+## TEWA   22   15    0
+## WISN    1    3    0
+## WIWR   35   35    0
+## WTSP  167  168    0
+## YBSA   19   18    0
+## YRWA   26   10    0</code></pre>
+<p>The following table show the estimate of <span class="math inline">\(\Delta\)</span> for each species,
+and the corresponding estimates of effective detection radius (EDR) in meters
+and effective area sampled (<span class="math inline">\(A\)</span>) in ha:</p>
+<p>But wait, if we started from expected values, shouldn the ration of
+the mean counts give us <span class="math inline">\(\Delta^2\)</span>?
+Let’s see if we can get a similar <span class="math inline">\(\Delta\)</span> value from mean counts:</p>
+<pre class="sourceCode r"><code class="sourceCode r">(gm &lt;-<span class="st"> </span><span class="kw">groupMeans</span>(Y[,SPP], <span class="dv">1</span>, X<span class="op">$</span>SurveyType))</code></pre>
+<pre><code>##       ALFL   AMRE   AMRO   BBWA   BCCH   BLBW   BLJA   BRCR    CAWA
+## ARU 0.2152 0.2200 0.1418 0.1809 0.0978 0.1149 0.1271 0.1663 0.06846
+## HUM 0.2910 0.2029 0.2200 0.2054 0.1198 0.1271 0.1222 0.1516 0.06846
+##        CCSP   CEDW   CHSP    CMWA    CONW    COYE   CSWA   DEJU    FOSP
+## ARU 0.04401 0.1711 0.4890 0.07335 0.07824 0.05623 0.2127 0.2274 0.06601
+## HUM 0.07090 0.1711 0.5844 0.06357 0.10024 0.06112 0.2421 0.3154 0.05379
+##       GRAJ    GRYE    HAWO   HETH    LEFL    LISP   MAWA   MOWA   MYWA
+## ARU 0.2249 0.08313 0.04401 0.5428 0.08802 0.07824 0.4132 0.2494 0.3252
+## HUM 0.2714 0.09535 0.06357 0.6479 0.09780 0.07579 0.4597 0.2616 0.3276
+##       NAWA  OCWA  OVEN   PAWA    PHVI   PIWO    RBGR   RBNU   RCKI   REVI
+## ARU 0.1222 0.110 1.127 0.1345 0.07579 0.1516 0.10758 0.1540 0.2958 0.9291
+## HUM 0.1002 0.132 1.306 0.1345 0.07579 0.1345 0.09535 0.1785 0.3961 1.0636
+##        SOSP   SWTH   TEWA   WISN   WIWR  WTSP   YBSA    YRWA
+## ARU 0.05623 0.5281 0.7433 0.1076 0.3081 1.560 0.1418 0.05623
+## HUM 0.06846 0.5403 0.9389 0.1002 0.3667 1.643 0.1883 0.15159</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Delta_summary<span class="op">$</span>Delta.emp &lt;-<span class="st"> </span><span class="kw">sqrt</span>(gm[<span class="st">&quot;ARU&quot;</span>,] <span class="op">/</span><span class="st"> </span>gm[<span class="st">&quot;HUM&quot;</span>,])
+
+<span class="kw">plot</span>(Delta.est <span class="op">~</span><span class="st"> </span>Delta.emp, Delta_summary,
+  <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)[(<span class="dv">1</span> <span class="op">%[]%</span><span class="st"> </span>Delta[,<span class="op">-</span><span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>])
+<span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>, <span class="dt">v=</span><span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p>It looks like the fancy modelling was all for nothing,
+theory prevailed. But it is always nice when things work out
+as expected.</p>
+<p>We can also see that <span class="math inline">\(\Delta\)</span> (especially the significant ones)
+tended to be less than 1, indicating that overall EDR for ARUs
+is slightly smaller that for human point counts. <span class="math inline">\(\Delta\)</span>
+was significantly different from 1 only for relatively few species.</p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+Can we pool all species’ data together to estimate an overall <span class="math inline">\(\Delta\)</span>
+value? Would that characterize this particular ARU type well enough?
+What are some of the arguments against this pooling? What might be
+driving the variation across species?
+</div>
+
+</div>
+<div id="data-integration" class="section level2">
+<h2><span class="header-section-number">6.8</span> Data integration</h2>
+<p>Now we will pretend that we have no paired design. See how well
+fixed effects can handle the data integration without calibration.</p>
+<pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">levels</span>(X<span class="op">$</span>PKEY), <span class="kw">floor</span>(<span class="kw">nlevels</span>(X<span class="op">$</span>PKEY)<span class="op">/</span><span class="dv">2</span>))
+ss &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">which</span>(X<span class="op">$</span>PKEY <span class="op">%in%</span><span class="st"> </span>i), <span class="kw">which</span>(<span class="op">!</span>(X<span class="op">$</span>PKEY <span class="op">%in%</span><span class="st"> </span>i)))
+
+mods2 &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span> (spp <span class="cf">in</span> SPP) {
+  y &lt;-<span class="st"> </span>Y[ss,spp]
+  C &lt;-<span class="st"> </span>tau[spp]<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>phi[spp]))
+  off &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">log</span>(C), <span class="kw">length</span>(ss))
+
+  mod &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>SurveyType, X[ss,], <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+
+  mods2[[spp]] &lt;-<span class="st"> </span>mod
+}
+Delta_summary<span class="op">$</span>Delta.fix &lt;-<span class="st"> </span><span class="kw">sapply</span>(mods2, <span class="cf">function</span>(z) {
+  <span class="kw">sqrt</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(z)[<span class="dv">2</span>]))
+})
+<span class="kw">plot</span>(Delta.fix <span class="op">~</span><span class="st"> </span>Delta.emp, Delta_summary)
+<span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>, <span class="dt">v=</span><span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>Use the script below to push the fixed effects method to the limit and
+see where it fails. We will explore the following two situations:
+(1) sample size and number of detections is small, (2) sampling is
+biased with respect to habitat strata.</p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r">X<span class="op">$</span>open &lt;-<span class="st"> </span><span class="kw">ifelse</span>(X<span class="op">$</span>Class_Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Open Herb/Grass&quot;</span>,
+    <span class="st">&quot;Open coniferous&quot;</span>,<span class="st">&quot;Open Mature Deciduous&quot;</span>,<span class="st">&quot;Open Mixed&quot;</span>,
+    <span class="st">&quot;Open Northern&quot;</span>,<span class="st">&quot;Open Young Deciduous&quot;</span>,
+    <span class="st">&quot;Open Young Mixed&quot;</span>,<span class="st">&quot;Poorly Drained&quot;</span>), <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="co">## proportion of samples from ARUs (original)</span>
+prop_aru &lt;-<span class="st"> </span><span class="fl">0.5</span>
+<span class="co">## proportion of ARU samples coming from open habitats</span>
+prop_open &lt;-<span class="st"> </span><span class="fl">0.6</span>
+
+n_aru &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">nrow</span>(X) <span class="op">*</span><span class="st"> </span>prop_aru)
+n_hum &lt;-<span class="st"> </span><span class="kw">nrow</span>(X) <span class="op">-</span><span class="st"> </span>n_aru
+w_aru &lt;-<span class="st"> </span>prop_open<span class="op">*</span>X<span class="op">$</span>open <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prop_open)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>X<span class="op">$</span>open)
+w_hum &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prop_open)<span class="op">*</span>X<span class="op">$</span>open <span class="op">+</span><span class="st"> </span>prop_open<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>X<span class="op">$</span>open)
+
+id_aru &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">which</span>(X<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;ARU&quot;</span>), n_aru, 
+  <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>w_aru[X<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;ARU&quot;</span>])
+id_hum &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">which</span>(X<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>), n_hum, 
+  <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>w_hum[X<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>])
+
+ss &lt;-<span class="st"> </span><span class="kw">c</span>(id_aru, id_hum)
+<span class="kw">addmargins</span>(<span class="kw">with</span>(X[ss,], <span class="kw">table</span>(open, SurveyType)))
+
+mods3 &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span> (spp <span class="cf">in</span> SPP) {
+  y &lt;-<span class="st"> </span>Y[ss,spp]
+  C &lt;-<span class="st"> </span>tau[spp]<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>phi[spp]))
+  off &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">log</span>(C), <span class="kw">length</span>(ss))
+
+  mod &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span>SurveyType, X[ss,], <span class="dt">offset=</span>off, <span class="dt">family=</span>poisson)
+
+  mods3[[spp]] &lt;-<span class="st"> </span>mod
+}
+
+
+Est &lt;-<span class="st"> </span><span class="kw">sapply</span>(mods3, <span class="cf">function</span>(z) <span class="kw">sqrt</span>(<span class="kw">exp</span>(<span class="kw">coef</span>(z)[<span class="dv">2</span>])))
+
+<span class="kw">plot</span>(Est <span class="op">~</span><span class="st"> </span>Delta.emp, Delta_summary)
+<span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>, <span class="dt">v=</span><span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)
+<span class="kw">abline</span>(<span class="kw">lm</span>(Est <span class="op">~</span><span class="st"> </span>Delta.emp, Delta_summary), <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
+</div>
+<div id="abmi-data" class="section level2">
+<h2><span class="header-section-number">6.9</span> ABMI data</h2>
+<p>logitudinal nature</p>
+<p>extrapolation issues</p>
+
+</div>
 </div>
             </section>
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.10" data-path="detection.html"><a href="detection.html#replicating-landscapes"><i class="fa fa-check"></i><b>5.10</b> Replicating landscapes</a></li>
 <li class="chapter" data-level="5.11" data-path="detection.html"><a href="detection.html#josm-data"><i class="fa fa-check"></i><b>5.11</b> JOSM data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a></li>
+<li class="chapter" data-level="6" data-path="recordings.html"><a href="recordings.html"><i class="fa fa-check"></i><b>6</b> Dealing with Recordings</a><ul>
+<li class="chapter" data-level="6.1" data-path="recordings.html"><a href="recordings.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="recordings.html"><a href="recordings.html#prerequisites-4"><i class="fa fa-check"></i><b>6.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="6.3" data-path="recordings.html"><a href="recordings.html#paired-sampling"><i class="fa fa-check"></i><b>6.3</b> Paired sampling</a></li>
+<li class="chapter" data-level="6.4" data-path="recordings.html"><a href="recordings.html#paired-data"><i class="fa fa-check"></i><b>6.4</b> Paired data</a></li>
+<li class="chapter" data-level="6.5" data-path="recordings.html"><a href="recordings.html#availability"><i class="fa fa-check"></i><b>6.5</b> Availability</a></li>
+<li class="chapter" data-level="6.6" data-path="recordings.html"><a href="recordings.html#distance-sampling-1"><i class="fa fa-check"></i><b>6.6</b> Distance sampling</a></li>
+<li class="chapter" data-level="6.7" data-path="recordings.html"><a href="recordings.html#scaling-constant"><i class="fa fa-check"></i><b>6.7</b> Scaling constant</a></li>
+<li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
+<li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
@@ -283,7 +293,7 @@ and thus depend on the individuals being available for detection
   <span class="dt">xlab=</span><span class="st">&quot;Distance (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;P(detection)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Half-Normal&quot;</span>)
 <span class="kw">plot</span>(d, <span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(d<span class="op">/</span><span class="fl">0.8</span>)<span class="op">^-</span><span class="dv">4</span>), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),
   <span class="dt">xlab=</span><span class="st">&quot;Distance (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;P(detection)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Hazard rate&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-139-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-139-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-139-3.png" width="33%" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-78-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-78-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-78-3.png" width="33%" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
@@ -315,7 +325,7 @@ b &lt;-<span class="st"> </span><span class="kw">bsims_animate</span>(a, <span c
 ##   no events, duration: 10 min
 ##   detected: 128 seen/heard</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(o)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-142-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-81-1.png" width="768" /></p>
 </div>
 <div id="distance-sampling" class="section level2">
 <h2><span class="header-section-number">5.4</span> Distance sampling</h2>
@@ -341,7 +351,7 @@ d &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</
   <span class="dt">xlab=</span><span class="st">&quot;d&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;h(d)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;PDF of distances&quot;</span>)
 <span class="kw">plot</span>(d, <span class="kw">g</span>(d, tau) <span class="op">*</span><span class="st"> </span><span class="kw">h</span>(d, rmax), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>,
   <span class="dt">xlab=</span><span class="st">&quot;d&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;g(d) h(d)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Density of observed distances&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-144-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-144-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-144-3.png" width="33%" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-83-1.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-83-2.png" width="33%" /><img src="qpad-book_files/figure-html/unnamed-chunk-83-3.png" width="33%" /></p>
 <p>The object <code>da</code> contains the distances to all the nests
 based on our bSims object,
 we use this to display the distribution of available distances:</p>
@@ -350,7 +360,7 @@ we use this to display the distribution of available distances:</p>
 <span class="kw">hist</span>(da[da <span class="op">&lt;=</span><span class="st"> </span>rmax], <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, rmax),
   <span class="dt">xlab=</span><span class="st">&quot;Available distances (d &lt;= r_max)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">curve</span>(<span class="dv">2</span><span class="op">*</span>x<span class="op">/</span>rmax<span class="op">^</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
 <p>The <code>get_detections</code> function returns a data frame with the
 detected events (in our case just the nest locations):
 <code>$d</code> is the distance, <code>$a</code> is the angle
@@ -367,7 +377,7 @@ tot &lt;-<span class="st"> </span><span class="kw">integrate</span>(f, <span cla
 <span class="kw">hist</span>(dt<span class="op">$</span>d[dt<span class="op">$</span>d <span class="op">&lt;=</span><span class="st"> </span>rmax], <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, rmax),
   <span class="dt">xlab=</span><span class="st">&quot;Observed distances (r &lt;= rmax)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)
 <span class="kw">curve</span>(<span class="kw">f</span>(x, <span class="dt">tau=</span>tau, <span class="dt">rmax=</span>rmax) <span class="op">/</span><span class="st"> </span>tot, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
 <p>In case of the Half-Normal, we can linearize the relationship
 by taking the log of the distance function:
 <span class="math inline">\(log(g(d)) =log(e^{-(d/\tau)^2})= -(d / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta\)</span>.
@@ -403,7 +413,7 @@ But we can at least check our bSims data:</p>
 <span class="kw">rug</span>(dat<span class="op">$</span>distance[dat<span class="op">$</span>detected <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], <span class="dt">side=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">2</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True&quot;</span>, <span class="st">&quot;Estimated&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <p>The Distance package offers various tools to fit
 models to observed distance data.
 See <a href="https://workshops.distancesampling.org/duke-spatial-2015/practicals/1-detection-functions-solutions.html">here</a> for a tutorial.
@@ -435,7 +445,7 @@ compared to the volume of the cookie cutter (<span class="math inline">\(\pi r_{
 <span class="kw">plot</span>(d, <span class="kw">c</span>(<span class="dv">1</span>, q), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),
   <span class="dt">xlab=</span><span class="kw">expression</span>(r[max]), <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">q</span>(r[max])), 
   <span class="dt">main=</span><span class="st">&quot;Average prob. of detection&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <p>For the Half-Normal detection function, the analytical solution for the
 average probability is
 <span class="math inline">\(\pi \tau^2 [1-exp(-d^2/\tau^2)] / (\pi r_{max}^2)\)</span>,
@@ -459,7 +469,7 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">1</span>, rmax, w, <span class="dt">border=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 </div>
 <div id="binned-distances" class="section level2">
 <h2><span class="header-section-number">5.6</span> Binned distances</h2>
@@ -485,7 +495,7 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(<span class="dv">0</span>, yh))
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(<span class="dv">0</span>, yh))
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">0</span>, rmax, w)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <p>In case of the Half-Normal distance function,
 <span class="math inline">\(\tau\)</span> is the <em>effective detection radius</em> (EDR).
 The effective detection radius is the distance from observer
@@ -509,7 +519,7 @@ yh &lt;-<span class="st"> </span><span class="kw">g</span>(rmax, <span class="dt
 <span class="kw">draw_ellipse</span>(<span class="dv">0</span>, <span class="dv">1</span>, rmax, w, <span class="dt">border=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="op">-</span><span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)
 <span class="kw">lines</span>(<span class="kw">c</span>(rmax, rmax), <span class="kw">c</span>(yh, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
@@ -544,7 +554,7 @@ Why are EDRs different for different truncation distances?
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(x<span class="op">/</span>tau)<span class="op">^</span><span class="dv">2</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">col=</span><span class="dv">4</span>,
   <span class="dt">ylab=</span><span class="kw">expression</span>(<span class="kw">pi</span>(d)), <span class="dt">xlab=</span><span class="kw">expression</span>(d), 
   <span class="dt">main=</span><span class="st">&quot;Cumulative density&quot;</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 <p>Here are binned distances for the bSims data, with expected
 proportions based on <span class="math inline">\(\pi()\)</span> cell probabilities
 (differences within the distance bins).
@@ -568,7 +578,7 @@ dat<span class="op">$</span>bin &lt;-<span class="st"> </span><span class="kw">c
 <span class="kw">barplot</span>(counts[,<span class="st">&quot;1&quot;</span>]<span class="op">/</span><span class="kw">sum</span>(counts[,<span class="st">&quot;1&quot;</span>]), <span class="dt">space=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="ot">NA</span>,
   <span class="dt">xlab=</span><span class="st">&quot;Distance bins (100 m)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Proportions&quot;</span>)
 <span class="kw">lines</span>(<span class="kw">seq_len</span>(<span class="kw">length</span>(br))<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">diff</span>(<span class="kw">c</span>(<span class="dv">0</span>, pi_br)), <span class="dt">col=</span><span class="dv">3</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>We can use the <code>bsims_transcribe</code> function for the same effect,
 and estimate <span class="math inline">\(\hat{\tau}\)</span> based on the binned data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(tr &lt;-<span class="st"> </span><span class="kw">bsims_transcribe</span>(o, <span class="dt">rint=</span>br))</code></pre>
@@ -607,7 +617,7 @@ cumulative cell probabilities:</p>
 <span class="kw">curve</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>(x<span class="op">/</span>tauhat)<span class="op">^</span><span class="dv">2</span>), <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>), 
   <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True&quot;</span>, <span class="st">&quot;Estimated&quot;</span>, <span class="st">&quot;Empirical&quot;</span>))</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 </div>
 <div id="availability-bias" class="section level2">
 <h2><span class="header-section-number">5.7</span> Availability bias</h2>
@@ -668,7 +678,7 @@ rint &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.
 ##        7       17       30       30</code></pre>
 <p>The plot method displays the detections presented as part of the <code>tr</code> object.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tr)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-164-1.png" width="768" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-103-1.png" width="768" /></p>
 <p>The detection process and the transcription (following a prescribed
 protocol) is inseparable in the field. However, recordings
 made in the field can be processed by a number of different ways.
@@ -979,7 +989,7 @@ What is the practical issue with using observer as predictor?
 <p>After finding the best model, we predict <code>tau</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">tau &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">model.matrix</span>(Mdis) <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(Mdis))
 <span class="kw">boxplot</span>(tau <span class="op">~</span><span class="st"> </span>HAB, x)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>Finally, we calculate the correction factor for unlimited distances,
 and predict mean density:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Apq &lt;-<span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>tau<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="dv">1</span>

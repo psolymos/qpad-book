@@ -23,8 +23,9 @@ identified/trascribed later in laboratory settings.
 library(bSims)                # simulations
 library(detect)               # multinomial models
 library(mefa4)                # count manipulation
+library(survival)             # survival models
 library(paired)               # paired sampling data
-library(lme4)                 # for mixed models
+load("_data/abmi/abmi.rda")   # ABMI ARU data set
 ```
 
 ## Paired sampling
@@ -424,10 +425,220 @@ abline(lm(Est ~ Delta.emp, Delta_summary), col=2)
 
 ## ABMI data
 
-logitudinal nature
+ABMI ARU data is a subset of cca. 1000 recordings done at each survey
+station over the course of about 5 months (deplyed in early March,
+retieved in an of July).
 
-extrapolation issues
+Recordings are of 1 or 3 minutes in length. Early season and midnight
+recordings are 1-min long, breeding season morning surveys
+are 3-min long to better capture the dawn chorus.
+
+```{r}
+## we'll use this for predictions
+q <- c(0.025, 0.975)
+qq <- quantile(abmi$ToY, q)
+ToY <- seq(qq[1], qq[2], 1)
+qq3 <- quantile(abmi$ToY[abmi$Duration == 3], q)
+tpred <- 1 # duration to use for prediction
+
+tmp <- nonDuplicated(abmi, visit)
+plot(ToD ~ ToY, tmp, col=ifelse(tmp$Duration == 3, 2, 1),
+  pch=19, cex=0.5)
+```
+
+We will compare results based on different subsets of the data. First,
+we'll compile the 3-min surveys (breeding season, morning) 
+and fit removal models.
+Make survey x interval tables for species based on 3-min samples:
+need to drop visits that are less than 3-mins:
+
+```{r}
+y3 <- Xtab(~ visit + det1 + SpeciesID,
+  data=abmi[abmi$Duration == 3 & !(abmi$SpeciesID %in% 
+  c("NONE","SNI", "VNA", "DNC", "PNA")),],
+  drop.unused.levels=TRUE)
+D3 <- matrix(1:3, nrow(x3), 3, byrow=TRUE)
+
+x3 <- droplevels(nonDuplicated(abmi, visit, TRUE)[rownames(y3[[1]]),
+  c("pkey", "visit", "ToY", "ToYc", "ToD", "ToDx", "ToDc")])
+```
+
+Pick a species and fit removal models:
+
+```{r}
+spp <- "Ovenbird" # mirgratory
+#spp <- "BorealChickadee" # winter resident
+
+## use morning samples only
+Y <- as.matrix(y3[[spp]])
+Y <- Y[x3$ToDc == "Morning",]
+D <- D3[x3$ToDc == "Morning",]
+
+## fit a conventional model with polynomial ToY effect
+z <- cmulti(Y | D ~ ToY + I(ToY^2) + I(ToY^3),
+  x3[x3$ToDc == "Morning",], type="rem")
+summary(z)
+X <- model.matrix(~ ToY + I(ToY^2) + I(ToY^3),
+  data.frame(ToY=ToY))
+phi <- exp(X %*% coef(z))
+prem <- 1-exp(-tpred*phi)
+
+## fit a mixture model with polynomial ToY effect
+z <- cmulti(Y | D ~ ToY + I(ToY^2) + I(ToY^3),
+  x3[x3$ToDc == "Morning",], type="mix")
+summary(z)
+chat <- plogis(X %*% coef(z)[-1])
+phi <- exp(coef(z)[1])
+pmix <- 1-chat*exp(-tpred*phi)
+```
+
+Let's see how does extrapolation look like:
+
+```{r}
+plot(pmix ~ ToY, type="l", ylim=c(0,1))
+lines(prem ~ ToY, col=4)
+abline(v=qq3, lty=2)
+```
 
 
+Next, we make survey x species table based on 1st 1-min surveys by
+excluding counts after 1-min:
 
+```{r}
+y1 <- Xtab(~ visit + SpeciesID,
+  data=abmi[is.na(abmi$det1) | abmi$det1 == "0-1min",],
+  cdrop=c("NONE","SNI", "VNA", "DNC", "PNA"))
+x1 <- droplevels(nonDuplicated(abmi, visit, TRUE)[rownames(y1),
+  c("pkey", "visit", "ToY", "ToYc", "ToD", "ToDx", "ToDc")])
+```
+
+We fit GAM model to detection-nondetection data,
+and we condition on known occurrences at the species
+over the breeding season (bracketed by `qq3`).
+
+First, let's explore species' responses:
+
+```{r}
+s <- colSums(y1[x1$ToY >= 150, ] > 0)
+SPP <- colnames(y1)[s >= 100]
+P <- matrix(0, length(ToY), length(SPP))
+colnames(P) <- SPP
+
+for (sppi in SPP) {
+  x1$y <- ifelse(y1[,sppi] > 0, 1, 0)
+  tmp <- with(x1[x1$ToY %[]% qq3, ], table(pkey, y))
+  tmp <- tmp[tmp[,"1"] > 0,]
+  x1$occ <- x1$pkey %in% rownames(tmp)
+  m <- mgcv::gam(y ~ s(ToY), 
+    x1[x1$ToDc == "Morning" & x1$occ,], family=poisson)
+  P[,sppi] <- predict(m, newdata=data.frame(ToY=ToY), type="response")
+}
+
+matplot(ToY, P, type="l", ylim=c(0,1), lty=1, col="#00000044")
+```
+
+Single species models continued:
+
+```{r}
+## species detections
+x1$y <- ifelse(y1[,spp] > 0, 1, 0)
+## finding locations with at least 1 detections
+tmp <- with(x1[x1$ToY %[]% qq3, ], table(pkey, y))
+tmp <- tmp[tmp[,"1"] > 0,]
+head(tmp)
+x1$occ <- x1$pkey %in% rownames(tmp)
+table(detection=x1$y, occupancy=x1$occ)
+
+## fit GAM to all the 1-min data
+m <- mgcv::gam(y ~ s(ToY), 
+  x1[x1$ToDc == "Morning" & x1$occ,], family=binomial)
+pgam1 <- predict(m, newdata=data.frame(ToY=ToY), type="response")
+
+## fit GAM to 1-min data in the breeding season
+m <- mgcv::gam(y ~ s(ToY), x1[x1$ToDc == "Morning" & x1$occ &
+    x1$visit %in% levels(x3$visit),], family=binomial)
+pgam3 <- predict(m, newdata=data.frame(ToY=ToY), type="response")
+```
+
+Let's use time-to-1st-detection data to fit survival model:
+
+```{r}
+x1$y <- ifelse(y1[,spp] > 0, 1, 0)
+tmp <- with(x1[x1$ToY %[]% qq3, ], table(pkey, y))
+tmp <- tmp[tmp[,"1"] > 0,]
+x1$occ <- x1$pkey %in% rownames(tmp)
+## subset to known occurrence sites
+x1 <- droplevels(x1[x1$occ,])
+## we use times from raw data table
+xx <- droplevels(abmi[abmi$SpeciesID == spp & !is.na(abmi$int1),])
+```
+
+Events need to be organized into a survival object:
+we treat nondetections as censored events at 60 sec.
+
+```{r}
+x1$time <- xx$int1[match(x1$visit, xx$visit)]
+x1$time[is.na(x1$time)] <- 60
+#' time cannot be 0, so we use 1 sec instead
+x1$time[x1$time == 0] <- 1
+#' We give time in minutes, so we get rate as events/min.
+x1$sv <- Surv(x1$time/60, x1$y)
+head(x1$sv)
+tail(x1$sv)
+```
+
+Fit a series of survival models:
+
+```{r}
+mods <- list(m0 = survreg(sv ~ 1, x1, dist="exponential"),
+    m1 = survreg(sv ~ ToY, x1, dist="exponential"),
+    m2 = survreg(sv ~ ToY + I(ToY^2), x1, dist="exponential"),
+    m3 = survreg(sv ~ ToY + I(ToY^2) + I(ToY^3), x1, dist="exponential"))
+
+aic <- data.frame(df=sapply(mods, function(z) length(coef(z))), AIC=sapply(mods, AIC))
+aic$delta_AIC <- aic$AIC - min(aic$AIC)
+aic
+```
+
+
+The package survreg fits accelerated failure models, not proportional
+hazards models, so the coefficients are logarithms of ratios of
+survival times, and a positive coefficient means longer survival.
+
+```{r}
+mb <- mods[[which.min(aic$AIC)]]
+summary(mb)
+## survival times
+summary(st <- predict(mb, data.frame(ToY=ToY)))
+## event rate per unit (1 min) time
+summary(phi <- 1 / st)
+## probability of at least 1 event per 10 time units (mins)
+summary(psurv <- 1-exp(-tpred*phi))
+```
+
+
+```{r warning=FALSE}
+plot(prem ~ ToY, type="l", ylim=c(0,1), 
+  main=spp, ylab="Relative availability")
+abline(v=qq3, lty=2, col="grey")
+lines(pmix ~ ToY, col=3)
+lines(pgam1 ~ ToY, col=2)
+lines(pgam3 ~ ToY, col=4)
+lines(psurv ~ ToY, col=5)
+rug(jitter(x1$ToY), side=1, col=2)
+rug(jitter(x3$ToY), side=3, col=4)
+legend(100, 0.7, bty="n", lty=1, col=c(1,3,2,4,5), cex=0.6,
+  legend=c("Conv. removal", "Mix. removal", 
+  "GAM 1min", "GAM 3mins", "Survival"))
+```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Discuss why the GAM/survival model estimates are different from 
+removal models.
+
+Compare these models and phenology curves for a different species,
+e.g. a winter resident.
+```
 

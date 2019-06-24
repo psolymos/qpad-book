@@ -50,6 +50,7 @@ if (interactive()) {
   setwd(od)
 }
 
+if (FALSE) {
 load("_data/abmi/abmi.rda")
 #' Make survey x interval tables for species based on 3-min samples:
 #' need to drop visits that are <3 min
@@ -195,3 +196,4 @@ m <- survreg(sv ~ 1, dist="exponential")
 summary(m)
 exp(-coef(m))
 summary(1/predict(m))
+}

@@ -24,92 +24,10 @@ library(bSims)                # simulations
 library(detect)               # multinomial models
 library(mefa4)                # count manipulation
 library(paired)               # paired sampling data
+library(lme4)                 # for mixed models
 ```
 
-## Paired data
-
-Human observer surveys:
-
-* 0-50, 50-100, >100 m distance bands,
-* 0-3, 3-5, 5-10 minutes time intervals.
-
-ARU surveys:
-
-* unlimited distance,
-* 10 minutes survey in 1-minute time intervals.
-
-```{r}
-with(paired, ftable(SurveyType, Interval, DISTANCE))
-```
-
-
-
-
-
-We estimate EDR from human observer based counts with distance 
-information for species with at least 15 detections making sure that the 
-total count for at least some locations exceeded 1:
-
-```{r}
-## Data for EDR estimation
-xtdis <- Xtab(Count ~ PKEY + DISTANCE + SPECIES, 
-  data=paired[paired$SurveyType == "HUM",])
-for (i in seq_len(length(xtdis)))
-    xtdis[[i]] <- as.matrix(xtdis[[i]][,c("0-49 m", "50-100 m", ">100 m")])
-
-## species subset
-nmin <- 15
-SPP <- SPP[!(SPP %in%   
-  c("CANG","COLO","COGO","COME","FRGU","BCFR","UNKN","RESQ",
-  "CORA","AMCR","WOSP","WWCR","PISI","EVGR"))]
-xtdis <- xtdis[SPP]
-## number of >0 counts
-ndis <- sapply(xtdis, function(z) sum(rowSums(z)>0))
-## max count
-maxd <- sapply(xtdis, function(z) max(rowSums(z)))
-xtdis <- xtdis[ndis >= nmin & maxd > 1]
-
-## distance radii
-DDdis <- matrix(c(0.5, 1, Inf), nrow(xtdis[[1]]), 3, byrow=TRUE)
-
-## predictors
-xdis <- nonDuplicated(paired, PKEY, TRUE)
-xdis <- xdis[rownames(xtdis[[1]]),]
-
-## open land cover
-xdis$open <- ifelse(xdis$Class_Name %in% c("Open Herb/Grass",
-    "Open coniferous","Open Mature Deciduous","Open Mixed",
-    "Open Northern","Open Young Deciduous",
-    "Open Young Mixed","Poorly Drained"), 1, 0)
-```
-
-Preparing objects for removal sampling:
-
-```{r}
-```{r,echo=FALSE,comment=NA}
-## SRA estimation
-xtdurH <- Xtab(Count ~ PKEY + Interval + SPECIES, 
-  paired[paired$SurveyType == "HUM",])
-xtdurA <- Xtab(Count ~ PKEY + Interval + SPECIES, 
-  paired[paired$SurveyType == "ARU",])
-DDdur <- matrix(c(3, 5, 10), nrow(xtdurH[[1]]), 3, byrow=TRUE)
-xtdurH <- xtdurH[SPP]
-xtdurA <- xtdurA[SPP]
-
-xdur <- nonDuplicated(paired, PKEY, TRUE)
-xx <- xdur[rownames(xtdurA[[1]]),]
-
-ndurH <- sapply(xtdurH, function(z) sum(rowSums(z)>0))
-ndurA <- sapply(xtdurA, function(z) sum(rowSums(z)>0))
-maxH <- sapply(xtdurH, function(z) max(rowSums(z)))
-maxA <- sapply(xtdurA, function(z) max(rowSums(z)))
-OK <- ndurH >= nmin & ndurA >= nmin & maxH > 1 & maxA > 1
-xtdurH <- xtdurH[OK]
-xtdurA <- xtdurA[OK]
-DDdur2 <- rbind(DDdur, DDdur)
-```
-
-## The logic
+## Paired sampling
 
 The expected value of the total count (single species) in a 10-minutes time interval
 using human observer (subscript $H$) based unlimited radius point count may be written as:
@@ -144,21 +62,167 @@ $p=p_{H}=p_{R}$ can be tested. So for the sake of simplicity, we assume that
 human observer and ARU based $p$'s are equal. 
 Dividing the expected values of the counts may be written as:
 
-$$ \frac{E[Y_{R}]}{E[Y_{H}]} = \frac{D A_{R} p}{D A_{R} p} = \frac{\pi EDR_{R}^2}{\pi EDR_{H}^2} = \frac{EDR_{R}^2}{EDR_{H}^2}$$
+$$\frac{E[Y_{R}]}{E[Y_{H}]} = \frac{D A_{R} p}{D A_{R} p} = \frac{\pi EDR_{R}^2}{\pi EDR_{H}^2} = \frac{EDR_{R}^2}{EDR_{H}^2}$$
 
-By substituting $EDR_{R}^2 = \Delta^2 EDR_{H}^2$ (and thus EDR_{R} = \Delta EDR_{H}) we get:
+By substituting $EDR_{R}^2 = \Delta^2 EDR_{H}^2$ (and thus $EDR_{R} = \Delta EDR_{H}$) we get:
 
-$$ \frac{E[Y_{R}]}{E[Y_{H}]} = \frac{\Delta^2 EDR_{H}^2}{EDR_{H}^2} = \Delta^2 $$
+$$\frac{E[Y_{R}]}{E[Y_{H}]} = \frac{\Delta^2 EDR_{H}^2}{EDR_{H}^2} = \Delta^2$$
 
 This means that dividing the mean counts from ARU and human observed counts
 would give an estimate of the squared scaling constant ($\Delta^2$) describing the
 relationship between the estimated $EDR_{H}$ and the unknown $EDR_{R}$.
 
+## Paired data
+
+Human observer surveys:
+
+* 0-50, 50-100, >100 m distance bands,
+* 0-3, 3-5, 5-10 minutes time intervals.
+
+ARU surveys:
+
+* unlimited distance,
+* 10 minutes survey in 1-minute time intervals.
+
+Select a subset of species that we'll work with:
+
+```{r}
+xt <- as.matrix(Xtab(Count ~ PKEY + SPECIES, 
+  data=paired[paired$SurveyType == "HUM",]))
+
+SPP <- colnames(xt)
+## number of >0 counts
+ndis <- colSums(xt > 0)
+## max count
+maxd <- apply(xt, 2, max)
+nmin <- 15
+SPP <- SPP[ndis >= nmin & maxd > 1]
+SPP <- SPP[!(SPP %in%
+  c("CANG","COLO","COGO","COME","FRGU","BCFR","UNKN","RESQ",
+  "CORA","AMCR","WOSP","WWCR","PISI","EVGR", "RUGR", "SACR",
+  "NOFL"))]
+SPP
+```
+
+## Availability
+
+We estimated availability for human observer and ARU based counts 
+using the time interval information. ARU based intervals were
+collaped to the 0-3-5-10 minutes intervals to match the human observer based
+design. 
+
+```{r}
+xtdurH <- Xtab(Count ~ PKEY + Interval + SPECIES, 
+  paired[paired$SurveyType == "HUM",])
+xtdurH <- xtdurH[SPP]
+xtdurR <- Xtab(Count ~ PKEY + Interval + SPECIES, 
+  paired[paired$SurveyType == "ARU",])
+xtdurR <- xtdurR[SPP]
+
+Ddur <- matrix(c(3, 5, 10), nrow(xtdurH[[1]]), 3, byrow=TRUE)
+Ddur2 <- rbind(Ddur, Ddur)
+
+xdur <- nonDuplicated(paired, PKEY, TRUE)
+xx <- xdur[rownames(xtdurR[[1]]),]
+```
+
+We estimated availability for species with at least 15 detections
+in both subsets of the data (making sure that the total count for at least
+some locations exceeded 1). We analyzed the human observer and ARU based data 
+in a single model using survey type as a dummy variable. 
+We tested if the estimate corresponding to survey type differed significantly
+from 0 using 95\% confidence intervals.
+
+The following table lists singing rates (`phi` 1/minute), probability of
+singing in a 10-minutes interval (`p10`), number of detections (`n`),
+and whether or not the confidence limits for the survey type estimate
+($\beta_1$) contained 0 (i.e. not significant survey effect).
+
+```{r}
+mdurR <- list()
+mdurH <- list()
+mdurHR <- list()
+mdurHR1 <- list()
+for (spp in SPP) {
+    yR <- as.matrix(xtdurR[[spp]])[,c("0-3 min","3-5 min","5-10 min")]
+    yH <- as.matrix(xtdurH[[spp]])[,c("0-3 min","3-5 min","5-10 min")]
+    yHR <- rbind(yH, yR)
+    mdurR[[spp]] <- cmulti(yR | Ddur ~ 1, type = "rem")
+    mdurH[[spp]] <- cmulti(yH | Ddur ~ 1, type = "rem")
+    aru01 <- rep(0:1, each=nrow(yH))
+    mdurHR[[spp]] <- cmulti(yHR | Ddur2 ~ 1, type = "rem")
+    mdurHR1[[spp]] <- cmulti(yHR | Ddur2 ~ aru01, type = "rem")
+}
+cfR <- sapply(mdurR, coef)
+cfH <- sapply(mdurH, coef)
+cfHR <- sapply(mdurHR, coef)
+cfHR1 <- t(sapply(mdurHR1, coef))
+names(cfR) <- names(cfH) <- names(cfHR) <- names(cfHR1) <- SPP
+
+phiR <- exp(cfR)
+phiH <- exp(cfH)
+phiHR <- exp(cfHR)
+
+## confidence interval for survey type effect
+ci <- t(sapply(mdurHR1, function(z) confint(z)[2,]))
+## does CI contain 0?
+table(0 %[]% ci)
+
+plot(phiR ~ phiH, 
+  ylim=c(0, max(phiH, phiR)), xlim=c(0, max(phiH, phiR)),
+  pch=c(21, 19)[(0 %[]% ci) + 1],
+  xlab=expression(phi[H]), ylab=expression(phi[R]),
+  cex=0.5+2*phiHR)
+abline(0,1)
+```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Which $\phi$ estimate should we use? Can we use `phiHR`? 
+Isn't that cheating to double the sample size? 
+Think about what we are conditioning on when estimating $\phi$, and what makes samples independent.
+```
 
 
+## Distance sampling
 
+We estimate EDR from human observer based counts:
 
-## Estimating the scaling constant
+```{r}
+## Data for EDR estimation
+xtdis <- Xtab(Count ~ PKEY + DISTANCE + SPECIES, 
+  data=paired[paired$SurveyType == "HUM",])
+xtdis <- xtdis[SPP]
+for (i in seq_len(length(xtdis)))
+    xtdis[[i]] <- as.matrix(xtdis[[i]][,c("0-49 m", "50-100 m", ">100 m")])
+head(xtdis$YRWA)
+
+## distance radii
+Ddis <- matrix(c(0.5, 1, Inf), nrow(xtdis[[1]]), 3, byrow=TRUE)
+head(Ddis)
+
+## predictors
+xdis <- nonDuplicated(paired, PKEY, TRUE)
+xdis <- xdis[rownames(xtdis[[1]]),]
+```
+
+Fitting distance sampling models for each species:
+
+```{r results='hide'}
+mdis <- pblapply(xtdis, function(Y) {
+  cmulti(Y | Ddis ~ 1, xdis, type = "dis")
+})
+```
+
+```{r}
+tauH <- sapply(mdis, function(z) unname(exp(coef(z))))
+edrH <- 100 * tauH
+round(sort(edrH))
+hist(edrH)
+```
+
+## Scaling constant
 
 Counts are often modelled in a log-linear Poisson GLM. We used GLM to estimate
 the unknow scaling constant from simultaneous (paired) surveys. The poisson mean
@@ -180,299 +244,189 @@ and value 1 for ARUs. So the Poisson model is generalized as:
 $log(\lambda_{i}) = \beta_0 + x_i \beta_1 + log(C)$. $\Delta$ can be 
 calculated from $\beta_1$ as $\Delta = \sqrt{exp(\beta_i)}$.
 
-## Distance sampling
-
-```{r}
-mdis <- list()
-for (i in 1:length(xtdis)) {
-    m <- cmulti(xtdis[[i]] | DDdis ~ 1, xdis, type = "dis")
-    if (!inherits(m, "try-error"))
-        mdis[[names(xtdis)[i]]] <- m
-}
-mdis2 <- list()
-for (i in 1:length(xtdis)) {
-    m0 <- cmulti(xtdis[[i]] | DDdis ~ 1, xdis, type = "dis")
-    m1 <- cmulti(xtdis[[i]] | DDdis ~ open, xdis, type = "dis")
-    mdis2[[i]] <- list(m0=m0, m1=m1)
-}
-
-t(sapply(mdis2, function(z) coef(z$m1)))
-
-#mdis <- lapply(xtdis, function(z) cmulti(z | DDdis ~ 1, type = "dis"))
-edrH <- sapply(mdis, function(z) exp(coef(z)))
-names(edrH) <- names(xtdis)
-edrH <- edrH[!(names(edrH) %in% c("RESQ", "UNKN"))]
-tax <- read.csv("taxonomy-bam.csv")
-rownames(tax) <- tax$Species_ID
-```
-
-```{r,echo=FALSE,comment=NA}
-data.frame(Species=tax[names(edrH),"English_Name"], EDR_H_meters=round(100*edrH, 1))
-```
-
-#### Estimating availability
-
-We estimated availability for human observer and ARU based counts 
-using the time interval information. ARU based intervals were
-collaped to the 0-3-5-10 minutes intervals to match the human observer based
-design. We estimated availability for species with at least 15 detections
-in both subsets of the data (making sure that the total count for at least
-some locations exceeded 1). We analyzed the human observer and ARU based data 
-in a single model using survey type as a dummy variable. 
-We tested if the estimate corresponding to survey type differed significantly
-from 0 using 95\% confidence intervals.
-
-The following table lists singing rates (`phi` 1/minute), probability of
-singing in a 10-minutes interval (`p10`), number of detections (`n`),
-and whether or not the confidence limits for the survey type estimate
-($\beta_1$) contained 0 (i.e. not significant survey effect).
-
-```{r}
-mdurA <- list()
-mdurH <- list()
-mdurHA <- list()
-mdurHA1 <- list()
-for (i in 1:length(xtdurA)) {
-    yA <- as.matrix(xtdurA[[i]])[,c("0-3 min","3-5 min","5-10 min")]
-    yH <- as.matrix(xtdurH[[i]])[,c("0-3 min","3-5 min","5-10 min")]
-    mdurA[[names(xtdurA)[i]]] <- cmulti(yA | DDdur ~ 1, type = "rem")
-    mdurH[[names(xtdurA)[i]]] <- cmulti(yH | DDdur ~ 1, type = "rem")
-    yyy <- rbind(yH, yA)
-    aru01 <- rep(0:1, each=nrow(xtdurH[[i]]))
-    mdurHA[[names(xtdurA)[i]]] <- cmulti(yyy | DDdur2 ~ 1, type = "rem")
-    mdurHA1[[names(xtdurA)[i]]] <- cmulti(yyy | DDdur2 ~ aru01, type = "rem")
-}
-cfA <- sapply(mdurA, coef)
-names(cfA) <- names(mdurA)
-cfH <- sapply(mdurH, coef)
-names(cfH) <- names(mdurH)
-cfHA <- sapply(mdurHA, coef)
-names(cfHA) <- names(mdurHA)
-phiA <- exp(cfA)
-phiH <- exp(cfH)
-phiHA <- exp(cfHA)
-
-cfHA1 <- t(sapply(mdurHA1, coef))
-
-ci <- t(sapply(mdurHA1, function(z) confint(z)[2,]))
-nam <- rownames(ci)[rowSums(is.na(ci)) > 0 | rowSums(sign(ci)) != 0]
-
-#plot(phiA ~ phiH, ylim=c(0,0.6), xlim=c(0,0.6))
-#abline(0,1)
-#abline(lm(phiA ~ phiH - 1), col=2)
-#abline(lm(phiA ~ phiH), col=4)
-#confint(lm(phiA ~ phiH - 1))
-#confint(lm(phiA ~ phiH))
-
-data.frame(Species=tax[rownames(cfHA1),"English_Name"], 
-    phi_H=round(exp(cfHA1[,1]), 3),
-    phi_A=round(exp(cfHA1[,1]+cfHA1[,2]), 3),
-    p10_H=round(1-exp(-10*exp(cfHA1[,1])), 3),
-    p10_A=round(1-exp(-10*exp(cfHA1[,1]+cfHA1[,2])), 3),
-    p_equal=rowSums(is.na(ci)) > 0 | rowSums(sign(ci)) == 0,
-    n_A=ndurA[rownames(ci)], 
-    n_H=ndurH[rownames(ci)])
-```
-
-```{r}
-mdur <- list()
-for (i in 1:length(xtdurA)) {
-    if (interactive())
-        cat(SPP[i], "\n")
-    yA <- as.matrix(xtdurA[[i]])[,c("0-3 min","3-5 min","5-10 min")]
-    yH <- as.matrix(xtdurH[[i]])[,c("0-3 min","3-5 min","5-10 min")]
-    yyy <- rbind(yH, yA)
-    aru01 <- rep(0:1, each=nrow(xtdurH[[i]]))
-    Noise <- c(xx$Noise, xx$Noise)
-    mdur[[i]] <- list()
-    m0 <- cmulti(yyy | DDdur2 ~ 1, type = "rem")
-    m1 <- cmulti(yyy | DDdur2 ~ aru01, type = "rem")
-    m2 <- cmulti(yyy | DDdur2 ~ Noise, type = "rem")
-    m3 <- cmulti(yyy | DDdur2 ~ aru01 + Noise, type = "rem")
-    m4 <- cmulti(yyy | DDdur2 ~ aru01 * Noise, type = "rem")
-    aic <- AIC(m0, m1, m2, m3, m4)
-    aic$dAIC <- aic$AIC - min(aic$AIC)
-    mdur[[i]] <- list(m0=m0, m1=m1, m2=m2, m3=m3, m4=m4, aic=aic)
-}
-
-names(mdur) <- names(xtdurA)
-table(best <- sapply(mdur, function(z) which.min(z$aic$dAIC)-1))
-names(best) <- names(xtdurA)
-
-t(sapply(mdur, function(z) coef(z$m1)))
-t(sapply(mdur[best==2], function(z) coef(z$m2)))
-
-```
-
-#### Estimating survey type effect
-
-We focused on species with reasonable sample sizes ($n > 14$), and where
-we did not find significant survey type effect on availability.
 We used the Poisson GLM model describe before to estimate the $\beta_1$
 coefficient corresponding to survey type as binary predictor variable,
-and an offset term incorporating human observer based effective area sampled and 
-availability.
+and an offset term incorporating human observer based effective area 
+sampled and availability.
 
-```{r,echo=FALSE}
-## these are the species where we have:
-## - reasonable sample size from training data
-##   to estimate phi and edr
-## - phi is not significantly different between aru and human
-namOK <- rownames(ci)[rowSums(sign(ci)) == 0]
-SPP2 <- intersect(names(edrH), namOK)
-phiOK <- phiHA[SPP2]
-edrOK <- edrH[SPP2]
-round(phiOK,4)
-round(edrOK,4)
+```{r}
+phi <- phiHR
+tau <- tauH
 
-xt <- as.matrix(Xtab(Count ~ PKEYm + SPECIES, x))
-xxx <- nonDuplicated(x, PKEYm, TRUE)
-xxx <- xxx[rownames(xt),]
-xxx$distur <- ifelse(xxx$Disturbance != "Undisturbed", 1, 0)
+Y <- as.matrix(Xtab(Count ~ PKEYm + SPECIES, paired))
+X <- nonDuplicated(paired, PKEYm, TRUE)
+X <- X[rownames(Y),]
+X$distur <- ifelse(X$Disturbance != "Undisturbed", 1, 0)
+X$SurveyType <- relevel(X$SurveyType, "HUM")
 
 library(lme4)
 mods <- list()
-cid <- matrix(NA, length(SPP2), 2)
-rownames(cid) <- SPP2
-colnames(cid) <- c("lcl", "ucl")
 aictab <- list()
+Delta <- matrix(NA, length(SPP), 3)
+dimnames(Delta) <- list(SPP, c("est", "lcl", "ucl"))
+
 #spp <- "ALFL"
-for (spp in SPP2) {
-    y <- xt[,spp]
-    C <- edrOK[spp]^2 * pi * (1-exp(-phiOK[spp]))
-    off <- rep(log(C), nrow(xxx))
-    mod0 <- glm(y ~ 1, xxx, offset=off, family=poisson)
-    mod1 <- glm(y ~ SurveyType, xxx, offset=off, family=poisson)
-    mod2 <- glm.nb(y ~ SurveyType + offset(off), xxx)
-    mod3 <- glmer(y ~ SurveyType + (1|PKEY), xxx,
-        offset=off, family=poisson)
-    mod4 <- glmer(y ~ SurveyType + distur + (1|PKEY), xxx,
-        offset=off, family=poisson)
-    mod5 <- glmer(y ~ SurveyType * distur + (1|PKEY), xxx,
-        offset=off, family=poisson)
-    
-    #summary(mod)
-    mods[[spp]] <- mod3
-    bb <- mvrnorm(10^4, fixef(mod3), vcov(mod3))
-    cid[spp,] <- quantile(sqrt(exp(bb[,"SurveyTypeARU"])), c(0.025, 0.975))
-    aic <- AIC(mod0, mod1, mod2, mod3, mod4, mod5)
-    aic$dAIC <- aic$AIC - min(aic$AIC)
-    aictab[[spp]] <- aic
+for (spp in SPP) {
+  y <- Y[,spp]
+  C <- tau[spp]^2 * pi * (1-exp(-phi[spp]))
+  off <- rep(log(C), nrow(X))
+
+  mod0 <- glm(y ~ 1, X, offset=off, family=poisson)
+  mod1 <- glm(y ~ SurveyType, X, offset=off, family=poisson)
+  mod2 <- glm(y ~ SurveyType + distur, X, offset=off, family=poisson)
+
+  aic <- AIC(mod0, mod1, mod2)
+  aic$delta_AIC <- aic$AIC - min(aic$AIC)
+  aictab[[spp]] <- aic
+
+  Best <- get(rownames(aic)[aic$delta_AIC == 0])
+  #summary(Best)
+
+  mods[[spp]] <- Best
+  
+  ## this is Monte Carlo based CI, no need for Delta method
+  bb <- MASS::mvrnorm(10^4, coef(mod1), vcov(mod1))
+  Delta[spp,] <- c(sqrt(exp(coef(mod1)["SurveyTypeARU"])),
+    quantile(sqrt(exp(bb[,"SurveyTypeARU"])), c(0.025, 0.975)))
 }
 
 aic_support <- t(sapply(aictab, function(z) z[,3]))
-
-delta <- sqrt(exp(sapply(mods, function(z) fixef(z)[2])))
-names(delta) <- names(mods)
+round(aic_support)
 ```
 
-The following table show the estimate of $\delta$ for each species,
+The following table show the estimate of $\Delta$ for each species,
 and the corresponding estimates of effective detection radius (EDR) in meters
-and effective area sampled (A) in ha:
+and effective area sampled ($A$) in ha:
 
 ```{r,echo=FALSE,comment=NA}
-data.frame(Species=tax[SPP2,"English_Name"], 
-    round(cbind(EDR_H=100*edrOK, EDR_A=100*delta*edrOK, 
-        A_H=edrOK^2*pi, A_A=(delta*edrOK)^2*pi,
-        delta=delta, delta_sq=delta^2), 2))
+Delta_summary <- data.frame(
+  Species=SPP, 
+  EDR_H=round(edrH),
+  EDR_R=round(edrH * Delta[,"est"]),
+  A_H=round(tauH^2*pi, 2), 
+  A_R=round((Delta[,"est"]*tauH)^2*pi, 2),
+  Delta=round(Delta, 3))
+Delta_summary
 ```
 
+But wait, if we started from expected values, shouldn the ration of
+the mean counts give us $\Delta^2$?
+Let's see if we can get a similar $\Delta$ value from mean counts:
 
-## Habitat effects
+```{r}
+(gm <- groupMeans(Y[,SPP], 1, X$SurveyType))
+Delta_summary$Delta.emp <- sqrt(gm["ARU",] / gm["HUM",])
 
-We explored if habitat effects are important to consider for density (as main effect)
-and for the survey type effect (as an interaction between habitat ans survey type).
-We used canopy closure as continuous predictor describing an important feature of the
-habitats that can affect burd density and also sound attenuation with distance.
-We compared the following models based on AIC:
+plot(Delta.est ~ Delta.emp, Delta_summary,
+  col=c(2,1)[(1 %[]% Delta[,-1]) + 1])
+abline(0, 1)
+abline(h=1, v=1, lty=2)
+```
 
-1. survey type as only main effect,
-2. survey type main effect \& canopy closure main effect,
-3. survey type main effect \& canopy closure main effect, \& interaction between the two,
+It looks like the fancy modelling was all for nothing, 
+theory prevailed. But it is always nice when things work out
+as expected.
 
-We calculated delta-AIC values for the 3 models for the species.
-We found that the interaction (i.e. different EDR ration in different habitats)
-was the best supported model only for Common Raven.
+We can also see that $\Delta$ (especially the significant ones)
+tended to be less than 1, indicating that overall EDR for ARUs
+is slightly smaller that for human point counts. $\Delta$
+was significantly different from 1 only for relatively few species.
 
-```{r,echo=FALSE,comment=NA}
-## explore habitat effects
-## Codes for veg are e.g. tA= trembling aspen. 
-## wS= white spruce. Most should be self-explanatory, 
-## exceptions are wI = willow aL = alder
-Aic <- list()
-for (spp in SPPv) {
-    i <- !is.na(xxx$Canopy.Closure)
-    y <- xt[i,spp]
-    C <- edrOK[spp]^2 * pi * (1-exp(-phiOK[spp]))
-    off <- rep(log(C), length(y))
-    m0 <- glm(y ~ SurveyType, xxx[i,], offset=off, family=poisson)
-    m1 <- update(m0, . ~ . + Canopy.Closure)
-    m2 <- update(m0, . ~ . * Canopy.Closure)
-    aic <- AIC(m0, m1, m2)
-    aic$dAIC <- aic$AIC - min(aic$AIC)
-    #aic[order(aic$dAIC),]
-    Aic[[spp]] <- aic
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Can we pool all species' data together to estimate an overall $\Delta$
+value? Would that characterize this particular ARU type well enough?
+What are some of the arguments against this pooling? What might be
+driving the variation across species?
+```
+
+## Data integration
+
+Now we will pretend that we have no paired design. See how well
+fixed effects can handle the data integration without calibration.
+
+```{r}
+i <- sample(levels(X$PKEY), floor(nlevels(X$PKEY)/2))
+ss <- c(which(X$PKEY %in% i), which(!(X$PKEY %in% i)))
+
+mods2 <- list()
+for (spp in SPP) {
+  y <- Y[ss,spp]
+  C <- tau[spp]^2 * pi * (1-exp(-phi[spp]))
+  off <- rep(log(C), length(ss))
+
+  mod <- glm(y ~ SurveyType, X[ss,], offset=off, family=poisson)
+
+  mods2[[spp]] <- mod
 }
-daic <- t(sapply(Aic, "[[", "dAIC"))
-colnames(daic) <- c("model_1","model_2","model_3")
-data.frame(Species=tax[SPPv,"English_Name"],
-    round(daic, 3))
+Delta_summary$Delta.fix <- sapply(mods2, function(z) {
+  sqrt(exp(coef(z)[2]))
+})
+plot(Delta.fix ~ Delta.emp, Delta_summary)
+abline(0, 1)
+abline(h=1, v=1, lty=2)
+```
+
+```{block2, type='rmdexercise'}
+**Exercise**
+
+Use the script below to push the fixed effects method to the limit and
+see where it fails. We will explore the following two situations:
+(1) sample size and number of detections is small, (2) sampling is
+biased with respect to habitat strata.
+
 ```
 
 
-```{r,eval=FALSE,echo=FALSE}
-## explore species traits
-tr <- read.delim("BirdFuncDat.txt") 
-tr <- tr[!duplicated(tr$Scientific),]
-rownames(tr) <- tolower(as.character(tr$Scientific))
-tax <- read.csv("taxonomy-bam.csv")
-rownames(tax) <- tax$Species_ID
-tax <- tax[SPP,c("English_Name","Scientific_Name")]
-sn <- tolower(as.character(tax[,2]))
-sn <- gsub("setophaga", "dendroica", sn)
-sn <- gsub("geothlypis", "oporornis", sn)
-sn[sn == "troglodytes hiemalis"] <- "troglodytes troglodytes"
-tr <- tr[sn,]
-tax$mass <- tr$BodyMass.Value
-tax$log_mass <- log(tax$mass)
-setdiff(sn, rownames(tr))
-tax$d <- d[SPP]
-tax$log_d <- log(tax$d)
-plot(log_d ~ log_mass, tax)
-abline(lm(log_d ~ log_mass, tax))
-summary(lm(log_d ~ log_mass, tax))
-summary(lm(edrOK[SPP] ~ log_mass, tax))
-plot(edrOK[SPP] ~ log_mass, tax)
-abline(lm(edrOK[SPP] ~ log_mass, tax))
+```{r eval=FALSE}
+X$open <- ifelse(X$Class_Name %in% c("Open Herb/Grass",
+    "Open coniferous","Open Mature Deciduous","Open Mixed",
+    "Open Northern","Open Young Deciduous",
+    "Open Young Mixed","Poorly Drained"), 1, 0)
+## proportion of samples from ARUs (original)
+prop_aru <- 0.5
+## proportion of ARU samples coming from open habitats
+prop_open <- 0.6
+
+n_aru <- round(nrow(X) * prop_aru)
+n_hum <- nrow(X) - n_aru
+w_aru <- prop_open*X$open + (1-prop_open)*(1-X$open)
+w_hum <- (1-prop_open)*X$open + prop_open*(1-X$open)
+
+id_aru <- sample(which(X$SurveyType == "ARU"), n_aru, 
+  replace=TRUE, prob=w_aru[X$SurveyType == "ARU"])
+id_hum <- sample(which(X$SurveyType == "HUM"), n_hum, 
+  replace=TRUE, prob=w_hum[X$SurveyType == "HUM"])
+
+ss <- c(id_aru, id_hum)
+addmargins(with(X[ss,], table(open, SurveyType)))
+
+mods3 <- list()
+for (spp in SPP) {
+  y <- Y[ss,spp]
+  C <- tau[spp]^2 * pi * (1-exp(-phi[spp]))
+  off <- rep(log(C), length(ss))
+
+  mod <- glm(y ~ SurveyType, X[ss,], offset=off, family=poisson)
+
+  mods3[[spp]] <- mod
+}
+
+
+Est <- sapply(mods3, function(z) sqrt(exp(coef(z)[2])))
+
+plot(Est ~ Delta.emp, Delta_summary)
+abline(0, 1)
+abline(h=1, v=1, lty=2)
+abline(lm(Est ~ Delta.emp, Delta_summary), col=2)
 ```
 
-## Next steps
+## ABMI data
 
-* check availability models and make sure that estimates make sense
-  (otherwise, use location specific models -- and corresponding
-  offsets in final modeling)
-* EDR models: see of LCC/disturbance based models are needed,
-  make sense etc -- use corresponding offsets
-* final model needs to recognize location/survey specific offsets
-* final model Poisson-Ln mixed model with random intercept for pairs,
-  plus include some LCC/disturbance based fixed effects
-* if SurveyType * habitat interactions are concerned: keep
-  a simplified model as well
-* Noise level: make sure model and validation data are balanced
-  (we can then check if noise is driving some of the outliers etc)
-  Site & noise level: might be OK for now, let's revisit when
-  doing the validation.
+logitudinal nature
 
-
-## Others
-
-
-fixed effects: using paired design
-
-fixed effects: pretend that design is not paired
-- random sampling
-- biased sampling by habitat
-
+extrapolation issues
 
 
 

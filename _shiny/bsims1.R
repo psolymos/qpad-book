@@ -165,7 +165,7 @@ server <- function(input, output) {
     Ddur <- matrix(TINT[[input$tint]], 1)
     Ydis <- matrix(rowSums(REM), 1)
     Ddis <- matrix(RINT[[input$rint]], 1)
-    if (length(TINT[[input$tint]]) > 1) {
+    if (length(TINT[[input$tint]]) > 1 && sum(REM) > 0) {
       Mrem <- cmulti.fit(Ydur, Ddur, type="rem")
       phi <- exp(Mrem$coef)
       p <- 1-exp(-MaxDur*phi)
@@ -174,7 +174,7 @@ server <- function(input, output) {
       phi <- NA
       p <- NA
     }
-    if (length(RINT[[input$rint]]) > 1) {
+    if (length(RINT[[input$rint]]) > 1 && sum(REM) > 0) {
       Mdis <- cmulti.fit(Ydis, Ddis, type="dis")
       tau <- exp(Mdis$coef)
       q <- if (is.infinite(MaxDis))

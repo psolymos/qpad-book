@@ -234,7 +234,7 @@ on the log scale as $log(\lambda_{i,H}) = log(D_{i}) + log(C) = \beta_0 + log(C)
 where $\beta_0$ is the intercept in the GLM model.
 
 Following the arguments above, the poisson mean for an ARU based count 
-made at site $i$ is $\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \delta^2 C$.
+made at site $i$ is $\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \Delta^2 C$.
 On the log scale, this becomes
 $log(\lambda_{i,R}) = log(D_{i}) + log(\Delta^2) + log(C) = \beta_0 + \beta_1 + log(C)$,
 where $\beta_1$ is a contrast for ARU type surveys in the log-linear model.
@@ -242,7 +242,7 @@ where $\beta_1$ is a contrast for ARU type surveys in the log-linear model.
 We used survey type as a binary variable ($x_i$) with value 0 for human observers
 and value 1 for ARUs. So the Poisson model is generalized as:
 $log(\lambda_{i}) = \beta_0 + x_i \beta_1 + log(C)$. $\Delta$ can be 
-calculated from $\beta_1$ as $\Delta = \sqrt{exp(\beta_i)}$.
+calculated from $\beta_1$ as $\Delta = \sqrt{e^{\beta_i}}$.
 
 We used the Poisson GLM model describe before to estimate the $\beta_1$
 coefficient corresponding to survey type as binary predictor variable,

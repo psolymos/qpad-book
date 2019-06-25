@@ -1,0 +1,296 @@
+---
+title: "Variance-bias trade-off"
+date: "Messy Data Workshop, IBS Tucson 2017 - January 9, 2017"
+output:
+  pdf_document:
+    keep_tex: no
+    number_sections: no
+    toc_depth: 2
+    toc: no
+fontsize: 11pt
+classoption: letterpaper
+urlcolor: blue
+---
+
+# The trade-off
+
+```{r}
+set.seed(2)
+sig2 <- 2
+n <- 100
+x <- sort(runif(n, -1, 2))
+d <- data.frame(x=x, x2=x^2, x3=x^3, x4=x^4, x5=x^5, x6=x^6)
+X <- model.matrix(~ x + x2 + x3 + x4, d)
+#mu <- drop(X %*% b)
+mu <- sin(x) - 0.5*sin(x)^2 + 0.5*cos(x) - 3*cos(x)^2
+plot(mu ~ x)
+
+sim_fun <- function() {
+    eps <- rnorm(n, 0, sqrt(sig2))
+    y <- mu + eps
+    y
+}
+pred_fun <- function(y, x) {
+    m1 <- lm(y ~ x, d)
+    m2 <- lm(y ~ x + x2, d)
+    m3 <- lm(y ~ x + x2 + x3, d)
+    m4 <- lm(y ~ x + x2 + x3 + x4, d)
+    m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+    m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+    dnew <- data.frame(x=x, x2=x^2, x3=x^3, x4=x^4, x5=x^5, x6=x^6)
+    sapply(list(m1=m1, m2=m2, m3=m3, m4=m4, m5=m5, m6=m6), function(z)
+        predict(z, newdata=dnew))
+}
+vb_fun <- function(fit) {
+    mu0 <- mu[set]
+    Bias <- mean(fit) - unname(mu0)
+    Var <- mean((fit - mean(fit))^2)
+    c(Bias=Bias, Var=Var)
+}
+
+## using only a single observation
+set <- 1
+yall <- replicate(100,sim_fun())
+fitall <- apply(yall, 2, function(z) pred_fun(z, x=x[set]))
+#fit <- fitall[1,]
+vb <- apply(fitall, 1, vb_fun)
+vb
+vb["Bias",]^2
+
+plot(1:6, (vb["Bias",]^2 + vb["Var",]), type="l", lwd=2, 
+    ylim=c(0, max(vb["Bias",]^2 + vb["Var",])), 
+    xlab="model complexity", ylab="relative magnitude")
+lines(1:6, vb["Var",], type="l", lwd=2, col=2)
+lines(1:6, vb["Bias",]^2, type="l", lwd=2, col=4)
+legend("topright", bty="n", col=c(1,2,4), lty=1, lwd=2,
+    legend=c("MSE", "Variance", "Bias^2"))
+```
+
+# A single realization
+
+```{r}
+set.seed(3)
+y <- sim_fun()
+```
+
+# lm/glm
+
+```{r}
+
+m1 <- lm(y ~ x, d)
+m2 <- lm(y ~ x + x2, d)
+m3 <- lm(y ~ x + x2 + x3, d)
+m4 <- lm(y ~ x + x2 + x3 + x4, d)
+m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+aic <- AIC(m1, m2, m3, m4, m5, m6)
+aic$dAIC <- aic$AIC - min(aic$AIC)
+aic
+best <- list(m1, m2, m3, m4, m5, m6)[[which.min(aic$AIC)]]
+summary(best)
+
+plot(y ~ x, main="lm")
+lines(x, mu)
+lines(x, fitted(best), col=2)
+```
+
+# gam
+
+```{r}
+library(mgcv)
+mod <- mgcv::gam(y ~ s(x), family=gaussian)
+summary(mod)
+
+plot(y ~ x, main="gam")
+lines(x, mu)
+lines(x, fitted(mod), col=2)
+```
+
+# rpart/ctree
+
+```{r}
+library(rpart)
+fit <- rpart(y ~ x, method="anova")
+fit
+pr <- predict(fit, newdata=d)
+
+par(xpd = TRUE)
+plot(fit, compress = TRUE)
+text(fit, use.n = TRUE)
+
+plot(y ~ x, main="rpart")
+lines(x, mu)
+lines(x, pr, col=2)
+
+
+library(partykit)
+fit2 <- ctree(y ~ x)
+fit2
+pr2 <- predict(fit2, newdata=d)
+
+plot(fit2)
+plot(y ~ x, main="ctree")
+lines(x, mu)
+lines(x, pr2, col=2)
+
+```
+
+# gbm
+
+```{r}
+library(gbm)
+brt <- gbm(y ~ x, distribution="gaussian", 
+    interaction.depth=5, shrinkage = 0.0001, n.trees = 50000)
+brt
+pr3 <- predict(brt, newdata=d, n.trees=c(5000, 10000, 50000), type="response")
+
+
+plot(brt)
+plot(y ~ x, main="gbm")
+lines(x, mu)
+matlines(x, pr3, col=c(4,3,2), lty=1)
+```
+
+# glmnet
+
+```{r}
+library(glmnet)
+
+xx <- scale(as.matrix(d))
+gn <- glmnet(xx, y, alpha=1) # alpha=1 is LASSO
+plot(gn, label=TRUE)
+cv <- cv.glmnet(xx, y)
+
+pr4 <- predict(cv, newx=xx, type="response", s=cv$lambda.min)
+
+plot(y ~ x, main="glmnet")
+lines(x, mu)
+lines(x, pr4, col=2)
+```
+
+# Bootstrap
+
+```{r}
+set.seed(123)
+B <- 200
+BB <- cbind(1:n, replicate(B-1, sample.int(n, n, replace=TRUE)))
+dim(BB)
+
+m1 <- lm(y ~ x, d)
+m2 <- lm(y ~ x + x2, d)
+m3 <- lm(y ~ x + x2 + x3, d)
+m4 <- lm(y ~ x + x2 + x3 + x4, d)
+m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+aic <- AIC(m1, m2, m3, m4, m5, m6)
+aic$dAIC <- aic$AIC - min(aic$AIC)
+aic
+best <- list(m1, m2, m3, m4, m5, m6)[[which.min(aic$AIC)]]
+
+dd <- model.frame(best)
+
+pr_mat <- matrix(0, 100, B)
+for (i in 1:B) {
+    mb <- lm(y ~ x + x2 + x3 + x4, dd[BB[,i],])
+    pr_mat[,i] <- predict(mb, newdata=d)
+}
+pr_int <- apply(pr_mat, 1, quantile, probs=c(0.025, 0.975))
+
+plot(y ~ x, main="lm, bootstrap", type="n")
+matlines(x, pr_mat, lty=1, col="lightgrey")
+points(x, y)
+lines(x, mu)
+lines(x, pr_mat[,1], col=2)
+lines(x, pr_int[1,], col=2, lty=2)
+lines(x, pr_int[2,], col=2, lty=2)
+```
+
+# Bagging
+
+```{r}
+
+ddd <- model.frame(m6)
+
+bag_fun <- function(i) {
+    mb1 <- lm(y ~ x, ddd[BB[,i],])
+    mb2 <- lm(y ~ x + x2, ddd[BB[,i],])
+    mb3 <- lm(y ~ x + x2 + x3, ddd[BB[,i],])
+    mb4 <- lm(y ~ x + x2 + x3 + x4, ddd[BB[,i],])
+    mb5 <- lm(y ~ x + x2 + x3 + x4 + x5, ddd[BB[,i],])
+    mb6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, ddd[BB[,i],])
+    aic <- AIC(mb1, mb2, mb3, mb4, mb5, mb6)
+    j <- which.min(aic$AIC)
+    best <- list(mb1, mb2, mb3, mb4, mb5, mb6)[[j]]
+    pr <- predict(best, newdata=d)
+    attr(pr, "mid") <- j
+    pr
+}
+library(pbapply)
+res <- pblapply(1:B, bag_fun)
+
+mid <- sapply(res, attr, "mid")
+table(mid)
+pr_mat <- do.call(cbind, res)
+pr_int <- apply(pr_mat, 1, quantile, probs=c(0.025, 0.975))
+
+plot(y ~ x, main="lm, bagging", type="n")
+matlines(x, pr_mat, lty=1, col="lightgrey")
+points(x, y)
+lines(x, mu)
+lines(x, rowMeans(pr_mat), col=2)
+lines(x, pr_int[1,], col=2, lty=2)
+lines(x, pr_int[2,], col=2, lty=2)
+```
+
+## HPC
+
+```{r}
+library(parallel)
+(cl <- makePSOCKcluster(2))
+
+clusterEvalQ(cl, ls())
+clusterExport(cl, c("BB", "d", "ddd"))
+clusterEvalQ(cl, ls())
+
+loadedNamespaces()
+clusterEvalQ(cl, loadedNamespaces())
+clusterEvalQ(cl, library(MASS))
+clusterEvalQ(cl, loadedNamespaces())
+
+system.time(lapply(1:100, function(i) Sys.sleep(0.01)))
+system.time(parLapply(cl, 1:100, function(i) Sys.sleep(0.01)))
+
+system.time(res2 <- parLapply(cl, 1:100, bag_fun))
+
+res2 <- pblapply(1:100, bag_fun, cl=cl)
+
+stopCluster(cl)
+```
+
+RNG
+
+```{r}
+cl <- makePSOCKcluster(5)
+
+.Random.seed
+RNGkind()
+RNGkind("Super")
+RNGkind()
+sum(duplicated(runif(1e6)))
+
+## same seed, same result
+clusterEvalQ(cl, RNGkind())
+clusterEvalQ(cl, set.seed(1))
+clusterEvalQ(cl, runif(5))
+
+## different seed, different result
+parSapply(cl, 1:length(cl), function(i) set.seed(i))
+clusterEvalQ(cl, runif(5))
+
+library(rlecuyer) # 2^127 return interval, much safer
+clusterSetRNGStream(cl, iseed=123)
+clusterEvalQ(cl, runif(5))
+
+stopCluster(cl)
+```
+

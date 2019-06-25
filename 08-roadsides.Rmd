@@ -1,4 +1,9 @@
 # Understanding Roadside Surveys {#roadsides}
 
-directional diff in signal transmission
+Use `shiny::runApp("_shiny/bsims1.R")` to explore
+how the following settings affect estimates:
 
+- withd of road and edge strata,
+- spatial mixtures for availability,
+- directional differences in sound transmission,
+- avoiding (no events in) certain strata.

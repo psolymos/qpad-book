@@ -24,6 +24,7 @@ Work in pairs, each group can select an assumption:
 - effect of truncation distance, number of distance bins
 - effect of total duration and time intervals
 - movement
+- observer avoidance (repel distance)
 - heard vs. heard and seen
 - 1st event vf 1st detection (duration, singing rate)
 - spatial pattern random, uniform, clustered

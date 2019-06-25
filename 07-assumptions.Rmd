@@ -9,7 +9,7 @@ are, and how violating these assumptions might affect the estimates.
 
 ## Prerequisites
 
-```{r det-libs,message=TRUE,warning=FALSE}
+```{r asm-libs,message=TRUE,warning=FALSE}
 library(bSims)                # simulations
 library(detect)               # multinomial models
 source("functions.R")         # some useful stuff

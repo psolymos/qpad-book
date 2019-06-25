@@ -37,7 +37,8 @@ m0 <- matrix(m[1,], 3, 3)
 mL <- matrix(m[2,], 3, 3)
 mU <- matrix(m[3,], 3, 3)
 mSD <- (log(mU) - log(mL)) / qnorm(1-0.1/2)
-dimnames(m0) <- dimnames(mL) <- dimnames(mU) <- list(c(50, 100, Inf), c("S", "P", "W"))
+dimnames(m0) <- dimnames(mL) <- dimnames(mU) <-
+    dimnames(mSD) <- list(c(50, 100, Inf), c("S", "P", "W"))
 
 i <- "50"
 j <- "S"
@@ -90,3 +91,23 @@ for (i in c("OLD", "ALL", "SHR")) {
     legend("topleft", fill=col, legend=c("50m", "100m", "Unlimited"), bty="n", title="Truncation distance")
 }
 dev.off()
+
+op <- par(mfrow=c(2,1))
+i <- "OLD"
+boxplot(x3x[x1$Habitat==i,cc], ylim=c(0, 3), main="Old forest species",
+    col=c(col,NA), axes=FALSE, ylab="Relative effect")
+axis(2)
+axis(1,c(2,6,10),c("Seismic", "Pipeline", "Wellpad"), tick=F)
+abline(h=1, col='#8da0cb')
+legend("topleft", fill=col, legend=c("50m", "100m", "Unlimited"), bty="n", title="Truncation distance")
+
+i <- "SHR"
+boxplot(x3x[x1$Habitat==i,cc], ylim=c(0, 3), main="Shrub species",
+    col=c(col,NA), axes=FALSE, ylab="Relative effect")
+axis(2)
+axis(1,c(2,6,10),c("Seismic", "Pipeline", "Wellpad"), tick=F)
+abline(h=1, col='#8da0cb')
+legend("topleft", fill=col, legend=c("50m", "100m", "Unlimited"), bty="n", title="Truncation distance")
+par(op)
+
+

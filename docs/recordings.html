@@ -24,7 +24,7 @@
 <meta name="author" content="Peter Solymos" />
 
 
-<meta name="date" content="2019-06-23" />
+<meta name="date" content="2019-06-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,7 +212,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.8" data-path="recordings.html"><a href="recordings.html#data-integration"><i class="fa fa-check"></i><b>6.8</b> Data integration</a></li>
 <li class="chapter" data-level="6.9" data-path="recordings.html"><a href="recordings.html#abmi-data"><i class="fa fa-check"></i><b>6.9</b> ABMI data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a></li>
+<li class="chapter" data-level="7" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>7</b> A Closer Look at Assumptions</a><ul>
+<li class="chapter" data-level="7.1" data-path="assumptions.html"><a href="assumptions.html#intro-1"><i class="fa fa-check"></i><b>7.1</b> Intro</a></li>
+<li class="chapter" data-level="7.2" data-path="assumptions.html"><a href="assumptions.html#prerequisites-5"><i class="fa fa-check"></i><b>7.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="7.3" data-path="assumptions.html"><a href="assumptions.html#bsims-runs"><i class="fa fa-check"></i><b>7.3</b> bSims runs</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="roadsides.html"><a href="roadsides.html"><i class="fa fa-check"></i><b>8</b> Understanding Roadside Surveys</a></li>
 <li class="chapter" data-level="9" data-path="extras.html"><a href="extras.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous Topics</a><ul>
 <li class="chapter" data-level="" data-path="extras.html"><a href="extras.html#these-are-just-reminders-to-be-deleted-later"><i class="fa fa-check"></i>These are just reminders, to be deleted later</a></li>
@@ -248,25 +252,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
 <p>Automated recording units (ARU) are increasingly being used for auditory
 surveys. There are numerous advantages for using ARUs,
-e.g. recordings can be stored in perpetuity to be transcibed
-later, ARUs can be programmed to record at select times and datas over long
+e.g. recordings can be stored in perpetuity to be transcribed
+later, ARUs can be programmed to record at select times and dates over long
 time periods that would be prohibitive using human observers.</p>
-<p>Bird point counts have beed traditionally done by human observers. Combining
+<p>Bird point counts have been traditionally done by human observers. Combining
 ARU data with traditional point counts thus require an understanding of
 how the ARU based counts relate to counts made by human observer in the field.
 The best way to approach this question is by simultaneously sampling
 by two approaches: (1) human observers doing traditional point count
 by registering time and distance interval an individual bird was first detected,
 and (2) record the same session at the same location by an ARU to be
-identified/trascribed later in laboratory settings.</p>
+identified/transcribed later in laboratory settings.</p>
 </div>
 <div id="prerequisites-4" class="section level2">
 <h2><span class="header-section-number">6.2</span> Prerequisites</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bSims)                <span class="co"># simulations</span>
 <span class="kw">library</span>(detect)               <span class="co"># multinomial models</span>
 <span class="kw">library</span>(mefa4)                <span class="co"># count manipulation</span>
+<span class="kw">library</span>(survival)             <span class="co"># survival models</span>
 <span class="kw">library</span>(paired)               <span class="co"># paired sampling data</span>
-<span class="kw">library</span>(lme4)                 <span class="co"># for mixed models</span></code></pre>
+<span class="kw">load</span>(<span class="st">&quot;_data/abmi/abmi.rda&quot;</span>)   <span class="co"># ABMI ARU data set</span></code></pre>
 </div>
 <div id="paired-sampling" class="section level2">
 <h2><span class="header-section-number">6.3</span> Paired sampling</h2>
@@ -288,7 +293,7 @@ ARU based count for a given species may be written as:
 sampling utilizing the multiple time intervals from the ARU based survey.
 The unknown sampling are can be written as <span class="math inline">\(A_{R}=\pi EDR_{R}^2\)</span>.
 The problem is that ARU based EDR cannot directly be estimated from the data
-because of the lack of multiple distance bands or individial based distance
+because of the lack of multiple distance bands or individual based distance
 information.</p>
 <p>The advantage of simultaneous sampling by human observers (H) and ARUs (A)
 is that population density (<span class="math inline">\(D=D_{H}=D_{R}\)</span>) is identical by design.
@@ -318,6 +323,18 @@ relationship between the estimated <span class="math inline">\(EDR_{H}\)</span> 
 <li>unlimited distance,</li>
 <li>10 minutes survey in 1-minute time intervals.</li>
 </ul>
+<pre class="sourceCode r"><code class="sourceCode r">paired<span class="op">$</span>DISTANCE[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;ARU&quot;</span>] &lt;-<span class="st"> &quot;ARU&quot;</span>
+<span class="kw">with</span>(paired, <span class="kw">ftable</span>(SurveyType, Interval, DISTANCE))</code></pre>
+<pre><code>##                     DISTANCE &gt;100 m 0-49 m 50-100 m  ARU
+## SurveyType Interval                                     
+## ARU        0-3 min                0      0        0 3349
+##            3-5 min                0      0        0  675
+##            5-10 min               0      0        0 1296
+##            UNK                    0      0        0    3
+## HUM        0-3 min              877   1270     1387    0
+##            3-5 min              244    252      393    0
+##            5-10 min             481    429      645    0
+##            UNK                    7     20       12    0</code></pre>
 <p>Select a subset of species that we’ll work with:</p>
 <pre class="sourceCode r"><code class="sourceCode r">xt &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>SPECIES, 
   <span class="dt">data=</span>paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>,]))
@@ -344,7 +361,7 @@ SPP</code></pre>
 <h2><span class="header-section-number">6.5</span> Availability</h2>
 <p>We estimated availability for human observer and ARU based counts
 using the time interval information. ARU based intervals were
-collaped to the 0-3-5-10 minutes intervals to match the human observer based
+collapsed to the 0-3-5-10 minutes intervals to match the human observer based
 design.</p>
 <pre class="sourceCode r"><code class="sourceCode r">xtdurH &lt;-<span class="st"> </span><span class="kw">Xtab</span>(Count <span class="op">~</span><span class="st"> </span>PKEY <span class="op">+</span><span class="st"> </span>Interval <span class="op">+</span><span class="st"> </span>SPECIES, 
   paired[paired<span class="op">$</span>SurveyType <span class="op">==</span><span class="st"> &quot;HUM&quot;</span>,])
@@ -405,7 +422,7 @@ ci &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapp
   <span class="dt">xlab=</span><span class="kw">expression</span>(phi[H]), <span class="dt">ylab=</span><span class="kw">expression</span>(phi[R]),
   <span class="dt">cex=</span><span class="fl">0.5</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>phiHR)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
@@ -459,27 +476,27 @@ edrH &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">
 ## RBGR RCKI RBNU SWTH AMRO WTSP WIWR ALFL SOSP BLJA FOSP HETH GRYE WISN PIWO 
 ##   85   86   88   91   92   99  101  102  114  129  130  138  158  164  167</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(edrH)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
 </div>
 <div id="scaling-constant" class="section level2">
 <h2><span class="header-section-number">6.7</span> Scaling constant</h2>
-<p>Counts are often modelled in a log-linear Poisson GLM. We used GLM to estimate
-the unknow scaling constant from simultaneous (paired) surveys. The poisson mean
+<p>Counts are often modeled in a log-linear Poisson GLM. We used GLM to estimate
+the unknown scaling constant from simultaneous (paired) surveys. The Poisson mean
 for a count made at site <span class="math inline">\(i\)</span> by human observer is
 <span class="math inline">\(\lambda_{i,H} = D_{i} \pi EDR_H^2 p\)</span>. <span class="math inline">\(EDR_H\)</span> and <span class="math inline">\(p\)</span> are estimated using distance
 sampling and removal sampling, respectively. Those estimates are used to
 calculate a correction factor <span class="math inline">\(C = \pi EDR_H^2 p\)</span> which is used as an offset
 on the log scale as <span class="math inline">\(log(\lambda_{i,H}) = log(D_{i}) + log(C) = \beta_0 + log(C)\)</span>,
 where <span class="math inline">\(\beta_0\)</span> is the intercept in the GLM model.</p>
-<p>Following the arguments above, the poisson mean for an ARU based count
-made at site <span class="math inline">\(i\)</span> is <span class="math inline">\(\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \delta^2 C\)</span>.
+<p>Following the arguments above, the Poisson mean for an ARU based count
+made at site <span class="math inline">\(i\)</span> is <span class="math inline">\(\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \Delta^2 C\)</span>.
 On the log scale, this becomes
 <span class="math inline">\(log(\lambda_{i,R}) = log(D_{i}) + log(\Delta^2) + log(C) = \beta_0 + \beta_1 + log(C)\)</span>,
 where <span class="math inline">\(\beta_1\)</span> is a contrast for ARU type surveys in the log-linear model.</p>
 <p>We used survey type as a binary variable (<span class="math inline">\(x_i\)</span>) with value 0 for human observers
 and value 1 for ARUs. So the Poisson model is generalized as:
 <span class="math inline">\(log(\lambda_{i}) = \beta_0 + x_i \beta_1 + log(C)\)</span>. <span class="math inline">\(\Delta\)</span> can be
-calculated from <span class="math inline">\(\beta_1\)</span> as <span class="math inline">\(\Delta = \sqrt{exp(\beta_i)}\)</span>.</p>
+calculated from <span class="math inline">\(\beta_1\)</span> as <span class="math inline">\(\Delta = \sqrt{e^{\beta_i}}\)</span>.</p>
 <p>We used the Poisson GLM model describe before to estimate the <span class="math inline">\(\beta_1\)</span>
 coefficient corresponding to survey type as binary predictor variable,
 and an offset term incorporating human observer based effective area
@@ -575,7 +592,7 @@ aic_support &lt;-<span class="st"> </span><span class="kw">t</span>(<span class=
 <p>The following table show the estimate of <span class="math inline">\(\Delta\)</span> for each species,
 and the corresponding estimates of effective detection radius (EDR) in meters
 and effective area sampled (<span class="math inline">\(A\)</span>) in ha:</p>
-<p>But wait, if we started from expected values, shouldn the ration of
+<p>But wait, if we started from expected values, shouldn’t ratio of
 the mean counts give us <span class="math inline">\(\Delta^2\)</span>?
 Let’s see if we can get a similar <span class="math inline">\(\Delta\)</span> value from mean counts:</p>
 <pre class="sourceCode r"><code class="sourceCode r">(gm &lt;-<span class="st"> </span><span class="kw">groupMeans</span>(Y[,SPP], <span class="dv">1</span>, X<span class="op">$</span>SurveyType))</code></pre>
@@ -600,8 +617,8 @@ Let’s see if we can get a similar <span class="math inline">\(\Delta\)</span> 
   <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)[(<span class="dv">1</span> <span class="op">%[]%</span><span class="st"> </span>Delta[,<span class="op">-</span><span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>])
 <span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>, <span class="dt">v=</span><span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
-<p>It looks like the fancy modelling was all for nothing,
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<p>It looks like the fancy modeling was all for nothing,
 theory prevailed. But it is always nice when things work out
 as expected.</p>
 <p>We can also see that <span class="math inline">\(\Delta\)</span> (especially the significant ones)
@@ -641,7 +658,7 @@ Delta_summary<span class="op">$</span>Delta.fix &lt;-<span class="st"> </span><s
 <span class="kw">plot</span>(Delta.fix <span class="op">~</span><span class="st"> </span>Delta.emp, Delta_summary)
 <span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>, <span class="dt">v=</span><span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
-<p><img src="qpad-book_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 
 <div class="rmdexercise">
 <p><strong>Exercise</strong></p>
@@ -694,8 +711,250 @@ Est &lt;-<span class="st"> </span><span class="kw">sapply</span>(mods3, <span cl
 </div>
 <div id="abmi-data" class="section level2">
 <h2><span class="header-section-number">6.9</span> ABMI data</h2>
-<p>logitudinal nature</p>
-<p>extrapolation issues</p>
+<p>ABMI ARU data is a subset of cca. 1000 recordings done at each survey
+station over the course of about 5 months (deployed in early March,
+retrieved in an of July).</p>
+<p>Recordings are of 1 or 3 minutes in length. Early season and midnight
+recordings are 1-min long, breeding season morning surveys
+are 3-min long to better capture the dawn chorus.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## we&#39;ll use this for predictions</span>
+q &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)
+qq &lt;-<span class="st"> </span><span class="kw">quantile</span>(abmi<span class="op">$</span>ToY, q)
+ToY &lt;-<span class="st"> </span><span class="kw">seq</span>(qq[<span class="dv">1</span>], qq[<span class="dv">2</span>], <span class="dv">1</span>)
+qq3 &lt;-<span class="st"> </span><span class="kw">quantile</span>(abmi<span class="op">$</span>ToY[abmi<span class="op">$</span>Duration <span class="op">==</span><span class="st"> </span><span class="dv">3</span>], q)
+tpred &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># duration to use for prediction</span>
+
+tmp &lt;-<span class="st"> </span><span class="kw">nonDuplicated</span>(abmi, visit)
+<span class="kw">plot</span>(ToD <span class="op">~</span><span class="st"> </span>ToY, tmp, <span class="dt">col=</span><span class="kw">ifelse</span>(tmp<span class="op">$</span>Duration <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),
+  <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
+<p>We will compare results based on different subsets of the data. First,
+we’ll compile the 3-min surveys (breeding season, morning)
+and fit removal models.
+Make survey x interval tables for species based on 3-min samples:
+need to drop visits that are less than 3-mins:</p>
+<pre class="sourceCode r"><code class="sourceCode r">y3 &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>visit <span class="op">+</span><span class="st"> </span>det1 <span class="op">+</span><span class="st"> </span>SpeciesID,
+  <span class="dt">data=</span>abmi[abmi<span class="op">$</span>Duration <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>(abmi<span class="op">$</span>SpeciesID <span class="op">%in%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;NONE&quot;</span>,<span class="st">&quot;SNI&quot;</span>, <span class="st">&quot;VNA&quot;</span>, <span class="st">&quot;DNC&quot;</span>, <span class="st">&quot;PNA&quot;</span>)),],
+  <span class="dt">drop.unused.levels=</span><span class="ot">TRUE</span>)
+
+D3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">nrow</span>(y3[[<span class="dv">1</span>]]), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+
+x3 &lt;-<span class="st"> </span><span class="kw">droplevels</span>(<span class="kw">nonDuplicated</span>(abmi, visit, <span class="ot">TRUE</span>)[<span class="kw">rownames</span>(y3[[<span class="dv">1</span>]]),
+  <span class="kw">c</span>(<span class="st">&quot;pkey&quot;</span>, <span class="st">&quot;visit&quot;</span>, <span class="st">&quot;ToY&quot;</span>, <span class="st">&quot;ToYc&quot;</span>, <span class="st">&quot;ToD&quot;</span>, <span class="st">&quot;ToDx&quot;</span>, <span class="st">&quot;ToDc&quot;</span>)])</code></pre>
+<p>Pick a species and fit removal models:</p>
+<pre class="sourceCode r"><code class="sourceCode r">spp &lt;-<span class="st"> &quot;Ovenbird&quot;</span> <span class="co"># mirgratory</span>
+<span class="co">#spp &lt;- &quot;BorealChickadee&quot; # winter resident</span>
+
+<span class="co">## use morning samples only</span>
+Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(y3[[spp]])
+Y &lt;-<span class="st"> </span>Y[x3<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span>,]
+D &lt;-<span class="st"> </span>D3[x3<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span>,]
+
+<span class="co">## fit a conventional model with polynomial ToY effect</span>
+z &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Y <span class="op">|</span><span class="st"> </span>D <span class="op">~</span><span class="st"> </span>ToY <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">3</span>),
+  x3[x3<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span>,], <span class="dt">type=</span><span class="st">&quot;rem&quot;</span>)
+<span class="kw">summary</span>(z)</code></pre>
+<pre><code>## 
+## Call:
+## cmulti(formula = Y | D ~ ToY + I(ToY^2) + I(ToY^3), data = x3[x3$ToDc == 
+##     &quot;Morning&quot;, ], type = &quot;rem&quot;)
+## 
+## Removal Sampling (homogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                      Estimate Std. Error   z value Pr(&gt;|z|)    
+## log.phi_(Intercept)  4.78e-01   8.42e-51  5.68e+49   &lt;2e-16 ***
+## log.phi_ToY          3.20e-04   8.42e-51  3.80e+46   &lt;2e-16 ***
+## log.phi_I(ToY^2)     2.70e-05   8.42e-55  3.21e+49   &lt;2e-16 ***
+## log.phi_I(ToY^3)    -1.83e-07   8.42e-55 -2.17e+47   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Log-likelihood: -873 
+## BIC = 1.77e+03</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>ToY <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">3</span>),
+  <span class="kw">data.frame</span>(<span class="dt">ToY=</span>ToY))
+phi &lt;-<span class="st"> </span><span class="kw">exp</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(z))
+prem &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>tpred<span class="op">*</span>phi)
+
+<span class="co">## fit a mixture model with polynomial ToY effect</span>
+z &lt;-<span class="st"> </span><span class="kw">cmulti</span>(Y <span class="op">|</span><span class="st"> </span>D <span class="op">~</span><span class="st"> </span>ToY <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">3</span>),
+  x3[x3<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span>,], <span class="dt">type=</span><span class="st">&quot;mix&quot;</span>)
+<span class="kw">summary</span>(z)</code></pre>
+<pre><code>## 
+## Call:
+## cmulti(formula = Y | D ~ ToY + I(ToY^2) + I(ToY^3), data = x3[x3$ToDc == 
+##     &quot;Morning&quot;, ], type = &quot;mix&quot;)
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                      Estimate Std. Error   z value Pr(&gt;|z|)    
+## log.phi             -2.98e-01   8.42e-51 -3.54e+49   &lt;2e-16 ***
+## logit.c_(Intercept) -2.42e-01   8.42e-51 -2.87e+49   &lt;2e-16 ***
+## logit.c_ToY         -8.16e-03   8.42e-51 -9.69e+47   &lt;2e-16 ***
+## logit.c_I(ToY^2)     2.80e-06   8.42e-55  3.32e+48   &lt;2e-16 ***
+## logit.c_I(ToY^3)     3.07e-07   8.42e-55  3.65e+47   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Log-likelihood: -848 
+## BIC = 1.73e+03</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">chat &lt;-<span class="st"> </span><span class="kw">plogis</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">coef</span>(z)[<span class="op">-</span><span class="dv">1</span>])
+phi &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">coef</span>(z)[<span class="dv">1</span>])
+pmix &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>chat<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>tpred<span class="op">*</span>phi)</code></pre>
+<p>Let’s see how does extrapolation look like:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pmix <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))
+<span class="kw">lines</span>(prem <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span>qq3, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
+<p>Next, we make survey x species table based on 1st 1-min surveys by
+excluding counts after 1-min:</p>
+<pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">Xtab</span>(<span class="op">~</span><span class="st"> </span>visit <span class="op">+</span><span class="st"> </span>SpeciesID,
+  <span class="dt">data=</span>abmi[<span class="kw">is.na</span>(abmi<span class="op">$</span>det1) <span class="op">|</span><span class="st"> </span>abmi<span class="op">$</span>det1 <span class="op">==</span><span class="st"> &quot;0-1min&quot;</span>,],
+  <span class="dt">cdrop=</span><span class="kw">c</span>(<span class="st">&quot;NONE&quot;</span>,<span class="st">&quot;SNI&quot;</span>, <span class="st">&quot;VNA&quot;</span>, <span class="st">&quot;DNC&quot;</span>, <span class="st">&quot;PNA&quot;</span>))
+x1 &lt;-<span class="st"> </span><span class="kw">droplevels</span>(<span class="kw">nonDuplicated</span>(abmi, visit, <span class="ot">TRUE</span>)[<span class="kw">rownames</span>(y1),
+  <span class="kw">c</span>(<span class="st">&quot;pkey&quot;</span>, <span class="st">&quot;visit&quot;</span>, <span class="st">&quot;ToY&quot;</span>, <span class="st">&quot;ToYc&quot;</span>, <span class="st">&quot;ToD&quot;</span>, <span class="st">&quot;ToDx&quot;</span>, <span class="st">&quot;ToDc&quot;</span>)])</code></pre>
+<p>We fit GAM model to detection-nondetection data,
+and we condition on known occurrences at the species
+over the breeding season (bracketed by <code>qq3</code>).</p>
+<p>First, let’s explore species’ responses:</p>
+<pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> </span><span class="kw">colSums</span>(y1[x1<span class="op">$</span>ToY <span class="op">&gt;=</span><span class="st"> </span><span class="dv">150</span>, ] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+SPP &lt;-<span class="st"> </span><span class="kw">colnames</span>(y1)[s <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>]
+P &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="kw">length</span>(ToY), <span class="kw">length</span>(SPP))
+<span class="kw">colnames</span>(P) &lt;-<span class="st"> </span>SPP
+
+<span class="cf">for</span> (sppi <span class="cf">in</span> SPP) {
+  x1<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(y1[,sppi] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+  tmp &lt;-<span class="st"> </span><span class="kw">with</span>(x1[x1<span class="op">$</span>ToY <span class="op">%[]%</span><span class="st"> </span>qq3, ], <span class="kw">table</span>(pkey, y))
+  tmp &lt;-<span class="st"> </span>tmp[tmp[,<span class="st">&quot;1&quot;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
+  x1<span class="op">$</span>occ &lt;-<span class="st"> </span>x1<span class="op">$</span>pkey <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(tmp)
+  m &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(ToY), 
+    x1[x1<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span> <span class="op">&amp;</span><span class="st"> </span>x1<span class="op">$</span>occ,], <span class="dt">family=</span>poisson)
+  P[,sppi] &lt;-<span class="st"> </span><span class="kw">predict</span>(m, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">ToY=</span>ToY), <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)
+}
+
+<span class="kw">matplot</span>(ToY, P, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#00000044&quot;</span>)</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<p>Single species models continued:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## species detections</span>
+x1<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(y1[,spp] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="co">## finding locations with at least 1 detections</span>
+tmp &lt;-<span class="st"> </span><span class="kw">with</span>(x1[x1<span class="op">$</span>ToY <span class="op">%[]%</span><span class="st"> </span>qq3, ], <span class="kw">table</span>(pkey, y))
+tmp &lt;-<span class="st"> </span>tmp[tmp[,<span class="st">&quot;1&quot;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
+<span class="kw">head</span>(tmp)</code></pre>
+<pre><code>##               y
+## pkey           0 1
+##   1086_2017_SE 4 1
+##   121_2016_SE  2 4
+##   121_2016_SW  2 4
+##   1210_2017_SW 5 1
+##   1211_2017_NE 5 1
+##   1211_2017_SE 4 2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x1<span class="op">$</span>occ &lt;-<span class="st"> </span>x1<span class="op">$</span>pkey <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(tmp)
+<span class="kw">table</span>(<span class="dt">detection=</span>x1<span class="op">$</span>y, <span class="dt">occupancy=</span>x1<span class="op">$</span>occ)</code></pre>
+<pre><code>##          occupancy
+## detection FALSE  TRUE
+##         0 15235  3388
+##         1    19  1090</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## fit GAM to all the 1-min data</span>
+m &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(ToY), 
+  x1[x1<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span> <span class="op">&amp;</span><span class="st"> </span>x1<span class="op">$</span>occ,], <span class="dt">family=</span>binomial)
+pgam1 &lt;-<span class="st"> </span><span class="kw">predict</span>(m, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">ToY=</span>ToY), <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)
+
+<span class="co">## fit GAM to 1-min data in the breeding season</span>
+m &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">gam</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">s</span>(ToY), x1[x1<span class="op">$</span>ToDc <span class="op">==</span><span class="st"> &quot;Morning&quot;</span> <span class="op">&amp;</span><span class="st"> </span>x1<span class="op">$</span>occ <span class="op">&amp;</span>
+<span class="st">    </span>x1<span class="op">$</span>visit <span class="op">%in%</span><span class="st"> </span><span class="kw">levels</span>(x3<span class="op">$</span>visit),], <span class="dt">family=</span>binomial)
+pgam3 &lt;-<span class="st"> </span><span class="kw">predict</span>(m, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">ToY=</span>ToY), <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</code></pre>
+<p>Let’s use time-to-1st-detection data to fit survival model:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x1<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">ifelse</span>(y1[,spp] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+tmp &lt;-<span class="st"> </span><span class="kw">with</span>(x1[x1<span class="op">$</span>ToY <span class="op">%[]%</span><span class="st"> </span>qq3, ], <span class="kw">table</span>(pkey, y))
+tmp &lt;-<span class="st"> </span>tmp[tmp[,<span class="st">&quot;1&quot;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
+x1<span class="op">$</span>occ &lt;-<span class="st"> </span>x1<span class="op">$</span>pkey <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(tmp)
+<span class="co">## subset to known occurrence sites</span>
+x1 &lt;-<span class="st"> </span><span class="kw">droplevels</span>(x1[x1<span class="op">$</span>occ,])
+<span class="co">## we use times from raw data table</span>
+xx &lt;-<span class="st"> </span><span class="kw">droplevels</span>(abmi[abmi<span class="op">$</span>SpeciesID <span class="op">==</span><span class="st"> </span>spp <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(abmi<span class="op">$</span>int1),])</code></pre>
+<p>Events need to be organized into a survival object:
+we treat nondetections as censored events at 60 sec.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x1<span class="op">$</span>time &lt;-<span class="st"> </span>xx<span class="op">$</span>int1[<span class="kw">match</span>(x1<span class="op">$</span>visit, xx<span class="op">$</span>visit)]
+x1<span class="op">$</span>time[<span class="kw">is.na</span>(x1<span class="op">$</span>time)] &lt;-<span class="st"> </span><span class="dv">60</span>
+<span class="co">#&#39; time cannot be 0, so we use 1 sec instead</span>
+x1<span class="op">$</span>time[x1<span class="op">$</span>time <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="co">#&#39; We give time in minutes, so we get rate as events/min.</span>
+x1<span class="op">$</span>sv &lt;-<span class="st"> </span><span class="kw">Surv</span>(x1<span class="op">$</span>time<span class="op">/</span><span class="dv">60</span>, x1<span class="op">$</span>y)
+<span class="kw">head</span>(x1<span class="op">$</span>sv)</code></pre>
+<pre><code>## [1] 1.0000+ 1.0000+ 1.0000+ 1.0000+ 0.7833  1.0000+</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(x1<span class="op">$</span>sv)</code></pre>
+<pre><code>## [1] 1.0000+ 1.0000+ 0.2833  1.0000+ 1.0000+ 1.0000+</code></pre>
+<p>Fit a series of survival models:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mods &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m0 =</span> <span class="kw">survreg</span>(sv <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, x1, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>),
+    <span class="dt">m1 =</span> <span class="kw">survreg</span>(sv <span class="op">~</span><span class="st"> </span>ToY, x1, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>),
+    <span class="dt">m2 =</span> <span class="kw">survreg</span>(sv <span class="op">~</span><span class="st"> </span>ToY <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">2</span>), x1, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>),
+    <span class="dt">m3 =</span> <span class="kw">survreg</span>(sv <span class="op">~</span><span class="st"> </span>ToY <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(ToY<span class="op">^</span><span class="dv">3</span>), x1, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>))
+
+aic &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">df=</span><span class="kw">sapply</span>(mods, <span class="cf">function</span>(z) <span class="kw">length</span>(<span class="kw">coef</span>(z))), <span class="dt">AIC=</span><span class="kw">sapply</span>(mods, AIC))
+aic<span class="op">$</span>delta_AIC &lt;-<span class="st"> </span>aic<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(aic<span class="op">$</span>AIC)
+aic</code></pre>
+<p>The package survreg fits accelerated failure models, not proportional
+hazards models, so the coefficients are logarithms of ratios of
+survival times, and a positive coefficient means longer survival.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mb &lt;-<span class="st"> </span>mods[[<span class="kw">which.min</span>(aic<span class="op">$</span>AIC)]]
+<span class="kw">summary</span>(mb)</code></pre>
+<pre><code>## 
+## Call:
+## survreg(formula = sv ~ ToY + I(ToY^2) + I(ToY^3), data = x1, 
+##     dist = &quot;exponential&quot;)
+##                 Value Std. Error     z       p
+## (Intercept)  1.64e+02   2.54e+01  6.46 1.1e-10
+## ToY         -2.75e+00   4.80e-01 -5.73 9.9e-09
+## I(ToY^2)     1.51e-02   3.01e-03  5.01 5.4e-07
+## I(ToY^3)    -2.67e-05   6.27e-06 -4.26 2.0e-05
+## 
+## Scale fixed at 1 
+## 
+## Exponential distribution
+## Loglik(model)= -1906   Loglik(intercept only)= -2455
+##  Chisq= 1098 on 3 degrees of freedom, p= 1e-237 
+## Number of Newton-Raphson Iterations: 9 
+## n= 4478</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## survival times</span>
+<span class="kw">summary</span>(st &lt;-<span class="st"> </span><span class="kw">predict</span>(mb, <span class="kw">data.frame</span>(<span class="dt">ToY=</span>ToY)))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       2       5   56731     142 2189645</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## event rate per unit (1 min) time</span>
+<span class="kw">summary</span>(phi &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>st)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0072  0.2053  0.2754  0.5175  0.7249</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## probability of at least 1 event per 10 time units (mins)</span>
+<span class="kw">summary</span>(psurv &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>tpred<span class="op">*</span>phi))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0072  0.1856  0.2157  0.4040  0.5156</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(prem <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), 
+  <span class="dt">main=</span>spp, <span class="dt">ylab=</span><span class="st">&quot;Relative availability&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span>qq3, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)
+<span class="kw">lines</span>(pmix <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">col=</span><span class="dv">3</span>)
+<span class="kw">lines</span>(pgam1 <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">lines</span>(pgam3 <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">lines</span>(psurv <span class="op">~</span><span class="st"> </span>ToY, <span class="dt">col=</span><span class="dv">5</span>)
+<span class="kw">rug</span>(<span class="kw">jitter</span>(x1<span class="op">$</span>ToY), <span class="dt">side=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>)
+<span class="kw">rug</span>(<span class="kw">jitter</span>(x3<span class="op">$</span>ToY), <span class="dt">side=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">4</span>)
+<span class="kw">legend</span>(<span class="dv">100</span>, <span class="fl">0.7</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dt">cex=</span><span class="fl">0.6</span>,
+  <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Conv. removal&quot;</span>, <span class="st">&quot;Mix. removal&quot;</span>, 
+  <span class="st">&quot;GAM 1min&quot;</span>, <span class="st">&quot;GAM 3mins&quot;</span>, <span class="st">&quot;Survival&quot;</span>))</code></pre>
+<p><img src="qpad-book_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+
+<div class="rmdexercise">
+<p><strong>Exercise</strong></p>
+<p>Discuss why the GAM/survival model estimates are different from
+removal models.</p>
+Compare these models and phenology curves for a different species,
+e.g. a winter resident.
+</div>
+
 
 </div>
 </div>

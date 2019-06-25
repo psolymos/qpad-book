@@ -128,7 +128,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-23}
+    \date{2019-06-24}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -3673,7 +3673,7 @@ Build a landscape: extent is given in 100 m units
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 We have a 100 ha landscape that we populate with birds,
 1 bird / ha using a Poisson spatial point process.
@@ -3700,7 +3700,7 @@ As a result, we have \(N\) birds in the landscape,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 The locations can be seen as nest locations (\texttt{a\$nests} stores the locations).
 But birds don't just stay put in one place. They move and vocalize:
@@ -3727,7 +3727,7 @@ But birds don't just stay put in one place. They move and vocalize:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 The \texttt{get\_events} function, as the name implies, extracts the events:
 movements (\texttt{\$v} is 0) and vocalizations (\texttt{\$v} is 1) alike,
@@ -3802,7 +3802,7 @@ the event times:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3836,7 +3836,7 @@ the event times:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 Now let's visualize the corresponding cumulative distribution function.
 We also bin the events into time intervals defined by interval end times
@@ -3869,7 +3869,7 @@ in the vector \texttt{br} (breaks to be used with \texttt{cut}):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \hypertarget{removal-model}{%
 \section{Removal model}\label{removal-model}}
@@ -4099,7 +4099,7 @@ as part of the \texttt{cmulti} call:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 \hypertarget{time-varying-conventional-removal-model}{%
 \subsection{Time-varying conventional removal model}\label{time-varying-conventional-removal-model}}
@@ -4185,7 +4185,7 @@ but also how the cumulative distribution changes with time.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4276,7 +4276,7 @@ Exponential distribution assuming homogeneity:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Now let's visualize the corresponding cumulative distribution function:
 
@@ -4307,7 +4307,7 @@ Now let's visualize the corresponding cumulative distribution function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 We use the \texttt{detect::cmulti} function to fit the finite mixture model:
 
@@ -4415,7 +4415,7 @@ Here, for the read bird data set:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-57-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-58-1.pdf}
 
 \hypertarget{time-varying-finite-mixture-removal-models}{%
 \subsection{Time-varying finite mixture removal models}\label{time-varying-finite-mixture-removal-models}}
@@ -4499,7 +4499,7 @@ We produce a similar plot as before.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-61-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4585,7 +4585,7 @@ We produce a similar plot as before:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-63-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-64-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4743,7 +4743,7 @@ ignored the observation process so far. \(p\) is estimated based on \(\phi\):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 Our estimate of \(N\) becomes \(Y/C=Y/p\):
 
@@ -4989,7 +4989,7 @@ Here are some common distance function and rationale for their use
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-76-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-76-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-76-3}
+\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-77-3}
 
 \BeginKnitrBlock{rmdexercise}
 \textbf{Exercise}
@@ -5038,7 +5038,7 @@ We set \texttt{density} and \texttt{tau} high enough to detections in this examp
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 \hypertarget{distance-sampling}{%
 \section{Distance sampling}\label{distance-sampling}}
@@ -5076,7 +5076,7 @@ The product \(g(d) h(d)\) gives the density function of the observed distances.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-81-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-81-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-81-3}
+\includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-1} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-2} \includegraphics[width=0.33\linewidth]{qpad-book_files/figure-latex/unnamed-chunk-82-3}
 
 The object \texttt{da} contains the distances to all the nests
 based on our bSims object,
@@ -5092,7 +5092,7 @@ we use this to display the distribution of available distances:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-82-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 The \texttt{get\_detections} function returns a data frame with the
 detected events (in our case just the nest locations):
@@ -5122,7 +5122,7 @@ by the integral sum:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-84-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-85-1.pdf}
 
 In case of the Half-Normal, we can linearize the relationship
 by taking the log of the distance function:
@@ -5182,7 +5182,7 @@ But we can at least check our bSims data:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-87-1.pdf}
 
 The Distance package offers various tools to fit
 models to observed distance data.
@@ -5247,7 +5247,7 @@ compared to the volume of the cookie cutter (\(\pi r_{max}^2\)).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-88-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 For the Half-Normal detection function, the analytical solution for the
 average probability is
@@ -5279,7 +5279,7 @@ To visualize this, here is the pie analogy for
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-89-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-90-1.pdf}
 
 \hypertarget{binned-distances}{%
 \section{Binned distances}\label{binned-distances}}
@@ -5312,7 +5312,7 @@ of the cutter (that happens to be \(\pi \tau^2\) for the Half-Normal):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-90-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-91-1.pdf}
 
 In case of the Half-Normal distance function,
 \(\tau\) is the \emph{effective detection radius} (EDR).
@@ -5343,7 +5343,7 @@ EDR is the radius \(r_e\) where \(q(r_e)=\pi(r_e)\):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-91-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-92-1.pdf}
 
 \BeginKnitrBlock{rmdexercise}
 \textbf{Exercise}
@@ -5427,7 +5427,7 @@ The function \(\pi(r)\) increases monotonically from 0 to 1:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-94-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 Here are binned distances for the bSims data, with expected
 proportions based on \(\pi()\) cell probabilities
@@ -5466,7 +5466,7 @@ for a bin (stored in \texttt{br}) can be infinite:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-95-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 We can use the \texttt{bsims\_transcribe} function for the same effect,
 and estimate \(\hat{\tau}\) based on the binned data:
@@ -5537,7 +5537,7 @@ cumulative cell probabilities:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-98-1.pdf}
 
 \hypertarget{availability-bias}{%
 \section{Availability bias}\label{availability-bias}}
@@ -5658,7 +5658,7 @@ The plot method displays the detections presented as part of the \texttt{tr} obj
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-101-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-102-1.pdf}
 
 The detection process and the transcription (following a prescribed
 protocol) is inseparable in the field. However, recordings
@@ -6185,7 +6185,7 @@ After finding the best model, we predict \texttt{tau}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-118-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-119-1.pdf}
 
 Finally, we calculate the correction factor for unlimited distances,
 and predict mean density:
@@ -6242,18 +6242,18 @@ for analysis of count data -- and is the topic of the next chapter.
 
 Automated recording units (ARU) are increasingly being used for auditory
 surveys. There are numerous advantages for using ARUs,
-e.g.~recordings can be stored in perpetuity to be transcibed
-later, ARUs can be programmed to record at select times and datas over long
+e.g.~recordings can be stored in perpetuity to be transcribed
+later, ARUs can be programmed to record at select times and dates over long
 time periods that would be prohibitive using human observers.
 
-Bird point counts have beed traditionally done by human observers. Combining
+Bird point counts have been traditionally done by human observers. Combining
 ARU data with traditional point counts thus require an understanding of
 how the ARU based counts relate to counts made by human observer in the field.
 The best way to approach this question is by simultaneously sampling
 by two approaches: (1) human observers doing traditional point count
 by registering time and distance interval an individual bird was first detected,
 and (2) record the same session at the same location by an ARU to be
-identified/trascribed later in laboratory settings.
+identified/transcribed later in laboratory settings.
 
 \hypertarget{prerequisites-4}{%
 \section{Prerequisites}\label{prerequisites-4}}
@@ -6263,8 +6263,9 @@ identified/trascribed later in laboratory settings.
 \KeywordTok{library}\NormalTok{(bSims)                }\CommentTok{# simulations}
 \KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
 \KeywordTok{library}\NormalTok{(mefa4)                }\CommentTok{# count manipulation}
+\KeywordTok{library}\NormalTok{(survival)             }\CommentTok{# survival models}
 \KeywordTok{library}\NormalTok{(paired)               }\CommentTok{# paired sampling data}
-\KeywordTok{library}\NormalTok{(lme4)                 }\CommentTok{# for mixed models}
+\KeywordTok{load}\NormalTok{(}\StringTok{"_data/abmi/abmi.rda"}\NormalTok{)   }\CommentTok{# ABMI ARU data set}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6290,7 +6291,7 @@ ARU based count for a given species may be written as:
 sampling utilizing the multiple time intervals from the ARU based survey.
 The unknown sampling are can be written as \(A_{R}=\pi EDR_{R}^2\).
 The problem is that ARU based EDR cannot directly be estimated from the data
-because of the lack of multiple distance bands or individial based distance
+because of the lack of multiple distance bands or individual based distance
 information.
 
 The advantage of simultaneous sampling by human observers (H) and ARUs (A)
@@ -6337,6 +6338,26 @@ ARU surveys:
   10 minutes survey in 1-minute time intervals.
 \end{itemize}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{paired}\OperatorTok{$}\NormalTok{DISTANCE[paired}\OperatorTok{$}\NormalTok{SurveyType }\OperatorTok{==}\StringTok{ "ARU"}\NormalTok{] <-}\StringTok{ "ARU"}
+\KeywordTok{with}\NormalTok{(paired, }\KeywordTok{ftable}\NormalTok{(SurveyType, Interval, DISTANCE))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                     DISTANCE >100 m 0-49 m 50-100 m  ARU
+## SurveyType Interval                                     
+## ARU        0-3 min                0      0        0 3349
+##            3-5 min                0      0        0  675
+##            5-10 min               0      0        0 1296
+##            UNK                    0      0        0    3
+## HUM        0-3 min              877   1270     1387    0
+##            3-5 min              244    252      393    0
+##            5-10 min             481    429      645    0
+##            UNK                    7     20       12    0
+\end{verbatim}
+
 Select a subset of species that we'll work with:
 
 \begin{Shaded}
@@ -6372,7 +6393,7 @@ Select a subset of species that we'll work with:
 
 We estimated availability for human observer and ARU based counts
 using the time interval information. ARU based intervals were
-collaped to the 0-3-5-10 minutes intervals to match the human observer based
+collapsed to the 0-3-5-10 minutes intervals to match the human observer based
 design.
 
 \begin{Shaded}
@@ -6454,7 +6475,7 @@ and whether or not the confidence limits for the survey type estimate
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-124-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-126-1.pdf}
 
 \BeginKnitrBlock{rmdexercise}
 \textbf{Exercise}
@@ -6550,13 +6571,13 @@ Fitting distance sampling models for each species:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-128-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-130-1.pdf}
 
 \hypertarget{scaling-constant}{%
 \section{Scaling constant}\label{scaling-constant}}
 
-Counts are often modelled in a log-linear Poisson GLM. We used GLM to estimate
-the unknow scaling constant from simultaneous (paired) surveys. The poisson mean
+Counts are often modeled in a log-linear Poisson GLM. We used GLM to estimate
+the unknown scaling constant from simultaneous (paired) surveys. The Poisson mean
 for a count made at site \(i\) by human observer is
 \(\lambda_{i,H} = D_{i} \pi EDR_H^2 p\). \(EDR_H\) and \(p\) are estimated using distance
 sampling and removal sampling, respectively. Those estimates are used to
@@ -6564,8 +6585,8 @@ calculate a correction factor \(C = \pi EDR_H^2 p\) which is used as an offset
 on the log scale as \(log(\lambda_{i,H}) = log(D_{i}) + log(C) = \beta_0 + log(C)\),
 where \(\beta_0\) is the intercept in the GLM model.
 
-Following the arguments above, the poisson mean for an ARU based count
-made at site \(i\) is \(\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \delta^2 C\).
+Following the arguments above, the Poisson mean for an ARU based count
+made at site \(i\) is \(\lambda_{i,R} = D_{i} \pi \Delta^2 EDR_H^2 p = D_{i} \Delta^2 C\).
 On the log scale, this becomes
 \(log(\lambda_{i,R}) = log(D_{i}) + log(\Delta^2) + log(C) = \beta_0 + \beta_1 + log(C)\),
 where \(\beta_1\) is a contrast for ARU type surveys in the log-linear model.
@@ -6573,7 +6594,7 @@ where \(\beta_1\) is a contrast for ARU type surveys in the log-linear model.
 We used survey type as a binary variable (\(x_i\)) with value 0 for human observers
 and value 1 for ARUs. So the Poisson model is generalized as:
 \(log(\lambda_{i}) = \beta_0 + x_i \beta_1 + log(C)\). \(\Delta\) can be
-calculated from \(\beta_1\) as \(\Delta = \sqrt{exp(\beta_i)}\).
+calculated from \(\beta_1\) as \(\Delta = \sqrt{e^{\beta_i}}\).
 
 We used the Poisson GLM model describe before to estimate the \(\beta_1\)
 coefficient corresponding to survey type as binary predictor variable,
@@ -6680,7 +6701,7 @@ The following table show the estimate of \(\Delta\) for each species,
 and the corresponding estimates of effective detection radius (EDR) in meters
 and effective area sampled (\(A\)) in ha:
 
-But wait, if we started from expected values, shouldn the ration of
+But wait, if we started from expected values, shouldn't ratio of
 the mean counts give us \(\Delta^2\)?
 Let's see if we can get a similar \(\Delta\) value from mean counts:
 
@@ -6719,9 +6740,9 @@ Let's see if we can get a similar \(\Delta\) value from mean counts:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-131-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-133-1.pdf}
 
-It looks like the fancy modelling was all for nothing,
+It looks like the fancy modeling was all for nothing,
 theory prevailed. But it is always nice when things work out
 as expected.
 
@@ -6769,7 +6790,7 @@ fixed effects can handle the data integration without calibration.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-133-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-135-1.pdf}
 
 \BeginKnitrBlock{rmdexercise}
 \textbf{Exercise}
@@ -6828,34 +6849,515 @@ biased with respect to habitat strata.
 \hypertarget{abmi-data}{%
 \section{ABMI data}\label{abmi-data}}
 
-logitudinal nature
+ABMI ARU data is a subset of cca. 1000 recordings done at each survey
+station over the course of about 5 months (deployed in early March,
+retrieved in an of July).
 
-extrapolation issues
+Recordings are of 1 or 3 minutes in length. Early season and midnight
+recordings are 1-min long, breeding season morning surveys
+are 3-min long to better capture the dawn chorus.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## we'll use this for predictions}
+\NormalTok{q <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)}
+\NormalTok{qq <-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(abmi}\OperatorTok{$}\NormalTok{ToY, q)}
+\NormalTok{ToY <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(qq[}\DecValTok{1}\NormalTok{], qq[}\DecValTok{2}\NormalTok{], }\DecValTok{1}\NormalTok{)}
+\NormalTok{qq3 <-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(abmi}\OperatorTok{$}\NormalTok{ToY[abmi}\OperatorTok{$}\NormalTok{Duration }\OperatorTok{==}\StringTok{ }\DecValTok{3}\NormalTok{], q)}
+\NormalTok{tpred <-}\StringTok{ }\DecValTok{1} \CommentTok{# duration to use for prediction}
+
+\NormalTok{tmp <-}\StringTok{ }\KeywordTok{nonDuplicated}\NormalTok{(abmi, visit)}
+\KeywordTok{plot}\NormalTok{(ToD }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, tmp, }\DataTypeTok{col=}\KeywordTok{ifelse}\NormalTok{(tmp}\OperatorTok{$}\NormalTok{Duration }\OperatorTok{==}\StringTok{ }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{pch=}\DecValTok{19}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-138-1.pdf}
+
+We will compare results based on different subsets of the data. First,
+we'll compile the 3-min surveys (breeding season, morning)
+and fit removal models.
+Make survey x interval tables for species based on 3-min samples:
+need to drop visits that are less than 3-mins:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y3 <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{visit }\OperatorTok{+}\StringTok{ }\NormalTok{det1 }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID,}
+  \DataTypeTok{data=}\NormalTok{abmi[abmi}\OperatorTok{$}\NormalTok{Duration }\OperatorTok{==}\StringTok{ }\DecValTok{3} \OperatorTok{&}\StringTok{ }\OperatorTok{!}\NormalTok{(abmi}\OperatorTok{$}\NormalTok{SpeciesID }\OperatorTok{%in%}\StringTok{ }
+\StringTok{  }\KeywordTok{c}\NormalTok{(}\StringTok{"NONE"}\NormalTok{,}\StringTok{"SNI"}\NormalTok{, }\StringTok{"VNA"}\NormalTok{, }\StringTok{"DNC"}\NormalTok{, }\StringTok{"PNA"}\NormalTok{)),],}
+  \DataTypeTok{drop.unused.levels=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{D3 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(y3[[}\DecValTok{1}\NormalTok{]]), }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{x3 <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(}\KeywordTok{nonDuplicated}\NormalTok{(abmi, visit, }\OtherTok{TRUE}\NormalTok{)[}\KeywordTok{rownames}\NormalTok{(y3[[}\DecValTok{1}\NormalTok{]]),}
+  \KeywordTok{c}\NormalTok{(}\StringTok{"pkey"}\NormalTok{, }\StringTok{"visit"}\NormalTok{, }\StringTok{"ToY"}\NormalTok{, }\StringTok{"ToYc"}\NormalTok{, }\StringTok{"ToD"}\NormalTok{, }\StringTok{"ToDx"}\NormalTok{, }\StringTok{"ToDc"}\NormalTok{)])}
+\end{Highlighting}
+\end{Shaded}
+
+Pick a species and fit removal models:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spp <-}\StringTok{ "Ovenbird"} \CommentTok{# mirgratory}
+\CommentTok{#spp <- "BorealChickadee" # winter resident}
+
+\CommentTok{## use morning samples only}
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(y3[[spp]])}
+\NormalTok{Y <-}\StringTok{ }\NormalTok{Y[x3}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"}\NormalTok{,]}
+\NormalTok{D <-}\StringTok{ }\NormalTok{D3[x3}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"}\NormalTok{,]}
+
+\CommentTok{## fit a conventional model with polynomial ToY effect}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{ToY }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{3}\NormalTok{),}
+\NormalTok{  x3[x3}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"}\NormalTok{,], }\DataTypeTok{type=}\StringTok{"rem"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ ToY + I(ToY^2) + I(ToY^3), data = x3[x3$ToDc == 
+##     "Morning", ], type = "rem")
+## 
+## Removal Sampling (homogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                      Estimate Std. Error   z value Pr(>|z|)    
+## log.phi_(Intercept)  4.78e-01   8.42e-51  5.68e+49   <2e-16 ***
+## log.phi_ToY          3.20e-04   8.42e-51  3.80e+46   <2e-16 ***
+## log.phi_I(ToY^2)     2.70e-05   8.42e-55  3.21e+49   <2e-16 ***
+## log.phi_I(ToY^3)    -1.83e-07   8.42e-55 -2.17e+47   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -873 
+## BIC = 1.77e+03
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{ToY }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{3}\NormalTok{),}
+  \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ToY=}\NormalTok{ToY))}
+\NormalTok{phi <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{coef}\NormalTok{(z))}
+\NormalTok{prem <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{tpred}\OperatorTok{*}\NormalTok{phi)}
+
+\CommentTok{## fit a mixture model with polynomial ToY effect}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{cmulti}\NormalTok{(Y }\OperatorTok{|}\StringTok{ }\NormalTok{D }\OperatorTok{~}\StringTok{ }\NormalTok{ToY }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{3}\NormalTok{),}
+\NormalTok{  x3[x3}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"}\NormalTok{,], }\DataTypeTok{type=}\StringTok{"mix"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## cmulti(formula = Y | D ~ ToY + I(ToY^2) + I(ToY^3), data = x3[x3$ToDc == 
+##     "Morning", ], type = "mix")
+## 
+## Removal Sampling (heterogeneous singing rate)
+## Conditional Maximum Likelihood estimates
+## 
+## Coefficients:
+##                      Estimate Std. Error   z value Pr(>|z|)    
+## log.phi             -2.98e-01   8.42e-51 -3.54e+49   <2e-16 ***
+## logit.c_(Intercept) -2.42e-01   8.42e-51 -2.87e+49   <2e-16 ***
+## logit.c_ToY         -8.16e-03   8.42e-51 -9.69e+47   <2e-16 ***
+## logit.c_I(ToY^2)     2.80e-06   8.42e-55  3.32e+48   <2e-16 ***
+## logit.c_I(ToY^3)     3.07e-07   8.42e-55  3.65e+47   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## 
+## Log-likelihood: -848 
+## BIC = 1.73e+03
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chat <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{coef}\NormalTok{(z)[}\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+\NormalTok{phi <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\KeywordTok{coef}\NormalTok{(z)[}\DecValTok{1}\NormalTok{])}
+\NormalTok{pmix <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\NormalTok{chat}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{tpred}\OperatorTok{*}\NormalTok{phi)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's see how does extrapolation look like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(pmix }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{lines}\NormalTok{(prem }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{qq3, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-141-1.pdf}
+
+Next, we make survey x species table based on 1st 1-min surveys by
+excluding counts after 1-min:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y1 <-}\StringTok{ }\KeywordTok{Xtab}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{visit }\OperatorTok{+}\StringTok{ }\NormalTok{SpeciesID,}
+  \DataTypeTok{data=}\NormalTok{abmi[}\KeywordTok{is.na}\NormalTok{(abmi}\OperatorTok{$}\NormalTok{det1) }\OperatorTok{|}\StringTok{ }\NormalTok{abmi}\OperatorTok{$}\NormalTok{det1 }\OperatorTok{==}\StringTok{ "0-1min"}\NormalTok{,],}
+  \DataTypeTok{cdrop=}\KeywordTok{c}\NormalTok{(}\StringTok{"NONE"}\NormalTok{,}\StringTok{"SNI"}\NormalTok{, }\StringTok{"VNA"}\NormalTok{, }\StringTok{"DNC"}\NormalTok{, }\StringTok{"PNA"}\NormalTok{))}
+\NormalTok{x1 <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(}\KeywordTok{nonDuplicated}\NormalTok{(abmi, visit, }\OtherTok{TRUE}\NormalTok{)[}\KeywordTok{rownames}\NormalTok{(y1),}
+  \KeywordTok{c}\NormalTok{(}\StringTok{"pkey"}\NormalTok{, }\StringTok{"visit"}\NormalTok{, }\StringTok{"ToY"}\NormalTok{, }\StringTok{"ToYc"}\NormalTok{, }\StringTok{"ToD"}\NormalTok{, }\StringTok{"ToDx"}\NormalTok{, }\StringTok{"ToDc"}\NormalTok{)])}
+\end{Highlighting}
+\end{Shaded}
+
+We fit GAM model to detection-nondetection data,
+and we condition on known occurrences at the species
+over the breeding season (bracketed by \texttt{qq3}).
+
+First, let's explore species' responses:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(y1[x1}\OperatorTok{$}\NormalTok{ToY }\OperatorTok{>=}\StringTok{ }\DecValTok{150}\NormalTok{, ] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{SPP <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(y1)[s }\OperatorTok{>=}\StringTok{ }\DecValTok{100}\NormalTok{]}
+\NormalTok{P <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{length}\NormalTok{(ToY), }\KeywordTok{length}\NormalTok{(SPP))}
+\KeywordTok{colnames}\NormalTok{(P) <-}\StringTok{ }\NormalTok{SPP}
+
+\ControlFlowTok{for}\NormalTok{ (sppi }\ControlFlowTok{in}\NormalTok{ SPP) \{}
+\NormalTok{  x1}\OperatorTok{$}\NormalTok{y <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(y1[,sppi] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  tmp <-}\StringTok{ }\KeywordTok{with}\NormalTok{(x1[x1}\OperatorTok{$}\NormalTok{ToY }\OperatorTok{%[]%}\StringTok{ }\NormalTok{qq3, ], }\KeywordTok{table}\NormalTok{(pkey, y))}
+\NormalTok{  tmp <-}\StringTok{ }\NormalTok{tmp[tmp[,}\StringTok{"1"}\NormalTok{] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{,]}
+\NormalTok{  x1}\OperatorTok{$}\NormalTok{occ <-}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{pkey }\OperatorTok{%in%}\StringTok{ }\KeywordTok{rownames}\NormalTok{(tmp)}
+\NormalTok{  m <-}\StringTok{ }\NormalTok{mgcv}\OperatorTok{::}\KeywordTok{gam}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\KeywordTok{s}\NormalTok{(ToY), }
+\NormalTok{    x1[x1}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"} \OperatorTok{&}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{occ,], }\DataTypeTok{family=}\NormalTok{poisson)}
+\NormalTok{  P[,sppi] <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(m, }\DataTypeTok{newdata=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ToY=}\NormalTok{ToY), }\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{\}}
+
+\KeywordTok{matplot}\NormalTok{(ToY, P, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{lty=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\StringTok{"#00000044"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-143-1.pdf}
+
+Single species models continued:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## species detections}
+\NormalTok{x1}\OperatorTok{$}\NormalTok{y <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(y1[,spp] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\CommentTok{## finding locations with at least 1 detections}
+\NormalTok{tmp <-}\StringTok{ }\KeywordTok{with}\NormalTok{(x1[x1}\OperatorTok{$}\NormalTok{ToY }\OperatorTok{%[]%}\StringTok{ }\NormalTok{qq3, ], }\KeywordTok{table}\NormalTok{(pkey, y))}
+\NormalTok{tmp <-}\StringTok{ }\NormalTok{tmp[tmp[,}\StringTok{"1"}\NormalTok{] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{,]}
+\KeywordTok{head}\NormalTok{(tmp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               y
+## pkey           0 1
+##   1086_2017_SE 4 1
+##   121_2016_SE  2 4
+##   121_2016_SW  2 4
+##   1210_2017_SW 5 1
+##   1211_2017_NE 5 1
+##   1211_2017_SE 4 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1}\OperatorTok{$}\NormalTok{occ <-}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{pkey }\OperatorTok{%in%}\StringTok{ }\KeywordTok{rownames}\NormalTok{(tmp)}
+\KeywordTok{table}\NormalTok{(}\DataTypeTok{detection=}\NormalTok{x1}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{occupancy=}\NormalTok{x1}\OperatorTok{$}\NormalTok{occ)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          occupancy
+## detection FALSE  TRUE
+##         0 15235  3388
+##         1    19  1090
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## fit GAM to all the 1-min data}
+\NormalTok{m <-}\StringTok{ }\NormalTok{mgcv}\OperatorTok{::}\KeywordTok{gam}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\KeywordTok{s}\NormalTok{(ToY), }
+\NormalTok{  x1[x1}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"} \OperatorTok{&}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{occ,], }\DataTypeTok{family=}\NormalTok{binomial)}
+\NormalTok{pgam1 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(m, }\DataTypeTok{newdata=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ToY=}\NormalTok{ToY), }\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+
+\CommentTok{## fit GAM to 1-min data in the breeding season}
+\NormalTok{m <-}\StringTok{ }\NormalTok{mgcv}\OperatorTok{::}\KeywordTok{gam}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\KeywordTok{s}\NormalTok{(ToY), x1[x1}\OperatorTok{$}\NormalTok{ToDc }\OperatorTok{==}\StringTok{ "Morning"} \OperatorTok{&}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{occ }\OperatorTok{&}
+\StringTok{    }\NormalTok{x1}\OperatorTok{$}\NormalTok{visit }\OperatorTok{%in%}\StringTok{ }\KeywordTok{levels}\NormalTok{(x3}\OperatorTok{$}\NormalTok{visit),], }\DataTypeTok{family=}\NormalTok{binomial)}
+\NormalTok{pgam3 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(m, }\DataTypeTok{newdata=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ToY=}\NormalTok{ToY), }\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's use time-to-1st-detection data to fit survival model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1}\OperatorTok{$}\NormalTok{y <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(y1[,spp] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{tmp <-}\StringTok{ }\KeywordTok{with}\NormalTok{(x1[x1}\OperatorTok{$}\NormalTok{ToY }\OperatorTok{%[]%}\StringTok{ }\NormalTok{qq3, ], }\KeywordTok{table}\NormalTok{(pkey, y))}
+\NormalTok{tmp <-}\StringTok{ }\NormalTok{tmp[tmp[,}\StringTok{"1"}\NormalTok{] }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{,]}
+\NormalTok{x1}\OperatorTok{$}\NormalTok{occ <-}\StringTok{ }\NormalTok{x1}\OperatorTok{$}\NormalTok{pkey }\OperatorTok{%in%}\StringTok{ }\KeywordTok{rownames}\NormalTok{(tmp)}
+\CommentTok{## subset to known occurrence sites}
+\NormalTok{x1 <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(x1[x1}\OperatorTok{$}\NormalTok{occ,])}
+\CommentTok{## we use times from raw data table}
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(abmi[abmi}\OperatorTok{$}\NormalTok{SpeciesID }\OperatorTok{==}\StringTok{ }\NormalTok{spp }\OperatorTok{&}\StringTok{ }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(abmi}\OperatorTok{$}\NormalTok{int1),])}
+\end{Highlighting}
+\end{Shaded}
+
+Events need to be organized into a survival object:
+we treat nondetections as censored events at 60 sec.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1}\OperatorTok{$}\NormalTok{time <-}\StringTok{ }\NormalTok{xx}\OperatorTok{$}\NormalTok{int1[}\KeywordTok{match}\NormalTok{(x1}\OperatorTok{$}\NormalTok{visit, xx}\OperatorTok{$}\NormalTok{visit)]}
+\NormalTok{x1}\OperatorTok{$}\NormalTok{time[}\KeywordTok{is.na}\NormalTok{(x1}\OperatorTok{$}\NormalTok{time)] <-}\StringTok{ }\DecValTok{60}
+\CommentTok{#' time cannot be 0, so we use 1 sec instead}
+\NormalTok{x1}\OperatorTok{$}\NormalTok{time[x1}\OperatorTok{$}\NormalTok{time }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\DecValTok{1}
+\CommentTok{#' We give time in minutes, so we get rate as events/min.}
+\NormalTok{x1}\OperatorTok{$}\NormalTok{sv <-}\StringTok{ }\KeywordTok{Surv}\NormalTok{(x1}\OperatorTok{$}\NormalTok{time}\OperatorTok{/}\DecValTok{60}\NormalTok{, x1}\OperatorTok{$}\NormalTok{y)}
+\KeywordTok{head}\NormalTok{(x1}\OperatorTok{$}\NormalTok{sv)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.0000+ 1.0000+ 1.0000+ 1.0000+ 0.7833  1.0000+
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(x1}\OperatorTok{$}\NormalTok{sv)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.0000+ 1.0000+ 0.2833  1.0000+ 1.0000+ 1.0000+
+\end{verbatim}
+
+Fit a series of survival models:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mods <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{m0 =} \KeywordTok{survreg}\NormalTok{(sv }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, x1, }\DataTypeTok{dist=}\StringTok{"exponential"}\NormalTok{),}
+    \DataTypeTok{m1 =} \KeywordTok{survreg}\NormalTok{(sv }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, x1, }\DataTypeTok{dist=}\StringTok{"exponential"}\NormalTok{),}
+    \DataTypeTok{m2 =} \KeywordTok{survreg}\NormalTok{(sv }\OperatorTok{~}\StringTok{ }\NormalTok{ToY }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{2}\NormalTok{), x1, }\DataTypeTok{dist=}\StringTok{"exponential"}\NormalTok{),}
+    \DataTypeTok{m3 =} \KeywordTok{survreg}\NormalTok{(sv }\OperatorTok{~}\StringTok{ }\NormalTok{ToY }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(ToY}\OperatorTok{^}\DecValTok{3}\NormalTok{), x1, }\DataTypeTok{dist=}\StringTok{"exponential"}\NormalTok{))}
+
+\NormalTok{aic <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{df=}\KeywordTok{sapply}\NormalTok{(mods, }\ControlFlowTok{function}\NormalTok{(z) }\KeywordTok{length}\NormalTok{(}\KeywordTok{coef}\NormalTok{(z))), }\DataTypeTok{AIC=}\KeywordTok{sapply}\NormalTok{(mods, AIC))}
+\NormalTok{aic}\OperatorTok{$}\NormalTok{delta_AIC <-}\StringTok{ }\NormalTok{aic}\OperatorTok{$}\NormalTok{AIC }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(aic}\OperatorTok{$}\NormalTok{AIC)}
+\NormalTok{aic}
+\end{Highlighting}
+\end{Shaded}
+
+The package survreg fits accelerated failure models, not proportional
+hazards models, so the coefficients are logarithms of ratios of
+survival times, and a positive coefficient means longer survival.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mb <-}\StringTok{ }\NormalTok{mods[[}\KeywordTok{which.min}\NormalTok{(aic}\OperatorTok{$}\NormalTok{AIC)]]}
+\KeywordTok{summary}\NormalTok{(mb)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## survreg(formula = sv ~ ToY + I(ToY^2) + I(ToY^3), data = x1, 
+##     dist = "exponential")
+##                 Value Std. Error     z       p
+## (Intercept)  1.64e+02   2.54e+01  6.46 1.1e-10
+## ToY         -2.75e+00   4.80e-01 -5.73 9.9e-09
+## I(ToY^2)     1.51e-02   3.01e-03  5.01 5.4e-07
+## I(ToY^3)    -2.67e-05   6.27e-06 -4.26 2.0e-05
+## 
+## Scale fixed at 1 
+## 
+## Exponential distribution
+## Loglik(model)= -1906   Loglik(intercept only)= -2455
+##  Chisq= 1098 on 3 degrees of freedom, p= 1e-237 
+## Number of Newton-Raphson Iterations: 9 
+## n= 4478
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## survival times}
+\KeywordTok{summary}\NormalTok{(st <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(mb, }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ToY=}\NormalTok{ToY)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       2       5   56731     142 2189645
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## event rate per unit (1 min) time}
+\KeywordTok{summary}\NormalTok{(phi <-}\StringTok{ }\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{st)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0072  0.2053  0.2754  0.5175  0.7249
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## probability of at least 1 event per 10 time units (mins)}
+\KeywordTok{summary}\NormalTok{(psurv <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{tpred}\OperatorTok{*}\NormalTok{phi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0072  0.1856  0.2157  0.4040  0.5156
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(prem }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+  \DataTypeTok{main=}\NormalTok{spp, }\DataTypeTok{ylab=}\StringTok{"Relative availability"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{qq3, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(pmix }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{col=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(pgam1 }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(pgam3 }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(psurv }\OperatorTok{~}\StringTok{ }\NormalTok{ToY, }\DataTypeTok{col=}\DecValTok{5}\NormalTok{)}
+\KeywordTok{rug}\NormalTok{(}\KeywordTok{jitter}\NormalTok{(x1}\OperatorTok{$}\NormalTok{ToY), }\DataTypeTok{side=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{rug}\NormalTok{(}\KeywordTok{jitter}\NormalTok{(x3}\OperatorTok{$}\NormalTok{ToY), }\DataTypeTok{side=}\DecValTok{3}\NormalTok{, }\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DecValTok{100}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{), }\DataTypeTok{cex=}\FloatTok{0.6}\NormalTok{,}
+  \DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Conv. removal"}\NormalTok{, }\StringTok{"Mix. removal"}\NormalTok{, }
+  \StringTok{"GAM 1min"}\NormalTok{, }\StringTok{"GAM 3mins"}\NormalTok{, }\StringTok{"Survival"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-149-1.pdf}
+
+\BeginKnitrBlock{rmdexercise}
+\textbf{Exercise}
+
+Discuss why the GAM/survival model estimates are different from
+removal models.
+
+Compare these models and phenology curves for a different species,
+e.g.~a winter resident.
+\EndKnitrBlock{rmdexercise}
 
 \hypertarget{assumptions}{%
 \chapter{A Closer Look at Assumptions}\label{assumptions}}
 
-break them assumptions
+\hypertarget{intro-1}{%
+\section{Intro}\label{intro-1}}
 
-Compare how does movement based detection influences estimates (when \% increases)
+So far, bSims were used to make an idealized world.
+Real situations might be different from our assumed worlds.
+In this chapter, we will review how sensitive the various assumptions
+are, and how violating these assumptions might affect the estimates.
 
-36\% of records in BAM is `heard \& seen' and I want to understand how likely the following 2 scenarios are:
+\hypertarget{prerequisites-5}{%
+\section{Prerequisites}\label{prerequisites-5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(bSims)                }\CommentTok{# simulations}
+\KeywordTok{library}\NormalTok{(detect)               }\CommentTok{# multinomial models}
+\KeywordTok{source}\NormalTok{(}\StringTok{"functions.R"}\NormalTok{)         }\CommentTok{# some useful stuff}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{bsims-runs}{%
+\section{bSims runs}\label{bsims-runs}}
+
+Work in pairs, each group can select an assumption:
 
 \begin{itemize}
 \tightlist
 \item
-  `seen and heard' means that visual and auditory detections are independent processes, i.e.~if it often happens that you spot a bird by just visually, that would distort availability.
+  distance measurement error
 \item
-  or it means that visual and auditory detections are NOT independent processes, i.e after a vocalization the observer also gets a visual.
+  distance function misspecification
+\item
+  effect of truncation distance, number of distance bins
+\item
+  effect of total duration and time intervals
+\item
+  movement
+\item
+  heard vs.~heard and seen
+\item
+  1st event vf 1st detection (duration, singing rate)
+\item
+  spatial pattern random, uniform, clustered
 \end{itemize}
 
-Both happen, depending to some extent on the species, but more frequently the second scenario.
+Take a look at various assumptions by following these steps:
 
-If you hear an individual vocalizing, it is much easier to also get a visual. But you do sometimes just see an individual moving and not vocalizing (more often females). How likely you are to spot those individuals can depend on the species, e.g., some species forage in ways that make them more visible.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  try to anticipate how a particular setting (violation of assumption) might affect estimates of \(\phi\), \(\tau\), and density,
+\item
+  run \texttt{shiny::runApp("\_shiny/bsims1.R")} and play with that particular setting,
+\item
+  apply the setting to the code below and replicate the bSims landscapes (keep a reference, and add 2 values, one in the mid range and one extreme),
+\item
+  summarize/visualize how these changes affect estimates of availability, detectability and population density.
+\end{enumerate}
 
-Andy: My experience is that in forests it's almost entirely auditory, and if you see a bird it's almost certainly after it called. The rare exception might be birds foraging on the ground (e.g.~thrushes kicking up leaves), or woodpeckers, but again these are usually heard before being seen even though the auditory signal isn't a song or call. In grasslands, however, it's pretty common to see a bird before hearing it.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi <-}\StringTok{ }\FloatTok{0.5}
+\NormalTok{tau <-}\StringTok{ }\DecValTok{1}
+\NormalTok{Den <-}\StringTok{ }\DecValTok{2}
 
-JT: I agree with you Andy, but I was thinking of species like American Redstarts that have a fairly flashy and obvious form of feeding as they chase and flycatch insects - it isn't uncommon to see these individuals before hearing them. Ultimately, to go back to Peter's concern, I do not think that the auditory and visual processes can be considered independent.
+\NormalTok{tint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{rint <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
+
+\NormalTok{B <-}\StringTok{ }\DecValTok{100}
+\NormalTok{l <-}\StringTok{ }\KeywordTok{bsims_init}\NormalTok{()}
+
+\NormalTok{sim_fun0 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den)}
+\NormalTok{  b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{  o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+\NormalTok{  tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint)}
+  \KeywordTok{estimate_bsims}\NormalTok{(tr}\OperatorTok{$}\NormalTok{rem)}
+\NormalTok{\}}
+\NormalTok{sim_fun1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den,}
+    \DataTypeTok{xyfun=}\ControlFlowTok{function}\NormalTok{(d) \{}
+\NormalTok{      (}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{d}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\DecValTok{1}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{dlnorm}\NormalTok{(d, }\DecValTok{2}\NormalTok{)}\OperatorTok{/}\KeywordTok{dlnorm}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\OperatorTok{/}\StringTok{ }\DecValTok{2}
+\NormalTok{    \},}
+    \DataTypeTok{margin=}\DecValTok{2}\NormalTok{)}
+\NormalTok{  b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{  o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+\NormalTok{  tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint)}
+  \KeywordTok{estimate_bsims}\NormalTok{(tr}\OperatorTok{$}\NormalTok{rem)}
+\NormalTok{\}}
+\NormalTok{sim_fun2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  a <-}\StringTok{ }\KeywordTok{bsims_populate}\NormalTok{(l, }\DataTypeTok{density=}\NormalTok{Den,}
+    \DataTypeTok{xyfun=}\ControlFlowTok{function}\NormalTok{(d) \{}
+      \KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{d}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\DecValTok{1}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\FloatTok{0.5}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{d}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\DecValTok{4}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\NormalTok{    \},}
+    \DataTypeTok{margin=}\DecValTok{2}\NormalTok{)}
+\NormalTok{  b <-}\StringTok{ }\KeywordTok{bsims_animate}\NormalTok{(a, }\DataTypeTok{vocal_rate=}\NormalTok{phi)}
+\NormalTok{  o <-}\StringTok{ }\KeywordTok{bsims_detect}\NormalTok{(b, }\DataTypeTok{tau=}\NormalTok{tau)}
+\NormalTok{  tr <-}\StringTok{ }\KeywordTok{bsims_transcribe}\NormalTok{(o, }\DataTypeTok{tint=}\NormalTok{tint, }\DataTypeTok{rint=}\NormalTok{rint)}
+  \KeywordTok{estimate_bsims}\NormalTok{(tr}\OperatorTok{$}\NormalTok{rem)}
+\NormalTok{\}}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{res0 <-}\StringTok{ }\NormalTok{pbapply}\OperatorTok{::}\KeywordTok{pbreplicate}\NormalTok{(B, }\KeywordTok{sim_fun0}\NormalTok{(), }\DataTypeTok{simplify=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{res1 <-}\StringTok{ }\NormalTok{pbapply}\OperatorTok{::}\KeywordTok{pbreplicate}\NormalTok{(B, }\KeywordTok{sim_fun1}\NormalTok{(), }\DataTypeTok{simplify=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{res2 <-}\StringTok{ }\NormalTok{pbapply}\OperatorTok{::}\KeywordTok{pbreplicate}\NormalTok{(B, }\KeywordTok{sim_fun2}\NormalTok{(), }\DataTypeTok{simplify=}\OtherTok{FALSE}\NormalTok{)}
+
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{summarize_bsims}\NormalTok{(res0))}
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{summarize_bsims}\NormalTok{(res1))}
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{summarize_bsims}\NormalTok{(res2))}
+\end{Highlighting}
+\end{Shaded}
+
+Here are the Visual detections from the JOSM data
+all combined and by species:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6879,7 +7381,7 @@ JT: I agree with you Andy, but I was thinking of species like American Redstarts
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-136-1.pdf}
+\includegraphics{qpad-book_files/figure-latex/unnamed-chunk-152-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]

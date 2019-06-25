@@ -30,9 +30,10 @@ ui <- navbarPage("bSims (HER)",
       plotOutput(outputId = "plot_ini")),
     column(6,
       sliderInput("seed", "Random seed", 0, 100, 0, 1),
-      sliderInput("road", "Random seed", 0, EXTENT/2, 0, EXTENT/20),
-      sliderInput("edge", "Random seed", 0, EXTENT/2, 0, EXTENT/20),
-      sliderInput("offset", "Random seed", 0, EXTENT/2, 0, EXTENT/20)
+      sliderInput("road", "Road half width", 0, EXTENT/2, 0, EXTENT/40),
+      sliderInput("edge", "Edge width", 0, EXTENT/2, 0, EXTENT/40),
+      sliderInput("offset",
+        "Offset for road position", 0, EXTENT, 0, EXTENT/20)
     )
   ),
   tabPanel("Populate",
@@ -40,7 +41,9 @@ ui <- navbarPage("bSims (HER)",
       plotOutput(outputId = "plot_pop")
     ),
     column(6,
-      sliderInput("D", "Density", 0, 10, 1, 0.1),
+      sliderInput("DH", "Density in habitat stratum", 0, 10, 1, 0.1),
+      sliderInput("DE", "Density in edge stratum", 0, 10, 1, 0.1),
+      sliderInput("DR", "Density in road stratum", 0, 10, 1, 0.1),
       radioButtons("spfun", "Spatial pattern",
         c("Random"="random", "Regular"="regular",
           "Clustered"="clustered"))
@@ -50,9 +53,9 @@ ui <- navbarPage("bSims (HER)",
     column(6,
       plotOutput(outputId = "plot_ani")),
     column(6,
-      sliderInput("phi1", "Vocal rate (group 1)", 0, 10, 0.5, 0.1),
-      sliderInput("phi2", "Vocal rate (group 2)", 0, 10, 0, 0.1),
-      sliderInput("mix", "Mixture (group 1)", 0, 1, 1, 0.05),
+      sliderInput("phiH", "Vocal in habitat stratum", 0, 10, 0.5, 0.1),
+      sliderInput("phiE", "Vocal in edge stratum", 0, 10, 0.5, 0.1),
+      sliderInput("phiR", "Vocal in road stratum", 0, 10, 0.5, 0.1),
       sliderInput("phim", "Movement rate", 0, 10, 1, 0.1),
       sliderInput("SDm", "Movement SD", 0, 1, 0, 0.05),
       radioButtons("avoid", "Avoid",
@@ -67,7 +70,9 @@ ui <- navbarPage("bSims (HER)",
       plotOutput(outputId = "plot_det")
     ),
     column(6,
-      sliderInput("tau", "Detection parameter (tau)", 0, 5, 1, 0.25),
+      sliderInput("tauH", "EDR in habitat stratum", 0, 5, 1, 0.25),
+      sliderInput("tauE", "EDR in edge stratum", 0, 5, 1, 0.25),
+      sliderInput("tauR", "EDR in road stratum", 0, 5, 1, 0.25),
       sliderInput("repel", "Repel distance", 0, 2, 0, 0.1),
       radioButtons("event", "Event type",
         c("Vocalization"="vocal",
@@ -125,23 +130,31 @@ server <- function(input, output) {
       "regular"=2,
       "clustered"=5)
     bsims_populate(l(),
-      density = input$D,
+      density = c(input$DH, input$DE, input$DR),
       xy_fun = xy_fun(),
       margin = margin)
   })
   b <- reactive({
+    if (input$avoid == "R" && input$DR > 0) {
+      showNotification("Only 0 abundance stratum can be avoided, set road density to 0", type="error")
+      return(NULL)
+    }
+    if (input$avoid == "ER" && (input$DE > 0 || input$DR > 0)) {
+      showNotification("Only 0 abundance stratum can be avoided, set road and edge densities to 0", type="error")
+      return(NULL)
+    }
     bsims_animate(a(),
       duration = DURATION,
-      vocal_rate = c(input$phi1, input$phi2),
+      vocal_rate = c(input$phiH, input$phiE, input$phiR),
       move_rate = input$phim,
       movement = input$SDm,
-      mixture = c(input$mix, 1-input$mix),
+      mixture = 1,
       avoid = input$avoid)
   })
   o <- reactive({
     bsims_detect(b(),
       xy = c(0, 0),
-      tau = input$tau,
+      tau = c(input$tauH, input$tauE, input$tauR),
       dist_fun = NULL,
       repel = input$repel,
       event_type = input$event)
@@ -203,40 +216,46 @@ server <- function(input, output) {
     par(op)
   })
   output$plot_pop <- renderPlot({
+    req(a())
     op <- par(mar=c(0,0,0,0))
     plot(a())
     par(op)
   })
   output$plot_ani <- renderPlot({
+    req(b())
     op <- par(mar=c(0,0,0,0))
     plot(b())
     par(op)
   })
   output$plot_det <- renderPlot({
+    req(o())
     op <- par(mar=c(0,0,0,0))
     plot(o())
     par(op)
   })
   output$plot_tra <- renderPlot({
+    req(m())
     op <- par(mar=c(0,0,0,0))
     plot(m())
     par(op)
   })
   output$table_rem <- renderTable({
+    req(m())
     tab <- m()$removal
     tab <- cbind(tab, Total=rowSums(tab))
     tab <- rbind(tab, Total=colSums(tab))
     tab
   }, rownames = TRUE, colnames = TRUE, digits = 0)
   output$plot_est <- renderPlot({
+    req(e())
     v <- e()
     col <- c("#ffe042", "#e71989")
     op <- par(mfrow=c(1,3))
-    barplot(c(True=input$phi1, Estimate=v$phi),
+    barplot(c(True=input$phiH, Estimate=v$phi),
       col=col, main=expression(phi))
-    barplot(c(True=input$tau, Estimate=v$tau),
+    barplot(c(True=input$tauH, Estimate=v$tau),
       col=col, main=expression(tau))
-    barplot(c(True=input$D, Estimate=v$D),
+    barplot(c(True=input$DH, Estimate=v$D),
       col=col, main=expression(D))
     par(op)
   })

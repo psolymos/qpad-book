@@ -67,3 +67,13 @@ Short break
 8. Understanding roadside surveys
 9. Miscellaneous topics
 
+## Todo
+
+- Make sure that packages load (not just installed).
+- Save `version=2` Rdata files as well for back compatibility.
+- Add 'reset' button instead of `set.seed` slider.
+- Increase D slider max to 20?
+- Time/distance intervals to fix (provide only one, or change default)
+- Repel distance: might be more activity around the observer.
+
+

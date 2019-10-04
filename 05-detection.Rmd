@@ -364,7 +364,8 @@ dat$bin <- cut(da, c(0, br), include.lowest = TRUE)
 pi_br <- 1-exp(-(br/tau)^2)
 
 barplot(counts[,"1"]/sum(counts[,"1"]), space=0, col=NA,
-  xlab="Distance bins (100 m)", ylab="Proportions")
+  xlab="Distance bins (100 m)", ylab="Proportions",
+  ylim=c(0, max(diff(c(0, pi_br)))))
 lines(seq_len(length(br))-0.5, diff(c(0, pi_br)), col=3)
 ```
 
@@ -383,7 +384,7 @@ tauhat <- exp(cmulti.fit(Y, D, type="dis")$coef)
 c(true=tau, estimate=tauhat)
 ```
 
-Here are cumulative counts and the true end expected
+Here are cumulative counts and the true and expected
 cumulative cell probabilities:
 
 ```{r}

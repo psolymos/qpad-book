@@ -7,7 +7,7 @@ Telepítsük a szükséges R csomagokat
 ``` R
 pkgs <- c("bookdown", "detect", "remotes", 
   "intrval", "knitr", "mefa4", "deldir",
-  "shiny", "sp", "unmarked")
+  "shiny", "sp", "unmarked", "Distance")
 to_inst <- setdiff(pkgs, rownames(installed.packages()))
 if (length(to_inst))
   install.packages(to_inst, repos="https://cloud.r-project.org/")

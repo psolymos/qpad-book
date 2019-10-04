@@ -1,0 +1,422 @@
+--- 
+title: "Biostat gyakorlatok"
+author: "Sólymos Péter"
+date: "2019-10-04"
+output: pdf_document
+---
+
+## Eltávolításos mintavétel
+
+Előkészületek
+
+```{r message=TRUE,warning=FALSE}
+library(bSims)
+library(detect)
+library(Distance)
+load("../_data/josm/josm.rda")
+source("../functions.R")
+```
+
+Tájkép létrehozása
+
+```{r}
+(l <- bsims_init(extent=10))
+```
+
+```{r fig.width=8,fig.height=8}
+plot(l)
+```
+
+100 ha területen helyezzünk el átlagban 0.5 madarat hektáronként,
+Poisson térbeli folyamat, a várható érték tehát 50
+
+```{r}
+set.seed(1)
+(a <- bsims_populate(l, density=0.5))
+```
+
+```{r fig.width=8,fig.height=8}
+plot(a)
+```
+
+10 perc alatt, percenkénti 0.5-ös hangadási gyakorisággal,
+némi mozgás hozzáadásával (1 per perc, 2D normál kernel izotróp 
+25m-es standard hibával)
+
+```{r}
+(b <- bsims_animate(a, 
+  vocal_rate=0.5, duration=10,
+  move_rate=1, movement=0.25))
+```
+
+```{r fig.width=8,fig.height=8}
+plot(b)
+```
+
+Vizsgáljuk meg a vokális eseményeket:
+
+```{r}
+v <- get_events(b, event_type="vocal")
+head(v)
+plot(v, xlab="Idő (perc)", ylab="Egyedek száma")
+```
+
+Túlélési modell sűrűségfüggvény: 
+Exponenciális eloszlás, $f(t)=\phi e^{-t\phi}$
+
+```{r}
+(phi <- b$vocal_rate[1])
+v1 <- v[!duplicated(v$i),] # 1st detections
+(phi_hat <- fitdistr(v1$t, "exponential")$estimate)
+
+hist(v1$t, xlab="Első detektálásig eltelt idő (perc)", freq=FALSE, main="", 
+  col="lightgrey", ylab="f(t)")
+curve(dexp(x, phi), add=TRUE, col=2)
+curve(dexp(x, phi_hat), add=TRUE, col=4)
+legend("topright", bty="n", lty=1, col=c(2,4), 
+  legend=c("Várt", "Becsült"))
+```
+
+Kumulatív sűrűségfüggvény: 
+megadja várhatóan mennyi esemény következik be $t$ idő alatt,
+$F(t)=\int_{0}^{t} f(t)dt=1-e^{-t\phi}=p_t$
+
+```{r}
+br <- c(3, 5, 10)
+i <- cut(v1$t, c(0, br), include.lowest = TRUE)
+table(i)
+
+plot(stepfun(v1$t, (0:nrow(v1))/nrow(v1)), do.points=FALSE, xlim=c(0,10),
+  xlab="Első detektálásig eltelt idő (perc)", ylab="F(t)", main="")
+curve(1-exp(-phi*x), add=TRUE, col=2)
+curve(1-exp(-phi_hat*x), add=TRUE, col=4)
+legend("bottomright", bty="n", lty=c(1,1,1,NA), 
+  col=c(1,2,4,3), pch=c(NA,NA,NA,21),
+  legend=c("Megfigyelt", "Várt", "Becsült", "Összevont"))
+points(br, cumsum(table(i))/sum(table(i)), cex=2, col=3, pch=21)
+```
+
+Eltávolításos mintavétel:
+muntinomiális független változó az összevont kumulált adatokkal,
+adott időintervallumokban megfigyelt új egyedek száma
+
+```{r}
+(y <- matrix(as.numeric(table(i)), nrow=1))
+(d <- matrix(br, nrow=1))
+(phi_hat1 <- exp(cmulti.fit(y, d, type="rem")$coef))
+phi # setting
+phi_hat # from time-to-event data
+```
+
+Valódi pontszámlás adatok elemzése
+
+```{r}
+yall <- Xtab(~ SiteID + Dur + SpeciesID, 
+  josm$counts[josm$counts$DetectType1 != "V",])
+yall <- yall[sapply(yall, function(z) sum(rowSums(z) > 0)) > 100]
+
+spp <- "TEWA"
+
+Y <- as.matrix(yall[[spp]])
+D <- matrix(c(3, 5, 10), nrow(Y), 3, byrow=TRUE,
+  dimnames=dimnames(Y))
+head(Y[rowSums(Y) > 0,])
+head(D)
+```
+
+```{r}
+Me0 <- cmulti(Y | D ~ 1, type="rem")
+summary(Me0)
+(phi_Me0 <- exp(coef(Me0)))
+
+curve(1-exp(-x*phi_Me0), xlim=c(0, 10), ylim=c(0, 1), col=4,
+  xlab="Duration (min)", ylab=expression(p(t[J])), 
+  main=paste(spp, "Me0"))
+points(D[1,], cumsum(colSums(Y))/sum(Y), cex=2, col=3, pch=21)
+```
+
+
+## Távolság becslés
+
+Távolság függvény: 
+a detektálási valószínűség a távolsággal monoton csökken,
+$g(0)=1$ azaz a megfigyelő közvetlen közelében a valószínűség 1.
+"Fél-normál" $g(d) = e^{-(d/\tau)^2}$, $\tau^2/2$ a varianciája.
+
+```{r,eval=FALSE}
+shiny::runApp(system.file("shiny/distfunH.R", package="bSims"))
+```
+
+```{r}
+tau <- 2
+
+set.seed(123)
+l <- bsims_init()
+a <- bsims_populate(l, density=10)
+b <- bsims_animate(a, initial_location=TRUE)
+
+(o <- bsims_detect(b, tau=tau))
+```
+
+```{r fig.width=8,fig.height=8}
+plot(o)
+```
+
+A megfigyelt távolságok gyakoriság eloszlása ($g(d) h(d)$) függ:
+a távolság függvénytől,
+és a különböző távolságú pontok gyakoriságától
+ami pontszámlálás esetén
+$h(d)=\pi 2 d /A=\pi 2 d / \pi r_{max}^2=2 d / r_{max}^2$
+
+```{r}
+g <- function(d, tau, b=2, hazard=FALSE)
+  if (hazard)
+    1-exp(-(d/tau)^-b) else exp(-(d/tau)^b)
+h <- function(d, rmax)
+  2*d/rmax^2
+```
+
+```{r fig.show='hold',out.width='33%'}
+rmax <- 4
+
+d <- seq(0, rmax, 0.01)
+plot(d, g(d, tau), type="l", col=4, ylim=c(0,1),
+  xlab="d", ylab="g(d)", main="Prob. of detection")
+plot(d, h(d, rmax), type="l", col=4,
+  xlab="d", ylab="h(d)", main="PDF of distances")
+plot(d, g(d, tau) * h(d, rmax), type="l", col=4,
+  xlab="d", ylab="g(d) h(d)", main="Density of observed distances")
+```
+
+`da` a fészkek megfigyelőtől vett távolságát adja
+
+```{r}
+da <- sqrt(rowSums(a$nests[,c("x", "y")]^2))
+
+hist(da[da <= rmax], freq=FALSE, xlim=c(0, rmax),
+  xlab="Available distances (d <= r_max)", main="")
+curve(2*x/rmax^2, add=TRUE, col=2)
+```
+
+A megfigyelt távolságokat így kapjuk meg
+
+```{r}
+head(dt <- get_detections(o))
+```
+
+A megfigyelt távolságok valószinűségi eloszlása:
+a sűrűségfüggvény integrállal standardizált változata
+
+```{r}
+f <- function(d, tau, b=2, hazard=FALSE, rmax=1) 
+  g(d, tau, b, hazard) * h(d, rmax)
+tot <- integrate(f, lower=0, upper=rmax, tau=tau, rmax=rmax)$value
+
+hist(dt$d[dt$d <= rmax], freq=FALSE, xlim=c(0, rmax),
+  xlab="Observed distances (r <= rmax)", main="")
+curve(f(x, tau=tau, rmax=rmax) / tot, add=TRUE, col=2)
+```
+
+Ha mind a magfigyelt és nem megfigyelt egyedek távolságát
+tudnánk akkor könnyű dolgunk lenne, mert a fél-normál
+távolság függvény könnyen linearizálhatjuk,
+$log(g(d)) =log(e^{-(d/\tau)^2})= -(d / \tau)^2 = x \frac{1}{\tau^2} = 0 + x \beta$,
+azaz GLM-mel becsülhetjük a $\tau$ értékét:
+$x = -d^2$, $\hat{\tau}=\sqrt{1/\hat{\beta}}$.
+
+```{r}
+dat <- data.frame(
+  distance=da, 
+  x=-da^2, 
+  detected=ifelse(rownames(o$nests) %in% dt$i, 1, 0))
+summary(dat)
+mod <- glm(detected ~ x - 1, data=dat, family=binomial(link="log"))
+c(true=tau, estimate=sqrt(1/coef(mod)))
+```
+
+```{r}
+curve(exp(-(x/sqrt(1/coef(mod)))^2), 
+  xlim=c(0,max(dat$distance)), ylim=c(0,1),
+  xlab="Distance (100 m)", ylab="P(detection)")
+curve(exp(-(x/tau)^2), lty=2, add=TRUE)
+rug(dat$distance[dat$detected == 0], side=1, col=4)
+rug(dat$distance[dat$detected == 1], side=3, col=2)
+legend("topright", bty="n", lty=c(2,1), 
+  legend=c("True", "Estimated"))
+```
+
+A valóségban azonban csak a megfigyelt egyedek távolságát ismerjük
+Az következő [link](https://workshops.distancesampling.org/duke-spatial-2015/practicals/1-etection-functions-solutions.html) részletezi
+a távolság függvény illesztését.
+Itt most a fél-normálra koncentrálunk (`key = "hn"`)
+mindenféle egyéb igazítás nélkül (`adjustment=NULL`).
+A program $\tau$ négyzetgyökének logaritmusát becsli:
+
+```{r}
+dd <- ds(dt$d, truncation = rmax, transect="point", 
+  key = "hn", adjustment=NULL)
+c(true=tau, estimate=exp(dd$ddf$par)^2)
+```
+
+Átlagos detektálhatóság:
+amikor az $r_{max}$ távolságig integrálunk: 
+$q(r_{max})=\int_{0}^{r_{max}} g(d) h(d) dd$,
+ami a következőképpen szemléltethető
+(a "levágott tészta" aránya a henger térfogatához képest, $\pi r_{max}^2$)
+
+```{r}
+q <- sapply(d[d > 0], function(z)
+  integrate(f, lower=0, upper=z, tau=tau, rmax=z)$value)
+
+plot(d, c(1, q), type="l", col=4, ylim=c(0,1),
+  xlab=expression(r[max]), ylab=expression(q(r[max])), 
+  main="Average prob. of detection")
+```
+
+Amit analitikus formában is megkaphatunk:
+$\pi \tau^2 [1-exp(-d^2/\tau^2)] / (\pi r_{max}^2)$
+
+```{r}
+tau <- 2
+rmax <- 2
+w <- 0.1
+m <- 2
+plot(0, type="n", xlim=m*c(-rmax, rmax), ylim=c(-w, 1+w), 
+  axes=FALSE, ann=FALSE)
+yh <- g(rmax, tau=tau)
+lines(seq(-rmax, rmax, rmax/100),
+  g(abs(seq(-rmax, rmax, rmax/100)), tau=tau))
+draw_ellipse(0, yh, rmax, w, lty=2)
+lines(-c(rmax, rmax), c(0, yh))
+lines(c(rmax, rmax), c(0, yh))
+draw_ellipse(0, 0, rmax, w)
+draw_ellipse(0, 1, rmax, w, border=4)
+lines(-c(rmax, rmax), c(yh, 1), col=4)
+lines(c(rmax, rmax), c(yh, 1), col=4)
+```
+
+A pontszámláláskor elég nehézkes a távolság becslése
+ezért gyakran távolság intervallumokat használnak
+
+A kumulatív valószínűségi függvény használható ebben az esetben
+a multinomiális celle gyakoriságok számítására
+$\pi(r) = 1-e^{-(r/\tau)^2}$ 
+(ezt az integrál térfogatával kell normalizálni, ami $\pi \tau^2$).
+Ez a "levágott tészta" térfogatát adja meg az 
+összes tészta térfogatához képest.
+
+```{r}
+plot(0, type="n", xlim=m*c(-rmax, rmax), ylim=c(-w, 1+w), 
+  axes=FALSE, ann=FALSE)
+yh <- g(rmax, tau=tau)
+lines(seq(-m*rmax, m*rmax, rmax/(m*100)),
+  g(seq(-m*rmax, m*rmax, rmax/(m*100)), tau=tau),
+  col=2)
+lines(seq(-rmax, rmax, rmax/100),
+  g(abs(seq(-rmax, rmax, rmax/100)), tau=tau))
+draw_ellipse(0, yh, rmax, w, lty=2)
+lines(-c(rmax, rmax), c(0, yh))
+lines(c(rmax, rmax), c(0, yh))
+draw_ellipse(0, 0, rmax, w)
+```
+
+Az ún. effektív detektálási távolság éppen $\tau$
+a fél-normál távolság függvény esetén,
+azaz a távolságon kívül megfigyelt egyedek aránya
+megegyezik a tévolségon belül nem detektált egyedek arányával
+
+```{r}
+plot(0, type="n", xlim=m*c(-rmax, rmax), ylim=c(-w, 1+w), 
+  axes=FALSE, ann=FALSE)
+yh <- g(rmax, tau=tau)
+lines(seq(-m*rmax, m*rmax, rmax/(m*100)),
+  g(seq(-m*rmax, m*rmax, rmax/(m*100)), tau=tau),
+  col=2)
+lines(seq(-rmax, rmax, rmax/100),
+  g(abs(seq(-rmax, rmax, rmax/100)), tau=tau))
+draw_ellipse(0, yh, rmax, w, lty=2)
+lines(-c(rmax, rmax), c(0, yh))
+lines(c(rmax, rmax), c(0, yh))
+draw_ellipse(0, 0, rmax, w)
+draw_ellipse(0, 1, rmax, w, border=4)
+lines(-c(rmax, rmax), c(yh, 1), col=4)
+lines(c(rmax, rmax), c(yh, 1), col=4)
+
+```
+
+Miért jó ez nekünk?
+Mert így becsülni tudjuk az effektív mintavételi területet
+abban az esetben ha nem véges tévolségon belül számlálunk
+(és ez gyakran előfordul).
+
+Az összevont adatokkal a következő képpen dolgozunk
+
+```{r}
+br <- c(1, 2, 3, 4, 5, Inf)
+dat$bin <- cut(da, c(0, br), include.lowest = TRUE)
+(counts <- with(dat, table(bin, detected)))
+
+pi_br <- 1-exp(-(br/tau)^2)
+
+barplot(counts[,"1"]/sum(counts[,"1"]), space=0, col=NA,
+  xlab="Distance bins (100 m)", ylab="Proportions",
+  ylim=c(0, max(diff(c(0, pi_br)))))
+lines(seq_len(length(br))-0.5, diff(c(0, pi_br)), col=3)
+```
+
+
+```{r}
+(tr <- bsims_transcribe(o, rint=br))
+tr$removal
+
+Y <- matrix(drop(tr$removal), nrow=1)
+D <- matrix(br, nrow=1)
+
+tauhat <- exp(cmulti.fit(Y, D, type="dis")$coef)
+
+c(true=tau, estimate=tauhat)
+```
+
+Kumulatív adatok
+
+```{r}
+plot(stepfun(1:6, c(0, cumsum(counts[,"1"])/sum(counts[,"1"]))), 
+  do.points=FALSE, main="Összevont CDF",
+  ylab="Kumulatív valószínűség", 
+  xlab="Sugár végpont (100 m)")
+curve(1-exp(-(x/tau)^2), col=2, add=TRUE)
+curve(1-exp(-(x/tauhat)^2), col=4, add=TRUE)
+legend("topleft", bty="n", lty=1, col=c(2, 4, 1), 
+  legend=c("Várt", "Becsült", "Megfigyelt"))
+```
+
+## A két folyamat együtt
+
+Ha megkaptuk a következő két feltételes valószínűséget, 
+akkor meg tudjuk becsülni a populáció sűrűségét:
+
+- az egyed észrevehetővé válik, feltéve h. jelen van ($p$),
+- az egyedet detektáljuk, eltéve h. észrevehető ($q$).
+
+$\hat{C}=\hat{p}\hat{q}$, tehát $\hat{D}=E[Y]/\hat{p}\hat{q}$,
+
+vagy trunkálatlan távolságok esetén
+$\hat{C}=\hat{p}\hat{A}$, tehát $\hat{D}=E[Y]/\hat{p}\hat{A}$.
+
+Használjuk a Shiny appot
+
+```{r,eval=FALSE}
+shiny::runApp(system.file("shiny/bsimsH.R", package="bSims"))
+```
+
+Aki további bonyodalmak felfedezésére vágyik, az a
+QPAD könyvben találhat érdekességeket (angol nyelven).
+
+Ízelítő a tartalomból:
+
+- adat manipuláció
+- regressziós technikák
+- amiről szó volt, de részletesebben
+- autómata adatrögzítő technikák
+- útmenti adatok problémaköre
+

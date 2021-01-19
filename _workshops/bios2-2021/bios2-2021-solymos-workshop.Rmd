@@ -1,0 +1,74 @@
+---
+title: "Analysis of point-count data in the presence of variable survey methodologies and detection error"
+subtitle: "BIOS2 Workshop Flyer"
+author: "Peter Solymos"
+date: "March 16, 18, 23, 25 10am-1pm MT (9-12 Pacific, 1pm-4 EST) "
+output: word_document
+---
+
+## Name and affiliation of instructor
+
+**Dr. Peter Solymos** \
+Boreal Avian Modelling Project and the Alberta Biodiversity Monitoring Institute \
+Department of Biological Sciences, CW 405, Biological Sciences Building \
+University of Alberta, Edmonton, Alberta, T6G 2E9, Canada \
+Phone: (00-1) 780-492-8534 \
+Fax: (00-1) 780-492-7635 \
+E-mail: solymos@ualberta.ca \
+Web: http://peter.solymos.org
+
+## Summary
+
+This course is aimed towards researchers analyzing field observations,
+who are often faced by data heterogeneities due to
+field sampling protocols changing from one project to another,
+or through time over the lifespan of projects, or trying to combine
+'legacy' data sets with new data collected by recording units.
+
+Such heterogeneities can bias analyses when data sets are integrated
+inadequately, or can lead to information loss when filtered and standardized to
+common standards. Accounting for these issues is important for better
+inference regarding status and trend of species and communities.
+
+Analysts of such 'messy' data sets need to feel comfortable
+with manipulating the data, need a full understanding the mechanics of the
+models being used (i.e. critically interpreting the results and acknowledging
+assumptions and limitations), and should be able to make informed choices when
+faced with methodological challenges.
+
+The course emphasizes critical thinking and active learning
+through hands on programming exercises.
+We will use publicly available data sets to demonstrate the data manipulation
+and analysis. We will use freely available and open-source R packages.
+
+The expected outcome of the course is a solid foundation for further
+professional development via increased confidence in applying these methods
+for field observations.
+
+Prior exposure to R programming is not necessary, but knowledge of basic 
+R object types and their manipulation (arrays, data frames, indexing) is 
+useful for following hands-on exercises. 
+Software Carpentry's [Data types and structures in R](http://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/index.html) 
+is a good resource to brush up your R skills.
+
+## Syllabus
+
+- Day 1: Naive techniques
+  - Introductions
+  - Organizing point count data
+  - Regression techniques
+  - Practice: count data regression (real data)
+- Day 2: Behavioral complexities
+  - Statistical assumptions and nuisance variables
+  - Removal modeling techniques
+  - Practice: removal modeling (simulated & real data)
+- Day 3: The detection process
+  - Distance sampling
+  - Calibrating population density
+  - Practice: distance sampling (simulated & real data)
+- Day 4: The QPAD approach
+  - Marginal, joint, and conditional models
+  - QPAD overview
+  - Practice: putting it all together (simulated & real data)
+
+
